@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Visor MIVIGE – Probabilidad sísmica relativa</title>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+:root{
+  --bg:#08111f; --panel:#0d1b2d; --panel2:#10243a; --line:#24415f;
+  --text:#eaf2fb; --muted:#9db2c8; --green:#42b86b; --yellow:#f0c644;
+  --orange:#f08a24; --red:#e4493f; --blue:#52a8ff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+header{display:flex;gap:18px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);
+background:linear-gradient(90deg,#08111f,#0c2036);position:sticky;top:0;z-index:1100}
+header h1{font-size:20px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:4px}
+.badge{margin-left:auto;padding:9px 12px;border-radius:10px;background:#6b5715;color:#ffe48a;font-weight:700;font-size:12px}
+main{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(330px,.8fr);height:calc(100vh - 69px)}
+#map{height:100%;min-height:640px}
+aside{overflow:auto;border-left:1px solid var(--line);background:var(--panel);padding:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.card h2{font-size:14px;margin:0 0 10px}.controls{display:flex;gap:8px;flex-wrap:wrap}
+button,select{background:#142c45;color:var(--text);border:1px solid #335777;border-radius:8px;padding:8px 10px;cursor:pointer}
+button:hover{background:#1c3a59}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kpi{padding:9px;background:#0b1a2a;border:1px solid #1e3d5a;border-radius:9px}
+.kpi .name{font-size:11px;color:var(--muted)} .kpi .val{font-size:18px;font-weight:800;margin-top:3px}
+.zone{display:grid;grid-template-columns:8px 1fr 48px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #1d3851}
+.zone:last-child{border-bottom:0}.dot{width:8px;height:28px;border-radius:6px}.zname{font-size:12px}.zdesc{color:var(--muted);font-size:10px;margin-top:2px}.pct{text-align:right;font-weight:800}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th,td{text-align:left;padding:6px;border-bottom:1px solid #1d3851}th{color:#abc2d9;font-weight:600}
+.small{font-size:10px;color:var(--muted);line-height:1.4}
+.statusrow{display:flex;justify-content:space-between;padding:5px 0;font-size:11px}
+.ok{color:#7fe19e}.warn{color:#ffd665}.bad{color:#ff8d86}
+.legend{background:#0b1725dd;color:#fff;padding:8px 10px;border:1px solid #34506a;border-radius:8px;font-size:11px;line-height:1.6}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#0d1b2d;color:#fff}
+@media(max-width:900px){main{grid-template-columns:1fr;height:auto}#map{height:62vh;min-height:480px}aside{border-left:0;border-top:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Visor MIVIGE – Probabilidades sísmicas relativas</h1>
+    <div class="sub">Ecuador + entorno transfronterizo • actualización automática cada hora • datos oficiales cuando el servicio lo permite</div>
+  </div>
+  <div class="badge" id="semaforo">AMARILLO REFORZADO</div>
+</header>
+
+<main>
+<div id="map"></div>
+<aside>
+  <section class="card">
+    <h2>Actualización</h2>
+    <div class="controls">
+      <button id="refresh">Actualizar ahora</button>
+      <select id="window">
+        <option value="24">Últimas 24 h</option>
+        <option value="72" selected>Últimas 72 h</option>
+        <option value="168">Últimos 7 días</option>
+      </select>
+      <select id="minmag">
+        <option value="2.5">M ≥ 2.5</option>
+        <option value="3" selected>M ≥ 3.0</option>
+        <option value="4">M ≥ 4.0</option>
+        <option value="4.5">M ≥ 4.5</option>
+      </select>
+    </div>
+    <div class="small" style="margin-top:9px">
+      Último corte: <b id="cut">—</b><br>
+      Próxima actualización automática: <b id="next">—</b>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>CAPA A — MIVIGE científico (experimental)</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="name">IDG · deformación</div><div class="val" style="font-size:13px">Datos insuficientes</div></div>
+      <div class="kpi"><div class="name">IDS · dinámica sísmica</div><div class="val" id="ids">—</div></div>
+      <div class="kpi"><div class="name">IITE · interacción tectónica</div><div class="val">Moderado</div></div>
+      <div class="kpi"><div class="name">IAD · activación dinámica</div><div class="val" id="iad">Bajo</div></div>
+    </div>
+    <div class="small" style="margin-top:9px">
+      IDG no se rellena con cero: si GNSS/InSAR de baja latencia no está disponible, se mantiene como <b>datos insuficientes</b>.
+      IDS se recalcula con recencia, magnitud, profundidad y concentración espacial de los eventos obtenidos.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Zonas de vigilancia — peso relativo del visor</h2>
+    <div id="zones"></div>
+    <div class="small" style="margin-top:8px">
+      Los porcentajes suman 100% entre las zonas comparadas. Son <b>pesos relativos de vigilancia</b>, no probabilidades físicas calibradas de que ocurra un terremoto.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Eventos recientes deduplicados</h2>
+    <table>
+      <thead><tr><th>Hora ECU</th><th>M</th><th>Prof.</th><th>Fuente</th></tr></thead>
+      <tbody id="events"></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>Estado de fuentes</h2>
+    <div id="sources"></div>
+    <div class="small" style="margin-top:8px">
+      El visor intenta consultar IG‑EPN, IGP/CENSIS, SGC y USGS. Si una fuente bloquea CORS o no responde, el mapa continúa con las demás y lo indica aquí.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>CAPA B — hipótesis experimental</h2>
+    <div class="small">
+      Modelo de migración/energía: <b>no validado</b>. Se muestra únicamente como capa prospectiva y nunca convierte correlaciones temporales en causalidad.
+      La atribución a una falla concreta requiere geometría, localización y mecanismo focal compatibles.
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Cómo se calcula el visor</h2>
+    <div class="small">
+      <b>Recencia:</b> mayor peso a eventos recientes.<br>
+      <b>Magnitud:</b> ponderación no lineal; M4–5 pesa más que M2–3.<br>
+      <b>Profundidad:</b> se distingue actividad somera/cortical, intermedia e intraslab/profunda.<br>
+      <b>Clustering:</b> aumenta la puntuación cuando varios eventos ocurren próximos en espacio y tiempo.<br>
+      <b>Contexto tectónico:</b> cada zona conserva una sensibilidad base por subducción/fallas conocidas.<br>
+      <b>Deduplicación:</b> eventos de distintas agencias con tiempo y ubicación muy próximos se tratan como un solo evento y se prioriza la solución local oficial.
+    </div>
+  </section>
+</aside>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map',{zoomControl:true}).setView([-1.6,-79.4],6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+ maxZoom:18, attribution:'© OpenStreetMap'
+}).addTo(map);
+
+const sourcePriority = {'IG-EPN':4,'IGP':3,'SGC':2,'USGS':1};
+const sourceStatus = {};
+let eventLayer = L.layerGroup().addTo(map);
+let zoneLayer = L.layerGroup().addTo(map);
+let allEvents = [];
+let refreshAt = Date.now()+3600000;
+
+const zones = [
+ {id:'golfo', name:'Tumbes – El Oro – Puná – Golfo', lat:-3.25, lon:-80.15, radius:190, base:0.90, why:'Subducción + recurrencia reciente'},
+ {id:'esman', name:'Esmeraldas – Manabí', lat:-0.55, lon:-80.35, radius:230, base:0.68, why:'Interfaz de subducción y costa'},
+ {id:'carchi',name:'Carchi – Ibarra – Atuntaqui – Otavalo',lat:0.45,lon:-78.15,radius:150,base:0.58,why:'Sismicidad cortical y fallas andinas'},
+ {id:'quito',name:'Quito',lat:-0.20,lon:-78.50,radius:100,base:0.50,why:'Fallas corticales locales'},
+ {id:'palla',name:'Pallatanga – Riobamba / CCPP',lat:-1.80,lon:-78.75,radius:150,base:0.58,why:'Sistema de fallas andinas'},
+ {id:'azuay',name:'Azuay – Cuenca',lat:-2.90,lon:-79.02,radius:135,base:0.43,why:'Vigilancia cortical regional'},
+ {id:'jaen',name:'Jaén – Cajamarca (Perú)',lat:-5.75,lon:-78.69,radius:170,base:0.40,why:'Control cortical transfronterizo'},
+ {id:'choco',name:'Chocó – Nariño (control)',lat:3.6,lon:-76.6,radius:290,base:0.65,why:'Secuencias regionales de control'}
+];
+
+const endpoints = {
+ 'USGS':'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson',
+ 'IG-EPN':"https://srvsigaweb.igepn.edu.ec/server/rest/services/Sismicidad_365/MapServer/0/query?where=1%3D1&outFields=sis3_evento%2Csis3_tiempo%2Csis3_latitud%2Csis3_longitud%2Csis3_profundidad%2Csis3_magnitud_M%2Csis3_tipo_magnitud_P&returnGeometry=true&outSR=4326&orderByFields=sis3_tiempo%20DESC&resultRecordCount=500&f=geojson",
+ 'IGP':"https://ide.igp.gob.pe/arcgis/rest/services/monitoreocensis/SismosReportados/MapServer/0/query?where=1%3D1&outFields=fecha%2Chora%2Clat%2Clon%2Cprof%2Cref%2Cmagnitud%2Cfechaevento%2Ccode&returnGeometry=true&outSR=4326&orderByFields=fechaevento%20DESC&resultRecordCount=500&f=geojson",
+ 'SGC':"https://geoportal.sgc.gov.co/arcgis/rest/services/catalogo_sismos/catalogo_de_sismos_2/MapServer/0/query?where=1%3D1&outFields=ESP_ID_EVENTO_TXT%2CESP_MAGNITUD%2CESP_PROFUNDIDAD%2CESP_FECHA_TXT%2CESP_FECHA%2CESP_LATITUD%2CESP_LONGITUD&returnGeometry=true&outSR=4326&orderByFields=ESP_FECHA%20DESC&resultRecordCount=500&f=geojson"
+};
+
+function distKm(a,b,c,d){
+ const R=6371, p=Math.PI/180, dlat=(c-a)*p, dlon=(d-b)*p;
+ const x=Math.sin(dlat/2)**2+Math.cos(a*p)*Math.cos(c*p)*Math.sin(dlon/2)**2;
+ return 2*R*Math.asin(Math.sqrt(x));
+}
+function n(v, fallback=null){ const x=Number(v); return Number.isFinite(x)?x:fallback; }
+function parseTime(v){
+ if(v==null) return null;
+ if(typeof v==='number') return v;
+ const t=Date.parse(v); return Number.isFinite(t)?t:null;
+}
+function normalize(source, f){
+ const p=f.properties||{}, g=f.geometry?.coordinates||[];
+ if(source==='USGS') return {
+   source, id:f.id||p.code, time:p.time, mag:n(p.mag), depth:n(g[2],0),
+   lat:n(g[1]), lon:n(g[0]), place:p.place||'USGS'
+ };
+ if(source==='IG-EPN') return {
+   source, id:p.sis3_evento, time:parseTime(p.sis3_tiempo), mag:n(p.sis3_magnitud_M),
+   depth:n(p.sis3_profundidad,0), lat:n(p.sis3_latitud,g[1]), lon:n(p.sis3_longitud,g[0]), place:'Ecuador'
+ };
+ if(source==='IGP') return {
+   source, id:p.code||p.objectid, time:parseTime(p.fechaevento||p.fecha), mag:n(p.magnitud),
+   depth:n(p.prof,0), lat:n(p.lat,g[1]), lon:n(p.lon,g[0]), place:p.ref||'Perú'
+ };
+ if(source==='SGC') return {
+   source, id:p.ESP_ID_EVENTO_TXT, time:parseTime(p.ESP_FECHA||p.ESP_FECHA_TXT), mag:n(p.ESP_MAGNITUD),
+   depth:n(p.ESP_PROFUNDIDAD,0), lat:n(p.ESP_LATITUD,g[1]), lon:n(p.ESP_LONGITUD,g[0]), place:'Colombia'
+ };
+}
+function dedupe(events){
+ const sorted=events.filter(e=>e && e.time && e.mag!=null && e.lat!=null && e.lon!=null)
+   .sort((a,b)=>b.time-a.time || sourcePriority[b.source]-sourcePriority[a.source]);
+ const out=[];
+ for(const e of sorted){
+   const idx=out.findIndex(o=>Math.abs(o.time-e.time)<=5*60*1000 && distKm(o.lat,o.lon,e.lat,e.lon)<=45);
+   if(idx<0) out.push(e);
+   else if(sourcePriority[e.source]>sourcePriority[out[idx].source]) out[idx]=e;
+ }
+ return out.sort((a,b)=>b.time-a.time);
+}
+function ecuTime(ms){
+ return new Intl.DateTimeFormat('es-EC',{timeZone:'America/Guayaquil',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}).format(new Date(ms));
+}
+function magColor(m){ return m>=6?'#a90000':m>=5?'#e4493f':m>=4?'#f08a24':m>=3?'#f0c644':'#42b86b';}
+function riskColor(s){ return s>=65?'#e4493f':s>=42?'#f08a24':s>=24?'#f0c644':'#42b86b';}
+
+async function fetchSource(name,url){
+ try{
+   const r=await fetch(url,{cache:'no-store'});
+   if(!r.ok) throw new Error('HTTP '+r.status);
+   const j=await r.json();
+   const feats=j.features||[];
+   sourceStatus[name]={ok:true,count:feats.length};
+   return feats.map(f=>normalize(name,f)).filter(Boolean);
+ }catch(err){
+   sourceStatus[name]={ok:false,error:String(err).slice(0,75)};
+   return [];
+ }
+}
+
+function eventContribution(e,hours){
+ const age=Math.max(0,(Date.now()-e.time)/3600000);
+ const t=Math.exp(-age/Math.max(18,hours/2));
+ const mw=Math.max(0, e.mag-2.0);
+ const mag=Math.pow(mw,1.65);
+ const depth=e.depth<=30?1.12:e.depth<=70?1.0:e.depth<=150?.78:.55;
+ return t*mag*depth;
+}
+function computeZones(events,hours){
+ const out=zones.map(z=>{
+   const inside=events.filter(e=>distKm(z.lat,z.lon,e.lat,e.lon)<=z.radius);
+   const activity=inside.reduce((s,e)=>s+eventContribution(e,hours),0);
+   const cluster=Math.max(0,inside.filter(e=>e.mag>=3).length-1)*0.22;
+   const raw=z.base*2.0+activity+cluster;
+   return {...z,inside,raw};
+ });
+ const sum=out.reduce((s,z)=>s+z.raw,0)||1;
+ out.forEach(z=>z.pct=100*z.raw/sum);
+ return out.sort((a,b)=>b.pct-a.pct);
+}
+function render(events){
+ const hours=Number(document.getElementById('window').value);
+ const minmag=Number(document.getElementById('minmag').value);
+ const cutoff=Date.now()-hours*3600000;
+ const regional=events.filter(e=>e.time>=cutoff && e.mag>=minmag && e.lat>=-8 && e.lat<=8 && e.lon>=-86 && e.lon<=-73);
+ eventLayer.clearLayers(); zoneLayer.clearLayers();
+
+ const rz=computeZones(events.filter(e=>e.time>=cutoff),hours);
+ const zoneDiv=document.getElementById('zones'); zoneDiv.innerHTML='';
+ rz.forEach(z=>{
+   const score=Math.min(100, z.raw*13);
+   const c=riskColor(score);
+   L.circle([z.lat,z.lon],{
+      radius:z.radius*1000,color:c,weight:2,fillColor:c,fillOpacity:.12,dashArray:'5 5'
+   }).bindTooltip(`${z.name}: ${z.pct.toFixed(1)}% relativo`).addTo(zoneLayer);
+   zoneDiv.insertAdjacentHTML('beforeend',
+     `<div class="zone"><div class="dot" style="background:${c}"></div>
+      <div><div class="zname">${z.name}</div><div class="zdesc">${z.why}</div></div>
+      <div class="pct">${z.pct.toFixed(1)}%</div></div>`);
+ });
+
+ regional.forEach(e=>{
+   const r=Math.max(4,Math.min(15,3+e.mag*1.7));
+   L.circleMarker([e.lat,e.lon],{radius:r,color:'#101820',weight:1,fillColor:magColor(e.mag),fillOpacity:.9})
+    .bindPopup(`<b>${e.source}</b><br>M ${e.mag.toFixed(1)} · ${e.depth.toFixed(0)} km<br>${ecuTime(e.time)} ECU<br>${e.place||''}`)
+    .addTo(eventLayer);
+ });
+
+ const rows=regional.slice(0,18).map(e=>`<tr><td>${ecuTime(e.time)}</td><td><b>${e.mag.toFixed(1)}</b></td><td>${e.depth.toFixed(0)} km</td><td>${e.source}</td></tr>`).join('');
+ document.getElementById('events').innerHTML=rows||'<tr><td colspan="4">Sin eventos que cumplan el filtro.</td></tr>';
+
+ const contrib=regional.reduce((s,e)=>s+eventContribution(e,hours),0);
+ const ids=Math.min(100,Math.round(100*(1-Math.exp(-contrib/10))));
+ document.getElementById('ids').textContent=ids+'/100';
+
+ const global8=events.some(e=>e.time>=cutoff && e.mag>=8);
+ document.getElementById('iad').textContent=global8?'Elevado':'Bajo';
+
+ const maxPct=Math.max(...rz.map(z=>z.pct));
+ const sem=maxPct>=35?'NARANJA · vigilancia relativa':'AMARILLO REFORZADO';
+ document.getElementById('semaforo').textContent=sem;
+ document.getElementById('semaforo').style.background=maxPct>=35?'#6a3515':'#6b5715';
+}
+function renderSources(){
+ const d=document.getElementById('sources'); d.innerHTML='';
+ for(const [name,s] of Object.entries(sourceStatus)){
+   d.insertAdjacentHTML('beforeend',`<div class="statusrow"><span>${name}</span><span class="${s.ok?'ok':'bad'}">${s.ok?'✓ '+s.count+' registros':'✕ no disponible'}</span></div>`);
+ }
+}
+async function refresh(){
+ document.getElementById('refresh').disabled=true;
+ document.getElementById('refresh').textContent='Actualizando…';
+ const parts=await Promise.all(Object.entries(endpoints).map(([n,u])=>fetchSource(n,u)));
+ allEvents=dedupe(parts.flat());
+ document.getElementById('cut').textContent=new Intl.DateTimeFormat('es-EC',{timeZone:'America/Guayaquil',dateStyle:'medium',timeStyle:'short'}).format(new Date());
+ refreshAt=Date.now()+3600000;
+ render(allEvents); renderSources();
+ document.getElementById('refresh').disabled=false;
+ document.getElementById('refresh').textContent='Actualizar ahora';
+}
+function tick(){
+ const left=Math.max(0,refreshAt-Date.now());
+ const m=Math.floor(left/60000), s=Math.floor((left%60000)/1000);
+ document.getElementById('next').textContent=`${m}m ${String(s).padStart(2,'0')}s`;
+}
+document.getElementById('refresh').onclick=refresh;
+document.getElementById('window').onchange=()=>render(allEvents);
+document.getElementById('minmag').onchange=()=>render(allEvents);
+setInterval(tick,1000);
+setInterval(refresh,3600000);
+
+const legend=L.control({position:'bottomleft'});
+legend.onAdd=()=>{const d=L.DomUtil.create('div','legend');d.innerHTML=
+ `<b>Magnitud</b><br><i style="background:#42b86b"></i>M&lt;3
+ <i style="background:#f0c644"></i>M3–3.9
+ <i style="background:#f08a24"></i>M4–4.9
+ <i style="background:#e4493f"></i>M5+<br>
+ <span style="color:#9db2c8">Círculos discontinuos: zonas MIVIGE</span>`;return d;};
+legend.addTo(map);
+refresh();
+</script>
+</body>
+</html>
