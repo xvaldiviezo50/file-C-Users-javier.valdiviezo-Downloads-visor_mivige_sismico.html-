@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MIVIGE Agent v1 – Visor geodinámico</title>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+:root{
+  --bg:#08111f; --panel:#0d1b2d; --panel2:#10243a; --line:#24415f;
+  --text:#eaf2fb; --muted:#9db2c8; --green:#42b86b; --yellow:#f0c644;
+  --orange:#f08a24; --red:#e4493f; --blue:#52a8ff; --purple:#af7cff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif}
+header{display:flex;gap:16px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#08111f,#0c2036);position:sticky;top:0;z-index:1100}
+header h1{font-size:20px;margin:0}
+.sub{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.35}
+.badge{margin-left:auto;padding:9px 12px;border-radius:10px;background:#6b5715;color:#ffe48a;font-weight:700;font-size:12px;white-space:nowrap}
+main{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(360px,.85fr);height:calc(100vh - 75px)}
+#map{height:100%;min-height:640px}
+aside{overflow:auto;border-left:1px solid var(--line);background:var(--panel);padding:12px}
+.card{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:10px}
+.card h2{font-size:14px;margin:0 0 10px}
+.controls{display:flex;gap:8px;flex-wrap:wrap}
+button,select{background:#142c45;color:var(--text);border:1px solid #335777;border-radius:8px;padding:8px 10px;cursor:pointer}
+button:hover{background:#1c3a59}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kpi{padding:9px;background:#0b1a2a;border:1px solid #1e3d5a;border-radius:9px}
+.kpi .name{font-size:11px;color:var(--muted)}
+.kpi .val{font-size:17px;font-weight:800;margin-top:3px}
+.small{font-size:10px;color:var(--muted);line-height:1.45}
+.table{width:100%;border-collapse:collapse;font-size:11px}
+.table th,.table td{text-align:left;padding:6px;border-bottom:1px solid #1d3851}
+.table th{color:#abc2d9;font-weight:600}
+.statusrow{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:11px;border-bottom:1px solid #1d3851}
+.statusrow:last-child{border-bottom:0}
+.ok{color:#7fe19e}.warn{color:#ffd665}.bad{color:#ff8d86}.info{color:#87c8ff}.violet{color:#d3b1ff}
+.listitem{display:grid;grid-template-columns:8px 1fr 58px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #1d3851}
+.listitem:last-child{border-bottom:0}
+.dot{width:8px;height:28px;border-radius:6px}
+.zname{font-size:12px}.zdesc{color:var(--muted);font-size:10px;margin-top:2px}.pct{text-align:right;font-weight:800}
+.aglog{max-height:180px;overflow:auto;border:1px solid #1e3d5a;border-radius:8px;background:#0b1a2a;padding:8px}
+.aglog .entry{padding:7px 0;border-bottom:1px solid #18344d;font-size:11px;line-height:1.4}
+.aglog .entry:last-child{border-bottom:0}
+.pill{display:inline-block;padding:3px 8px;border-radius:999px;font-size:10px;font-weight:700;margin-right:6px}
+.pill.green{background:#153822;color:#9be7b4}.pill.yellow{background:#53410e;color:#ffe48a}.pill.orange{background:#552b10;color:#ffca9b}.pill.red{background:#5a1515;color:#ffb4ae}.pill.blue{background:#143351;color:#9bd4ff}.pill.purple{background:#3b2354;color:#d7b5ff}
+.legend{background:#0b1725dd;color:#fff;padding:8px 10px;border:1px solid #34506a;border-radius:8px;font-size:11px;line-height:1.6;max-width:260px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#0d1b2d;color:#fff}
+@media(max-width:980px){main{grid-template-columns:1fr;height:auto}#map{height:62vh;min-height:500px}aside{border-left:0;border-top:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>MIVIGE Agent v1 – Visor geodinámico</h1>
+    <div class="sub">Chile → México • foco operativo en Ecuador • CAPA A científica + CAPA B experimental + capa de agente con Champion/Challenger</div>
+  </div>
+  <div class="badge" id="semaforo">AMARILLO · agente en observación</div>
+</header>
+<main>
+  <div id="map"></div>
+  <aside>
+    <section class="card">
+      <h2>Actualización</h2>
+      <div class="controls">
+        <button id="refresh">Actualizar ahora</button>
+        <select id="window">
+          <option value="24">Últimas 24 h</option>
+          <option value="72" selected>Últimas 72 h</option>
+          <option value="168">Últimos 7 días</option>
+        </select>
+        <select id="minmag">
+          <option value="2.5">M ≥ 2.5</option>
+          <option value="3" selected>M ≥ 3.0</option>
+          <option value="4">M ≥ 4.0</option>
+          <option value="4.5">M ≥ 4.5</option>
+        </select>
+      </div>
+      <div class="small" style="margin-top:9px">
+        Último corte: <b id="cut">—</b><br>
+        Próxima actualización automática: <b id="next">—</b><br>
+        Modelo campeón: <b id="championName">MIVIGE Agent v1 – Champion</b>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Capa del agente</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="name">Ciclo</div><div class="val" style="font-size:13px">OBSERVAR → VALIDAR → DECIDIR</div></div>
+        <div class="kpi"><div class="name">Decisión actual</div><div class="val" id="agentDecision" style="font-size:14px">—</div></div>
+        <div class="kpi"><div class="name">Champion</div><div class="val" id="agentChampion" style="font-size:13px">Activo</div></div>
+        <div class="kpi"><div class="name">Challenger</div><div class="val" id="agentChallenger" style="font-size:13px">Sin challenger</div></div>
+      </div>
+      <div class="small" style="margin-top:8px">
+        El agente puede reclasificar zonas, abrir/cerrar ventanas experimentales y registrar aciertos/fallos, pero <b>no promueve cambios retrospectivos</b>.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>CAPA A — MIVIGE científico</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="name">IDG · deformación</div><div class="val" style="font-size:13px">Datos insuficientes</div></div>
+        <div class="kpi"><div class="name">IDS · dinámica sísmica</div><div class="val" id="ids">—</div></div>
+        <div class="kpi"><div class="name">IITE · interacción tectónica</div><div class="val" id="iite">Moderado</div></div>
+        <div class="kpi"><div class="name">IADR · activación remota</div><div class="val" id="iadr">Bajo</div></div>
+      </div>
+      <div class="small" style="margin-top:9px">Naranja requiere al menos <b>2 familias independientes</b> de evidencia; Rojo requiere 3 o boletín oficial extraordinario.</div>
+    </section>
+
+    <section class="card">
+      <h2>CAPA B — experimental</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="name">IEM</div><div class="val" id="iem">En seguimiento</div></div>
+        <div class="kpi"><div class="name">IAEX / PER-A</div><div class="val" id="iaex">Sin señal fuerte</div></div>
+        <div class="kpi"><div class="name">Ventana IAEX</div><div class="val" id="iaexWindow" style="font-size:13px">Sin ventana activa</div></div>
+        <div class="kpi"><div class="name">Control de sesgo</div><div class="val" id="biasCtrl" style="font-size:13px">Registra fallos y negativos</div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Ecuador — probabilidad relativa interna (100%)</h2>
+      <div id="zonesEc"></div>
+      <div class="small" style="margin-top:8px">Estos porcentajes suman 100% solo entre las zonas internas de Ecuador. Son <b>pesos relativos</b>, no probabilidad física calibrada.</div>
+    </section>
+
+    <section class="card">
+      <h2>Controles regionales externos</h2>
+      <div id="zonesExt"></div>
+      <div class="small" style="margin-top:8px">Los controles externos no descuentan porcentaje al 100% interno de Ecuador.</div>
+    </section>
+
+    <section class="card">
+      <h2>Registro de decisión del agente</h2>
+      <div class="aglog" id="agentLog"></div>
+    </section>
+
+    <section class="card">
+      <h2>Eventos recientes deduplicados</h2>
+      <table class="table">
+        <thead><tr><th>Hora ECU</th><th>M</th><th>Prof.</th><th>Fuente</th></tr></thead>
+        <tbody id="events"></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Fuentes</h2>
+      <div id="sources"></div>
+      <div class="small" style="margin-top:8px">Prioridad local: IG‑EPN, IGP, SGC. USGS se usa como cobertura regional/global y apoyo.</div>
+    </section>
+  </aside>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map',{zoomControl:true}).setView([-1.6,-79.4],5.7);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18, attribution:'© OpenStreetMap'}).addTo(map);
+
+const sourcePriority = {'IG-EPN':5,'IGP':4,'SGC':3,'USGS':2};
+const sourceStatus = {};
+const eventLayer = L.layerGroup().addTo(map);
+const eqZoneLayer = L.layerGroup().addTo(map);
+const extZoneLayer = L.layerGroup().addTo(map);
+const iaexLayer = L.layerGroup().addTo(map);
+let allEvents = [];
+let refreshAt = Date.now()+3600000;
+
+const zonesEc = [
+ {id:'golfo', name:'Tumbes – El Oro – Puná – Golfo', lat:-3.25, lon:-80.15, radius:190, base:0.90, why:'Subducción + corredor costero'},
+ {id:'esman', name:'Esmeraldas – Manabí', lat:-0.55, lon:-80.35, radius:230, base:0.68, why:'Interfaz de subducción'},
+ {id:'carchi',name:'Carchi – Ibarra – Otavalo',lat:0.45,lon:-78.15,radius:150,base:0.58,why:'Sismicidad cortical y fallas andinas'},
+ {id:'quito',name:'Quito',lat:-0.20,lon:-78.50,radius:100,base:0.50,why:'Fallas corticales locales'},
+ {id:'palla',name:'Pallatanga – Riobamba',lat:-1.80,lon:-78.75,radius:150,base:0.58,why:'Sistema Pallatanga / andino'},
+ {id:'azuay',name:'Azuay – Cuenca',lat:-2.90,lon:-79.02,radius:135,base:0.43,why:'Vigilancia cortical regional'}
+];
+const zonesExt = [
+ {id:'tumbes',name:'Tumbes – Zorritos (Perú)',lat:-3.65,lon:-80.45,radius:160,base:0.48,why:'Control transfronterizo'},
+ {id:'jaen',name:'Jaén – Cajamarca – Bagua',lat:-5.75,lon:-78.69,radius:190,base:0.40,why:'Control cortical norte Perú'},
+ {id:'amazonas',name:'Amazonas – Condorcanqui',lat:-4.25,lon:-77.75,radius:180,base:0.70,why:'Secuencia cortical reciente'},
+ {id:'narino',name:'Chocó – Darién / Nariño',lat:3.40,lon:-77.00,radius:300,base:0.65,why:'Secuencias regionales y control'},
+ {id:'cr',name:'Costa Rica',lat:9.8,lon:-84.1,radius:280,base:0.42,why:'Control Centroamérica'},
+ {id:'mx',name:'Oaxaca – Guerrero',lat:16.5,lon:-98.2,radius:330,base:0.46,why:'Control México'},
+ {id:'cl',name:'Chile centro-norte',lat:-28.5,lon:-71.4,radius:380,base:0.40,why:'Control Chile'}
+];
+const allZones = [...zonesEc,...zonesExt];
+const footprints = [
+ {name:'Huella antipodal Ecuador', lat:-0.8, lon:101.0, radius:700, color:'#af7cff'},
+ {name:'Huella antipodal Colombia', lat:-3.2, lon:104.0, radius:850, color:'#d17dff'},
+ {name:'Huella antipodal Perú', lat:-8.0, lon:103.5, radius:950, color:'#dba2ff'}
+];
+
+const endpoints = {
+ 'USGS':'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson',
+ 'IG-EPN':"https://srvsigaweb.igepn.edu.ec/server/rest/services/Sismicidad_365/MapServer/0/query?where=1%3D1&outFields=sis3_evento%2Csis3_tiempo%2Csis3_latitud%2Csis3_longitud%2Csis3_profundidad%2Csis3_magnitud_M%2Csis3_tipo_magnitud_P&returnGeometry=true&outSR=4326&orderByFields=sis3_tiempo%20DESC&resultRecordCount=500&f=geojson",
+ 'IGP':"https://ide.igp.gob.pe/arcgis/rest/services/monitoreocensis/SismosReportados/MapServer/0/query?where=1%3D1&outFields=fecha%2Chora%2Clat%2Clon%2Cprof%2Cref%2Cmagnitud%2Cfechaevento%2Ccode&returnGeometry=true&outSR=4326&orderByFields=fechaevento%20DESC&resultRecordCount=500&f=geojson",
+ 'SGC':"https://geoportal.sgc.gov.co/arcgis/rest/services/catalogo_sismos/catalogo_de_sismos_2/MapServer/0/query?where=1%3D1&outFields=ESP_ID_EVENTO_TXT%2CESP_MAGNITUD%2CESP_PROFUNDIDAD%2CESP_FECHA_TXT%2CESP_FECHA%2CESP_LATITUD%2CESP_LONGITUD&returnGeometry=true&outSR=4326&orderByFields=ESP_FECHA%20DESC&resultRecordCount=500&f=geojson"
+};
+
+function distKm(a,b,c,d){
+ const R=6371, p=Math.PI/180, dlat=(c-a)*p, dlon=(d-b)*p;
+ const x=Math.sin(dlat/2)**2+Math.cos(a*p)*Math.cos(c*p)*Math.sin(dlon/2)**2;
+ return 2*R*Math.asin(Math.sqrt(x));
+}
+function antipode(lat,lon){ let aLon = lon<0 ? lon+180 : lon-180; return {lat:-lat, lon:aLon}; }
+function n(v, fallback=null){ const x=Number(v); return Number.isFinite(x)?x:fallback; }
+function parseTime(v){ if(v==null) return null; if(typeof v==='number') return v; const t=Date.parse(v); return Number.isFinite(t)?t:null; }
+function ecuTime(ms){ return new Intl.DateTimeFormat('es-EC',{timeZone:'America/Guayaquil',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}).format(new Date(ms)); }
+function fmtFull(ms){ return new Intl.DateTimeFormat('es-EC',{timeZone:'America/Guayaquil',dateStyle:'medium',timeStyle:'short'}).format(new Date(ms)); }
+function magColor(m){ return m>=7?'#7a0019':m>=6?'#a90000':m>=5?'#e4493f':m>=4?'#f08a24':m>=3?'#f0c644':'#42b86b'; }
+function riskColor(s){ return s>=70?'#e4493f':s>=50?'#f08a24':s>=28?'#f0c644':'#42b86b'; }
+function levelFromScore(s){ return s>=70?'Muy alto':s>=50?'Alto':s>=28?'Moderado':'Bajo'; }
+function normalize(source, f){
+ const p=f.properties||{}, g=f.geometry?.coordinates||[];
+ if(source==='USGS') return {source,id:f.id||p.code,time:p.time,mag:n(p.mag),depth:n(g[2],0),lat:n(g[1]),lon:n(g[0]),place:p.place||'USGS'};
+ if(source==='IG-EPN') return {source,id:p.sis3_evento,time:parseTime(p.sis3_tiempo),mag:n(p.sis3_magnitud_M),depth:n(p.sis3_profundidad,0),lat:n(p.sis3_latitud,g[1]),lon:n(p.sis3_longitud,g[0]),place:'Ecuador'};
+ if(source==='IGP') return {source,id:p.code||p.objectid,time:parseTime(p.fechaevento||p.fecha),mag:n(p.magnitud),depth:n(p.prof,0),lat:n(p.lat,g[1]),lon:n(p.lon,g[0]),place:p.ref||'Perú'};
+ if(source==='SGC') return {source,id:p.ESP_ID_EVENTO_TXT,time:parseTime(p.ESP_FECHA||p.ESP_FECHA_TXT),mag:n(p.ESP_MAGNITUD),depth:n(p.ESP_PROFUNDIDAD,0),lat:n(p.ESP_LATITUD,g[1]),lon:n(p.ESP_LONGITUD,g[0]),place:'Colombia'};
+}
+function dedupe(events){
+ const sorted=events.filter(e=>e&&e.time&&e.mag!=null&&e.lat!=null&&e.lon!=null).sort((a,b)=>b.time-a.time||sourcePriority[b.source]-sourcePriority[a.source]);
+ const out=[];
+ for(const e of sorted){
+   const idx=out.findIndex(o=>Math.abs(o.time-e.time)<=5*60*1000 && distKm(o.lat,o.lon,e.lat,e.lon)<=45);
+   if(idx<0) out.push(e); else if(sourcePriority[e.source]>sourcePriority[out[idx].source]) out[idx]=e;
+ }
+ return out.sort((a,b)=>b.time-a.time);
+}
+async function fetchSource(name,url){
+ try{
+   const r=await fetch(url,{cache:'no-store'}); if(!r.ok) throw new Error('HTTP '+r.status);
+   const j=await r.json(); const feats=j.features||[]; sourceStatus[name]={ok:true,count:feats.length};
+   return feats.map(f=>normalize(name,f)).filter(Boolean);
+ }catch(err){ sourceStatus[name]={ok:false,error:String(err).slice(0,80)}; return []; }
+}
+function eventContribution(e,hours){
+ const age=Math.max(0,(Date.now()-e.time)/3600000);
+ const t=Math.exp(-age/Math.max(18,hours/2));
+ const mw=Math.max(0,e.mag-2.0);
+ const mag=Math.pow(mw,1.65);
+ const depth=e.depth<=30?1.10:e.depth<=70?1.0:e.depth<=150?0.78:0.55;
+ return t*mag*depth;
+}
+function computeZonePackage(zone, events, hours){
+ const inside=events.filter(e=>distKm(zone.lat,zone.lon,e.lat,e.lon)<=zone.radius);
+ const activity=inside.reduce((s,e)=>s+eventContribution(e,hours),0);
+ const cluster=Math.max(0,inside.filter(e=>e.mag>=3.5).length-1)*0.22;
+ const raw=zone.base*2.0+activity+cluster;
+ const recent12=inside.filter(e=>Date.now()-e.time<=12*3600000).length;
+ const prev12=inside.filter(e=>Date.now()-e.time>12*3600000 && Date.now()-e.time<=24*3600000).length;
+ const trendScore = recent12>prev12*1.3 && recent12>=2 ? '↑ aumentando' : recent12<prev12*0.8 ? '↓ decayendo' : '→ estable';
+ const anchor = inside.find(e=>e.mag>=4.5);
+ let etas='Sin secuencia ancla';
+ if(anchor){
+   const sinceAnchorHours=Math.max(1,(Date.now()-anchor.time)/3600000);
+   const expected=Math.max(1, 4/Math.sqrt(sinceAnchorHours));
+   const obs=inside.filter(e=>e.time>=anchor.time).length;
+   const ratio=obs/expected;
+   etas = ratio>1.6 ? 'Excede proxy Omori' : ratio<0.8 ? 'Bajo Omori' : 'Compatible con Omori';
+ }
+ const observedScore=Math.min(100, raw*13);
+ let op=observedScore;
+ if(etas==='Compatible con Omori') op-=10;
+ if(etas==='Bajo Omori') op-=14;
+ if(trendScore==='↓ decayendo') op-=8;
+ if(trendScore==='↑ aumentando') op+=6;
+ op=Math.max(0,Math.min(100,op));
+ return {...zone, inside, raw, observedScore, opScore:op, activity, cluster, trendScore, etas};
+}
+function computeInternalPercentages(pkgs){ const sum=pkgs.reduce((s,z)=>s+z.raw,0)||1; pkgs.forEach(z=>z.pct=100*z.raw/sum); return pkgs.sort((a,b)=>b.pct-a.pct); }
+function computeExternal(pkgs){ return pkgs.sort((a,b)=>b.opScore-a.opScore); }
+function globalMajorEvents(events,hours){
+ const cutoff=Date.now()-hours*3600000;
+ return events.filter(e=>e.source==='USGS' && e.time>=cutoff && e.mag>=6.0);
+}
+function computeIAEX(events, hours){
+ const majors = globalMajorEvents(events, hours);
+ if(!majors.length) return {status:'Sin señal fuerte', window:'Sin ventana activa', cases:[]};
+ const cases=[];
+ for(const e of majors.slice(0,6)){
+   const anti=antipode(e.lat,e.lon);
+   let best=null;
+   for(const z of allZones){
+     const d=distKm(anti.lat,anti.lon,z.lat,z.lon);
+     if(!best || d<best.distance) best={zone:z, distance:d};
+   }
+   const ageH=(Date.now()-e.time)/3600000;
+   const geom = best.distance<=300?1:best.distance<=750?0.7:best.distance<=1500?0.35:0;
+   const mag = e.mag>=7?1:e.mag>=6.5?0.65:0.35;
+   const time = ageH<=6?1:ageH<=72?0.55:0.15;
+   const receiverEvents = allEvents.filter(x=>distKm(best.zone.lat,best.zone.lon,x.lat,x.lon)<=best.zone.radius && x.time>=e.time);
+   const prevReceiver = allEvents.filter(x=>distKm(best.zone.lat,best.zone.lon,x.lat,x.lon)<=best.zone.radius && x.time<e.time && x.time>=e.time-72*3600000);
+   const excess = receiverEvents.length > prevReceiver.length*1.2 ? 0.8 : receiverEvents.length ? 0.45 : 0.1;
+   const activePenalty = prevReceiver.length>=3 ? 0.20 : 0;
+   const compat=0.0;
+   let score = 25*geom + 20*mag + 20*time + 20*excess + 15*compat - 100*activePenalty;
+   score = Math.max(0,Math.min(100,score));
+   cases.push({source:e, anti, zone:best.zone, distance:best.distance, score, ageH, receiverCount:receiverEvents.length});
+ }
+ cases.sort((a,b)=>b.score-a.score);
+ const lead=cases[0];
+ let status='Sin señal fuerte';
+ if(lead && lead.score>=55) status='Señal experimental alta'; else if(lead && lead.score>=35) status='Señal experimental moderada'; else if(lead && lead.score>0) status='Señal exploratoria';
+ let window='Sin ventana activa';
+ if(lead){ window = lead.ageH<=6 ? 'Ventana IAEX 0–6 h' : lead.ageH<=72 ? 'Ventana IAEX 6–72 h' : 'Ventana expirada'; }
+ return {status, window, cases};
+}
+function renderZones(list, targetId, mode='internal'){
+ const host=document.getElementById(targetId); host.innerHTML='';
+ list.forEach(z=>{
+   const color=riskColor(mode==='internal'?z.pct*1.7:z.opScore);
+   const badge = mode==='internal' ? `${z.pct.toFixed(1)}%` : levelFromScore(z.opScore);
+   const desc = mode==='internal' ? z.why : `${z.why} · ${z.trendScore}`;
+   host.insertAdjacentHTML('beforeend', `<div class="listitem"><div class="dot" style="background:${color}"></div><div><div class="zname">${z.name}</div><div class="zdesc">${desc}<br>Actividad: ${levelFromScore(z.observedScore)} · Omori/ETAS: ${z.etas}</div></div><div class="pct">${badge}</div></div>`);
+ });
+}
+function renderMap(internal, external, regionalEvents, iaex){
+ eventLayer.clearLayers(); eqZoneLayer.clearLayers(); extZoneLayer.clearLayers(); iaexLayer.clearLayers();
+ internal.forEach(z=>{
+   const c=riskColor(z.pct*1.7);
+   L.circle([z.lat,z.lon],{radius:z.radius*1000,color:c,weight:2,fillColor:c,fillOpacity:.12,dashArray:'4 6'}).bindTooltip(`${z.name}: ${z.pct.toFixed(1)}% relativo Ecuador`).addTo(eqZoneLayer);
+ });
+ external.forEach(z=>{
+   const c=riskColor(z.opScore);
+   L.circle([z.lat,z.lon],{radius:z.radius*1000,color:c,weight:1.5,fillColor:c,fillOpacity:.08,dashArray:'2 8'}).bindTooltip(`${z.name}: ${levelFromScore(z.opScore)}`).addTo(extZoneLayer);
+ });
+ regionalEvents.forEach(e=>{
+   const r=Math.max(4,Math.min(15,3+e.mag*1.7));
+   L.circleMarker([e.lat,e.lon],{radius:r,color:'#101820',weight:1,fillColor:magColor(e.mag),fillOpacity:.9}).bindPopup(`<b>${e.source}</b><br>M ${e.mag.toFixed(1)} · ${e.depth.toFixed(0)} km<br>${ecuTime(e.time)} ECU<br>${e.place||''}`).addTo(eventLayer);
+ });
+ footprints.forEach(fp=>{ L.circle([fp.lat,fp.lon],{radius:fp.radius*1000,color:fp.color,weight:1,fill:false,dashArray:'6 6'}).bindTooltip(fp.name).addTo(iaexLayer); });
+ const lead=iaex.cases[0];
+ if(lead){
+   L.circleMarker([lead.source.lat,lead.source.lon],{radius:8,color:'#2f001f',weight:1,fillColor:'#ff56a8',fillOpacity:.95}).bindPopup(`<b>Evento fuente IAEX</b><br>M ${lead.source.mag.toFixed(1)} · ${lead.source.place||lead.source.source}`).addTo(iaexLayer);
+   L.circleMarker([lead.anti.lat,lead.anti.lon],{radius:7,color:'#2a1140',weight:1,fillColor:'#af7cff',fillOpacity:.95}).bindPopup(`<b>Antípoda exacta</b><br>${lead.anti.lat.toFixed(2)}, ${lead.anti.lon.toFixed(2)}`).addTo(iaexLayer);
+   L.circle([lead.anti.lat,lead.anti.lon],{radius:300000,color:'#af7cff',weight:1,fill:false}).addTo(iaexLayer);
+   L.circle([lead.anti.lat,lead.anti.lon],{radius:750000,color:'#d3b1ff',weight:1,fill:false,dashArray:'5 5'}).addTo(iaexLayer);
+   L.polyline([[lead.source.lat,lead.source.lon],[lead.anti.lat,lead.anti.lon],[lead.zone.lat,lead.zone.lon]],{color:'#cf80ff',weight:2,dashArray:'6 6'}).addTo(iaexLayer);
+ }
+}
+function updateSources(){
+ const d=document.getElementById('sources'); d.innerHTML='';
+ for(const [name,s] of Object.entries(sourceStatus)){ d.insertAdjacentHTML('beforeend', `<div class="statusrow"><span>${name}</span><span class="${s.ok?'ok':'bad'}">${s.ok?'✓ '+s.count+' registros':'✕ no disponible'}</span></div>`); }
+}
+function agentState(){ try{return JSON.parse(localStorage.getItem('mivigeAgentState')||'{}');}catch{return {}}; }
+function saveAgentState(obj){ localStorage.setItem('mivigeAgentState', JSON.stringify(obj)); }
+function pushAgentLog(text, level='blue'){ const state=agentState(); const log=state.log||[]; log.unshift({time:Date.now(), text, level}); state.log=log.slice(0,25); saveAgentState(state); }
+function renderAgentLog(){ const state=agentState(); const log=state.log||[]; const d=document.getElementById('agentLog'); d.innerHTML = log.length ? log.map(x=>`<div class="entry"><span class="pill ${x.level}">${ecuTime(x.time)}</span>${x.text}</div>`).join('') : '<div class="entry">Sin decisiones registradas todavía.</div>'; }
+function runAgent(internal, external, regional, iaex){
+ const state=agentState(); const prevTop=state.topZoneId||null; const prevSem=state.semaforo||null; const top=internal[0]; const topExternal=external[0];
+ const maxRegionalMag=regional.length?Math.max(...regional.map(e=>e.mag)):0;
+ const families=[regional.length?1:0, iaex.cases[0]&&iaex.cases[0].score>=55?1:0].reduce((a,b)=>a+b,0);
+ let sem='AMARILLO · agente en observación', semClass='#6b5715';
+ if(maxRegionalMag>=6||families>=2){sem='NARANJA · cambio material';semClass='#6a3515';}
+ if(maxRegionalMag>=7&&families>=2){sem='ROJO · revisión prioritaria';semClass='#63161a';}
+ document.getElementById('semaforo').textContent=sem; document.getElementById('semaforo').style.background=semClass;
+ document.getElementById('agentChampion').textContent='Champion activo'; document.getElementById('agentChallenger').textContent=state.challenger||'Sin challenger';
+ let decision=`Priorizar ${top.name}`;
+ if(topExternal&&topExternal.opScore>=50) decision+=` + control externo ${topExternal.name}`;
+ if(iaex.cases[0]&&iaex.cases[0].score>=35) decision+=' · abrir vigilancia IAEX';
+ document.getElementById('agentDecision').textContent=decision;
+ document.getElementById('iite').textContent=top.observedScore>=55?'Moderado–alto':'Moderado';
+ document.getElementById('iem').textContent=top.trendScore==='↑ aumentando'?'Ventana prospectiva sugerida':'En seguimiento';
+ document.getElementById('iaex').textContent=iaex.status; document.getElementById('iaexWindow').textContent=iaex.window;
+ const stateChanged=prevTop!==top.id||prevSem!==sem||maxRegionalMag>=5||(iaex.cases[0]&&iaex.cases[0].score>=35);
+ if(stateChanged){
+   let msg=`Decisión: ${decision}. Zona líder Ecuador: <b>${top.name}</b> (${top.pct.toFixed(1)}%).`;
+   if(topExternal) msg+=` Control externo: <b>${topExternal.name}</b> (${levelFromScore(topExternal.opScore)}).`;
+   if(iaex.cases[0]) msg+=` IAEX: ${iaex.cases[0].zone.name}, score ${iaex.cases[0].score.toFixed(1)}, distancia antipodal ${Math.round(iaex.cases[0].distance)} km.`;
+   pushAgentLog(msg, sem.startsWith('ROJO')?'red':sem.startsWith('NARANJA')?'orange':'blue');
+ }
+ state.topZoneId=top.id; state.semaforo=sem; state.lastDecision=decision; state.lastCut=Date.now(); state.champion='MIVIGE Agent v1 – Champion'; saveAgentState(state); renderAgentLog();
+}
+function render(all){
+ const hours=Number(document.getElementById('window').value); const minmag=Number(document.getElementById('minmag').value); const cutoff=Date.now()-hours*3600000;
+ const regional=all.filter(e=>e.time>=cutoff&&e.mag>=minmag&&e.lat>=-35&&e.lat<=20&&e.lon>=-111&&e.lon<=-70);
+ const internal=computeInternalPercentages(zonesEc.map(z=>computeZonePackage(z,all.filter(e=>e.time>=cutoff),hours)));
+ const external=computeExternal(zonesExt.map(z=>computeZonePackage(z,all.filter(e=>e.time>=cutoff),hours)));
+ const idsRaw=regional.reduce((s,e)=>s+eventContribution(e,hours),0); const ids=Math.min(100,Math.round(100*(1-Math.exp(-idsRaw/12)))); document.getElementById('ids').textContent=ids+'/100';
+ const global7=all.some(e=>e.source==='USGS'&&e.time>=cutoff&&e.mag>=7); document.getElementById('iadr').textContent=global7?'Moderado':'Bajo';
+ const iaex=computeIAEX(all,hours); renderZones(internal,'zonesEc','internal'); renderZones(external,'zonesExt','external'); renderMap(internal,external,regional,iaex);
+ const rows=regional.slice(0,22).map(e=>`<tr><td>${ecuTime(e.time)}</td><td><b>${e.mag.toFixed(1)}</b></td><td>${e.depth.toFixed(0)} km</td><td>${e.source}</td></tr>`).join(''); document.getElementById('events').innerHTML=rows||'<tr><td colspan="4">Sin eventos que cumplan el filtro.</td></tr>';
+ runAgent(internal,external,regional,iaex);
+}
+async function refresh(){
+ document.getElementById('refresh').disabled=true; document.getElementById('refresh').textContent='Actualizando…';
+ const parts=await Promise.all(Object.entries(endpoints).map(([n,u])=>fetchSource(n,u))); allEvents=dedupe(parts.flat()); document.getElementById('cut').textContent=fmtFull(Date.now()); refreshAt=Date.now()+3600000; render(allEvents); updateSources(); document.getElementById('refresh').disabled=false; document.getElementById('refresh').textContent='Actualizar ahora';
+}
+function tick(){ const left=Math.max(0,refreshAt-Date.now()); const m=Math.floor(left/60000), s=Math.floor((left%60000)/1000); document.getElementById('next').textContent=`${m}m ${String(s).padStart(2,'0')}s`; }
+document.getElementById('refresh').onclick=refresh; document.getElementById('window').onchange=()=>render(allEvents); document.getElementById('minmag').onchange=()=>render(allEvents); setInterval(tick,1000); setInterval(refresh,3600000);
+const legend=L.control({position:'bottomleft'});
+legend.onAdd=()=>{const d=L.DomUtil.create('div','legend'); d.innerHTML=`<b>Capas del visor</b><br><i style="background:#42b86b"></i>M&lt;3<br><i style="background:#f0c644"></i>M3–3.9<br><i style="background:#f08a24"></i>M4–4.9<br><i style="background:#e4493f"></i>M5+<br><span style="color:#9db2c8">Círculos discontinuos = zonas MIVIGE</span><br><span style="color:#d3b1ff">Línea y círculos morados = IAEX</span>`; return d;};
+legend.addTo(map); renderAgentLog(); refresh();
+</script>
+</body>
+</html>
