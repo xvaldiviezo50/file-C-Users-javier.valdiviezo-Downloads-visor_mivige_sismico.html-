@@ -76,12 +76,12 @@ th,td{text-align:left;padding:6px;border-bottom:1px solid #1d3851}th{color:#abc2
   </section>
 
   <section class="card">
-    <h2>CAPA A — MIVIGE científico (experimental)</h2>
+    <h2>CAPA A — MIVIGE científico</h2>
     <div class="kpis">
       <div class="kpi"><div class="name">IDG · deformación</div><div class="val" style="font-size:13px">Datos insuficientes</div></div>
       <div class="kpi"><div class="name">IDS · dinámica sísmica</div><div class="val" id="ids">—</div></div>
       <div class="kpi"><div class="name">IITE · interacción tectónica</div><div class="val">Moderado</div></div>
-      <div class="kpi"><div class="name">IAD · activación dinámica</div><div class="val" id="iad">Bajo</div></div>
+      <div class="kpi"><div class="name">IADR · activación dinámica remota</div><div class="val" id="iad">Bajo</div></div>
     </div>
     <div class="small" style="margin-top:9px">
       IDG no se rellena con cero: si GNSS/InSAR de baja latencia no está disponible, se mantiene como <b>datos insuficientes</b>.
@@ -126,7 +126,7 @@ th,td{text-align:left;padding:6px;border-bottom:1px solid #1d3851}th{color:#abc2
     <div class="small">
       <b>Recencia:</b> mayor peso a eventos recientes.<br>
       <b>Magnitud:</b> ponderación no lineal; M4–5 pesa más que M2–3.<br>
-      <b>Profundidad:</b> se distingue actividad somera/cortical, intermedia e intraslab/profunda.<br>
+      <b>Profundidad:</b> orienta la clasificación tectónica, pero no la determina por sí sola. Se diferencia actividad cortical/somera, interfaz y sismicidad intermedia/intraslab; la fuente se confirma con geometría de la losa y mecanismos focales cuando están disponibles.<br>
       <b>Clustering:</b> aumenta la puntuación cuando varios eventos ocurren próximos en espacio y tiempo.<br>
       <b>Contexto tectónico:</b> cada zona conserva una sensibilidad base por subducción/fallas conocidas.<br>
       <b>Deduplicación:</b> eventos de distintas agencias con tiempo y ubicación muy próximos se tratan como un solo evento y se prioriza la solución local oficial.
@@ -155,7 +155,7 @@ const zones = [
  {id:'carchi',name:'Carchi – Ibarra – Atuntaqui – Otavalo',lat:0.45,lon:-78.15,radius:150,base:0.58,why:'Sismicidad cortical y fallas andinas'},
  {id:'quito',name:'Quito',lat:-0.20,lon:-78.50,radius:100,base:0.50,why:'Fallas corticales locales'},
  {id:'palla',name:'Pallatanga – Riobamba / CCPP',lat:-1.80,lon:-78.75,radius:150,base:0.58,why:'Sistema de fallas andinas'},
- {id:'azuay',name:'Azuay – Cuenca',lat:-2.90,lon:-79.02,radius:135,base:0.43,why:'Vigilancia cortical regional'},
+ {id:'azuay',name:'Azuay – Cuenca',lat:-2.90,lon:-79.02,radius:135,base:0.43,why:'Vigilancia tectónica regional: cortical + sismicidad intermedia/intraslab'},
  {id:'jaen',name:'Jaén – Cajamarca (Perú)',lat:-5.75,lon:-78.69,radius:170,base:0.40,why:'Control cortical transfronterizo'},
  {id:'choco',name:'Chocó – Nariño (control)',lat:3.6,lon:-76.6,radius:290,base:0.65,why:'Secuencias regionales de control'}
 ];
