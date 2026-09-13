@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MIVIGE Agent v1.3 – Visor geodinámico final</title>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<header>
+  <div>
+    <h1>MIVIGE Agent v1.3 – Visor geodinámico final</h1>
+    <div class="sub">Chile → México • foco operativo en Ecuador • zonas activas solo por señal reciente • clasificación cortical/interfaz/intraslab • placas + IAEX • Champion/Challenger</div>
+  </div>
+  <div class="badge" id="semaforo">AMARILLO · agente en observación</div>
+</header>
+<main>
+  <div id="map"></div>
+  <aside>
+    <section class="card">
+      <h2>Actualización</h2>
+      <div class="controls">
+        <button id="refresh">Actualizar ahora</button>
+        <select id="window">
+          <option value="24">Últimas 24 h</option>
+          <option value="72" selected>Últimas 72 h</option>
+          <option value="168">Últimos 7 días</option>
+        </select>
+        <select id="minmag">
+          <option value="2.5">M ≥ 2.5</option>
+          <option value="3" selected>M ≥ 3.0</option>
+          <option value="4">M ≥ 4.0</option>
+          <option value="4.5">M ≥ 4.5</option>
+        </select>
+        <select id="tectonicFilter">
+          <option value="all" selected>Todos los tipos</option>
+          <option value="cortical">Cortical somero</option>
+          <option value="interface">Interfaz / somero costero</option>
+          <option value="intermediate">Intermedio</option>
+          <option value="intraslab">Intraslab</option>
+        </select>
+      </div>
+      <div class="small" style="margin-top:9px">
+        Último corte: <b id="cut">—</b><br>
+        Próxima actualización automática: <b id="next">—</b><br>
+        Modelo campeón: <b id="championName">MIVIGE Agent v1.3 – Champion</b>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Capa del agente</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="name">Ciclo</div><div class="val" style="font-size:13px">OBSERVAR → VALIDAR → DECIDIR</div></div>
+        <div class="kpi"><div class="name">Decisión actual</div><div class="val" id="agentDecision" style="font-size:14px">—</div></div>
+        <div class="kpi"><div class="name">Champion</div><div class="val" id="agentChampion" style="font-size:13px">Activo</div></div>
+        <div class="kpi"><div class="name">Challenger</div><div class="val" id="agentChallenger" style="font-size:13px">Sin challenger</div></div>
+      </div>
+      <div class="small" style="margin-top:8px">
+        El agente puede reclasificar zonas, abrir/cerrar ventanas experimentales y registrar aciertos/fallos, pero <b>no promueve cambios retrospectivos</b>.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>CAPA A — MIVIGE científico</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="name">IDG · deformación</div><div class="val" style="font-size:13px">Datos insuficientes</div></div>
+        <div class="kpi"><div class="name">IDS · dinámica sísmica</div><div class="val" id="ids">—</div></div>
+        <div class="kpi"><div class="name">IITE · interacción tectónica</div><div class="val" id="iite" style="font-size:13px">No calculado</div></div>
+        <div class="kpi"><div class="name">IADR · activación remota</div><div class="val" id="iadr">Bajo</div></div>
+      </div>
+      <div class="small" style="margin-top:9px">Naranja requiere al menos <b>2 familias independientes</b> de evidencia; Rojo requiere 3 o boletín oficial extraordinario.</div>
+    </section>
+
+    <section class="card">
+      <h2>CAPA B — experimental</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="name">IEM</div><div class="val" id="iem">En seguimiento</div></div>
+        <div class="kpi"><div class="name">IAEX / PER-A</div><div class="val" id="iaex">Sin señal fuerte</div></div>
+        <div class="kpi"><div class="name">Ventana IAEX</div><div class="val" id="iaexWindow" style="font-size:13px">Sin ventana activa</div></div>
+        <div class="kpi"><div class="name">Control de sesgo</div><div class="val" id="biasCtrl" style="font-size:13px">Registra fallos y negativos</div></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Zonas activas priorizadas</h2>
+      <div id="zonesActive"></div>
+      <div class="small" style="margin-top:8px"><b>Solo aparecen zonas con señal operativa actual.</b> Una zona base como Quito, Azuay o Pallatanga no entra aquí por su peligrosidad tectónica histórica: debe superar el umbral mediante actividad reciente, clustering, tendencia, desviación del proxy Omori/ETAS o una señal experimental explícita. Los niveles son prioridades relativas de vigilancia, no probabilidades físicas de terremoto. El peso tectónico base por sí solo nunca activa una zona.</div>
+    </section>
+
+    <section class="card">
+      <h2>Azuay–Cuenca · vigilancia intraslab</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="name">Estado</div><div class="val" id="azuayState" style="font-size:13px">—</div></div>
+        <div class="kpi"><div class="name">Último intraslab</div><div class="val" id="azuayLast" style="font-size:13px">—</div></div>
+        <div class="kpi"><div class="name">Eventos 70–120 km</div><div class="val" id="azuayCount">—</div></div>
+        <div class="kpi"><div class="name">Tendencia</div><div class="val" id="azuayTrend" style="font-size:13px">—</div></div>
+      </div>
+      <div class="small" id="azuayExplain" style="margin-top:8px">Un evento profundo aislado no se interpreta como activación de una falla cortical de Cuenca. La prioridad aumenta solo con clustering intraslab, aumento de magnitud o migración coherente.</div>
+    </section>
+
+    <section class="card">
+      <h2>Señales puntuales no escaladas</h2>
+      <div id="spotWatches"></div>
+      <div class="small" style="margin-top:8px">Aquí aparecen eventos que merecen seguimiento pero todavía no cumplen el umbral para entrar al ranking principal. Evita confundir “evento reciente” con “probabilidad alta”.</div>
+    </section>
+
+    <section class="card">
+      <details>
+        <summary style="cursor:pointer;font-weight:700;font-size:13px">Zonas estructurales monitoreadas (panel secundario)</summary>
+        <div id="zonesBackground" style="margin-top:8px"></div>
+        <div class="small" style="margin-top:8px">Estas zonas permanecen en el modelo y en el mapa como contexto tectónico, pero no se consideran activas si no superan los criterios operativos.</div>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Registro de decisión del agente</h2>
+      <div class="aglog" id="agentLog"></div>
+    </section>
+
+    <section class="card">
+      <h2>Eventos recientes deduplicados</h2>
+      <table class="table">
+        <thead><tr><th>Hora ECU</th><th>M</th><th>Prof.</th><th>Tipo preliminar</th><th>Fuente</th></tr></thead>
+        <tbody id="events"></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Fuentes</h2>
+      <div id="sources"></div>
+      <div class="small" style="margin-top:8px">Prioridad local: IG‑EPN, IGP, SGC. USGS se usa como cobertura regional/global y apoyo.</div>
+    </section>
+  </aside>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="app1.js"></script>
+<script src="app2.js"></script>
+<script src="app3.js"></script>
+</body>
+</html>
