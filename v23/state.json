@@ -1,35 +1,62 @@
 {
-  "version": "2026-09-14T15:31:00-05:00-v1",
-  "updated_at": "2026-09-14T20:31:00Z",
-  "updated_at_ecuador": "14 sep 2026 · 15:31 ECU",
-  "semaforo": "AMARILLO reforzado · 1 familia: sismicidad",
+  "version": "2026-09-14T16:11:01-05:00-v2",
+  "updated_at": "2026-09-14T21:11:01Z",
+  "updated_at_ecuador": "14 sep 2026 · 16:11 ECU",
+  "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
     {
       "rank": 1,
       "name": "Sipí–Istmina–San José del Palmar, Chocó (Colombia)",
-      "level": "Alta prioridad de observación",
-      "reason": "Nuevo evento SGC M4.9 a 39 km, 17 km de Sipí. Recalcular clustering y tasa 12/24 h; no constituye por sí solo señal multimétodo.",
-      "next_check": "ETAS/Omori, mecanismos focales, profundidad y posible alineamiento espacial; GNSS/InSAR si existe cobertura útil."
+      "level": "Vigilancia alta/reforzada",
+      "reason": "Aceleración clara del clúster: SGC revisó un triplete M4.9 (39 km), M4.1 (41 km) y M4.4 (40 km) entre 15:02 y 15:08 hora local, tras actividad previa en el mismo corredor. La señal pertenece por ahora a una sola familia científica (IDS), por lo que no escala el semáforo a Naranja.",
+      "next_check": "Recalcular ETAS/Omori y tasa 12 h vs 12 h previas; revisar mecanismos focales, evolución de profundidad/migración y GNSS/InSAR si existe cobertura útil."
     },
     {
       "rank": 2,
       "name": "Loreto–Andoas–Datem del Marañón (Perú)",
-      "level": "Vigilancia intraslab temporal",
-      "reason": "Evento reciente profundo M≈4.8–5.4 en banda 85–117 km; mantener separado de secuencias someras.",
-      "next_check": "Continuidad 70–150 km, mecanismos focales y migración hipocentral."
+      "level": "Vigilancia puntual intraslab no escalada",
+      "reason": "IGP/CENSIS reportó M4.8 a 117 km a las 14:16:47, 112 km al oeste de Andoas. Por profundidad se clasifica como intraslab probable. La solución IG-EPN del mismo evento es mayor (M5.5, 85 km), pero para Perú se conserva IGP/CENSIS como referencia prioritaria y no se cuentan ambas soluciones como eventos distintos.",
+      "next_check": "Buscar réplicas 70–150 km, coherencia de migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."
+    },
+    {
+      "rank": 3,
+      "name": "Tumbes–Zorritos–El Oro–Puná–Golfo",
+      "level": "Vigilancia puntual no escalada",
+      "reason": "IGP registró M4.0 a 23 km frente a Tumbes durante la madrugada. No hay evidencia reciente suficiente de aceleración ni segunda familia independiente; se mantiene como control del corredor costero fronterizo.",
+      "next_check": "Revisar nuevos M>=3.5, geometría interfaz/cortical, tendencia 24 h y cualquier señal GNSS/InSAR o cambio en el patrón costero."
     }
   ],
   "events": [
     {
-      "id": "sgc-sipi-20260914-1502",
+      "id": "igp-censis-2026-0668",
+      "source": "IGP/CENSIS",
+      "time": 1789413407000,
+      "mag": 4.8,
+      "depth": 117,
+      "lat": -3.68,
+      "lon": -77.42,
+      "place": "112 km O de Andoas, Datem del Marañón, Loreto, Perú"
+    },
+    {
+      "id": "sgc-istmina-20260914-1502",
       "source": "SGC",
       "time": 1789416120000,
       "mag": 4.9,
       "depth": 39,
       "lat": 4.55,
       "lon": -76.76,
-      "place": "17 km de Sipí, Chocó, Colombia"
+      "place": "Istmina–Sipí, Chocó, Colombia"
+    },
+    {
+      "id": "sgc-istmina-20260914-1508",
+      "source": "SGC",
+      "time": 1789416480000,
+      "mag": 4.4,
+      "depth": 40,
+      "lat": 4.55,
+      "lon": -76.76,
+      "place": "Clúster Istmina–Sipí, Chocó, Colombia (coordenada de referencia del clúster)"
     }
   ],
-  "notes": "Estado persistente inicial para puente agente→visor. Las prioridades son operativas de vigilancia y no probabilidades calibradas ni predicciones deterministas."
+  "notes": "Champion sin cambios. No se ajustan retrospectivamente pesos, umbrales, radios ni ventanas. IDG permanece datos insuficientes en esta ventana; no hay segunda familia científica independiente confirmada. IAEX/IEM permanecen separados del semáforo científico. Las prioridades son operativas de observación, no probabilidades calibradas ni predicciones deterministas."
 }
