@@ -1,0 +1,35 @@
+{
+  "version": "2026-09-14T15:31:00-05:00-v1",
+  "updated_at": "2026-09-14T20:31:00Z",
+  "updated_at_ecuador": "14 sep 2026 · 15:31 ECU",
+  "semaforo": "AMARILLO reforzado · 1 familia: sismicidad",
+  "focus": [
+    {
+      "rank": 1,
+      "name": "Sipí–Istmina–San José del Palmar, Chocó (Colombia)",
+      "level": "Alta prioridad de observación",
+      "reason": "Nuevo evento SGC M4.9 a 39 km, 17 km de Sipí. Recalcular clustering y tasa 12/24 h; no constituye por sí solo señal multimétodo.",
+      "next_check": "ETAS/Omori, mecanismos focales, profundidad y posible alineamiento espacial; GNSS/InSAR si existe cobertura útil."
+    },
+    {
+      "rank": 2,
+      "name": "Loreto–Andoas–Datem del Marañón (Perú)",
+      "level": "Vigilancia intraslab temporal",
+      "reason": "Evento reciente profundo M≈4.8–5.4 en banda 85–117 km; mantener separado de secuencias someras.",
+      "next_check": "Continuidad 70–150 km, mecanismos focales y migración hipocentral."
+    }
+  ],
+  "events": [
+    {
+      "id": "sgc-sipi-20260914-1502",
+      "source": "SGC",
+      "time": 1789416120000,
+      "mag": 4.9,
+      "depth": 39,
+      "lat": 4.55,
+      "lon": -76.76,
+      "place": "17 km de Sipí, Chocó, Colombia"
+    }
+  ],
+  "notes": "Estado persistente inicial para puente agente→visor. Las prioridades son operativas de vigilancia y no probabilidades calibradas ni predicciones deterministas."
+}
