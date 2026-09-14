@@ -1,5 +1,5 @@
 function computeZonePackage(zone, events, hours){
- const inside=events.filter(e=>distKm(zone.lat,zone.lon,e.lat,e.lon)<=zone.radius);
+ const inside=events.filter(e=>distKm(zone.lat,zone.lon,e.lat,e.lon)<=zone.radius && (zone.depthMin==null || e.depth>=zone.depthMin) && (zone.depthMax==null || e.depth<=zone.depthMax));
  const activity=inside.reduce((s,e)=>s+eventContribution(e,hours),0);
  const cluster=Math.max(0,inside.filter(e=>e.mag>=3.5).length-1)*0.22;
  const signalRaw=activity+cluster;
