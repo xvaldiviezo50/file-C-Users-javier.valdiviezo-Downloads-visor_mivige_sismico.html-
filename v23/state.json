@@ -1,28 +1,28 @@
 {
-  "version": "2026-09-14T17:07:42-05:00-v3",
-  "updated_at": "2026-09-14T22:07:42Z",
-  "updated_at_ecuador": "14 sep 2026 · 17:07 ECU",
+  "version": "2026-09-14T18:23:58-05:00-v4",
+  "updated_at": "2026-09-14T23:23:58Z",
+  "updated_at_ecuador": "14 sep 2026 · 18:23 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
     {
       "rank": 1,
       "name": "Sipí–Istmina–San José del Palmar, Chocó (Colombia)",
       "level": "Vigilancia alta/reforzada",
-      "reason": "Aceleración sostenida del clúster: tras M4.9, M4.1 y M4.4 entre 15:02 y 15:08 hora local, SGC confirmó otro M4.9 a las 16:13, profundidad 47 km. La repetición de eventos M>=4 en poco más de una hora refuerza IDS, pero continúa siendo una sola familia científica y no justifica Naranja.",
+      "reason": "Se mantiene el foco por la aceleración del clúster confirmada previamente: M4.9, M4.1 y M4.4 entre 15:02 y 15:08 hora local, seguidos por otro M4.9 a las 16:13 y 47 km de profundidad. En esta revisión no apareció un nuevo evento material confirmado que cambie el nivel; IDS continúa siendo la única familia científica robusta.",
       "next_check": "Recalcular tasa 12 h vs 12 h previas y exceso sobre ETAS/Omori; revisar mecanismos focales, migración hipocentral/profundidad y GNSS/InSAR si existe cobertura útil."
     },
     {
       "rank": 2,
       "name": "Costa afuera de Michoacán, México",
       "level": "Vigilancia puntual elevada",
-      "reason": "USGS confirmó M5.3 a ~10 km de profundidad costa afuera de Michoacán durante esta ventana. Por ser un evento regional M>=5 constituye cambio material, pero es un evento aislado y no demuestra aceleración ni segunda familia científica.",
+      "reason": "Se conserva el seguimiento del M5.3 costa afuera de Michoacán confirmado por USGS. En esta revisión no se confirmó una nueva réplica material ni una aceleración que justifique escalamiento.",
       "next_check": "Esperar propagación/revisión de SSN-UNAM; comprobar réplicas M>=3.5, geometría de subducción, mecanismo focal y cualquier evaluación oficial de tsunami."
     },
     {
       "rank": 3,
       "name": "Loreto–Andoas–Datem del Marañón (Perú)",
       "level": "Vigilancia puntual intraslab no escalada",
-      "reason": "IGP/CENSIS mantiene como solución prioritaria M4.8 a 117 km, 112 km al oeste de Andoas. Por profundidad se clasifica como intraslab probable. La solución IG-EPN del mismo evento se deduplica y no se cuenta como un segundo terremoto.",
+      "reason": "IGP/CENSIS mantiene como solución prioritaria M4.8 a 117 km, 112 km al oeste de Andoas. Por profundidad se clasifica como intraslab probable. La solución IG-EPN del mismo evento permanece deduplicada y no se cuenta como un segundo terremoto; no se confirmó nueva actividad material en esta revisión.",
       "next_check": "Buscar réplicas a 70–150 km, coherencia de migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."
     }
   ],
@@ -88,5 +88,5 @@
       "place": "Costa afuera de Michoacán, México"
     }
   ],
-  "notes": "Champion sin cambios. No se ajustan retrospectivamente pesos, umbrales, radios ni ventanas. IDG permanece datos insuficientes en esta ventana; no hay segunda familia científica independiente confirmada. IITE e IADR no aportan evidencia nueva sustentada. IAEX/IEM permanecen separados del semáforo científico. Azuay–Cuenca sigue con líneas cortical somera e intraslab separadas y sin escalamiento. Las prioridades son operativas de observación, no probabilidades calibradas ni predicciones deterministas."
+  "notes": "Revisión horaria sin cambio material adicional. Champion sin cambios. No se ajustan retrospectivamente pesos, umbrales, radios ni ventanas. IDG permanece datos insuficientes en esta ventana; no hay segunda familia científica independiente confirmada. IITE e IADR no aportan evidencia nueva sustentada. IAEX/IEM permanecen separados del semáforo científico. Azuay–Cuenca sigue con líneas cortical somera e intraslab separadas y sin escalamiento. Las prioridades son operativas de observación, no probabilidades calibradas ni predicciones deterministas."
 }
