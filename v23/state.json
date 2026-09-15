@@ -1,92 +1,32 @@
 {
-  "version": "2026-09-14T18:51:40-05:00-v5",
-  "updated_at": "2026-09-14T23:51:40Z",
-  "updated_at_ecuador": "14 sep 2026 · 18:51 ECU",
+  "version": "2026-09-14T22:17:03-05:00-v6",
+  "updated_at": "2026-09-15T03:17:03Z",
+  "updated_at_ecuador": "14 sep 2026 · 22:17 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
     {
       "rank": 1,
       "name": "Sipí–Istmina–San José del Palmar, Chocó (Colombia)",
       "level": "Vigilancia alta/reforzada",
-      "reason": "CAMBIO MATERIAL: el enjambre mantuvo actividad relevante con un nuevo M4.5 revisado por SGC a las 17:39 hora local, 49 km de profundidad, 21 km de Sipí. Se suma a los M4.9, M4.1 y M4.4 de 15:02–15:08 y al M4.9 de 16:13. La concentración espacio-temporal y la recurrencia M>=4.5 refuerzan IDS, pero no existe todavía una segunda familia científica independiente.",
-      "next_check": "Recalcular tasa 12 h vs 12 h previas y exceso sobre ETAS/Omori; revisar si aparece migración hipocentral coherente, mecanismos focales y cualquier señal GNSS/InSAR útil."
+      "reason": "El enjambre mantiene señal actual por la concentración de eventos M4+ del 14-sep. Dentro de la ventana prospectiva P-COL-14SEP-2026-01 se conserva un M4.5 SGC de las 17:39, pero no cumple criterio de parcial (M5.0–5.6) ni de acierto (M5.7–6.9). IDS sigue reforzado; no se confirma una segunda familia científica independiente.",
+      "next_check": "Recalcular tasa 12 h vs 12 h previas y exceso sobre ETAS/Omori; contar M>=4.0 y M>=4.5 dentro de P-COL-14SEP-2026-01; revisar migración hipocentral, mecanismos focales y GNSS/InSAR."
     },
     {
       "rank": 2,
       "name": "Costa afuera de Michoacán, México",
       "level": "Vigilancia puntual elevada",
-      "reason": "Se conserva el seguimiento del M5.3 costa afuera de Michoacán confirmado por USGS. No se confirmó en esta revisión una nueva réplica material ni una aceleración suficiente para escalamiento.",
-      "next_check": "Comprobar propagación/revisión de SSN-UNAM, réplicas M>=3.5, mecanismo focal y cualquier evaluación oficial de tsunami."
+      "reason": "Seguimiento del M5.3 regional previamente confirmado; no se identificó en esta revisión evidencia oficial suficiente de una nueva aceleración material.",
+      "next_check": "Comprobar revisión de SSN-UNAM, réplicas M>=3.5, mecanismo focal y evaluación oficial de tsunami si correspondiera."
     },
     {
       "rank": 3,
       "name": "Loreto–Andoas–Datem del Marañón (Perú)",
       "level": "Vigilancia puntual intraslab no escalada",
-      "reason": "IGP/CENSIS mantiene como solución prioritaria M4.8 a 117 km, 112 km al oeste de Andoas. Por profundidad se clasifica como intraslab probable. La solución IG-EPN del mismo evento permanece deduplicada y no se cuenta como un segundo terremoto; no se confirmó nueva actividad material en esta revisión.",
-      "next_check": "Buscar réplicas a 70–150 km, coherencia de migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."
+      "reason": "Permanece como corredor de observación por el evento intraslab previo deduplicado; no se confirmó nueva actividad material en esta ejecución.",
+      "next_check": "Buscar continuidad a 70–150 km, migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."
     }
   ],
   "events": [
-    {
-      "id": "igp-censis-2026-0668",
-      "source": "IGP/CENSIS",
-      "time": 1789413407000,
-      "mag": 4.8,
-      "depth": 117,
-      "lat": -3.68,
-      "lon": -77.42,
-      "place": "112 km O de Andoas, Datem del Marañón, Loreto, Perú"
-    },
-    {
-      "id": "sgc-istmina-20260914-1502",
-      "source": "SGC",
-      "time": 1789416120000,
-      "mag": 4.9,
-      "depth": 39,
-      "lat": 4.55,
-      "lon": -76.76,
-      "place": "Istmina–Sipí, Chocó, Colombia"
-    },
-    {
-      "id": "sgc-istmina-20260914-1504",
-      "source": "SGC",
-      "time": 1789416240000,
-      "mag": 4.1,
-      "depth": 41,
-      "lat": 4.54,
-      "lon": -76.76,
-      "place": "Istmina–Sipí, Chocó, Colombia"
-    },
-    {
-      "id": "sgc-istmina-20260914-1508",
-      "source": "SGC",
-      "time": 1789416480000,
-      "mag": 4.4,
-      "depth": 40,
-      "lat": 4.55,
-      "lon": -76.76,
-      "place": "Istmina–Sipí, Chocó, Colombia"
-    },
-    {
-      "id": "us7000thgs",
-      "source": "USGS",
-      "time": 1789418339760,
-      "mag": 5.3,
-      "depth": 10,
-      "lat": 15.0879,
-      "lon": -104.4352,
-      "place": "Costa afuera de Michoacán, México"
-    },
-    {
-      "id": "sgc-istmina-20260914-1613",
-      "source": "SGC",
-      "time": 1789420394000,
-      "mag": 4.9,
-      "depth": 47,
-      "lat": 4.51135,
-      "lon": -76.76744,
-      "place": "Istmina–Sipí, Chocó, Colombia"
-    },
     {
       "id": "sgc-istmina-20260914-1739",
       "source": "SGC",
@@ -98,5 +38,18 @@
       "place": "Istmina–Sipí, Chocó, Colombia"
     }
   ],
-  "notes": "Cambio material por continuidad del enjambre de Chocó: nuevo M4.5 revisado por SGC a las 17:39 local. Champion sin cambios; no se ajustan retrospectivamente pesos, umbrales, radios ni ventanas. IDG permanece datos insuficientes en esta ventana; IITE e IADR sin nueva evidencia sustentada. IAEX/IEM continúan separados del semáforo científico. Azuay–Cuenca mantiene líneas cortical somera e intraslab separadas y sin escalamiento. Las prioridades son operativas de observación, no probabilidades calibradas ni predicciones deterministas."
+  "forecast_tests": [
+    {
+      "id": "P-COL-14SEP-2026-01",
+      "status": "EN VENTANA · sin acierto ni parcial hasta esta revisión",
+      "window_start": "2026-09-14T16:41:00-05:00",
+      "window_end": "2026-09-16T16:41:00-05:00",
+      "publication_time_uncertainty": "±1 h",
+      "choco_m4plus_confirmed_since_nominal_start": 1,
+      "choco_m4_5plus_confirmed_since_nominal_start": 1,
+      "largest_qualifying_choco_event": "M4.5 SGC · Istmina–Sipí · 17:39 local",
+      "evaluation": "Eventos menores de M5.0 no cuentan como parcial. El pronóstico se emitió con el enjambre de Chocó ya activo, por lo que la evaluación final debe contrastarse con ETAS/fondo y con las dos poblaciones sísmicas descritas por SGC."
+    }
+  ],
+  "notes": "Sin nuevo cambio material confirmado en esta ejecución. Champion sin cambios; no se modifican retrospectivamente pesos, umbrales, radios ni ventanas. IDG: datos insuficientes; IITE e IADR: sin nueva evidencia sustentada. IAEX/IEM permanecen separados del semáforo científico. Azuay–Cuenca mantiene líneas cortical somera e intraslab separadas y sin escalamiento. Eventos materiales del estado limitados a las últimas 6 h."
 }
