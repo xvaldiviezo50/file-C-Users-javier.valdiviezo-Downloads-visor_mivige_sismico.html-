@@ -1,14 +1,14 @@
 {
-  "version": "2026-09-14T22:17:03-05:00-v6",
-  "updated_at": "2026-09-15T03:17:03Z",
-  "updated_at_ecuador": "14 sep 2026 · 22:17 ECU",
+  "version": "2026-09-15T00:50:53-05:00-v7",
+  "updated_at": "2026-09-15T05:50:53Z",
+  "updated_at_ecuador": "15 sep 2026 · 00:50 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
     {
       "rank": 1,
       "name": "Sipí–Istmina–San José del Palmar, Chocó (Colombia)",
       "level": "Vigilancia alta/reforzada",
-      "reason": "El enjambre mantiene señal actual por la concentración de eventos M4+ del 14-sep. Dentro de la ventana prospectiva P-COL-14SEP-2026-01 se conserva un M4.5 SGC de las 17:39, pero no cumple criterio de parcial (M5.0–5.6) ni de acierto (M5.7–6.9). IDS sigue reforzado; no se confirma una segunda familia científica independiente.",
+      "reason": "El enjambre mantiene señal actual por la concentración de eventos M4+ del 14-sep. No se confirmó en esta revisión un nuevo evento que cumpla criterio de parcial o acierto del pronóstico P-COL-14SEP-2026-01. IDS sigue reforzado; no se confirma una segunda familia científica independiente.",
       "next_check": "Recalcular tasa 12 h vs 12 h previas y exceso sobre ETAS/Omori; contar M>=4.0 y M>=4.5 dentro de P-COL-14SEP-2026-01; revisar migración hipocentral, mecanismos focales y GNSS/InSAR."
     },
     {
@@ -26,18 +26,7 @@
       "next_check": "Buscar continuidad a 70–150 km, migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."
     }
   ],
-  "events": [
-    {
-      "id": "sgc-istmina-20260914-1739",
-      "source": "SGC",
-      "time": 1789425540000,
-      "mag": 4.5,
-      "depth": 49,
-      "lat": 4.51,
-      "lon": -76.76,
-      "place": "Istmina–Sipí, Chocó, Colombia"
-    }
-  ],
+  "events": [],
   "forecast_tests": [
     {
       "id": "P-COL-14SEP-2026-01",
@@ -51,5 +40,5 @@
       "evaluation": "Eventos menores de M5.0 no cuentan como parcial. El pronóstico se emitió con el enjambre de Chocó ya activo, por lo que la evaluación final debe contrastarse con ETAS/fondo y con las dos poblaciones sísmicas descritas por SGC."
     }
   ],
-  "notes": "Sin nuevo cambio material confirmado en esta ejecución. Champion sin cambios; no se modifican retrospectivamente pesos, umbrales, radios ni ventanas. IDG: datos insuficientes; IITE e IADR: sin nueva evidencia sustentada. IAEX/IEM permanecen separados del semáforo científico. Azuay–Cuenca mantiene líneas cortical somera e intraslab separadas y sin escalamiento. Eventos materiales del estado limitados a las últimas 6 h."
+  "notes": "Sin nuevo cambio material confirmado en esta ejecución. No se conservaron eventos materiales en events porque los previamente confirmados ya quedaron fuera de la ventana móvil de 6 h. Champion sin cambios; no se modifican retrospectivamente pesos, umbrales, radios ni ventanas. IDG: datos insuficientes; IITE e IADR: sin nueva evidencia sustentada. IAEX/IEM permanecen separados del semáforo científico. Azuay–Cuenca mantiene líneas cortical somera e intraslab separadas y sin escalamiento."
 }
