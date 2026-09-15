@@ -1,41 +1,24 @@
 {
-  "version": "2026-09-15T13:14:53-05:00-v14",
-  "updated_at": "2026-09-15T18:14:53Z",
-  "updated_at_ecuador": "15 sep 2026 · 13:14 ECU",
+  "version": "2026-09-15T15:37:17-05:00-v15",
+  "updated_at": "2026-09-15T20:37:17Z",
+  "updated_at_ecuador": "15 sep 2026 · 15:37 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
-    {
-      "rank": 1,
-      "name": "Sipí–Istmina–San José del Palmar, Chocó (Colombia)",
-      "level": "Vigilancia alta/reforzada",
-      "reason": "La secuencia continúa activa: el SGC confirmó cuatro M>4 en Istmina el 14-sep; el 15-sep se reportó un M3.8 a las 10:50 local, 43 km de profundidad, además de eventos menores en el núcleo Istmina–Sipí. No se verificó nuevo M>=5 ni segunda familia científica.",
-      "next_check": "Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar M>=4.5, migración espacial/profundidad, mecanismos y GNSS/InSAR."
-    },
-    {
-      "rank": 2,
-      "name": "Costa afuera de Michoacán, México",
-      "level": "Vigilancia puntual elevada",
-      "reason": "Seguimiento del M5.3 regional previamente confirmado; sin nueva aceleración material verificada en este ciclo.",
-      "next_check": "Revisar SSN-UNAM, réplicas M>=3.5, mecanismo focal y comunicados oficiales."
-    },
-    {
-      "rank": 3,
-      "name": "Loreto–Andoas–Datem del Marañón (Perú)",
-      "level": "Vigilancia puntual intraslab no escalada",
-      "reason": "Corredor de observación por actividad intraslab previa; sin nueva actividad material confirmada en este ciclo.",
-      "next_check": "Buscar continuidad a 70–150 km, migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."
-    }
+    {"rank":1,"name":"Sipí–Istmina–San José del Palmar, Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"La secuencia sigue activa, pero sin cambio material nuevo desde el ciclo previo: el SGC mantiene como antecedente cuatro M>4 del 14-sep y el 15-sep se confirmó M3.8 en Istmina a 43 km; búsquedas hasta 15:37 ECU no verificaron nuevo M>=4.5 posterior ni segunda familia científica.","next_check":"Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar M>=4.5, migración espacial/profundidad, mecanismos y GNSS/InSAR."},
+    {"rank":2,"name":"Costa afuera de Michoacán, México","level":"Vigilancia puntual elevada","reason":"Seguimiento del M5.5 regional del 14-sep confirmado por SSN en fuentes recientes; el 15-sep se reportó M3.7 al SO de Coalcomán, sin aceleración material verificada.","next_check":"Revisar SSN-UNAM, réplicas M>=3.5, mecanismo focal y comunicados oficiales."},
+    {"rank":3,"name":"Loreto–Andoas–Datem del Marañón (Perú)","level":"Vigilancia puntual intraslab no escalada","reason":"Corredor de observación por actividad intraslab previa; sin nueva actividad material confirmada en este ciclo.","next_check":"Buscar continuidad a 70–150 km, migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."}
   ],
   "events": [
-    {"time_local":"2026-09-15 10:50","magnitude":3.8,"depth_km":43,"place":"Istmina, Chocó, Colombia","source":"SGC (reporte actualizado reproducido por medios)","material":false}
+    {"time_local":"2026-09-15 10:50","magnitude":3.8,"depth_km":43,"place":"Istmina, Chocó, Colombia","source":"SGC (boletín reproducido por medios)","material":false},
+    {"time_local":"2026-09-15","magnitude":3.7,"depth_km":null,"place":"SO de Coalcomán, Michoacán, México","source":"SSN-UNAM (reproducido por prensa)","material":false}
   ],
   "gnss": {
     "sources": [
-      {"name":"IG-EPN RENGEO Ecuador","status":"red pública obligatoria detectada; IG-EPN documenta 85 estaciones permanentes y cadencias tectónicas de 30, 1 y 0.2 s; la web pública consultable no expuso en este ciclo una API/serie reciente automatizable con E/N/U, época y latencia por estación"},
+      {"name":"IG-EPN RENGEO Ecuador","status":"red pública obligatoria detectada; 85 estaciones permanentes documentadas; no se obtuvo en este ciclo API/serie pública automatizable con solución reciente E/N/U, época y latencia por estación"},
       {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución automatizable de baja latencia verificada en este ciclo"},
-      {"name":"SGC-GeoRED Colombia","status":"fuente pública; sin endpoint automatizable RT/NRT con estado completo verificado en este ciclo"},
-      {"name":"SIRGAS-CON","status":"~500 estaciones regionales; posiciones semanales y velocidades/multianuales disponibles como contexto, no señal RT"},
-      {"name":"IGN/IGP Perú; CSN/SIRGAS Chile; OVSICORI/RSN/EarthScope/COCONet; UNAM/INEGI/EarthScope México; IGS","status":"cobertura pública parcial; sin telemetría homogénea RT/NRT verificada para QC regional en este ciclo"}
+      {"name":"SGC-GeoRED Colombia","status":"fuente pública; sin endpoint RT/NRT automatizable con estado completo verificado en este ciclo"},
+      {"name":"SIRGAS-CON","status":"posiciones/velocidades regionales útiles como contexto; no tratadas como tiempo real"},
+      {"name":"IGN/IGP Perú; CSN/SIRGAS Chile; OVSICORI/RSN/EarthScope/COCONet; UNAM/INEGI/EarthScope México; IGS","status":"cobertura pública parcial; sin telemetría homogénea RT/NRT verificable para QC regional en este ciclo"}
     ],
     "stations_detected": null,
     "stations_fresh": null,
@@ -54,10 +37,10 @@
       "rengeo_focus_stations": ["ESMR","MUIS","PDNS","PTGL","MOMP","CJMS","BAHI","MHLA","ISPT","AYAN","MRO2","ARNS"],
       "rengeo_coherent_anomalies": []
     },
-    "limitations": "RENGEO no se sustituye por REGME/EarthScope. La red y sus estaciones son públicas y visibles, incluida la red continua/tiempo real de Esmeraldas, pero este ciclo no obtuvo mediciones recientes E/N/U automatizables; por ello no se infiere deformación nula ni se calculan velocidades/residuos inventados."
+    "limitations": "RENGEO permanece visible y no se sustituye por REGME/EarthScope. En este ciclo no fue posible automatizar mediciones recientes E/N/U; por ello IDG=datos insuficientes RENGEO y no se interpreta ausencia de datos como deformación nula."
   },
   "forecast_tests": [
-    {"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","choco_m4plus_confirmed_since_nominal_start":1,"choco_m4_5plus_confirmed_since_nominal_start":1,"largest_qualifying_choco_event":"M4.5 SGC · Istmina–Sipí · 17:39 local · 14-sep (estado prospectivo conservado; pendiente reconfirmación puntual)","evaluation":"Pronóstico congelado; el M3.8 del 15-sep no cambia su categoría."}
+    {"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","choco_m4plus_confirmed_since_nominal_start":1,"choco_m4_5plus_confirmed_since_nominal_start":1,"largest_qualifying_choco_event":"M4.5 SGC · Istmina–Sipí · 17:39 local · 14-sep (estado prospectivo conservado; pendiente reconfirmación puntual)","evaluation":"Pronóstico congelado; la actividad M<=3.8 del 15-sep no cambia su categoría."}
   ],
-  "notes": "Sin cambio material nuevo respecto al ciclo anterior. Champion sin cambios. IDS mantiene Chocó como foco principal; IDG = datos insuficientes RENGEO; IITE sin Coulomb sustentado; IADR sin respuesta remota físicamente evaluada. Azuay–Cuenca sin escalamiento y con cortical/intraslab separados."
+  "notes": "Sin cambio material nuevo respecto al ciclo anterior. Champion sin cambios. IDS mantiene Chocó como foco principal; IDG=datos insuficientes RENGEO; IITE sin Coulomb sustentado; IADR sin respuesta remota físicamente evaluada. Azuay–Cuenca sin escalamiento y con cortical/intraslab separados."
 }
