@@ -1,14 +1,14 @@
 {
-  "version": "2026-09-15T09:12:17-05:00-v11",
-  "updated_at": "2026-09-15T14:12:17Z",
-  "updated_at_ecuador": "15 sep 2026 · 09:12 ECU",
+  "version": "2026-09-15T10:25:17-05:00-v12",
+  "updated_at": "2026-09-15T15:25:17Z",
+  "updated_at_ecuador": "15 sep 2026 · 10:25 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
     {
       "rank": 1,
       "name": "Sipí–Istmina–San José del Palmar, Chocó (Colombia)",
       "level": "Vigilancia alta/reforzada",
-      "reason": "Persistencia del enjambre somero-intermedio de Sipí–Istmina tras la aceleración del 14-sep; la actividad M3.x del 15-sep mantiene el foco dinámico, sin nuevo M>=5.0 confirmado ni segunda familia científica independiente en esta revisión.",
+      "reason": "Persistencia del enjambre somero-intermedio de Sipí–Istmina tras la aceleración del 14-sep; la actividad del 15-sep mantiene el foco dinámico, sin nuevo M>=5.0 confirmado ni segunda familia científica independiente en esta revisión.",
       "next_check": "Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar M>=4.5, migración espacial/profundidad, mecanismos focales y GNSS/InSAR."
     },
     {
@@ -37,8 +37,8 @@
       "choco_m4plus_confirmed_since_nominal_start": 1,
       "choco_m4_5plus_confirmed_since_nominal_start": 1,
       "largest_qualifying_choco_event": "M4.5 SGC · Istmina–Sipí · 17:39 local · 14-sep",
-      "evaluation": "Sin cambio de categoría en esta ejecución. El pronóstico se emitió cuando el enjambre ya estaba activo; evaluación final contra ETAS/fondo y separando enjambre Sipí–Istmina 30–60 km de réplicas profundas San José del Palmar 70–105 km."
+      "evaluation": "Sin cambio de categoría. El pronóstico se emitió cuando el enjambre ya estaba activo; evaluación final contra ETAS/fondo y separando enjambre Sipí–Istmina 30–60 km de réplicas profundas San José del Palmar 70–105 km."
     }
   ],
-  "notes": "Sin cambio material nuevo desde la revisión anterior. Champion sin cambios. IDG: datos insuficientes; IITE: sin Coulomb sustentado; IADR: sin respuesta remota físicamente evaluada. IAEX/IEM separados del semáforo científico. Azuay–Cuenca mantiene líneas cortical somera e intraslab separadas, sin escalamiento. No hay eventos materiales confirmados dentro de las últimas 6 h que deban persistir en events."
+  "notes": "Sin cambio material nuevo en la revisión de 10:25 ECU. Champion sin cambios. IDG: datos insuficientes; IITE: sin Coulomb sustentado; IADR: sin respuesta remota físicamente evaluada. IAEX/IEM separados del semáforo científico. Azuay–Cuenca mantiene líneas cortical somera e intraslab separadas, sin escalamiento. No hay eventos materiales oficiales confirmados dentro de las últimas 6 h que deban persistir en events."
 }
