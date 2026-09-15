@@ -1,0 +1,29 @@
+{
+  "updated_at": "2026-09-15T00:43:45Z",
+  "predictions": [
+    {
+      "id": "P-COL-14SEP-2026-01",
+      "type": "external_frozen",
+      "source": "Miguel Ángel Cruz Pérez",
+      "status": "active",
+      "seen_at_ecuador": "2026-09-14T19:41:00-05:00",
+      "published_at_estimated": "2026-09-14T16:41:00-05:00",
+      "published_time_uncertainty_minutes": 60,
+      "window_start": "2026-09-14T16:41:00-05:00",
+      "window_end": "2026-09-16T16:41:00-05:00",
+      "country": "Colombia",
+      "focus_region": "Chocó",
+      "magnitude_min": 5.7,
+      "magnitude_max": 6.9,
+      "statement": "Alerta de 48 horas: posibilidad de sismo de 5.7 a 6.9 en Colombia; Chocó sensible a réplica principal.",
+      "criteria": {
+        "exact": "M5.7–6.9 confirmado por SGC en Chocó dentro de la ventana; solo se denomina réplica si ubicación/profundidad/mecanismo son compatibles con la secuencia correspondiente.",
+        "broad": "M5.7–6.9 confirmado en otra zona de Colombia dentro de la ventana.",
+        "partial": "M5.0–5.6 confirmado en Chocó dentro de la ventana.",
+        "fail": "Finaliza la ventana sin M5.7–6.9 confirmado en Colombia."
+      },
+      "baseline_note": "Debe compararse contra ETAS/Omori y la actividad ya elevada de Chocó para evitar considerar como capacidad predictiva lo que pueda ser continuación esperable de una secuencia activa.",
+      "scientific_note": "Pronóstico externo no validado. No modifica por sí solo el semáforo científico MIVIGE."
+    }
+  ]
+}
