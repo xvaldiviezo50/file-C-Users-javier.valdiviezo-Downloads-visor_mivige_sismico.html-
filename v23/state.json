@@ -1,22 +1,22 @@
 {
-  "version": "2026-09-15T00:50:53-05:00-v7",
-  "updated_at": "2026-09-15T05:50:53Z",
-  "updated_at_ecuador": "15 sep 2026 · 00:50 ECU",
+  "version": "2026-09-15T03:21:07-05:00-v8",
+  "updated_at": "2026-09-15T08:21:07Z",
+  "updated_at_ecuador": "15 sep 2026 · 03:21 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
     {
       "rank": 1,
       "name": "Sipí–Istmina–San José del Palmar, Chocó (Colombia)",
       "level": "Vigilancia alta/reforzada",
-      "reason": "El enjambre mantiene señal actual por la concentración de eventos M4+ del 14-sep. No se confirmó en esta revisión un nuevo evento que cumpla criterio de parcial o acierto del pronóstico P-COL-14SEP-2026-01. IDS sigue reforzado; no se confirma una segunda familia científica independiente.",
-      "next_check": "Recalcular tasa 12 h vs 12 h previas y exceso sobre ETAS/Omori; contar M>=4.0 y M>=4.5 dentro de P-COL-14SEP-2026-01; revisar migración hipocentral, mecanismos focales y GNSS/InSAR."
+      "reason": "Se mantiene como foco dinámico por el enjambre M4+ confirmado el 14-sep. En esta revisión no se confirmó un nuevo M>=5.0 en Chocó ni un M5.7–6.9 en Colombia que cumpla el pronóstico congelado P-COL-14SEP-2026-01. IDS permanece reforzado, sin segunda familia científica independiente.",
+      "next_check": "Recalcular tasa 12 h vs 12 h previas y exceso sobre ETAS/Omori; actualizar conteos M>=4.0/M>=4.5 dentro de la ventana; revisar migración hipocentral, mecanismos focales y GNSS/InSAR."
     },
     {
       "rank": 2,
       "name": "Costa afuera de Michoacán, México",
       "level": "Vigilancia puntual elevada",
-      "reason": "Seguimiento del M5.3 regional previamente confirmado; no se identificó en esta revisión evidencia oficial suficiente de una nueva aceleración material.",
-      "next_check": "Comprobar revisión de SSN-UNAM, réplicas M>=3.5, mecanismo focal y evaluación oficial de tsunami si correspondiera."
+      "reason": "Continúa el seguimiento del M5.3 regional previamente confirmado; no se verificó en esta revisión una nueva aceleración material en fuentes oficiales accesibles.",
+      "next_check": "Revisar SSN-UNAM, réplicas M>=3.5, mecanismo focal y comunicados oficiales."
     },
     {
       "rank": 3,
@@ -37,8 +37,8 @@
       "choco_m4plus_confirmed_since_nominal_start": 1,
       "choco_m4_5plus_confirmed_since_nominal_start": 1,
       "largest_qualifying_choco_event": "M4.5 SGC · Istmina–Sipí · 17:39 local",
-      "evaluation": "Eventos menores de M5.0 no cuentan como parcial. El pronóstico se emitió con el enjambre de Chocó ya activo, por lo que la evaluación final debe contrastarse con ETAS/fondo y con las dos poblaciones sísmicas descritas por SGC."
+      "evaluation": "Eventos menores de M5.0 no cuentan como parcial. El pronóstico fue emitido con el enjambre ya activo; la evaluación final debe contrastarse con ETAS/fondo y con las dos poblaciones sísmicas diferenciadas por SGC."
     }
   ],
-  "notes": "Sin nuevo cambio material confirmado en esta ejecución. No se conservaron eventos materiales en events porque los previamente confirmados ya quedaron fuera de la ventana móvil de 6 h. Champion sin cambios; no se modifican retrospectivamente pesos, umbrales, radios ni ventanas. IDG: datos insuficientes; IITE e IADR: sin nueva evidencia sustentada. IAEX/IEM permanecen separados del semáforo científico. Azuay–Cuenca mantiene líneas cortical somera e intraslab separadas y sin escalamiento."
+  "notes": "Sin nuevo cambio material confirmado en esta ejecución. Los eventos materiales previamente confirmados ya están fuera de la ventana móvil de 6 h. Champion sin cambios. IDG: datos insuficientes; IITE e IADR: sin nueva evidencia sustentada. IAEX/IEM permanecen separados del semáforo científico. Azuay–Cuenca mantiene líneas cortical somera e intraslab separadas y sin escalamiento."
 }
