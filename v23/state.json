@@ -1,14 +1,14 @@
 {
-  "version": "2026-09-15T10:25:17-05:00-v12",
-  "updated_at": "2026-09-15T15:25:17Z",
-  "updated_at_ecuador": "15 sep 2026 · 10:25 ECU",
+  "version": "2026-09-15T12:21:09-05:00-v13",
+  "updated_at": "2026-09-15T17:21:09Z",
+  "updated_at_ecuador": "15 sep 2026 · 12:21 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
     {
       "rank": 1,
       "name": "Sipí–Istmina–San José del Palmar, Chocó (Colombia)",
       "level": "Vigilancia alta/reforzada",
-      "reason": "Persistencia del enjambre somero-intermedio de Sipí–Istmina tras la aceleración del 14-sep; la actividad del 15-sep mantiene el foco dinámico, sin nuevo M>=5.0 confirmado ni segunda familia científica independiente en esta revisión.",
+      "reason": "La secuencia sigue activa el 15-sep: reportes basados en boletines SGC describen varios eventos nocturnos/matutinos, con máximo M3.4 en el núcleo Istmina–Sipí y profundidades dominantes ~37–40 km. El SGC confirmó oficialmente que el 14-sep hubo cuatro sismos M>4 en Istmina. No se verifica en esta revisión un nuevo M>=5.0 ni una segunda familia científica independiente.",
       "next_check": "Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar M>=4.5, migración espacial/profundidad, mecanismos focales y GNSS/InSAR."
     },
     {
@@ -22,23 +22,40 @@
       "rank": 3,
       "name": "Loreto–Andoas–Datem del Marañón (Perú)",
       "level": "Vigilancia puntual intraslab no escalada",
-      "reason": "Corredor de observación por el evento intraslab previo deduplicado; sin nueva actividad material confirmada en esta ejecución.",
+      "reason": "Corredor de observación por actividad intraslab previa; sin nueva actividad material confirmada en esta ejecución.",
       "next_check": "Buscar continuidad a 70–150 km, migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."
     }
   ],
   "events": [],
+  "gnss": {
+    "sources": [
+      {"name":"SGC-GeoRED Colombia","status":"fuente pública; no se verificó endpoint automatizable RT/NRT con estado completo de estaciones en esta ejecución"},
+      {"name":"IGM-REGME / IG-EPN-RENGEO Ecuador","status":"fuentes públicas; no se verificó endpoint automatizable de baja latencia con E/N/U y latencia por estación en esta ejecución"},
+      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"fuentes públicas; sin solución automatizable de baja latencia verificada en esta ejecución"},
+      {"name":"CSN/SIRGAS Chile; OVSICORI/RSN/EarthScope/COCONet Centroamérica; UNAM/INEGI/EarthScope México; SIRGAS-CON/IGS control","status":"catálogos/redes públicas parciales; sin telemetría homogénea RT/NRT verificada para QC regional en esta ejecución"}
+    ],
+    "stations_detected": null,
+    "stations_fresh": null,
+    "stations_used_qc": null,
+    "stations_rejected": null,
+    "median_latency": null,
+    "focus_coverage": "insuficiente para inferencia de deformación de corto plazo",
+    "idg_status": "datos insuficientes",
+    "coherent_anomalies": [],
+    "limitations": "No se inventan conteos ni desplazamientos. Sin acceso automatizable verificado a series E/N/U de baja latencia para >=3 estaciones cercanas al foco; soluciones diarias/históricas no se etiquetan como tiempo real."
+  },
   "forecast_tests": [
     {
       "id": "P-COL-14SEP-2026-01",
-      "status": "EN VENTANA · sin acierto exacto, amplio ni parcial",
+      "status": "EN VENTANA · sin cambio de categoría en esta revisión",
       "window_start": "2026-09-14T16:41:00-05:00",
       "window_end": "2026-09-16T16:41:00-05:00",
       "publication_time_uncertainty": "±1 h",
       "choco_m4plus_confirmed_since_nominal_start": 1,
       "choco_m4_5plus_confirmed_since_nominal_start": 1,
-      "largest_qualifying_choco_event": "M4.5 SGC · Istmina–Sipí · 17:39 local · 14-sep",
-      "evaluation": "Sin cambio de categoría. El pronóstico se emitió cuando el enjambre ya estaba activo; evaluación final contra ETAS/fondo y separando enjambre Sipí–Istmina 30–60 km de réplicas profundas San José del Palmar 70–105 km."
+      "largest_qualifying_choco_event": "M4.5 SGC · Istmina–Sipí · 17:39 local · 14-sep (valor conservado del estado prospectivo previo; pendiente reconfirmación puntual del boletín actualizado)",
+      "evaluation": "El pronóstico permanece congelado. La secuencia del 15-sep es principalmente M2.2–3.4 y no cambia por sí sola la categoría prospectiva. Evaluación final contra ETAS/fondo y separando el núcleo Istmina–Sipí ~37–47 km de actividad más profunda regional."
     }
   ],
-  "notes": "Sin cambio material nuevo en la revisión de 10:25 ECU. Champion sin cambios. IDG: datos insuficientes; IITE: sin Coulomb sustentado; IADR: sin respuesta remota físicamente evaluada. IAEX/IEM separados del semáforo científico. Azuay–Cuenca mantiene líneas cortical somera e intraslab separadas, sin escalamiento. No hay eventos materiales oficiales confirmados dentro de las últimas 6 h que deban persistir en events."
+  "notes": "Sin cambio material nuevo a las 12:21 ECU respecto al estado 10:25. Champion sin cambios. IDS mantiene Chocó como foco dinámico principal por persistencia; IDG datos insuficientes; IITE sin Coulomb sustentado; IADR sin respuesta remota físicamente evaluada. IAEX/IEM separados del semáforo científico. Azuay–Cuenca mantiene cortical somera e intraslab separados, sin escalamiento. El SGC publicó comunicado oficial por cuatro M>4 en Istmina el 14-sep, ya perteneciente a la secuencia conocida; durante la mañana del 15-sep los reportes basados en SGC muestran actividad menor, máximo M3.4 en Istmina–Sipí."
 }
