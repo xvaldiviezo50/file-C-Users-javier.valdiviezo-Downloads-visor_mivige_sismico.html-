@@ -1,11 +1,11 @@
 {
-  "version": "2026-09-15T18:18:37-05:00-v15",
-  "updated_at": "2026-09-15T23:18:37Z",
-  "updated_at_ecuador": "15 sep 2026 · 18:18 ECU",
+  "version": "2026-09-15T19:58:28-05:00-v15",
+  "updated_at": "2026-09-16T00:58:28Z",
+  "updated_at_ecuador": "15 sep 2026 · 19:58 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
-    {"rank":1,"name":"Sipí–Istmina–San José del Palmar, Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"Secuencia activa: SGC confirmó cuatro M>4 el 14-sep; durante el 15-sep continuaron eventos en Istmina–Sipí, incluido M3.8 a 43 km. En la revisión hasta 18:18 ECU no se verificó un nuevo M>=4.5 posterior ni una segunda familia científica.","next_check":"Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar M>=4.5, migración espacial/profundidad, mecanismos y GNSS/InSAR."},
-    {"rank":2,"name":"Costa afuera de Michoacán, México","level":"Vigilancia puntual elevada","reason":"Seguimiento del M5.5 regional del 14-sep; sin aceleración material nueva verificada en este ciclo.","next_check":"Revisar SSN-UNAM, réplicas M>=3.5, mecanismo focal y comunicados oficiales."},
+    {"rank":1,"name":"Sipí–Istmina–San José del Palmar, Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"Secuencia activa: SGC confirmó cuatro M>4 el 14-sep y durante el 15-sep continuaron eventos en Istmina–Sipí, incluido M3.8 a ~43 km. No se verificó un nuevo M>=4.5 posterior ni una segunda familia científica en este ciclo.","next_check":"Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar M>=4.5, migración espacial/profundidad, mecanismos y GNSS/InSAR."},
+    {"rank":2,"name":"Puyo–Pastaza, Ecuador","level":"Vigilancia puntual intraslab profunda no escalada","reason":"IG-EPN reportó/revisó un sismo M3.9 a las 18:45 ECU, ~23 km de Puyo y 157 km de profundidad. Se clasifica individualmente como intraslab profundo; un evento aislado de esta profundidad no eleva riesgo cortical.","next_check":"Verificar réplicas/continuidad a >150 km, solución revisada definitiva y cualquier coherencia con el corredor intraslab amazónico."},
     {"rank":3,"name":"Loreto–Andoas–Datem del Marañón (Perú)","level":"Vigilancia puntual intraslab no escalada","reason":"Corredor de observación intraslab; sin nueva actividad material confirmada en este ciclo.","next_check":"Buscar continuidad a 70–150 km, migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."}
   ],
   "events": [],
@@ -37,7 +37,7 @@
     "limitations": "RENGEO permanece visible y no se sustituye por REGME/EarthScope. No fue posible automatizar mediciones recientes E/N/U; IDG=datos insuficientes RENGEO, no deformación nula."
   },
   "forecast_tests": [
-    {"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","evaluation":"Pronóstico congelado; sin cambio material verificado en este ciclo."}
+    {"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","evaluation":"Pronóstico congelado; sin cumplimiento/fallo material nuevo verificado en este ciclo."}
   ],
-  "notes": "Sin cambio material nuevo respecto al ciclo anterior. Champion sin cambios. IDS mantiene Chocó como foco principal; IDG=datos insuficientes RENGEO; IITE sin Coulomb sustentado; IADR sin respuesta remota físicamente evaluada. Azuay–Cuenca sin escalamiento y con cortical/intraslab separados."
+  "notes": "Sin cambio material notificable. Nuevo evento Ecuador: M3.9 revisado cerca de Puyo a 157 km, intraslab profundo y aislado; no escala riesgo cortical. Chocó continúa como foco principal sin nueva segunda familia científica. Champion sin cambios. IDG=datos insuficientes RENGEO; IITE sin Coulomb sustentado; IADR sin respuesta remota físicamente evaluada. Azuay–Cuenca sin escalamiento y con cortical/intraslab separados."
 }
