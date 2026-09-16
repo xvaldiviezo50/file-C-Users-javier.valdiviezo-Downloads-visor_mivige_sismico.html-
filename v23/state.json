@@ -1,11 +1,11 @@
 {
-  "version": "2026-09-15T19:58:28-05:00-v15",
-  "updated_at": "2026-09-16T00:58:28Z",
-  "updated_at_ecuador": "15 sep 2026 · 19:58 ECU",
+  "version": "2026-09-15T23:55:35-05:00-v15",
+  "updated_at": "2026-09-16T04:55:35Z",
+  "updated_at_ecuador": "15 sep 2026 · 23:55 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
-    {"rank":1,"name":"Sipí–Istmina–San José del Palmar, Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"Secuencia activa: SGC confirmó cuatro M>4 el 14-sep y durante el 15-sep continuaron eventos en Istmina–Sipí, incluido M3.8 a ~43 km. No se verificó un nuevo M>=4.5 posterior ni una segunda familia científica en este ciclo.","next_check":"Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar M>=4.5, migración espacial/profundidad, mecanismos y GNSS/InSAR."},
-    {"rank":2,"name":"Puyo–Pastaza, Ecuador","level":"Vigilancia puntual intraslab profunda no escalada","reason":"IG-EPN reportó/revisó un sismo M3.9 a las 18:45 ECU, ~23 km de Puyo y 157 km de profundidad. Se clasifica individualmente como intraslab profundo; un evento aislado de esta profundidad no eleva riesgo cortical.","next_check":"Verificar réplicas/continuidad a >150 km, solución revisada definitiva y cualquier coherencia con el corredor intraslab amazónico."},
+    {"rank":1,"name":"Sipí–Istmina–San José del Palmar, Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"Secuencia activa persistente: SGC confirmó cuatro M>4 el 14-sep y el 15-sep continuaron eventos en Istmina–Sipí, incluido M3.8 a ~43 km. No se verificó en este ciclo un nuevo M>=5 regional, una aceleración material nueva ni una segunda familia científica.","next_check":"Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar M>=4.5, migración espacial/profundidad, mecanismos y GNSS/InSAR."},
+    {"rank":2,"name":"Puyo–Pastaza, Ecuador","level":"Vigilancia puntual intraslab profunda no escalada","reason":"IG-EPN reportó/revisó M3.9 a las 18:45 ECU, ~23 km de Puyo y 157 km de profundidad. Clasificación individual: intraslab profundo; aislado no eleva riesgo cortical.","next_check":"Verificar continuidad a >150 km, solución revisada definitiva y coherencia con el corredor intraslab amazónico."},
     {"rank":3,"name":"Loreto–Andoas–Datem del Marañón (Perú)","level":"Vigilancia puntual intraslab no escalada","reason":"Corredor de observación intraslab; sin nueva actividad material confirmada en este ciclo.","next_check":"Buscar continuidad a 70–150 km, migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."}
   ],
   "events": [],
@@ -39,5 +39,5 @@
   "forecast_tests": [
     {"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","evaluation":"Pronóstico congelado; sin cumplimiento/fallo material nuevo verificado en este ciclo."}
   ],
-  "notes": "Sin cambio material notificable. Nuevo evento Ecuador: M3.9 revisado cerca de Puyo a 157 km, intraslab profundo y aislado; no escala riesgo cortical. Chocó continúa como foco principal sin nueva segunda familia científica. Champion sin cambios. IDG=datos insuficientes RENGEO; IITE sin Coulomb sustentado; IADR sin respuesta remota físicamente evaluada. Azuay–Cuenca sin escalamiento y con cortical/intraslab separados."
+  "notes": "Sin cambio material notificable a las 23:55 ECU. Chocó continúa como foco principal con persistencia sísmica pero sin nuevo M>=5 ni segunda familia científica verificada. Puyo M3.9/157 km permanece como señal puntual intraslab profunda no escalada. Champion sin cambios. IDG=datos insuficientes RENGEO; no se infiere deformación nula. IITE sin Coulomb sustentado; IADR sin respuesta remota físicamente evaluada. Azuay–Cuenca sin escalamiento y con cortical/intraslab separados."
 }
