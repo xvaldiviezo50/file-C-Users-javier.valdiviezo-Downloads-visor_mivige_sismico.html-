@@ -1,0 +1,31 @@
+{
+  "version": "CHOCO-16SEP-2026-01",
+  "published_at_ecuador": "16 sep 2026",
+  "title": "Chocó – Istmina / Pacífico colombiano",
+  "level": "Actividad sísmica persistente / vigilancia reforzada",
+  "scientific_family": "Sismicidad (IDS)",
+  "current_reading": "La secuencia actual es compatible con un enjambre y reajuste sísmico persistente en una región tectónicamente activa. La continuidad de eventos M4+ justifica vigilancia reforzada, pero no constituye por sí sola evidencia de que se prepare un terremoto mayor.",
+  "evidence": [
+    "SGC confirmó cuatro sismos de magnitud superior a 4 con epicentro en Istmina el 14-sep-2026.",
+    "La actividad continuó el 16-sep-2026 con varios eventos en Chocó y el Pacífico, incluido un M4.5 en Istmina.",
+    "La persistencia temporal es relevante para IDS, pero no equivale a un precursor confirmado."
+  ],
+  "alert_conditions": [
+    "Nuevo evento M>=5 dentro o muy próximo a la secuencia activa de Chocó.",
+    "Aceleración sostenida de la tasa sísmica respecto del comportamiento reciente/ETAS-Omori.",
+    "Migración espacial o en profundidad coherente hacia una estructura definida.",
+    "Segunda familia científica independiente: deformación GNSS/InSAR, slow slip, mecanismos focales o Coulomb consistentes."
+  ],
+  "status_logic": {
+    "current": "Vigilancia reforzada",
+    "escalate_to": "Revisión de nivel superior",
+    "rule": "No escalar únicamente por persistencia del enjambre; exigir cambio de régimen o una segunda familia científica independiente."
+  },
+  "map": {
+    "center": [4.98772, -76.805285],
+    "radius_km": 170,
+    "label": "Zona de vigilancia Chocó"
+  },
+  "general_status": "AMARILLO reforzado",
+  "disclaimer": "Vigilancia geodinámica experimental. Un enjambre no permite predecir fecha, lugar o magnitud de un terremoto futuro."
+}
