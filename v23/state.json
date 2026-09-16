@@ -1,14 +1,16 @@
 {
-  "version": "2026-09-16T01:05:03-05:00-v15",
-  "updated_at": "2026-09-16T06:05:03Z",
-  "updated_at_ecuador": "16 sep 2026 · 01:05 ECU",
+  "version": "2026-09-16T02:44:55-05:00-v15",
+  "updated_at": "2026-09-16T07:44:55Z",
+  "updated_at_ecuador": "16 sep 2026 · 02:44 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
-    {"rank":1,"name":"Sipí–Istmina–San José del Palmar, Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"Secuencia/enjambre activo confirmado por SGC; no se verificó en este ciclo un nuevo M>=5 regional, aceleración material nueva ni segunda familia científica.","next_check":"Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar M>=4.5, migración espacial/profundidad, mecanismos y GNSS/InSAR."},
-    {"rank":2,"name":"Puyo–Pastaza, Ecuador","level":"Vigilancia puntual intraslab profunda no escalada","reason":"IG-EPN: evento igepn2026sdjh revisado M3.9, 15-sep 18:45:03 ECU, 157 km, 23.22 km de Puyo. Preliminar M3.7/146 km deduplicado como el mismo terremoto.","next_check":"Verificar continuidad a >150 km y coherencia con corredor intraslab amazónico; un evento profundo aislado no eleva riesgo cortical."},
+    {"rank":1,"name":"Sipí–Istmina–San José del Palmar, Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"Secuencia/enjambre activo confirmado por SGC. Nuevo evento actualizado M4.5 a las 01:18 ECU/COL, profundidad 43 km, Istmina, refuerza la persistencia del foco; no se verificó M>=5, segunda familia científica ni anomalía geodésica coherente.","next_check":"Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar nuevos M>=4.5, migración espacial/profundidad, mecanismos y GNSS/InSAR."},
+    {"rank":2,"name":"Puyo–Pastaza, Ecuador","level":"Vigilancia puntual intraslab profunda no escalada","reason":"IG-EPN: evento igepn2026sdjh revisado M3.9, 15-sep 18:45:03 ECU, 157 km, 23.22 km de Puyo. Preliminar deduplicado como el mismo terremoto.","next_check":"Verificar continuidad a >150 km y coherencia con corredor intraslab amazónico; un evento profundo aislado no eleva riesgo cortical."},
     {"rank":3,"name":"Loreto–Andoas–Datem del Marañón (Perú)","level":"Vigilancia puntual intraslab no escalada","reason":"Corredor de observación intraslab; sin nueva actividad material confirmada en este ciclo.","next_check":"Buscar continuidad a 70–150 km, migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."}
   ],
-  "events": [],
+  "events": [
+    {"time_local":"2026-09-16T01:18:00-05:00","mag":4.5,"depth_km":43,"place":"Istmina, Chocó, Colombia","tectonic_class":"intermedio/placa subducida o transición; revisar geometría/mecanismo","source":"SGC · boletín actualizado 1","dedupe_note":"revisión del preliminar M4.1; contado una sola vez","material_context":"refuerza foco Chocó ya activo; por sí solo no cumple umbral M>=5 de notificación regional"}
+  ],
   "gnss": {
     "sources": [
       {"name":"IG-EPN RENGEO Ecuador","status":"red pública obligatoria detectada; 85 estaciones permanentes documentadas; no se obtuvo API/serie pública automatizable con solución reciente E/N/U, época y latencia por estación en este ciclo"},
@@ -37,7 +39,7 @@
     "limitations": "RENGEO permanece visible y no se sustituye por REGME/EarthScope. No fue posible automatizar mediciones recientes E/N/U; IDG=datos insuficientes RENGEO, no deformación nula."
   },
   "forecast_tests": [
-    {"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","evaluation":"Pronóstico congelado; sin cumplimiento/fallo material nuevo verificado en este ciclo."}
+    {"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","evaluation":"Pronóstico congelado; el M4.5 de Istmina se registra prospectivamente sin modificar reglas. No se declara cumplimiento/fallo sin aplicar los criterios congelados completos."}
   ],
-  "notes": "Sin cambio material notificable a las 01:05 ECU. Se contrastó además el canal público Sismos & Volcanes IG-EPN, que confirma la revisión M3.9/157 km de Puyo y permite deduplicar su preliminar M3.7/146 km. Chocó continúa como foco principal sin nuevo M>=5 ni segunda familia científica verificada. Champion sin cambios. IDG=datos insuficientes RENGEO; no se infiere deformación nula. IITE sin Coulomb sustentado; IADR sin respuesta remota físicamente evaluada. Azuay–Cuenca sin escalamiento y con cortical/intraslab separados."
+  "notes": "A las 02:44 ECU, Chocó continúa como foco principal. SGC reportó boletín actualizado M4.5, 43 km, Istmina, 01:18 local, revisión de preliminar M4.1; deduplicado como un solo evento. Es continuidad/refuerzo de un foco ya alto, sin M>=5, sin cambio de semáforo y sin segunda familia científica verificada. Champion sin cambios. IDG=datos insuficientes RENGEO; no se infiere deformación nula. IITE sin Coulomb sustentado; IADR sin respuesta remota físicamente evaluada. Azuay–Cuenca sin escalamiento y con cortical/intraslab separados."
 }
