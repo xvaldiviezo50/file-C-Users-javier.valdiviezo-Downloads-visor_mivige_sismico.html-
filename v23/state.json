@@ -1,15 +1,17 @@
 {
-  "version": "2026-09-16T02:44:55-05:00-v15",
-  "updated_at": "2026-09-16T07:44:55Z",
-  "updated_at_ecuador": "16 sep 2026 · 02:44 ECU",
+  "version": "2026-09-16T02:51:47-05:00-v15",
+  "updated_at": "2026-09-16T07:51:47Z",
+  "updated_at_ecuador": "16 sep 2026 · 02:51 ECU",
   "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
   "focus": [
-    {"rank":1,"name":"Sipí–Istmina–San José del Palmar, Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"Secuencia/enjambre activo confirmado por SGC. Nuevo evento actualizado M4.5 a las 01:18 ECU/COL, profundidad 43 km, Istmina, refuerza la persistencia del foco; no se verificó M>=5, segunda familia científica ni anomalía geodésica coherente.","next_check":"Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; vigilar nuevos M>=4.5, migración espacial/profundidad, mecanismos y GNSS/InSAR."},
+    {"rank":1,"name":"Sipí–Istmina–Bahía Solano / Pacífico de Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"Persistencia y extensión espacial de la actividad de Chocó: SGC actualizó M4.5 a las 01:18, 43 km, Istmina; además reportó un evento distinto M4.4 a las 02:02, superficial, océano Pacífico a ~40 km de Bahía Solano, seguido por M2.9 superficial a las 02:33. No se verificó M>=5, segunda familia científica ni anomalía geodésica coherente.","next_check":"Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; evaluar si la extensión Istmina→Pacífico/Bahía Solano es migración coherente o poblaciones tectónicas distintas; revisar mecanismos y GNSS/InSAR."},
     {"rank":2,"name":"Puyo–Pastaza, Ecuador","level":"Vigilancia puntual intraslab profunda no escalada","reason":"IG-EPN: evento igepn2026sdjh revisado M3.9, 15-sep 18:45:03 ECU, 157 km, 23.22 km de Puyo. Preliminar deduplicado como el mismo terremoto.","next_check":"Verificar continuidad a >150 km y coherencia con corredor intraslab amazónico; un evento profundo aislado no eleva riesgo cortical."},
     {"rank":3,"name":"Loreto–Andoas–Datem del Marañón (Perú)","level":"Vigilancia puntual intraslab no escalada","reason":"Corredor de observación intraslab; sin nueva actividad material confirmada en este ciclo.","next_check":"Buscar continuidad a 70–150 km, migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."}
   ],
   "events": [
-    {"time_local":"2026-09-16T01:18:00-05:00","mag":4.5,"depth_km":43,"place":"Istmina, Chocó, Colombia","tectonic_class":"intermedio/placa subducida o transición; revisar geometría/mecanismo","source":"SGC · boletín actualizado 1","dedupe_note":"revisión del preliminar M4.1; contado una sola vez","material_context":"refuerza foco Chocó ya activo; por sí solo no cumple umbral M>=5 de notificación regional"}
+    {"time_local":"2026-09-16T02:02:00-05:00","mag":4.4,"depth_km":null,"place":"Océano Pacífico, ~40 km de Bahía Solano, Chocó, Colombia","tectonic_class":"somero costero/oceánico: interfaz o cortical pendiente de geometría/mecanismo","source":"SGC · boletín actualizado 1","dedupe_note":"evento distinto del M4.5 de Istmina; no duplicado","material_context":"nuevo evento M4+ que amplía/refuerza espacialmente el foco dinámico de Chocó"},
+    {"time_local":"2026-09-16T01:18:00-05:00","mag":4.5,"depth_km":43,"place":"Istmina, Chocó, Colombia","tectonic_class":"intermedio/placa subducida o transición; revisar geometría/mecanismo","source":"SGC · boletín actualizado 1","dedupe_note":"revisión del preliminar M4.1; contado una sola vez","material_context":"refuerza foco Chocó ya activo"},
+    {"time_local":"2026-09-16T02:33:00-05:00","mag":2.9,"depth_km":null,"place":"Océano Pacífico, Chocó, Colombia","tectonic_class":"somero costero/oceánico; pendiente de geometría/mecanismo","source":"SGC · boletín actualizado 1","dedupe_note":"evento posterior distinto; reportado como réplica del evento oceánico M4.4","material_context":"apoya persistencia local, por debajo de umbral material individual"}
   ],
   "gnss": {
     "sources": [
@@ -39,7 +41,7 @@
     "limitations": "RENGEO permanece visible y no se sustituye por REGME/EarthScope. No fue posible automatizar mediciones recientes E/N/U; IDG=datos insuficientes RENGEO, no deformación nula."
   },
   "forecast_tests": [
-    {"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","evaluation":"Pronóstico congelado; el M4.5 de Istmina se registra prospectivamente sin modificar reglas. No se declara cumplimiento/fallo sin aplicar los criterios congelados completos."}
+    {"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","evaluation":"Pronóstico congelado; M4.5 Istmina y M4.4 Pacífico/Bahía Solano se registran prospectivamente sin modificar reglas. No se declara cumplimiento/fallo sin aplicar los criterios congelados completos."}
   ],
-  "notes": "A las 02:44 ECU, Chocó continúa como foco principal. SGC reportó boletín actualizado M4.5, 43 km, Istmina, 01:18 local, revisión de preliminar M4.1; deduplicado como un solo evento. Es continuidad/refuerzo de un foco ya alto, sin M>=5, sin cambio de semáforo y sin segunda familia científica verificada. Champion sin cambios. IDG=datos insuficientes RENGEO; no se infiere deformación nula. IITE sin Coulomb sustentado; IADR sin respuesta remota físicamente evaluada. Azuay–Cuenca sin escalamiento y con cortical/intraslab separados."
+  "notes": "A las 02:51 ECU hay cambio material por nuevo evento distinto M4.4 superficial en el Pacífico de Chocó a las 02:02, ~40 km de Bahía Solano, seguido M2.9 a las 02:33, después del M4.5/43 km de Istmina a la 01:18. Esto refuerza y extiende el foco dinámico Chocó, pero todavía solo hay una familia científica verificada (IDS): sin M>=5, sin GNSS/InSAR coherente, sin Coulomb sustentado y sin cambio a naranja. Champion y umbrales sin cambios. IDG=datos insuficientes RENGEO. Azuay–Cuenca sin escalamiento y con cortical/intraslab separados."
 }
