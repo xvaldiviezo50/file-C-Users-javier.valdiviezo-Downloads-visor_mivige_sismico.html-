@@ -1,47 +1,31 @@
 {
-  "version": "2026-09-16T03:54:00-05:00-v15",
-  "updated_at": "2026-09-16T08:54:00Z",
-  "updated_at_ecuador": "16 sep 2026 · 03:54 ECU",
-  "semaforo": "AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
-  "focus": [
-    {"rank":1,"name":"Sipí–Istmina–Bahía Solano / Pacífico de Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"Persistencia y extensión espacial de la actividad de Chocó: SGC actualizó M4.5 a las 01:18, 43 km, Istmina; además reportó un evento distinto M4.4 a las 02:02, superficial, océano Pacífico a ~40 km de Bahía Solano, seguido por M2.9 superficial a las 02:33. En este ciclo no se verificó un nuevo cambio material posterior, M>=5, segunda familia científica ni anomalía geodésica coherente.","next_check":"Recalcular tasa 12 h vs 12 h previas y exceso ETAS/Omori; evaluar si la extensión Istmina→Pacífico/Bahía Solano persiste y si corresponde a migración coherente o poblaciones tectónicas distintas; revisar mecanismos y GNSS/InSAR."},
-    {"rank":2,"name":"Puyo–Pastaza, Ecuador","level":"Vigilancia puntual intraslab profunda no escalada","reason":"IG-EPN: evento igepn2026sdjh revisado M3.9, 15-sep 18:45:03 ECU, 157 km, 23.22 km de Puyo. Preliminar deduplicado como el mismo terremoto. Sin escalamiento material posterior verificado.","next_check":"Verificar continuidad a >150 km y coherencia con corredor intraslab amazónico; un evento profundo aislado no eleva riesgo cortical."},
-    {"rank":3,"name":"Loreto–Andoas–Datem del Marañón (Perú)","level":"Vigilancia puntual intraslab no escalada","reason":"Corredor de observación intraslab; sin nueva actividad material confirmada en este ciclo.","next_check":"Buscar continuidad a 70–150 km, migración hipocentral, mecanismo focal y desviación frente a fondo/ETAS."}
+  "version":"2026-09-16T05:28:41-05:00-v15",
+  "updated_at":"2026-09-16T10:28:41Z",
+  "updated_at_ecuador":"16 sep 2026 · 05:28 ECU",
+  "semaforo":"AMARILLO reforzado · 1 familia científica: sismicidad (IDS)",
+  "focus":[
+    {"rank":1,"name":"Sipí–Istmina–Bahía Solano / Pacífico de Chocó (Colombia)","level":"Vigilancia alta/reforzada","reason":"Actividad persistente confirmada en Chocó. En la madrugada del 16-sep se registraron M4.5 Istmina a 43 km (01:18), M4.4 Pacífico frente a Bahía Solano/Nuquí (02:02), y eventos posteriores M2.9, M2.7, M2.6 y M2.3 hasta 03:30. El M4.5 es la revisión del preliminar M4.1 y se cuenta una sola vez. No se verifica M>=5 ni segunda familia científica.","next_check":"Recalcular tasa 12 h/12 h, exceso ETAS/Omori y comprobar si la distribución Istmina–Pacífico representa migración coherente o poblaciones tectónicas distintas; revisar mecanismos y geodesia."},
+    {"rank":2,"name":"Puyo–Pastaza, Ecuador","level":"Vigilancia puntual intraslab profunda no escalada","reason":"IG-EPN: igepn2026sdjh revisado M3.9, 15-sep 18:45:03 ECU, 157 km, 23.22 km de Puyo. Evento profundo aislado; no eleva riesgo cortical.","next_check":"Verificar continuidad >150 km y posible relación con corredor intraslab amazónico."},
+    {"rank":3,"name":"Loreto–Andoas–Datem del Marañón (Perú)","level":"Vigilancia puntual intraslab no escalada","reason":"Corredor de observación; sin cambio material nuevo verificado en este ciclo.","next_check":"Revisar actividad 70–150 km, mecanismos y desviación frente a fondo/ETAS."}
   ],
-  "events": [
-    {"time_local":"2026-09-16T02:02:00-05:00","mag":4.4,"depth_km":null,"place":"Océano Pacífico, ~40 km de Bahía Solano, Chocó, Colombia","tectonic_class":"somero costero/oceánico: interfaz o cortical pendiente de geometría/mecanismo","source":"SGC · boletín actualizado 1","dedupe_note":"evento distinto del M4.5 de Istmina; no duplicado","material_context":"evento M4+ que amplió/reforzó espacialmente el foco dinámico de Chocó"},
-    {"time_local":"2026-09-16T01:18:00-05:00","mag":4.5,"depth_km":43,"place":"Istmina, Chocó, Colombia","tectonic_class":"intermedio/placa subducida o transición; revisar geometría/mecanismo","source":"SGC · boletín actualizado 1","dedupe_note":"revisión del preliminar M4.1; contado una sola vez","material_context":"refuerza foco Chocó ya activo"},
-    {"time_local":"2026-09-16T02:33:00-05:00","mag":2.9,"depth_km":null,"place":"Océano Pacífico, Chocó, Colombia","tectonic_class":"somero costero/oceánico; pendiente de geometría/mecanismo","source":"SGC · boletín actualizado 1","dedupe_note":"evento posterior distinto; reportado como réplica del evento oceánico M4.4","material_context":"apoya persistencia local, por debajo de umbral material individual"}
+  "events":[
+    {"time_local":"2026-09-16T02:02:00-05:00","mag":4.4,"depth_km":null,"place":"Océano Pacífico frente a Bahía Solano/Nuquí, Chocó, Colombia","tectonic_class":"somero costero/oceánico; geometría/mecanismo pendientes","source":"SGC","dedupe_note":"distinto del M4.5 de Istmina"},
+    {"time_local":"2026-09-16T01:18:00-05:00","mag":4.5,"depth_km":43,"place":"Istmina, Chocó, Colombia","tectonic_class":"intermedio/placa subducida o transición probable","source":"SGC","dedupe_note":"revisión del preliminar M4.1; contado una vez"},
+    {"time_local":"2026-09-16T03:30:00-05:00","mag":2.3,"depth_km":null,"place":"Océano Pacífico frente a Bahía Solano/Nuquí, Chocó, Colombia","tectonic_class":"somero costero/oceánico","source":"SGC","dedupe_note":"evento distinto"}
   ],
-  "gnss": {
-    "sources": [
-      {"name":"IG-EPN RENGEO Ecuador","status":"red pública obligatoria detectada; 85 estaciones permanentes documentadas; no se obtuvo API/serie pública automatizable con solución reciente E/N/U, época y latencia por estación en este ciclo"},
-      {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución automatizable de baja latencia verificada en este ciclo"},
-      {"name":"SGC-GeoRED Colombia","status":"fuente pública; sin endpoint RT/NRT automatizable con estado completo verificado en este ciclo"},
-      {"name":"SIRGAS-CON","status":"posiciones/velocidades regionales útiles como contexto; no tratadas como tiempo real"},
-      {"name":"IGN/IGP Perú; CSN/SIRGAS Chile; OVSICORI/RSN/EarthScope/COCONet; UNAM/INEGI/EarthScope México; IGS","status":"cobertura pública parcial; sin telemetría homogénea RT/NRT verificable para QC regional en este ciclo"}
+  "gnss":{
+    "sources":[
+      {"name":"IG-EPN RENGEO Ecuador","status":"red pública obligatoria; 85 estaciones permanentes documentadas; no se obtuvo solución pública reciente E/N/U automatizable con época y latencia por estación en este ciclo"},
+      {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada"},
+      {"name":"SGC-GeoRED Colombia","status":"pública; sin endpoint RT/NRT completo automatizable verificado en este ciclo"},
+      {"name":"SIRGAS-CON/IGS/EarthScope y redes nacionales Chile–México","status":"cobertura regional parcial; soluciones históricas/diarias no tratadas como tiempo real"}
     ],
-    "stations_detected": null,
-    "stations_fresh": null,
-    "stations_used_qc": null,
-    "stations_rejected": null,
-    "median_latency": null,
-    "focus_coverage": "insuficiente para inferencia de deformación de corto plazo",
-    "idg_status": "datos insuficientes RENGEO",
-    "coherent_anomalies": [],
-    "rengeo": {
-      "rengeo_detected": 85,
-      "rengeo_fresh": null,
-      "rengeo_used_qc": 0,
-      "rengeo_non_automatable": 85,
-      "rengeo_median_latency": null,
-      "rengeo_focus_stations": ["ESMR","MUIS","PDNS","PTGL","MOMP","CJMS","BAHI","MHLA","ISPT","AYAN","MRO2","ARNS"],
-      "rengeo_coherent_anomalies": []
-    },
-    "limitations": "RENGEO permanece visible y no se sustituye por REGME/EarthScope. No fue posible automatizar mediciones recientes E/N/U; IDG=datos insuficientes RENGEO, no deformación nula."
+    "stations_detected":null,"stations_fresh":null,"stations_used_qc":null,"stations_rejected":null,"median_latency":null,
+    "focus_coverage":"insuficiente para inferencia de deformación de corto plazo",
+    "idg_status":"datos insuficientes RENGEO","coherent_anomalies":[],
+    "rengeo":{"rengeo_detected":85,"rengeo_fresh":null,"rengeo_used_qc":0,"rengeo_non_automatable":85,"rengeo_median_latency":null,"rengeo_focus_stations":["ESMR","MUIS","PDNS","PTGL","MOMP","CJMS","BAHI","MHLA","ISPT","AYAN","MRO2","ARNS"],"rengeo_coherent_anomalies":[]},
+    "limitations":"RENGEO permanece incluida y no se sustituye por REGME/EarthScope. Sin E/N/U recientes automatizables, IDG significa datos insuficientes RENGEO, no deformación nula."
   },
-  "forecast_tests": [
-    {"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","evaluation":"Pronóstico congelado; M4.5 Istmina y M4.4 Pacífico/Bahía Solano permanecen registrados prospectivamente sin modificar reglas. No se declara cumplimiento/fallo sin aplicar los criterios congelados completos."}
-  ],
-  "notes": "Ciclo 03:54 ECU: revisión fresca no verificó un cambio material nuevo respecto del ciclo 02:51. Se mantiene Chocó como foco reforzado por M4.5 Istmina (43 km) y M4.4 Pacífico/Bahía Solano, con una sola familia científica verificada (IDS). Sin M>=5 nuevo, sin segunda familia, sin anomalía GNSS/InSAR coherente, sin Coulomb sustentado y sin cambio de semáforo. Champion/umbrales sin cambios. IDG=datos insuficientes RENGEO. Ecuador sin escalamiento material; Azuay–Cuenca cortical e intraslab permanecen separados."
+  "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"EN VENTANA · sin cambio de categoría","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","publication_time_uncertainty":"±1 h","evaluation":"Se mantiene congelado; eventos M4.5 Istmina y M4.4 Pacífico registrados prospectivamente sin modificar reglas."}],
+  "notes":"Ciclo 05:28 ECU: fuentes frescas confirman continuidad de eventos menores en Chocó hasta al menos 03:30, pero no aparece un cambio material nuevo frente al estado ya reforzado: sin M>=5, segunda familia científica, anomalía GNSS/InSAR coherente, Coulomb sustentado, alerta de tsunami ni cambio de semáforo. Champion/Challenger sin ajustes. Ecuador sin escalamiento material."
 }
