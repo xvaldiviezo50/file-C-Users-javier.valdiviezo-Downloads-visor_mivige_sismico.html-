@@ -1,0 +1,43 @@
+{
+  "version": "PER-ECU-16SEP-2026-01",
+  "published_at_ecuador": "16 sep 2026",
+  "title": "Corredor norte de Perú – frontera Perú–Ecuador",
+  "level": "Observación reforzada",
+  "scientific_family": "Sismicidad (IDS)",
+  "evidence": [
+    {
+      "event_id": "igepn2026rsyb",
+      "time_local": "2026-09-10T01:42:41-05:00",
+      "mag": 5.8,
+      "depth_km": 25.4,
+      "lat": -4.013,
+      "lon": -77.329,
+      "region": "Northern Peru",
+      "source": "IG-EPN revisado"
+    },
+    {
+      "event_id": "igepn2026rtfw",
+      "time_local": "2026-09-10T05:39:35-05:00",
+      "mag": 5.4,
+      "depth_km": 21.3,
+      "lat": -3.962,
+      "lon": -77.343,
+      "region": "Peru-Ecuador Border Region",
+      "source": "IG-EPN revisado"
+    },
+    {
+      "event_id": "igepn2026sbey",
+      "time_local": "2026-09-14T14:16:51-05:00",
+      "mag": 5.4,
+      "depth_km": 84.8,
+      "lat": -3.738,
+      "lon": -77.359,
+      "region": "Peru-Ecuador Border Region",
+      "source": "IG-EPN revisado"
+    }
+  ],
+  "interpretation": "Los tres eventos se concentran en un corredor horizontal estrecho: el evento del 14-sep se ubica aproximadamente a 25–31 km de los dos eventos M5+ del 10-sep, pero a una profundidad claramente mayor. La recurrencia espacial justifica vigilancia reforzada del corredor. La diferencia de profundidad impide interpretar por sí sola la secuencia como migración de energía o como una única fuente tectónica.",
+  "escalation_rule": "Elevar la vigilancia del corredor si aparece un nuevo M>=5 dentro de aproximadamente 100 km del agrupamiento, o si se observa un incremento sostenido de la tasa sísmica por encima del comportamiento ETAS/Omori esperado. El semáforo general MIVIGE no debe subir únicamente por esta señal: se requiere una segunda familia científica independiente, por ejemplo deformación GNSS/InSAR coherente, interacción tectónica sustentada o evidencia focal consistente.",
+  "general_status": "AMARILLO reforzado",
+  "disclaimer": "Vigilancia geodinámica experimental. No constituye una predicción de terremotos ni implica que un evento mayor sea inminente."
+}
