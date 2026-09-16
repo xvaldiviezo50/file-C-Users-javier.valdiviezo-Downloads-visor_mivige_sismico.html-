@@ -1,0 +1,43 @@
+{
+  "version": "MIVIGE Agent v1.5 GNSS regional v35",
+  "updated_at": "2026-09-15T22:51:33-05:00",
+  "semaforo": "AMARILLO",
+  "material_change": false,
+  "top3": [
+    {"location":"Chocó–Sipí–Istmina–San José del Palmar","level":"reforzada","tectonic_type":"somero-intermedio / secuencia regional","reason":"Persistencia de la secuencia; SGC confirmó cuatro M>4 el 14-Sep y se reportó nuevo M3.8, 41 km, la noche del 15-Sep. No se demuestra en este ciclo aceleración suficiente para un nuevo cambio material.","next":"Revisar tasa 12 h vs 12 h previas, distribución de profundidades y migración."},
+    {"location":"Puyo–Pastaza","level":"observación","tectonic_type":"intraslab profundo","reason":"IG-EPN revisó M3.9 a 157 km a las 18:45 local; evento profundo aislado, no eleva riesgo cortical.","next":"Buscar repetición intraslab y corroboración regional."},
+    {"location":"Azuay–Cuenca","level":"observación","tectonic_type":"intraslab separado de cortical","reason":"Sin señal nueva suficiente para escalar; mantener separación cortical/intraslab.","next":"Revisar nuevos eventos y geodesia utilizable."}
+  ],
+  "material_events_6h": [
+    {"time_local":"2026-09-15T18:45:03-05:00","mag":3.9,"depth_km":157.0,"location":"23.22 km de Puyo, Pastaza","source":"IG-EPN revisado","classification":"intraslab profundo","material_threshold":false}
+  ],
+  "gnss": {
+    "sources":["IG-EPN RENGEO","IGM REGME","SGC GeoRED","IGN Perú/REGPMOC/ERP","SIRGAS-CON","IGS/EarthScope/NOTA/COCONet"],
+    "stations_detected": null,
+    "stations_fresh": null,
+    "stations_used_qc": 0,
+    "stations_rejected": null,
+    "median_latency": null,
+    "focus_coverage": "Metadatos/cobertura disponibles, pero no se verificaron en este ciclo suficientes series E/N/U públicas de baja latencia para QC cinemático.",
+    "idg_status": "datos insuficientes RENGEO",
+    "coherent_anomalies": null,
+    "rengeo": {
+      "rengeo_detected": 85,
+      "rengeo_fresh": null,
+      "rengeo_used_qc": 0,
+      "rengeo_non_automatable": 85,
+      "rengeo_median_latency": null,
+      "rengeo_focus_stations": ["ESMR","RVRD","SNLR","PTGL","MUIS","MOMP","CJMS","JAM2","PPRT","BAHI","MLEC","SLGO","AYAN","MRO2","ISPT"],
+      "rengeo_coherent_anomalies": "datos insuficientes: mediciones E/N/U recientes no automatizables/verificables en este ciclo"
+    }
+  },
+  "scientific_layer": {
+    "IDG":"datos insuficientes RENGEO",
+    "IDS":"Chocó continúa activo; persistencia confirmada, sin nueva evidencia suficiente de cambio de régimen en este ciclo",
+    "IITE":"no calculado: sin Coulomb sustentado nuevo",
+    "IADR":"sin evidencia física nueva suficiente"
+  },
+  "experimental_layer": {"status":"sin cambio material; no usada como segunda familia científica"},
+  "frozen_forecast":"P-COL-14SEP-2026-01 preservado sin cambios",
+  "limitations":["No se inventan conteos GNSS cuando la red no expone estado actual automatizable.","Las publicaciones sociales/complementarias se usan para baja latencia y se deduplican contra soluciones oficiales por ID/tiempo/ubicación."]
+}
