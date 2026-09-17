@@ -14,7 +14,10 @@
       <div class="kpis">
         <div class="kpi"><div class="name">Estado</div><div class="val" id="chocoLevel" style="font-size:13px">—</div></div>
         <div class="kpi"><div class="name">Lectura</div><div class="val" id="chocoReading" style="font-size:13px">—</div></div>
+        <div class="kpi"><div class="name">Enjambre SGC</div><div class="val" id="chocoSwarmCount">—</div><div class="small" id="chocoSwarmCut" style="margin-top:3px">—</div></div>
+        <div class="kpi"><div class="name">Réplicas M7,4</div><div class="val" id="chocoAftershockCount">—</div><div class="small" style="margin-top:3px">conteo separado</div></div>
       </div>
+      <div id="chocoCountNote" class="small" style="margin-top:8px;padding:8px;border:1px solid #335777;border-radius:8px;background:#0b1a2a">—</div>
       <div id="chocoEvidence" class="small" style="margin-top:8px">—</div>
       <div id="chocoAlerts" class="small" style="margin-top:8px">—</div>
       <div id="chocoRule" class="small" style="margin-top:8px">—</div>
@@ -32,6 +35,13 @@
     ensureCard();
     document.getElementById('chocoLevel').textContent=s.level||'—';
     document.getElementById('chocoReading').textContent='Enjambre / reajuste persistente';
+
+    const c=s.official_counts||{};
+    document.getElementById('chocoSwarmCount').textContent=c.swarm_label||'—';
+    document.getElementById('chocoSwarmCut').textContent=c.swarm_cutoff?`corte oficial ${c.swarm_cutoff}`:'—';
+    document.getElementById('chocoAftershockCount').textContent=c.aftershocks_label||'—';
+    document.getElementById('chocoCountNote').innerHTML=`<b>${c.source||'SGC'}:</b> ${c.note||'—'}<br><b>Importante:</b> “>1.200” es el último acumulado oficial citado del enjambre, no un contador en tiempo real.`;
+
     const evidence=(s.evidence||[]).map(x=>`• ${x}`).join('<br>');
     const alerts=(s.alert_conditions||[]).map(x=>`• ${x}`).join('<br>');
     document.getElementById('chocoEvidence').innerHTML=`<b>Interpretación actual:</b> ${s.current_reading||'—'}<br><br><b>Evidencia:</b><br>${evidence}`;
@@ -46,13 +56,14 @@
     layer=L.layerGroup();
     const c=s.map?.center;
     const r=(s.map?.radius_km||170)*1000;
+    const counts=s.official_counts||{};
     if(Array.isArray(c)&&c.length===2){
       L.circle(c,{radius:r,color:'#f0c644',weight:2,fillColor:'#f0c644',fillOpacity:0.08,dashArray:'7,6'})
-        .bindPopup(`<b>${s.title}</b><br>${s.level}<br><br>${s.current_reading}<br><br><b>Escalar solo si:</b> M≥5, aceleración sostenida, migración coherente o segunda familia científica.`)
+        .bindPopup(`<b>${s.title}</b><br>${s.level}<br><br><b>Enjambre reconocido por SGC:</b> ${counts.swarm_label||'—'} (corte ${counts.swarm_cutoff||'—'})<br><b>Réplicas M7,4:</b> ${counts.aftershocks_label||'—'}<br><br>${s.current_reading}<br><br><b>Escalar solo si:</b> M≥5, aceleración sostenida, migración coherente o segunda familia científica.`)
         .addTo(layer);
       L.marker(c,{title:s.map?.label||'Vigilancia Chocó'})
-        .bindTooltip(s.map?.label||'Vigilancia Chocó',{permanent:false,direction:'top'})
-        .bindPopup(`<b>${s.title}</b><br><b>${s.level}</b><br>${s.disclaimer}`)
+        .bindTooltip(`${s.map?.label||'Vigilancia Chocó'} · ${counts.swarm_label||''}`,{permanent:false,direction:'top'})
+        .bindPopup(`<b>${s.title}</b><br><b>${s.level}</b><br><b>${counts.swarm_label||'—'} del enjambre</b><br>${s.disclaimer}`)
         .addTo(layer);
     }
     layer.addTo(map);
