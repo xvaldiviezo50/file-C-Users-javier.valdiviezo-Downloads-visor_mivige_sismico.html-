@@ -1,0 +1,46 @@
+{
+  "version": "MIVIGE-GEODESIA-2.0-17SEP2026",
+  "title": "MIVIGE Geodesia / Sismogeodesia 2.0",
+  "purpose": "Separar la evidencia geodésica por escala temporal para mejorar la interpretación del estado tectónico sin confundir caracterización cosísmica con predicción.",
+  "components": {
+    "IDG_LT": {
+      "name": "IDG-LT · GNSS largo plazo",
+      "role": "Línea base intersísmica: velocidades GNSS, deformación cortical, strain y movimiento relativo de bloques.",
+      "operational_use": "Comparar la posición/velocidad observada con la tendencia esperada y detectar desviaciones persistentes.",
+      "status": "Contexto/base regional incorporado"
+    },
+    "IDG_ST": {
+      "name": "IDG-ST · Transitorios GNSS/InSAR",
+      "role": "Horas a semanas: deformación transitoria, slow slip y desplazamientos coherentes multies­tación.",
+      "operational_use": "Funciona como segunda familia científica independiente cuando una anomalía espacialmente coherente es verificada.",
+      "status": "Depende de datos operativos de baja latencia"
+    },
+    "IDG_HR": {
+      "name": "IDG-HR · GNSS cinemático",
+      "role": "Segundos a minutos: desplazamiento, velocidad y aceleración GNSS durante un evento.",
+      "operational_use": "Caracterización rápida del movimiento, amplitud, coherencia entre estaciones y desplazamiento cosísmico permanente.",
+      "status": "Habilitado metodológicamente; no se interpreta como precursor por sí solo"
+    },
+    "IAC": {
+      "name": "IAC · Acoplamiento interplaca",
+      "role": "Contexto tectónico: acoplamiento, déficit de deslizamiento y parches bloqueados en la interfaz.",
+      "operational_use": "Modular el peso tectónico de una secuencia según su relación con sectores más o menos acoplados.",
+      "status": "Capa contextual; requiere actualización geodésica periódica"
+    }
+  },
+  "fusion_rules": [
+    "IDS elevado sin evidencia geodésica independiente = vigilancia sísmica reforzada, no inferencia de preparación.",
+    "IDS elevado + IDG-ST coherente y verificado = revisión de nivel superior y análisis de interacción tectónica.",
+    "IDG-HR caracteriza la ruptura durante/después del evento; no cuenta retrospectivamente como precursor.",
+    "IAC modifica el contexto y priorización espacial, pero no genera por sí solo una alerta temporal.",
+    "Datos GNSS/InSAR ausentes o no automatizables se reportan como 'datos insuficientes', nunca como cero deformación."
+  ],
+  "methodological_contributions": [
+    "Campo regional de velocidades GNSS y cinemática de bloques del norte de los Andes.",
+    "Uso de GNSS cinemático/sismogeodesia para analizar desplazamiento, velocidad y aceleración durante terremotos.",
+    "Estimación de acoplamiento interplaca y déficit de deslizamiento como contexto tectónico.",
+    "Integración GNSS + InSAR para separar deformación de largo plazo, transitoria y cosísmica."
+  ],
+  "provenance": "Arquitectura metodológica inspirada en líneas de trabajo de GeoRED/SGC y contribuciones de Héctor Mora-Páez y colaboradores sobre deformación cortical, campos de velocidad GNSS, sismogeodesia y acoplamiento interplaca en el norte de los Andes.",
+  "decision_use": "Módulo de apoyo a vigilancia y nowcasting geodinámico; no constituye predicción determinista de terremotos."
+}
