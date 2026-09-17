@@ -1,13 +1,24 @@
 {
-  "version": "CHOCO-16SEP-2026-01",
-  "published_at_ecuador": "16 sep 2026",
+  "version": "CHOCO-17SEP-2026-02",
+  "published_at_ecuador": "17 sep 2026",
   "title": "Chocó – Istmina / Pacífico colombiano",
   "level": "Actividad sísmica persistente / vigilancia reforzada",
   "scientific_family": "Sismicidad (IDS)",
   "current_reading": "La secuencia actual es compatible con un enjambre y reajuste sísmico persistente en una región tectónicamente activa. La continuidad de eventos M4+ justifica vigilancia reforzada, pero no constituye por sí sola evidencia de que se prepare un terremoto mayor.",
+  "official_counts": {
+    "swarm_events_min": 1200,
+    "swarm_label": ">1.200 eventos",
+    "swarm_cutoff": "8 sep 2026",
+    "aftershocks_approx": 300,
+    "aftershocks_label": "~300 réplicas",
+    "source": "Servicio Geológico Colombiano (SGC)",
+    "note": "El SGC distingue el enjambre sísmico de las réplicas asociadas al M7,4 del 10 de agosto."
+  },
   "evidence": [
+    "Con corte al 8-sep-2026, el SGC reportó más de 1.200 eventos del enjambre sísmico de Chocó, con profundidades menores a 70 km.",
+    "En el mismo corte, el SGC había identificado alrededor de 300 réplicas del sismo Mw 7,4 del 10-ago-2026; réplicas y enjambre se contabilizan por separado.",
     "SGC confirmó cuatro sismos de magnitud superior a 4 con epicentro en Istmina el 14-sep-2026.",
-    "La actividad continuó el 16-sep-2026 con varios eventos en Chocó y el Pacífico, incluido un M4.5 en Istmina.",
+    "La actividad continuó posteriormente con nuevos eventos M4+ en el corredor Medio San Juan–Sipí–Istmina.",
     "La persistencia temporal es relevante para IDS, pero no equivale a un precursor confirmado."
   ],
   "alert_conditions": [
