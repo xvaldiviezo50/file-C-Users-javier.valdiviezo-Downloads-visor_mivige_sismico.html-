@@ -1,10 +1,10 @@
 {
-  "version": "CHOCO-17SEP-2026-02",
-  "published_at_ecuador": "17 sep 2026",
-  "title": "Chocó – Istmina / Pacífico colombiano",
-  "level": "Actividad sísmica persistente / vigilancia reforzada",
+  "version": "CHOCO-18SEP-2026-03",
+  "published_at_ecuador": "18 sep 2026 · 15:41",
+  "title": "Chocó – Istmina / Sipí / Medio San Juan",
+  "level": "Actividad sísmica persistente / vigilancia intensificada",
   "scientific_family": "Sismicidad (IDS)",
-  "current_reading": "La secuencia actual es compatible con un enjambre y reajuste sísmico persistente en una región tectónicamente activa. La continuidad de eventos M4+ justifica vigilancia reforzada, pero no constituye por sí sola evidencia de que se prepare un terremoto mayor.",
+  "current_reading": "El enjambre/secuencia de Chocó continúa activo y hoy presenta un nuevo pulso con dos eventos M4+ confirmados por SGC y varios M2–3 en el corredor Istmina–Sipí. La concentración de varios eventos revisados en ~39–49 km de profundidad refuerza la vigilancia, pero aún no demuestra aceleración sostenida, migración tectónica coherente ni preparación de un evento mayor.",
   "official_counts": {
     "swarm_events_min": 1200,
     "swarm_label": ">1.200 eventos",
@@ -12,31 +12,52 @@
     "aftershocks_approx": 300,
     "aftershocks_label": "~300 réplicas",
     "source": "Servicio Geológico Colombiano (SGC)",
-    "note": "El SGC distingue el enjambre sísmico de las réplicas asociadas al M7,4 del 10 de agosto."
+    "note": "El SGC distingue el enjambre sísmico de las réplicas asociadas al M7,4 del 10 de agosto. El acumulado >1.200 corresponde al último corte oficial citado y no es un contador en tiempo real."
+  },
+  "recent_pulse": {
+    "date": "18 sep 2026",
+    "events_known_min": 6,
+    "events_label": "≥6 eventos conocidos",
+    "m4plus_sgc": 2,
+    "m4plus_label": "2 eventos M4+ SGC",
+    "largest_sgc_today": "M4.6",
+    "largest_sgc_time": "01:17",
+    "second_m4plus": "M4.4 · 13:41",
+    "depth_cluster": "varios eventos entre ~39–49 km",
+    "interpretation": "Pulso activo dentro de la secuencia; aceleración sostenida aún no confirmada mediante ETAS/Omori."
+  },
+  "agency_review": {
+    "event_time": "16 sep 2026 · 15:12 local",
+    "sgc_solution": "~M4.7 en el pulso local",
+    "usgs_solution": "M5.0 Mww, 59 km, 29 km WSW de Sipí",
+    "rule": "Se trata como una sola ocurrencia por coincidencia tiempo/espacio. El umbral M>=5 se considera alcanzado en la solución USGS, pero no se usa para duplicar ni para elevar por sí solo el semáforo general."
   },
   "evidence": [
-    "Con corte al 8-sep-2026, el SGC reportó más de 1.200 eventos del enjambre sísmico de Chocó, con profundidades menores a 70 km.",
-    "En el mismo corte, el SGC había identificado alrededor de 300 réplicas del sismo Mw 7,4 del 10-ago-2026; réplicas y enjambre se contabilizan por separado.",
-    "SGC confirmó cuatro sismos de magnitud superior a 4 con epicentro en Istmina el 14-sep-2026.",
-    "La actividad continuó posteriormente con nuevos eventos M4+ en el corredor Medio San Juan–Sipí–Istmina.",
-    "La persistencia temporal es relevante para IDS, pero no equivale a un precursor confirmado."
+    "18-sep: SGC M4.6 en Istmina a las 01:17, profundidad 42 km.",
+    "18-sep: SGC M4.4 en Istmina a las 13:41, profundidad 46 km.",
+    "18-sep: varios M2–3 adicionales en Istmina/Sipí; varios eventos revisados se agrupan aproximadamente entre 39 y 49 km.",
+    "16-sep: USGS mantiene una solución revisada M5.0 para el evento de las 15:12 local; se deduplica respecto del pulso reportado por SGC.",
+    "Con corte al 8-sep, SGC había reportado >1.200 eventos del enjambre y ~300 réplicas del M7.4, contabilizadas por separado."
   ],
   "alert_conditions": [
-    "Nuevo evento M>=5 dentro o muy próximo a la secuencia activa de Chocó.",
-    "Aceleración sostenida de la tasa sísmica respecto del comportamiento reciente/ETAS-Omori.",
+    "Nuevo evento M>=5 confirmado por la agencia local o concordante entre varias agencias dentro de la secuencia activa.",
+    "Aceleración sostenida de la tasa sísmica respecto de ETAS/Omori en ventanas 6 h, 12 h y 24 h.",
     "Migración espacial o en profundidad coherente hacia una estructura definida.",
     "Segunda familia científica independiente: deformación GNSS/InSAR, slow slip, mecanismos focales o Coulomb consistentes."
   ],
   "status_logic": {
-    "current": "Vigilancia reforzada",
+    "current": "Vigilancia intensificada",
     "escalate_to": "Revisión de nivel superior",
-    "rule": "No escalar únicamente por persistencia del enjambre; exigir cambio de régimen o una segunda familia científica independiente."
+    "rule": "El M5.0 USGS obliga a revisión, pero no a elevar automáticamente el semáforo general. Para escalar MIVIGE se exige cambio de régimen estadístico o una segunda familia científica independiente."
   },
   "map": {
-    "center": [4.98772, -76.805285],
+    "center": [
+      4.55,
+      -76.75
+    ],
     "radius_km": 170,
     "label": "Zona de vigilancia Chocó"
   },
   "general_status": "AMARILLO reforzado",
-  "disclaimer": "Vigilancia geodinámica experimental. Un enjambre no permite predecir fecha, lugar o magnitud de un terremoto futuro."
+  "disclaimer": "Vigilancia geodinámica experimental. La persistencia del enjambre y los eventos M4–5 no permiten predecir fecha, lugar o magnitud de un terremoto futuro."
 }
