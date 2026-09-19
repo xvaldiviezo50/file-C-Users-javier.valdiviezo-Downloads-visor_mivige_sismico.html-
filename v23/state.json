@@ -1,54 +1,44 @@
 {
-  "version": "2026-09-19T08:34:00-05:00-v19",
-  "updated_at": "2026-09-19T13:34:00Z",
-  "updated_at_ecuador": "19 sep 2026 · 08:34 ECU",
-  "semaforo": "AMARILLO reforzado · IDS elevado en Condorcanqui y Chocó; sin segunda familia científica independiente",
+  "version": "2026-09-19T13:42:00-05:00-v20",
+  "updated_at": "2026-09-19T18:42:00Z",
+  "updated_at_ecuador": "19 sep 2026 · 13:42 ECU",
+  "semaforo": "AMARILLO reforzado · IDS elevado en Chocó y Condorcanqui; sin segunda familia científica independiente",
   "material_change": true,
   "focus": [
     {
       "rank": 1,
-      "name": "Condorcanqui–Santa María de Nieva / Amazonía norte de Perú",
+      "name": "Istmina–Sipí–San José del Palmar / Chocó, Colombia",
       "level": "Vigilancia alta/intensificada · foco reforzado",
-      "reason": "IGP/CENSIS confirmó M5.2 a las 02:12:30, 15 km de profundidad, 96 km NE de Santa María de Nieva; a las 07:46:37 ocurrió un segundo evento M4.5, 15 km, 87 km N de Santa María de Nieva. Son eventos distintos y próximos espacial y temporalmente. El segundo evento refuerza el foco, pero dos eventos no bastan para demostrar aceleración, migración o exceso ETAS/Omori.",
-      "tectonic_type": "somero continental; clasificación geométrica/falla pendiente de mecanismo y contexto tectónico local",
-      "next_check": "Revisar réplicas 0–12 h, tasa frente a ETAS/Omori, mecanismo focal, migración espacial/profundidad y geodesia pública utilizable."
+      "reason": "Tras el M4.0 de la madrugada, el 19-sep se reportó M3.1 alrededor de 09:10 y M4.6 alrededor de 09:44 en el corredor de Istmina. El M4.6 constituye refuerzo material de una secuencia ya activa. No se declara por ello, sin análisis estadístico completo, aceleración significativa, migración coherente ni exceso sobre ETAS/Omori.",
+      "tectonic_type": "intermedio (M4.6 reportado alrededor de 39 km); familia tectónica precisa pendiente de geometría/mecanismo",
+      "next_check": "Recalcular tasa 12 h frente a las 12 h previas, ETAS/Omori, distribución hipocentral, mecanismos y persistencia M4+."
     },
     {
       "rank": 2,
-      "name": "Istmina–Sipí–Medio San Juan / Chocó, Colombia",
-      "level": "Vigilancia alta/intensificada",
-      "reason": "El enjambre reconocido por SGC continúa activo; nuevo M4.0 en Istmina el 19-sep a las 00:01 local, 45 km de profundidad, posterior a los pulsos M4+ de días previos.",
-      "tectonic_type": "intermedio; familia tectónica precisa sujeta a geometría/mecanismos",
-      "next_check": "Recalcular tasa 12 h/24 h frente a ETAS/Omori y comprobar migración y persistencia M4+."
-    },
-    {
-      "rank": 3,
-      "name": "Santa Elena–Guayas, Ecuador",
-      "level": "Observación puntual no escalada",
-      "reason": "Se mantiene como antecedente reciente por el M3.9 del 17-sep; sin nueva señal material verificada en este ciclo.",
-      "tectonic_type": "intermedio somero/costero pendiente de geometría",
-      "next_check": "Vigilar repetición y coherencia con actividad costera y geodesia."
+      "name": "Condorcanqui–Santa María de Nieva / Amazonía norte de Perú",
+      "level": "Vigilancia alta/intensificada · foco reforzado",
+      "reason": "Permanece activo como foco por M5.2 seguido por M4.5 el 19-sep según IGP/CENSIS; no se detectó en este ciclo una nueva señal que por sí sola justifique elevarlo sobre Chocó.",
+      "tectonic_type": "somero continental según solución IGP; clasificación geométrica/falla pendiente de mecanismo y reconciliación entre soluciones de agencias",
+      "next_check": "Revisar nuevas réplicas, mecanismo focal, tasa ETAS/Omori y geodesia pública utilizable."
     }
   ],
   "events": [
     {
-      "time_local": "2026-09-19T07:46:37-05:00",
-      "mag": 4.5,
-      "depth_km": 15,
-      "place": "87 km al N de Santa María de Nieva, Condorcanqui, Amazonas, Perú",
-      "lat": -3.83,
-      "lon": -77.69,
-      "tectonic_class": "0–30 km interior: cortical somero probable; mecanismo pendiente",
-      "source": "IGP/CENSIS RS 2026-0679",
-      "dedupe_note": "evento distinto del M5.2 de las 02:12:30; no duplicado entre agencias"
+      "time_local": "2026-09-19T09:44:00-05:00",
+      "mag": 4.6,
+      "depth_km": 39,
+      "place": "Istmina, Chocó, Colombia",
+      "tectonic_class": "30–70 km: intermedio/placa subducida probable bajo la regla operativa; mecanismo/geometría pendientes",
+      "source": "SGC (solución reportada públicamente)",
+      "dedupe_note": "la solución preliminar y la revisada del mismo terremoto se cuentan una sola vez"
     }
   ],
   "gnss": {
     "sources": [
       {"name": "IG-EPN RENGEO Ecuador", "status": "obligatoria; red pública detectada, pero sin solución E/N/U reciente automatizable suficiente en este ciclo"},
       {"name": "IGM-REGME Ecuador", "status": "complementaria; sin solución de baja latencia automatizable verificada en este ciclo"},
-      {"name": "SGC-GeoRED Colombia", "status": "relevante; sin endpoint RT/NRT completo automatizable verificado en este ciclo"},
-      {"name": "IGN-REGPMOC/ERP e IGP Perú", "status": "sin solución GNSS pública de baja latencia automatizable verificada para el foco Condorcanqui en este ciclo"},
+      {"name": "SGC-GeoRED Colombia", "status": "relevante para Chocó; sin serie E/N/U RT/NRT pública completa automatizable verificada en este ciclo"},
+      {"name": "IGN-REGPMOC/ERP e IGP Perú", "status": "sin solución GNSS pública de baja latencia automatizable verificada para Condorcanqui en este ciclo"},
       {"name": "SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales", "status": "control regional; soluciones históricas/diarias no tratadas como tiempo real"}
     ],
     "stations_detected": null,
@@ -56,7 +46,7 @@
     "stations_used_qc": 0,
     "stations_rejected": null,
     "median_latency": null,
-    "focus_coverage": "insuficiente para confirmar o descartar deformación transitoria de corto plazo",
+    "focus_coverage": "insuficiente para confirmar o descartar deformación transitoria de corto plazo en los focos dinámicos",
     "idg_status": "datos insuficientes RENGEO y de baja latencia regional",
     "coherent_anomalies": [],
     "rengeo": {
@@ -67,11 +57,11 @@
       "rengeo_median_latency": null,
       "rengeo_focus_stations": ["ESMR", "RVRD", "SNLR", "PTGL", "MOMP", "PDNS", "JAM2", "BAHI", "ISPT", "AYAN", "MRO2"],
       "rengeo_coherent_anomalies": [],
-      "limitation": "RENGEO pública · medición no automatizable en este ciclo para las estaciones sin solución E/N/U reciente expuesta; no se infiere deformación nula."
+      "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta; no se infiere deformación nula."
     }
   },
   "scientific_layer": {
-    "IDS": "Condorcanqui reforzado por M5.2 seguido 5 h 34 min después por M4.5, ambos a 15 km según IGP; Chocó continúa activo. No se declara aceleración estadísticamente significativa sin ETAS/Omori actualizado.",
+    "IDS": "Chocó reforzado por nueva actividad M3.1–M4.6 durante la mañana tras el M4.0 de madrugada; Condorcanqui sigue como foco activo por M5.2–M4.5. Sin ETAS/Omori completo no se declara aceleración estadísticamente significativa.",
     "IDG": "datos insuficientes RENGEO y baja latencia regional",
     "IITE": "sin cálculo Coulomb sustentado nuevo",
     "IADR": "sin respuesta local físicamente evaluable nueva"
@@ -88,5 +78,5 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Cambio material: el foco Condorcanqui se refuerza con M4.5 a las 07:46:37 tras el M5.2 de las 02:12:30. La solución IGP/CENSIS del M5.2 es 15 km de profundidad; otras agencias pueden publicar soluciones diferentes y se deduplican por tiempo/espacio. Sin segunda familia científica independiente, no se eleva el semáforo por encima de AMARILLO reforzado."
+  "notes": "Cambio material: Chocó se refuerza con M4.6 en Istmina durante la mañana del 19-sep, acompañado por un M3.1 cercano y posterior al M4.0 de madrugada. El semáforo permanece AMARILLO reforzado porque solo se fortalece IDS; no se verificó segunda familia científica independiente. BMKG reportó además un M5.1 preliminar en Sarmi, Papua, posteriormente actualizado a M4.9 y sin potencial de tsunami; queda fuera del corredor Chile–México y no modifica el semáforo regional."
 }
