@@ -1,23 +1,23 @@
 {
-  "version": "2026-09-18T15:41:00-05:00-v17",
-  "updated_at": "2026-09-18T20:41:00Z",
-  "updated_at_ecuador": "18 sep 2026 · 15:41 ECU",
-  "semaforo": "AMARILLO reforzado · 1 familia científica dominante: sismicidad (IDS)",
+  "version": "2026-09-19T04:55:00-05:00-v18",
+  "updated_at": "2026-09-19T09:55:00Z",
+  "updated_at_ecuador": "19 sep 2026 · 04:55 ECU",
+  "semaforo": "AMARILLO reforzado · IDS elevado en Chocó y Amazonía Perú–Ecuador; sin segunda familia independiente",
   "material_change": true,
   "focus": [
     {
       "rank": 1,
+      "name": "Amazonía norte de Perú – frontera Perú–Ecuador / Condorcanqui–Gualaquiza",
+      "level": "Vigilancia alta/intensificada · nuevo M≥5",
+      "reason": "Nuevo evento material el 19-sep a las 02:12:30 local en el mismo corredor vigilado. IG-EPN reporta M5.5 MLv y 27.3 km, a 152.13 km de Gualaquiza; IGP reporta M5.2 ML y 15 km, 96 km al NE de Santa María de Nieva. Por coincidencia exacta de hora y región se considera una sola ocurrencia, no dos sismos. El disparador M>=5 del corredor se cumple. La diferencia entre soluciones impide fijar todavía una interpretación cortical/intraslab definitiva.",
+      "next_check": "Priorizar solución revisada del IGP por localizarse el epicentro en Perú; revisar mecanismo focal, profundidad final, réplicas 0–12 h, ETAS/Omori, GNSS/InSAR y posible relación con los M5+ del 10 y 14-sep."
+    },
+    {
+      "rank": 2,
       "name": "Istmina–Sipí–Medio San Juan / Chocó (Colombia)",
       "level": "Vigilancia alta/intensificada",
       "reason": "La secuencia continúa activa. El 18-sep SGC reportó M4.6 en Istmina a las 01:17 (42 km) y M4.4 en Istmina a las 13:41 (46 km), además de varios M2–3 en el mismo corredor. La concentración principal de hoy permanece alrededor de ~39–49 km para varios eventos revisados. USGS mantiene además una solución revisada M5.0 para el evento del 16-sep 15:12 local, 29 km WSW de Sipí y 59 km de profundidad; por coincidencia temporal/espacial se trata como el mismo pulso reportado localmente y no se duplica. No hay segunda familia científica independiente verificada.",
       "next_check": "Recalcular tasa 6 h/12 h/24 h frente a ETAS/Omori, comprobar si el pulso M4+ persiste y revisar GNSS/InSAR, mecanismos focales y cualquier migración espacial/profundidad coherente."
-    },
-    {
-      "rank": 2,
-      "name": "Norte de Perú – frontera Perú–Ecuador / Gualaquiza",
-      "level": "Observación reforzada por recurrencia M5+",
-      "reason": "Se mantiene el agrupamiento M5+ del 10 y 14-sep. No se verificó en esta actualización una nueva señal M>=5 ni una segunda familia científica que justifique escalamiento adicional.",
-      "next_check": "Mantener vigilancia del corredor y revisar nuevos M>=5, ETAS/Omori y geodesia utilizable."
     },
     {
       "rank": 3,
@@ -35,6 +35,15 @@
     }
   ],
   "events": [
+    {
+      "time_local": "2026-09-19T02:12:30-05:00",
+      "mag": 5.5,
+      "depth_km": 27.3,
+      "place": "Peru–Ecuador Border Region, ~152.13 km de Gualaquiza / 96 km NE de Santa María de Nieva",
+      "tectonic_class": "profundidad en revisión entre agencias; cortical profundo/intermedio somero provisional",
+      "source": "IG-EPN M5.5 MLv, 27.3 km; IGP M5.2 ML, 15 km",
+      "dedupe_note": "misma ocurrencia por hora/región; contada una sola vez. Para clasificación final priorizar revisión IGP por epicentro en Perú."
+    },
     {
       "time_local": "2026-09-18T13:41:00-05:00",
       "mag": 4.4,
@@ -110,8 +119,8 @@
   ],
   "manual_watch": {
     "ref": "manual_watch.json",
-    "id": "PER-ECU-16SEP-2026-01",
-    "status": "activo y persistente"
+    "id": "PER-ECU-19SEP-2026-02",
+    "status": "Vigilancia alta/intensificada · disparador M>=5 cumplido"
   },
   "choco_watch": {
     "ref": "choco_watch.json",
@@ -150,12 +159,12 @@
     "coherent_anomalies": []
   },
   "scientific_layer": {
-    "IDS": "Chocó continúa en pulso activo con M4+ repetidos; vigilancia intensificada. Aceleración sostenida aún no confirmada estadísticamente.",
+    "IDS": "Dos focos regionales relevantes: Chocó mantiene pulso activo; Amazonía Perú–Ecuador registra nuevo M>=5 en el corredor ya vigilado. IDS elevado, sin aceleración regional demostrada fuera de cada secuencia.",
     "IDG_LT": "contexto/base regional incorporado",
-    "IDG_ST": "sin anomalía GNSS/InSAR coherente verificada",
+    "IDG_ST": "sin anomalía GNSS/InSAR coherente verificada para acompañar el nuevo M>=5 amazónico",
     "IDG_HR": "metodología disponible para caracterización cosísmica; no usada como precursor",
     "IAC": "contexto de acoplamiento incorporado; sin cambio temporal por sí solo",
-    "IITE": "sin nueva evidencia focal/Coulomb suficiente",
+    "IITE": "pendiente mecanismo focal/geométrico del evento amazónico del 19-sep; sin Coulomb sustentado aún",
     "IADR": "sin evidencia física nueva suficiente"
   },
   "forecast_tests": [
@@ -168,5 +177,5 @@
       "evaluation": "Ventana cerrada y preservada sin modificar reglas retrospectivamente."
     }
   ],
-  "notes": "Actualización 18-sep 15:41 ECU: Chocó sigue como foco principal. Hoy se incorporan M4.6 (01:17, 42 km) y M4.4 (13:41, 46 km) del SGC, junto con eventos M2–3 del mismo corredor. Se corrige el historial para registrar la solución USGS revisada M5.0 del 16-sep 15:12 local; por coincidencia temporal/espacial se considera la misma ocurrencia del pulso reportado por SGC y no se duplica. El umbral M>=5 es por tanto dependiente de la solución de agencia. Sin segunda familia científica independiente, el semáforo general permanece AMARILLO reforzado."
+  "notes": "Actualización 19-sep 04:55 ECU: el corredor Amazonía norte de Perú–frontera Perú–Ecuador cumple el disparador prospectivo de nuevo M>=5 con el evento de las 02:12:30. IG-EPN: M5.5 MLv/27.3 km; IGP: M5.2 ML/15 km. Se deduplica como una sola ocurrencia y se eleva el corredor a vigilancia alta/intensificada. La discrepancia de profundidad queda explícitamente en revisión. Chocó continúa en vigilancia intensificada. Sin segunda familia científica independiente, el semáforo general permanece AMARILLO reforzado."
 }
