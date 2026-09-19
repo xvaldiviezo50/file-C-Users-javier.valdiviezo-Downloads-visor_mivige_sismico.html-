@@ -40,6 +40,7 @@
   function render(s){
     ensureCard();
     const evidence=Array.isArray(s.evidence)?s.evidence:[];
+    const latest=s.latest_event||null;
     document.getElementById('mwLevel').textContent=s.level||'—';
     document.getElementById('mwSignal').textContent=s.scientific_family||'—';
     document.getElementById('mwCount').textContent=evidence.filter(e=>Number(e.mag)>=5).length;
@@ -53,6 +54,7 @@
       </div>
       <div>${evidence.map(fmtEvent).join('')}</div>
       <div style="margin-top:10px"><b>Cómo interpretarlo:</b> ${s.interpretation}</div>
+      ${latest?`<div style="margin-top:10px;padding:8px 10px;border:1px solid #f08a24;border-radius:8px;background:#2a180d"><b>Evento más reciente · profundidad en revisión</b><br>${(latest.agency_solutions||[]).map(a=>`${a.agency}: ${a.mag} · ${a.depth_km} km · ${a.location}`).join('<br>')}<br><span style="color:#9db2c8">${latest.dedupe||''} ${latest.depth_status||''}</span></div>`:''}
       <div style="margin-top:10px;padding:8px 10px;border:1px solid #6b5715;border-radius:8px;background:#2a250d">
         <b>Condición de escalamiento:</b> ${s.escalation_rule}
       </div>
@@ -77,14 +79,14 @@
       fillColor:'#f0c644',
       fillOpacity:0.08,
       dashArray:'7,6'
-    }).bindPopup(`<b>${s.title}</b><br>${s.level}<br><br>Radio operativo de vigilancia: ~100 km.<br>Este halo no representa una zona de predicción.`).addTo(watchLayer);
+    }).bindPopup(`<b>${s.title}</b><br>${s.level}<br><br>Radio operativo de vigilancia: ~100 km.<br><b>Nuevo M≥5 el 19-sep: disparador cumplido.</b><br>Este halo no representa una zona de predicción.`).addTo(watchLayer);
 
     L.polyline(latlngs,{
       color:'#f08a24',
       weight:3,
       opacity:0.85,
       dashArray:'9,7'
-    }).bindTooltip('Secuencia espacial M5+ · 10–14 sep 2026',{sticky:true}).addTo(watchLayer);
+    }).bindTooltip('Secuencia espacial M5+ · 10–19 sep 2026',{sticky:true}).addTo(watchLayer);
 
     ev.forEach((e,i)=>{
       const mag=Number(e.mag), depth=Number(e.depth_km);
