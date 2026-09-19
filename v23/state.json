@@ -1,153 +1,55 @@
 {
-  "version": "2026-09-19T04:55:00-05:00-v18",
-  "updated_at": "2026-09-19T09:55:00Z",
-  "updated_at_ecuador": "19 sep 2026 · 04:55 ECU",
-  "semaforo": "AMARILLO reforzado · IDS elevado en Chocó y Amazonía Perú–Ecuador; sin segunda familia independiente",
+  "version": "2026-09-19T08:34:00-05:00-v19",
+  "updated_at": "2026-09-19T13:34:00Z",
+  "updated_at_ecuador": "19 sep 2026 · 08:34 ECU",
+  "semaforo": "AMARILLO reforzado · IDS elevado en Condorcanqui y Chocó; sin segunda familia científica independiente",
   "material_change": true,
   "focus": [
     {
       "rank": 1,
-      "name": "Amazonía norte de Perú – frontera Perú–Ecuador / Condorcanqui–Gualaquiza",
-      "level": "Vigilancia alta/intensificada · nuevo M≥5",
-      "reason": "Nuevo evento material el 19-sep a las 02:12:30 local en el mismo corredor vigilado. IG-EPN reporta M5.5 MLv y 27.3 km, a 152.13 km de Gualaquiza; IGP reporta M5.2 ML y 15 km, 96 km al NE de Santa María de Nieva. Por coincidencia exacta de hora y región se considera una sola ocurrencia, no dos sismos. El disparador M>=5 del corredor se cumple. La diferencia entre soluciones impide fijar todavía una interpretación cortical/intraslab definitiva.",
-      "next_check": "Priorizar solución revisada del IGP por localizarse el epicentro en Perú; revisar mecanismo focal, profundidad final, réplicas 0–12 h, ETAS/Omori, GNSS/InSAR y posible relación con los M5+ del 10 y 14-sep."
+      "name": "Condorcanqui–Santa María de Nieva / Amazonía norte de Perú",
+      "level": "Vigilancia alta/intensificada · foco reforzado",
+      "reason": "IGP/CENSIS confirmó M5.2 a las 02:12:30, 15 km de profundidad, 96 km NE de Santa María de Nieva; a las 07:46:37 ocurrió un segundo evento M4.5, 15 km, 87 km N de Santa María de Nieva. Son eventos distintos y próximos espacial y temporalmente. El segundo evento refuerza el foco, pero dos eventos no bastan para demostrar aceleración, migración o exceso ETAS/Omori.",
+      "tectonic_type": "somero continental; clasificación geométrica/falla pendiente de mecanismo y contexto tectónico local",
+      "next_check": "Revisar réplicas 0–12 h, tasa frente a ETAS/Omori, mecanismo focal, migración espacial/profundidad y geodesia pública utilizable."
     },
     {
       "rank": 2,
-      "name": "Istmina–Sipí–Medio San Juan / Chocó (Colombia)",
+      "name": "Istmina–Sipí–Medio San Juan / Chocó, Colombia",
       "level": "Vigilancia alta/intensificada",
-      "reason": "La secuencia continúa activa. El 18-sep SGC reportó M4.6 en Istmina a las 01:17 (42 km) y M4.4 en Istmina a las 13:41 (46 km), además de varios M2–3 en el mismo corredor. La concentración principal de hoy permanece alrededor de ~39–49 km para varios eventos revisados. USGS mantiene además una solución revisada M5.0 para el evento del 16-sep 15:12 local, 29 km WSW de Sipí y 59 km de profundidad; por coincidencia temporal/espacial se trata como el mismo pulso reportado localmente y no se duplica. No hay segunda familia científica independiente verificada.",
-      "next_check": "Recalcular tasa 6 h/12 h/24 h frente a ETAS/Omori, comprobar si el pulso M4+ persiste y revisar GNSS/InSAR, mecanismos focales y cualquier migración espacial/profundidad coherente."
+      "reason": "El enjambre reconocido por SGC continúa activo; nuevo M4.0 en Istmina el 19-sep a las 00:01 local, 45 km de profundidad, posterior a los pulsos M4+ de días previos.",
+      "tectonic_type": "intermedio; familia tectónica precisa sujeta a geometría/mecanismos",
+      "next_check": "Recalcular tasa 12 h/24 h frente a ETAS/Omori y comprobar migración y persistencia M4+."
     },
     {
       "rank": 3,
       "name": "Santa Elena–Guayas, Ecuador",
       "level": "Observación puntual no escalada",
-      "reason": "IG-EPN revisó el evento del 17-sep 18:33 como M3.9 MLv, 34 km de profundidad, a 32.51 km de Santa Elena. Evento aislado; no modifica por sí solo el estado regional.",
-      "next_check": "Vigilar repetición cortical/intermedia y coherencia con otros eventos costeros."
-    },
-    {
-      "rank": 4,
-      "name": "Puyo–Palora–Pastaza, Ecuador",
-      "level": "Vigilancia puntual intraslab profunda no escalada",
-      "reason": "Se conserva como antecedente el M3.9 profundo del 15-sep (~157 km). Sin nuevo cambio material verificado en esta actualización.",
-      "next_check": "Buscar repetición intraslab y geodesia regional utilizable."
+      "reason": "Se mantiene como antecedente reciente por el M3.9 del 17-sep; sin nueva señal material verificada en este ciclo.",
+      "tectonic_type": "intermedio somero/costero pendiente de geometría",
+      "next_check": "Vigilar repetición y coherencia con actividad costera y geodesia."
     }
   ],
   "events": [
     {
-      "time_local": "2026-09-19T02:12:30-05:00",
-      "mag": 5.5,
-      "depth_km": 27.3,
-      "place": "Peru–Ecuador Border Region, ~152.13 km de Gualaquiza / 96 km NE de Santa María de Nieva",
-      "tectonic_class": "profundidad en revisión entre agencias; cortical profundo/intermedio somero provisional",
-      "source": "IG-EPN M5.5 MLv, 27.3 km; IGP M5.2 ML, 15 km",
-      "dedupe_note": "misma ocurrencia por hora/región; contada una sola vez. Para clasificación final priorizar revisión IGP por epicentro en Perú."
-    },
-    {
-      "time_local": "2026-09-18T13:41:00-05:00",
-      "mag": 4.4,
-      "depth_km": 46,
-      "place": "Istmina, Chocó, Colombia",
-      "tectonic_class": "profundidad intermedia; secuencia activa de Chocó",
-      "source": "SGC actualizado",
-      "dedupe_note": "evento distinto del M4.6 de la madrugada"
-    },
-    {
-      "time_local": "2026-09-18T09:08:00-05:00",
-      "mag": 3.2,
-      "depth_km": 46,
-      "place": "Istmina, Chocó, Colombia",
-      "tectonic_class": "profundidad intermedia; secuencia activa",
-      "source": "SGC actualizado",
-      "dedupe_note": "evento distinto"
-    },
-    {
-      "time_local": "2026-09-18T08:01:00-05:00",
-      "mag": 3.1,
-      "depth_km": 39,
-      "place": "Sipí, Chocó, Colombia",
-      "tectonic_class": "profundidad intermedia; secuencia activa",
-      "source": "SGC actualizado",
-      "dedupe_note": "evento distinto"
-    },
-    {
-      "time_local": "2026-09-18T05:30:00-05:00",
-      "mag": 2.9,
-      "depth_km": 49,
-      "place": "Istmina, Chocó, Colombia",
-      "tectonic_class": "profundidad intermedia; secuencia activa",
-      "source": "SGC reportado",
-      "dedupe_note": "evento distinto"
-    },
-    {
-      "time_local": "2026-09-18T04:09:00-05:00",
-      "mag": 2,
-      "depth_km": null,
-      "place": "Istmina, Chocó, Colombia",
-      "tectonic_class": "profundidad superficial reportada; revisar solución final",
-      "source": "SGC reportado",
-      "dedupe_note": "evento distinto"
-    },
-    {
-      "time_local": "2026-09-18T01:17:00-05:00",
-      "mag": 4.6,
-      "depth_km": 42,
-      "place": "Istmina, Chocó, Colombia",
-      "tectonic_class": "profundidad intermedia; secuencia activa",
-      "source": "SGC actualizado; USGS M4.7/68 km como contraste regional",
-      "dedupe_note": "mismo evento entre agencias; contado una vez"
-    },
-    {
-      "time_local": "2026-09-17T18:33:01-05:00",
-      "mag": 3.9,
-      "depth_km": 34,
-      "place": "32.51 km de Santa Elena, Ecuador",
-      "tectonic_class": "cortical/intermedio somero; evento aislado",
-      "source": "IG-EPN revisado",
-      "dedupe_note": "evento distinto"
-    },
-    {
-      "time_local": "2026-09-16T15:12:52-05:00",
-      "mag": 5,
-      "depth_km": 59,
-      "place": "29 km WSW de Sipí, Chocó, Colombia",
-      "tectonic_class": "secuencia activa de Chocó; solución de agencia",
-      "source": "USGS revisado; SGC reportó ~M4.7 en el mismo pulso",
-      "dedupe_note": "misma ocurrencia por tiempo/espacio; no duplicar. El umbral M>=5 se cumple en la solución USGS, no necesariamente en la solución local SGC."
+      "time_local": "2026-09-19T07:46:37-05:00",
+      "mag": 4.5,
+      "depth_km": 15,
+      "place": "87 km al N de Santa María de Nieva, Condorcanqui, Amazonas, Perú",
+      "lat": -3.83,
+      "lon": -77.69,
+      "tectonic_class": "0–30 km interior: cortical somero probable; mecanismo pendiente",
+      "source": "IGP/CENSIS RS 2026-0679",
+      "dedupe_note": "evento distinto del M5.2 de las 02:12:30; no duplicado entre agencias"
     }
   ],
-  "manual_watch": {
-    "ref": "manual_watch.json",
-    "id": "PER-ECU-19SEP-2026-02",
-    "status": "Vigilancia alta/intensificada · disparador M>=5 cumplido"
-  },
-  "choco_watch": {
-    "ref": "choco_watch.json",
-    "status": "actualizado 18-sep; pulso activo M4+"
-  },
-  "geodesy_module": {
-    "ref": "geodesy_module.json",
-    "status": "activo; sin nueva anomalía geodésica independiente verificada"
-  },
   "gnss": {
     "sources": [
-      {
-        "name": "IG-EPN RENGEO Ecuador",
-        "status": "red pública obligatoria; sin solución E/N/U reciente automatizable suficiente para inferencia de corto plazo en este ciclo"
-      },
-      {
-        "name": "IGM-REGME Ecuador",
-        "status": "complementaria; sin solución de baja latencia automatizable verificada"
-      },
-      {
-        "name": "SGC-GeoRED Colombia",
-        "status": "red geodésica relevante; sin endpoint RT/NRT completo automatizable verificado en este ciclo"
-      },
-      {
-        "name": "SIRGAS-CON/IGS/EarthScope y redes regionales",
-        "status": "cobertura regional parcial; no se trata información histórica/diaria como tiempo real"
-      }
+      {"name": "IG-EPN RENGEO Ecuador", "status": "obligatoria; red pública detectada, pero sin solución E/N/U reciente automatizable suficiente en este ciclo"},
+      {"name": "IGM-REGME Ecuador", "status": "complementaria; sin solución de baja latencia automatizable verificada en este ciclo"},
+      {"name": "SGC-GeoRED Colombia", "status": "relevante; sin endpoint RT/NRT completo automatizable verificado en este ciclo"},
+      {"name": "IGN-REGPMOC/ERP e IGP Perú", "status": "sin solución GNSS pública de baja latencia automatizable verificada para el foco Condorcanqui en este ciclo"},
+      {"name": "SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales", "status": "control regional; soluciones históricas/diarias no tratadas como tiempo real"}
     ],
     "stations_detected": null,
     "stations_fresh": null,
@@ -155,17 +57,27 @@
     "stations_rejected": null,
     "median_latency": null,
     "focus_coverage": "insuficiente para confirmar o descartar deformación transitoria de corto plazo",
-    "idg_status": "datos insuficientes de baja latencia",
-    "coherent_anomalies": []
+    "idg_status": "datos insuficientes RENGEO y de baja latencia regional",
+    "coherent_anomalies": [],
+    "rengeo": {
+      "rengeo_detected": null,
+      "rengeo_fresh": null,
+      "rengeo_used_qc": 0,
+      "rengeo_non_automatable": null,
+      "rengeo_median_latency": null,
+      "rengeo_focus_stations": ["ESMR", "RVRD", "SNLR", "PTGL", "MOMP", "PDNS", "JAM2", "BAHI", "ISPT", "AYAN", "MRO2"],
+      "rengeo_coherent_anomalies": [],
+      "limitation": "RENGEO pública · medición no automatizable en este ciclo para las estaciones sin solución E/N/U reciente expuesta; no se infiere deformación nula."
+    }
   },
   "scientific_layer": {
-    "IDS": "Dos focos regionales relevantes: Chocó mantiene pulso activo; Amazonía Perú–Ecuador registra nuevo M>=5 en el corredor ya vigilado. IDS elevado, sin aceleración regional demostrada fuera de cada secuencia.",
-    "IDG_LT": "contexto/base regional incorporado",
-    "IDG_ST": "sin anomalía GNSS/InSAR coherente verificada para acompañar el nuevo M>=5 amazónico",
-    "IDG_HR": "metodología disponible para caracterización cosísmica; no usada como precursor",
-    "IAC": "contexto de acoplamiento incorporado; sin cambio temporal por sí solo",
-    "IITE": "pendiente mecanismo focal/geométrico del evento amazónico del 19-sep; sin Coulomb sustentado aún",
-    "IADR": "sin evidencia física nueva suficiente"
+    "IDS": "Condorcanqui reforzado por M5.2 seguido 5 h 34 min después por M4.5, ambos a 15 km según IGP; Chocó continúa activo. No se declara aceleración estadísticamente significativa sin ETAS/Omori actualizado.",
+    "IDG": "datos insuficientes RENGEO y baja latencia regional",
+    "IITE": "sin cálculo Coulomb sustentado nuevo",
+    "IADR": "sin respuesta local físicamente evaluable nueva"
+  },
+  "experimental_layer": {
+    "IEM_IAEX_PER_A": "separada; sin uso como segunda familia científica en este ciclo"
   },
   "forecast_tests": [
     {
@@ -173,9 +85,8 @@
       "status": "VENTANA CERRADA",
       "window_start": "2026-09-14T16:41:00-05:00",
       "window_end": "2026-09-16T16:41:00-05:00",
-      "publication_time_uncertainty": "±1 h",
-      "evaluation": "Ventana cerrada y preservada sin modificar reglas retrospectivamente."
+      "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Actualización 19-sep 04:55 ECU: el corredor Amazonía norte de Perú–frontera Perú–Ecuador cumple el disparador prospectivo de nuevo M>=5 con el evento de las 02:12:30. IG-EPN: M5.5 MLv/27.3 km; IGP: M5.2 ML/15 km. Se deduplica como una sola ocurrencia y se eleva el corredor a vigilancia alta/intensificada. La discrepancia de profundidad queda explícitamente en revisión. Chocó continúa en vigilancia intensificada. Sin segunda familia científica independiente, el semáforo general permanece AMARILLO reforzado."
+  "notes": "Cambio material: el foco Condorcanqui se refuerza con M4.5 a las 07:46:37 tras el M5.2 de las 02:12:30. La solución IGP/CENSIS del M5.2 es 15 km de profundidad; otras agencias pueden publicar soluciones diferentes y se deduplican por tiempo/espacio. Sin segunda familia científica independiente, no se eleva el semáforo por encima de AMARILLO reforzado."
 }
