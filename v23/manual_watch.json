@@ -1,8 +1,8 @@
 {
-  "version": "PER-ECU-16SEP-2026-01",
-  "published_at_ecuador": "16 sep 2026",
-  "title": "Corredor norte de Perú – frontera Perú–Ecuador",
-  "level": "Observación reforzada",
+  "version": "PER-ECU-19SEP-2026-02",
+  "published_at_ecuador": "19 sep 2026 · 04:55",
+  "title": "Amazonía norte de Perú – frontera Perú–Ecuador",
+  "level": "Vigilancia alta / intensificada",
   "scientific_family": "Sismicidad (IDS)",
   "evidence": [
     {
@@ -34,10 +34,40 @@
       "lon": -77.359,
       "region": "Peru-Ecuador Border Region",
       "source": "IG-EPN revisado"
+    },
+    {
+      "event_id": "2026-09-19-021230-peru-ecuador",
+      "time_local": "2026-09-19T02:12:30-05:00",
+      "mag": 5.5,
+      "depth_km": 27.3,
+      "lat": null,
+      "lon": null,
+      "region": "Peru–Ecuador Border Region · 152.13 km de Gualaquiza / 96 km NE de Santa María de Nieva",
+      "source": "IG-EPN M5.5 MLv/27.3 km · IGP M5.2 ML/15 km · misma ocurrencia"
     }
   ],
-  "interpretation": "Los tres eventos se concentran en un corredor horizontal estrecho: el evento del 14-sep se ubica aproximadamente a 25–31 km de los dos eventos M5+ del 10-sep, pero a una profundidad claramente mayor. La recurrencia espacial justifica vigilancia reforzada del corredor. La diferencia de profundidad impide interpretar por sí sola la secuencia como migración de energía o como una única fuente tectónica.",
-  "escalation_rule": "Elevar la vigilancia del corredor si aparece un nuevo M>=5 dentro de aproximadamente 100 km del agrupamiento, o si se observa un incremento sostenido de la tasa sísmica por encima del comportamiento ETAS/Omori esperado. El semáforo general MIVIGE no debe subir únicamente por esta señal: se requiere una segunda familia científica independiente, por ejemplo deformación GNSS/InSAR coherente, interacción tectónica sustentada o evidencia focal consistente.",
+  "interpretation": "El corredor ya acumula cuatro episodios M5+ desde el 10-sep según las soluciones regionales utilizadas por MIVIGE. El nuevo evento del 19-sep cumple la condición prospectiva de escalamiento local definida previamente. Por ello el corredor pasa de observación reforzada a vigilancia alta/intensificada. Las diferencias de magnitud y profundidad entre IG-EPN e IGP se conservan explícitamente y no se interpretan como dos sismos. Todavía no se demuestra migración de energía ni una única fuente tectónica.",
+  "escalation_rule": "La condición 'nuevo M>=5 dentro del corredor' ya se cumplió. El siguiente escalamiento científico requiere ahora evidencia adicional: aceleración sostenida respecto de ETAS/Omori, secuencia coherente de réplicas/migración, mecanismo focal compatible o una segunda familia independiente (GNSS/InSAR/slow slip/Coulomb).",
   "general_status": "AMARILLO reforzado",
-  "disclaimer": "Vigilancia geodinámica experimental. No constituye una predicción de terremotos ni implica que un evento mayor sea inminente."
+  "disclaimer": "Vigilancia geodinámica experimental. El nuevo M>=5 aumenta la prioridad de observación del corredor, pero no implica que un terremoto mayor sea inminente.",
+  "latest_event": {
+    "time_local": "2026-09-19T02:12:30-05:00",
+    "status": "nuevo M>=5 · disparador cumplido",
+    "agency_solutions": [
+      {
+        "agency": "IG-EPN",
+        "mag": "5.5 MLv",
+        "depth_km": 27.3,
+        "location": "Peru-Ecuador Border Region, 152.13 km de Gualaquiza"
+      },
+      {
+        "agency": "IGP",
+        "mag": "5.2 ML",
+        "depth_km": 15,
+        "location": "96 km NE de Santa María de Nieva, Condorcanqui – Amazonas"
+      }
+    ],
+    "dedupe": "Una sola ocurrencia: misma hora y mismo corredor.",
+    "depth_status": "Profundidad en revisión entre agencias; no asignar todavía una fuente tectónica definitiva."
+  }
 }
