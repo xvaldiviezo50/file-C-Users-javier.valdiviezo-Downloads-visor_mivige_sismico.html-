@@ -1,12 +1,12 @@
 {
-  "version": "2026-09-20T14:53:58-05:00-v23",
-  "updated_at": "2026-09-20T19:53:58Z",
-  "updated_at_ecuador": "20 sep 2026 · 14:53 ECU",
+  "version": "2026-09-20T17:09:55-05:00-v23",
+  "updated_at": "2026-09-20T22:09:55Z",
+  "updated_at_ecuador": "20 sep 2026 · 17:09 ECU",
   "semaforo": "AMARILLO reforzado · IDS elevado en Chocó y Condorcanqui; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
     {"rank":1,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta/intensificada","reason":"Permanece como foco principal por la secuencia reciente; no se verificó en este ciclo un nuevo evento o señal que cumpla criterio de cambio material.","tectonic_type":"secuencia con población intermedia 30–70 km y población más profunda separada; clasificación por evento","next_check":"Recalcular tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y persistencia M4+."},
-    {"rank":2,"name":"Condorcanqui–Santa María de Nieva / Amazonía norte de Perú","level":"Vigilancia alta/intensificada","reason":"Permanece por la secuencia del 19-sep; sin nuevo cambio material verificado en este ciclo.","tectonic_type":"somero continental según solución IGP; mecanismo y reconciliación de soluciones pendientes","next_check":"Revisar réplicas, mecanismo focal, ETAS/Omori y geodesia pública utilizable."}
+    {"rank":2,"name":"Condorcanqui–Santa María de Nieva / Amazonía norte de Perú","level":"Vigilancia alta/intensificada","reason":"Permanece por la secuencia del 19-sep; el listado IGP consultado el 20-sep seguía mostrando como último evento de esa secuencia el M4.5 de 07:46:37, 15 km; sin nuevo cambio material verificado.","tectonic_type":"somero continental según solución IGP; mecanismo y reconciliación de soluciones pendientes","next_check":"Revisar réplicas, mecanismo focal, ETAS/Omori y geodesia pública utilizable."}
   ],
   "events": [],
   "gnss": {
@@ -36,8 +36,8 @@
       "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta; no se infiere deformación nula."
     }
   },
-  "scientific_layer": {"IDS":"Sin cambio material nuevo verificado; Chocó y Condorcanqui permanecen bajo vigilancia. Un M4.1 somero en Chaparral, Tolima, fue reportado por SGC a las 04:52 del 20-sep, pero no satisface por sí solo criterio de nuevo foco material.","IDG":"datos insuficientes RENGEO y baja latencia regional","IITE":"sin cálculo Coulomb sustentado nuevo","IADR":"sin respuesta local físicamente evaluable nueva"},
+  "scientific_layer": {"IDS":"Sin cambio material nuevo verificado; Chocó y Condorcanqui permanecen bajo vigilancia.","IDG":"datos insuficientes RENGEO y baja latencia regional","IITE":"sin cálculo Coulomb sustentado nuevo","IADR":"sin respuesta local físicamente evaluable nueva"},
   "experimental_layer": {"IEM_IAEX_PER_A":"separada; sin uso como segunda familia científica"},
   "forecast_tests": [{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes": "Ciclo 14:53 ECU del 20-sep: revisión fresca de fuentes prioritarias y contraste regional. Chile registró hasta 10:55 local un M4.7 a 30 km O de San Pedro de Atacama, 131 km de profundidad, además de eventos menores; no cumple umbral material. Ecuador tuvo M3.4 cerca de Rocafuerte a las 19:17 del 19-sep, 19 km, sin señal suficiente para nuevo foco. No se verificó nuevo M>=5 regional relevante, foco nuevo alta/reforzada, aceleración demostrada, desviación significativa ETAS/Omori, migración coherente, anomalía GNSS/InSAR espacialmente coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
+  "notes": "Ciclo 17:09 ECU del 20-sep: revisión fresca de fuentes prioritarias y contraste regional. Chile/CSN reportó M4.7 a 30 km O de San Pedro de Atacama, profundidad 131 km, a las 10:55, seguido por M3.0 a 54 km NE de Calama, 113 km, a las 17:36; por profundidad son intraslab y no cumplen criterio de cambio material. IGP/CENSIS consultado el 20-sep seguía mostrando como último evento de Condorcanqui el M4.5 del 19-sep 07:46:37, 15 km. No se verificó nuevo M>=5 regional relevante, foco nuevo alta/reforzada, aceleración demostrada, desviación significativa ETAS/Omori, migración coherente, anomalía GNSS/InSAR espacialmente coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
 }
