@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-20T12:52:00-05:00-v23",
-  "updated_at": "2026-09-20T17:52:00Z",
-  "updated_at_ecuador": "20 sep 2026 · 12:52 ECU",
+  "version": "2026-09-20T14:53:58-05:00-v23",
+  "updated_at": "2026-09-20T19:53:58Z",
+  "updated_at_ecuador": "20 sep 2026 · 14:53 ECU",
   "semaforo": "AMARILLO reforzado · IDS elevado en Chocó y Condorcanqui; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -15,7 +15,7 @@
       {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada en este ciclo"},
       {"name":"SGC-GeoRED Colombia","status":"relevante para Chocó; sin serie E/N/U RT/NRT pública completa automatizable verificada en este ciclo"},
       {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada para Condorcanqui en este ciclo"},
-      {"name":"SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales","status":"control regional; soluciones históricas/diarias no tratadas como tiempo real"}
+      {"name":"CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales","status":"control regional; soluciones históricas/diarias no tratadas como tiempo real"}
     ],
     "stations_detected": null,
     "stations_fresh": null,
@@ -36,8 +36,8 @@
       "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta; no se infiere deformación nula."
     }
   },
-  "scientific_layer": {"IDS":"Sin cambio material nuevo verificado en este ciclo; Chocó y Condorcanqui permanecen bajo vigilancia.","IDG":"datos insuficientes RENGEO y baja latencia regional","IITE":"sin cálculo Coulomb sustentado nuevo","IADR":"sin respuesta local físicamente evaluable nueva"},
+  "scientific_layer": {"IDS":"Sin cambio material nuevo verificado; Chocó y Condorcanqui permanecen bajo vigilancia. Un M4.1 somero en Chaparral, Tolima, fue reportado por SGC a las 04:52 del 20-sep, pero no satisface por sí solo criterio de nuevo foco material.","IDG":"datos insuficientes RENGEO y baja latencia regional","IITE":"sin cálculo Coulomb sustentado nuevo","IADR":"sin respuesta local físicamente evaluable nueva"},
   "experimental_layer": {"IEM_IAEX_PER_A":"separada; sin uso como segunda familia científica"},
   "forecast_tests": [{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes": "Ciclo 12:52 ECU del 20-sep: revisión fresca de fuentes prioritarias y contraste disponible. No se verificó nuevo M>=5 regional relevante, foco nuevo o reforzado adicional, aceleración demostrada, desviación significativa ETAS/Omori, migración coherente, anomalía GNSS/InSAR espacialmente coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
+  "notes": "Ciclo 14:53 ECU del 20-sep: revisión fresca de fuentes prioritarias y contraste regional. Chile registró hasta 10:55 local un M4.7 a 30 km O de San Pedro de Atacama, 131 km de profundidad, además de eventos menores; no cumple umbral material. Ecuador tuvo M3.4 cerca de Rocafuerte a las 19:17 del 19-sep, 19 km, sin señal suficiente para nuevo foco. No se verificó nuevo M>=5 regional relevante, foco nuevo alta/reforzada, aceleración demostrada, desviación significativa ETAS/Omori, migración coherente, anomalía GNSS/InSAR espacialmente coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
 }
