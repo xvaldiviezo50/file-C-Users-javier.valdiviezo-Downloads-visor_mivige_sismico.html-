@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-20T11:25:50-05:00-v23",
-  "updated_at": "2026-09-20T16:25:50Z",
-  "updated_at_ecuador": "20 sep 2026 · 11:25 ECU",
+  "version": "2026-09-20T12:52:00-05:00-v23",
+  "updated_at": "2026-09-20T17:52:00Z",
+  "updated_at_ecuador": "20 sep 2026 · 12:52 ECU",
   "semaforo": "AMARILLO reforzado · IDS elevado en Chocó y Condorcanqui; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -39,5 +39,5 @@
   "scientific_layer": {"IDS":"Sin cambio material nuevo verificado en este ciclo; Chocó y Condorcanqui permanecen bajo vigilancia.","IDG":"datos insuficientes RENGEO y baja latencia regional","IITE":"sin cálculo Coulomb sustentado nuevo","IADR":"sin respuesta local físicamente evaluable nueva"},
   "experimental_layer": {"IEM_IAEX_PER_A":"separada; sin uso como segunda familia científica"},
   "forecast_tests": [{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes": "Ciclo 11:25 ECU del 20-sep: revisión fresca de fuentes prioritarias y contraste disponible. No se verificó nuevo M>=5 regional relevante, foco nuevo o reforzado adicional, aceleración demostrada, desviación significativa ETAS/Omori, migración coherente, anomalía GNSS/InSAR espacialmente coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
+  "notes": "Ciclo 12:52 ECU del 20-sep: revisión fresca de fuentes prioritarias y contraste disponible. No se verificó nuevo M>=5 regional relevante, foco nuevo o reforzado adicional, aceleración demostrada, desviación significativa ETAS/Omori, migración coherente, anomalía GNSS/InSAR espacialmente coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
 }
