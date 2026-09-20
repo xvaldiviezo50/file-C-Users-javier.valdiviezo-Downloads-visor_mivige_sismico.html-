@@ -1,52 +1,42 @@
 {
-  "version": "2026-09-19T15:17:00-05:00-v21",
-  "updated_at": "2026-09-19T20:17:00Z",
-  "updated_at_ecuador": "19 sep 2026 · 15:17 ECU",
+  "version": "2026-09-20T03:22:00-05:00-v23",
+  "updated_at": "2026-09-20T08:22:00Z",
+  "updated_at_ecuador": "20 sep 2026 · 03:22 ECU",
   "semaforo": "AMARILLO reforzado · IDS elevado en Chocó y Condorcanqui; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
     {
       "rank": 1,
       "name": "Istmina–Sipí–San José del Palmar / Chocó, Colombia",
-      "level": "Vigilancia alta/intensificada · foco reforzado",
-      "reason": "Persiste como foco principal por la secuencia del 19-sep, incluido M4.6 en Istmina; en este ciclo no se verificó un nuevo evento o señal que cumpla criterio de cambio material.",
-      "tectonic_type": "intermedio para el M4.6 reportado a ~39 km; mecanismo/geometría pendientes",
+      "level": "Vigilancia alta/intensificada",
+      "reason": "Permanece como foco principal por la secuencia reciente; en este ciclo no se verificó un nuevo evento o señal que cumpla criterio de cambio material.",
+      "tectonic_type": "secuencia con población intermedia 30–70 km y población más profunda separada; clasificación por evento",
       "next_check": "Recalcular tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y persistencia M4+."
     },
     {
       "rank": 2,
       "name": "Condorcanqui–Santa María de Nieva / Amazonía norte de Perú",
-      "level": "Vigilancia alta/intensificada · foco reforzado",
-      "reason": "Permanece por la secuencia M5.2–M4.5 del 19-sep; sin nuevo cambio material verificado en este ciclo.",
+      "level": "Vigilancia alta/intensificada",
+      "reason": "Permanece por la secuencia del 19-sep; sin nuevo cambio material verificado en este ciclo.",
       "tectonic_type": "somero continental según solución IGP; mecanismo y reconciliación de soluciones pendientes",
-      "next_check": "Revisar nuevas réplicas, mecanismo focal, ETAS/Omori y geodesia pública utilizable."
+      "next_check": "Revisar réplicas, mecanismo focal, ETAS/Omori y geodesia pública utilizable."
     }
   ],
-  "events": [
-    {
-      "time_local": "2026-09-19T09:44:00-05:00",
-      "mag": 4.6,
-      "depth_km": 39,
-      "place": "Istmina, Chocó, Colombia",
-      "tectonic_class": "30–70 km: intermedio/placa subducida probable bajo la regla operativa; mecanismo/geometría pendientes",
-      "source": "SGC (solución reportada públicamente)",
-      "dedupe_note": "preliminar y revisada del mismo terremoto se cuentan una sola vez"
-    }
-  ],
+  "events": [],
   "gnss": {
     "sources": [
-      {"name": "IG-EPN RENGEO Ecuador", "status": "obligatoria; cobertura pública conservada; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"},
-      {"name": "IGM-REGME Ecuador", "status": "complementaria; sin solución de baja latencia automatizable verificada en este ciclo"},
-      {"name": "SGC-GeoRED Colombia", "status": "relevante para Chocó; sin serie E/N/U RT/NRT pública completa automatizable verificada en este ciclo"},
-      {"name": "IGN-REGPMOC/ERP e IGP Perú", "status": "sin solución GNSS pública de baja latencia automatizable verificada para Condorcanqui en este ciclo"},
-      {"name": "SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales", "status": "control regional; históricas/diarias no tratadas como tiempo real"}
+      {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; cobertura pública conservada; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"},
+      {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada en este ciclo"},
+      {"name":"SGC-GeoRED Colombia","status":"relevante para Chocó; sin serie E/N/U RT/NRT pública completa automatizable verificada en este ciclo"},
+      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada para Condorcanqui en este ciclo"},
+      {"name":"SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales","status":"control regional; soluciones históricas/diarias no tratadas como tiempo real"}
     ],
     "stations_detected": null,
     "stations_fresh": null,
     "stations_used_qc": 0,
     "stations_rejected": null,
     "median_latency": null,
-    "focus_coverage": "insuficiente para confirmar o descartar deformación transitoria de corto plazo en los focos dinámicos",
+    "focus_coverage": "insuficiente para confirmar o descartar deformación transitoria de corto plazo",
     "idg_status": "datos insuficientes RENGEO y de baja latencia regional",
     "coherent_anomalies": [],
     "rengeo": {
@@ -55,18 +45,18 @@
       "rengeo_used_qc": 0,
       "rengeo_non_automatable": null,
       "rengeo_median_latency": null,
-      "rengeo_focus_stations": ["ESMR", "RVRD", "SNLR", "PTGL", "MOMP", "PDNS", "JAM2", "BAHI", "ISPT", "AYAN", "MRO2"],
+      "rengeo_focus_stations": ["ESMR","RVRD","SNLR","PTGL","MOMP","PDNS","JAM2","BAHI","ISPT","AYAN","MRO2"],
       "rengeo_coherent_anomalies": [],
       "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta; no se infiere deformación nula."
     }
   },
   "scientific_layer": {
-    "IDS": "Sin cambio material nuevo respecto del ciclo anterior; Chocó y Condorcanqui permanecen como focos activos.",
+    "IDS": "Sin cambio material nuevo verificado en este ciclo; Chocó y Condorcanqui permanecen bajo vigilancia.",
     "IDG": "datos insuficientes RENGEO y baja latencia regional",
     "IITE": "sin cálculo Coulomb sustentado nuevo",
     "IADR": "sin respuesta local físicamente evaluable nueva"
   },
-  "experimental_layer": {"IEM_IAEX_PER_A": "separada; sin uso como segunda familia científica"},
+  "experimental_layer": {"IEM_IAEX_PER_A":"separada; sin uso como segunda familia científica"},
   "forecast_tests": [{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes": "Ciclo 15:17 ECU: revisión fresca de fuentes sísmicas y geodésicas accesibles. No se verificó nuevo M>=5 regional relevante, foco nuevo/reforzado adicional, aceleración demostrada, migración coherente, anomalía GNSS/InSAR espacialmente coherente, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado extraordinario."
+  "notes": "Ciclo 03:22 ECU del 20-sep: búsqueda fresca en fuentes oficiales/prioritarias y contraste disponible. No se verificó nuevo M>=5 regional relevante, foco nuevo o reforzado adicional, aceleración demostrada, desviación significativa ETAS/Omori, migración coherente, anomalía GNSS/InSAR espacialmente coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario."
 }
