@@ -1,5 +1,5 @@
 {
-  "version": "IEMD-AUTO-RULEBOOK-2026-09-21-03",
+  "version": "IEMD-AUTO-RULEBOOK-2026-09-21-04",
   "title": "Reglas automáticas IEM-D · fuentes globales con destino Ecuador–Perú–Colombia",
   "methodology": "El motor detecta eventos fuente globales en los feeds y aplica únicamente corredores experimentales previamente congelados cuyo destino pertenezca a Ecuador, Perú o Colombia. No se crean relaciones nuevas automáticamente a partir de coincidencias posteriores.",
   "default_window_hours": 168,
@@ -121,10 +121,10 @@
     "range": "0–100",
     "components": {
       "source": "Magnitud y profundidad del evento fuente.",
-      "propagation": "Distancia fuente–receptor y factor direccional de la regla experimental.",
+      "propagation": "IPD físico de primer orden: Mw, momento sísmico, distancia, profundidad, PGV proxy y σdyn proxy.",
       "receiver": "Actividad previa, clustering y sensibilidad tectónica del receptor."
     },
-    "formula": "PM = 0.35·Fuente + 0.25·Propagación + 0.40·Receptor, con penalización por actividad de fondo alta.",
+    "formula": "PM = 0.35·Fuente + 0.25·IPD + 0.40·Receptor, con penalización por actividad de fondo alta.",
     "interpretation": [
       {
         "range": "0–29",
@@ -144,5 +144,35 @@
       }
     ],
     "disclaimer": "PM no es probabilidad de terremoto ni evidencia causal; es un índice interno para comparar proyecciones experimentales."
+  },
+  "ipd_model": {
+    "name": "IPD · Índice de Perturbación Dinámica",
+    "status": "proxy físico de primer orden",
+    "seismic_moment": "log10(M0[N·m]) = 1.5·Mw + 9.1",
+    "dynamic_stress": "σdyn ≈ ρ·Vs·PGV",
+    "constants": {
+      "rho_kg_m3": 2700,
+      "vs_m_s": 3500
+    },
+    "pgv_proxy": {
+      "formula": "PGVproxy = 1e-4 × 10^(0.5(Mw−5)) × (1000/Rkm)^0.8 × exp(−Rkm/18000) × Fdepth",
+      "depth_factor": "1.0 h≤50 km; 0.85 h≤150 km; 0.65 h>150 km",
+      "warning": "Estimación heurística de orden de magnitud para comparación interna. No sustituye una GMPE validada ni un registro instrumental."
+    },
+    "interpretation": [
+      {
+        "sigma_kpa": "<1",
+        "label": "perturbación proxy baja"
+      },
+      {
+        "sigma_kpa": "1–10",
+        "label": "rango de interés para triggering remoto documentado en algunos casos"
+      },
+      {
+        "sigma_kpa": ">10",
+        "label": "perturbación proxy físicamente más relevante; no implica disparo"
+      }
+    ],
+    "scientific_note": "La literatura documenta triggering remoto por ondas dinámicas a distancias globales, pero no valida corredores fijos ni ventanas universales de 7 días."
   }
 }
