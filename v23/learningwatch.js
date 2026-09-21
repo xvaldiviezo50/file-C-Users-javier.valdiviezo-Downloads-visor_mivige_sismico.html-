@@ -15,7 +15,7 @@
         <div class="kpi"><div class="name">Modo</div><div class="val" id="learnMode" style="font-size:13px">—</div></div>
       </div>
       <div id="learnBars" class="small" style="margin-top:10px">—</div>
-      <div id="learnModels" class="small" style="margin-top:10px">—</div>
+      <div id="learnModels" class="small" style="margin-top:10px">—</div><div id="learnAuto" class="small" style="margin-top:8px">—</div>
       <div id="learnRule" class="small" style="margin-top:10px;padding:8px;border:1px solid #315b73;border-radius:8px;background:#0c1b27">—</div>
       <div id="learnSafe" class="small" style="margin-top:8px;color:#9db2c8">—</div>`;
     const iemd=document.getElementById('iemdCard');
@@ -54,6 +54,7 @@
       </div>`;
     }).join('');
 
+    const ast=window.mivigeAutoIEMDStats||{}; const ae=document.getElementById('learnAuto'); if(ae) ae.innerHTML='<b>IEM-D automático:</b> '+(ast.sources??0)+' fuentes · '+(ast.active??0)+' proyecciones activas · '+(ast.matches??0)+' coincidencias detectadas. <span style="color:#9db2c8">Estas coincidencias no desbloquean peso hasta ser evaluadas prospectivamente.</span>';
     document.getElementById('learnRule').innerHTML='<b>Cómo aprende:</b> '+(d.learning_rules?.reliability_formula||'—')+'<br><b>Actualización de peso:</b> '+(d.learning_rules?.weight_formula||'—')+'<br><b>Convergencia actual:</b> '+(d.convergence?.current_reason||'—');
     document.getElementById('learnSafe').innerHTML='<b>Salvaguardas:</b><br>'+ (d.safeguards||[]).map(x=>'• '+x).join('<br>');
   }
