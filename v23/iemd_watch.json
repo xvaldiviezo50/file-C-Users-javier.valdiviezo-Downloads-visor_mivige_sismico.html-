@@ -1,0 +1,119 @@
+{
+  "version": "IEMD-2026-09-20-01",
+  "published_at_ecuador": "20 sep 2026 · 22:35",
+  "title": "IEM-D · Migración direccional experimental",
+  "status": "Validación prospectiva activa",
+  "scientific_status": "CAPA EXPERIMENTAL · no modifica por sí sola el semáforo MIVIGE",
+  "methodology": "Cada caso se congela antes de resolverse. Se evalúan por separado coincidencia espacial, temporal, magnitud, profundidad y compatibilidad física. Una zona receptora ya activa se penaliza en la evaluación para evitar atribuir a migración una continuación esperable por ETAS/Omori.",
+  "cases": [
+    {
+      "id": "IEMD-GUAM-20260920-01",
+      "origin": {
+        "label": "Guam / Marianas",
+        "time_utc": "2026-09-20T03:43:24Z",
+        "mag": 5.3,
+        "depth_km": 10,
+        "lat": 13.0568,
+        "lon": 145.7591,
+        "agency": "USGS",
+        "event_id": "us7000tinl",
+        "verification": "evento fuente verificado"
+      },
+      "projection": {
+        "target_name": "Sur de Ecuador / norte de Perú",
+        "target_center": [
+          -3.8,
+          -79.6
+        ],
+        "target_radius_km": 300,
+        "window_start": "2026-09-20T03:43:24Z",
+        "window_end": "2026-09-27T03:43:24Z",
+        "window_label": "7 días",
+        "magnitude_rule": "según proyección externa; umbral exacto por documentar",
+        "status": "PENDIENTE",
+        "source_claim": "Proyección externa reportada por el usuario a partir de transmisión en vivo",
+        "baseline_penalty": "ALTA: el corredor Perú–Ecuador ya presenta actividad M5+ previa"
+      },
+      "physics": {
+        "dynamic_triggering": "plausibilidad baja con M5.3 a distancia transpacífica",
+        "antipodal": "no",
+        "interpretation": "Caso útil para validación estadística, no evidencia de transferencia física demostrada."
+      }
+    },
+    {
+      "id": "IEMD-SOLOMON-20260920-01",
+      "origin": {
+        "label": "Islas Salomón",
+        "time_utc": "2026-09-20T12:24:22Z",
+        "mag": 4.8,
+        "depth_km": 33.9,
+        "lat": -10.6446,
+        "lon": 164.9562,
+        "agency": "USGS",
+        "event_id": "us7000tirf",
+        "verification": "evento fuente verificado"
+      },
+      "projection": {
+        "target_name": "Chile centro-norte",
+        "target_center": [
+          -28.5,
+          -71
+        ],
+        "target_radius_km": 450,
+        "window_start": "2026-09-20T12:24:22Z",
+        "window_end": "2026-09-27T12:24:22Z",
+        "window_label": "7 días",
+        "magnitude_rule": "según proyección externa; umbral exacto por documentar",
+        "status": "PENDIENTE",
+        "source_claim": "Proyección externa reportada por el usuario",
+        "baseline_penalty": "MEDIA/ALTA: Chile presenta alta tasa sísmica de fondo"
+      },
+      "physics": {
+        "dynamic_triggering": "plausibilidad muy baja con M4.8 a distancia transpacífica",
+        "antipodal": "no",
+        "interpretation": "Se conserva como prueba empírica prospectiva; requiere superar el fondo sísmico chileno."
+      }
+    },
+    {
+      "id": "IEMD-VERACRUZ-20260920-01",
+      "origin": {
+        "label": "Veracruz / Istmo de Tehuantepec",
+        "time_utc": "2026-09-20T10:55:00Z",
+        "mag": 3.8,
+        "depth_km": 126.2,
+        "lat": 17.644,
+        "lon": -95.013,
+        "agency": "EMSC / contraste SSN",
+        "event_id": "emsc-20260920_0000172",
+        "verification": "evento fuente regional verificado"
+      },
+      "projection": {
+        "target_name": "Lima – Ica, Perú",
+        "target_center": [
+          -12.9,
+          -76.2
+        ],
+        "target_radius_km": 280,
+        "window_start": "2026-09-20T10:55:00Z",
+        "window_end": "2026-09-27T10:55:00Z",
+        "window_label": "7 días",
+        "magnitude_rule": "según proyección externa; umbral exacto por documentar",
+        "status": "PENDIENTE",
+        "source_claim": "Proyección externa reportada por el usuario",
+        "baseline_penalty": "ALTA: Lima–Ica es un corredor sísmico activo"
+      },
+      "physics": {
+        "dynamic_triggering": "plausibilidad física muy baja para M3.8 a miles de km",
+        "antipodal": "no",
+        "interpretation": "Caso de control especialmente útil: si parece acertar, debe compararse rigurosamente con ETAS/fondo."
+      }
+    }
+  ],
+  "evaluation_rules": {
+    "success": "Solo se marca como acierto si el evento receptor ocurre dentro de la zona y ventana previamente congeladas y satisface el umbral de magnitud documentado.",
+    "partial": "Coincidencia incompleta en espacio, tiempo o magnitud; se conserva como parcial, no se reclasifica como acierto.",
+    "failure": "Fuera de la zona, fuera de la ventana o sin evento que cumpla el criterio.",
+    "no_retrofit": "No cambiar zonas, ventanas ni umbrales después de conocer el resultado."
+  },
+  "disclaimer": "IEM-D es una capa experimental de validación de hipótesis externas. Las líneas del mapa representan corredores de prueba, no trayectorias físicas demostradas de energía ni predicciones oficiales."
+}
