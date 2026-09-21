@@ -1,20 +1,53 @@
 {
-  "version": "2026-09-21T08:49:23-05:00-v23",
-  "updated_at": "2026-09-21T13:49:23Z",
-  "updated_at_ecuador": "21 sep 2026 · 08:49 ECU",
-  "semaforo": "AMARILLO reforzado · IDS elevado en Chocó y Condorcanqui; sin segunda familia científica independiente",
-  "material_change": false,
+  "version": "2026-09-21T15:58:00-05:00-v23",
+  "updated_at": "2026-09-21T20:58:00Z",
+  "updated_at_ecuador": "21 sep 2026 · 15:58 ECU",
+  "semaforo": "AMARILLO reforzado · IDS elevado; Chaparral nuevo foco ALTA/reforzada; sin segunda familia científica independiente",
+  "material_change": true,
   "focus": [
-    {"rank":1,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta/intensificada","reason":"Persistencia del foco previamente establecido; no se verificó en este ciclo un cambio material nuevo.","tectonic_type":"población intermedia 30–70 km y población profunda separada; clasificación individual por evento","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y persistencia M4+."},
-    {"rank":2,"name":"Condorcanqui–Santa María de Nieva / Amazonía norte de Perú","level":"Vigilancia alta/intensificada","reason":"Seguimiento de la secuencia del 19-sep; sin nuevo cambio material verificado.","tectonic_type":"somero continental según solución IGP; mecanismo pendiente","next_check":"Réplicas, mecanismo focal, ETAS/Omori y geodesia pública utilizable."}
+    {
+      "rank": 1,
+      "name": "Chaparral–San Antonio–Roncesvalles / Tolima, Colombia",
+      "level": "ALTA/reforzada",
+      "reason": ">40 eventos durante el 21-sep y múltiples M4+, incluido M4.1 a las 13:48 local; concentración cortical somera. SGC indica que la zona mantiene sismicidad desde 2024 y que aún es pronto para calificarla como anómala o enjambre.",
+      "tectonic_type": "cortical somero probable (<30 km)",
+      "next_check": "Tasa 12 h/12 h, decaimiento posterior a M4+, ETAS/Omori, distribución hipocentral y mecanismos."
+    },
+    {
+      "rank": 2,
+      "name": "Istmina–Sipí–San José del Palmar / Chocó, Colombia",
+      "level": "Vigilancia alta",
+      "reason": "Foco previamente establecido y oficialmente monitoreado; sin nueva escalada material verificada en esta ventana.",
+      "tectonic_type": "poblaciones tectónicas separadas; clasificar individualmente por profundidad y mecanismo",
+      "next_check": "Persistencia M4+, tasa 12 h/12 h, ETAS/Omori y migración hipocentral."
+    }
   ],
-  "events": [],
+  "events": [
+    {
+      "time_local": "2026-09-21T13:48:00-05:00",
+      "place": "Chaparral, Tolima, Colombia",
+      "magnitude": 4.1,
+      "depth": "superficial (<30 km)",
+      "source": "SGC boletín actualizado reproducido por fuente verificable",
+      "dedup_status": "evento independiente; no duplicado de los M4.0 de 09:48 y 11:23",
+      "classification": "cortical somero probable"
+    },
+    {
+      "time_local": "2026-09-21T11:23:00-05:00",
+      "place": "Chaparral, Tolima, Colombia",
+      "magnitude": 4.0,
+      "depth": "superficial (<30 km)",
+      "source": "SGC",
+      "dedup_status": "evento independiente",
+      "classification": "cortical somero probable"
+    }
+  ],
   "gnss": {
     "sources": [
-      {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; cobertura conservada; no se verificó solución E/N/U reciente automatizable suficiente"},
+      {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; cobertura conservada; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"},
       {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada"},
-      {"name":"SGC-GeoRED Colombia","status":"sin serie E/N/U RT/NRT pública completa automatizable verificada"},
-      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada para el foco"},
+      {"name":"SGC-GeoRED Colombia","status":"sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"},
+      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada para foco actual"},
       {"name":"CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales","status":"control regional; soluciones históricas/diarias no tratadas como tiempo real"}
     ],
     "stations_detected": null,
@@ -36,8 +69,15 @@
       "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta; no se infiere deformación nula."
     }
   },
-  "scientific_layer": {"IDS":"Sin cambio material nuevo verificado; Chocó y Condorcanqui continúan bajo vigilancia.","IDG":"datos insuficientes RENGEO y baja latencia regional","IITE":"sin cálculo Coulomb sustentado nuevo","IADR":"sin respuesta local físicamente evaluable nueva"},
+  "scientific_layer": {
+    "IDS": "Chaparral reforzado por concentración >40 eventos y varios M4+, con M4.1 a las 13:48; sin afirmar exceso ETAS/Omori hasta cálculo formal.",
+    "IDG": "datos insuficientes RENGEO y baja latencia regional",
+    "IITE": "sin cálculo Coulomb sustentado nuevo",
+    "IADR": "sin respuesta local físicamente evaluable nueva"
+  },
   "experimental_layer": {"IEM_IAEX_PER_A":"separada; sin uso como segunda familia científica"},
-  "forecast_tests": [{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes": "Ciclo 08:49 ECU del 21-sep: revisión fresca sin cambio material regional verificado. No se confirmó nuevo M>=5 regional adicional, nuevo foco alta/reforzada, aceleración demostrada, desviación ETAS/Omori significativa, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. México: SSN reporta M4.6 a las 05:02:38, 25 km NE de Pijijiapan, Chiapas, profundidad 147.5 km; se clasifica intraslab probable y no supera el umbral material. Chile: el M5.3 de Antofagasta/Mejillones ya corresponde al evento material previamente incorporado, no a un terremoto nuevo. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
+  "forecast_tests": [
+    {"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}
+  ],
+  "notes": "Cambio material 21-sep 15:58 ECU: Chaparral se consolida como foco dinámico ALTA/reforzada. SGC reporta >40 eventos durante el día y el boletín actualizado registra M4.1 superficial a las 13:48, posterior e independiente de los M4.0 de 09:48 y 11:23. El SGC señala que Chaparral mantiene concentración sísmica desde 2024 y que aún es pronto para considerarla anómala o clasificarla como enjambre. Ecuador: M3.2 a las 09:30 cerca de Cotacachi, 8 km de profundidad, cortical somero; aislado y sin criterio de entrada al ranking. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC; IDG no interpreta ausencia de datos como deformación nula."
 }
