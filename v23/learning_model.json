@@ -1,5 +1,5 @@
 {
-  "version": "MIVIGE-LEARN-2026-09-21-01",
+  "version": "MIVIGE-LEARN-2026-09-21-02",
   "published_at_ecuador": "21 sep 2026 · 07:55",
   "title": "Motor de Aprendizaje + Convergencia",
   "mode": "Champion / Challenger con aprendizaje conservador",
@@ -127,6 +127,15 @@
     "No aumentar pesos por un caso aislado.",
     "Registrar omisiones y falsas alarmas.",
     "Mantener científico y experimental visibles por separado.",
-    "No usar el peso experimental para subir por sí solo el semáforo general."
-  ]
+    "No usar el peso experimental para subir por sí solo el semáforo general.",
+    "Las fuentes globales experimentales solo se consideran si la regla receptora apunta a Ecuador, Perú o Colombia."
+  ],
+  "scope": {
+    "primary_study_area": [
+      "Ecuador",
+      "Perú",
+      "Colombia"
+    ],
+    "global_sources": "permitidas solo cuando una regla experimental congelada proyecta directamente hacia la zona de estudio"
+  }
 }
