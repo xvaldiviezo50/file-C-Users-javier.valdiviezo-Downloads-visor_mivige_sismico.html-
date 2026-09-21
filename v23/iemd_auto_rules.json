@@ -1,7 +1,7 @@
 {
-  "version": "IEMD-AUTO-RULEBOOK-2026-09-21-01",
-  "title": "Reglas experimentales automáticas de proyección migratoria",
-  "methodology": "Estas reglas convierten eventos fuente detectados automáticamente en los feeds sísmicos en corredores prospectivos predefinidos. Son hipótesis experimentales de validación, no trayectorias físicas demostradas de energía.",
+  "version": "IEMD-AUTO-RULEBOOK-2026-09-21-02",
+  "title": "Reglas automáticas IEM-D · fuentes globales con destino Ecuador–Perú–Colombia",
+  "methodology": "El motor detecta eventos fuente globales en los feeds y aplica únicamente corredores experimentales previamente congelados cuyo destino pertenezca a Ecuador, Perú o Colombia. No se crean relaciones nuevas automáticamente a partir de coincidencias posteriores.",
   "default_window_hours": 168,
   "rules": [
     {
@@ -30,55 +30,11 @@
       "target_radius_km": 380,
       "receiver_min_mag": 4.5,
       "window_hours": 168,
-      "note": "Regla experimental reportada: Fiji → norte de Perú / sur de Ecuador."
-    },
-    {
-      "id": "TONGA-CHILE",
-      "source_label": "Tonga",
-      "source_box": {
-        "lat_min": -26,
-        "lat_max": -14,
-        "lon_ranges": [
-          [
-            -178,
-            -171
-          ]
-        ]
-      },
-      "source_min_mag": 4.5,
-      "target_name": "Chile centro-norte",
-      "target_center": [
-        -28,
-        -71.2
-      ],
-      "target_radius_km": 650,
-      "receiver_min_mag": 4.5,
-      "window_hours": 168,
-      "note": "Regla experimental reportada: Tonga → Chile."
-    },
-    {
-      "id": "SOLOMON-CHILE",
-      "source_label": "Islas Salomón",
-      "source_box": {
-        "lat_min": -13,
-        "lat_max": -5,
-        "lon_ranges": [
-          [
-            155,
-            170
-          ]
-        ]
-      },
-      "source_min_mag": 4.5,
-      "target_name": "Chile centro-norte",
-      "target_center": [
-        -28.5,
-        -71
-      ],
-      "target_radius_km": 650,
-      "receiver_min_mag": 4.5,
-      "window_hours": 168,
-      "note": "Regla experimental reportada: Islas Salomón → Chile."
+      "note": "Regla experimental reportada: Fiji → norte de Perú / sur de Ecuador.",
+      "target_countries": [
+        "Perú",
+        "Ecuador"
+      ]
     },
     {
       "id": "MARIANAS-SECUADOR-NPERU",
@@ -102,7 +58,11 @@
       "target_radius_km": 350,
       "receiver_min_mag": 4.5,
       "window_hours": 168,
-      "note": "Regla experimental reportada: Guam/Marianas → sur de Ecuador / norte de Perú."
+      "note": "Regla experimental reportada: Guam/Marianas → sur de Ecuador / norte de Perú.",
+      "target_countries": [
+        "Ecuador",
+        "Perú"
+      ]
     },
     {
       "id": "VERACRUZ-LIMA-ICA",
@@ -126,14 +86,28 @@
       "target_radius_km": 300,
       "receiver_min_mag": 4,
       "window_hours": 168,
-      "note": "Regla experimental reportada: Veracruz / Istmo → Lima–Ica."
+      "note": "Regla experimental reportada: Veracruz / Istmo → Lima–Ica.",
+      "target_countries": [
+        "Perú"
+      ]
     }
   ],
   "safeguards": [
+    "Solo mostrar proyecciones con destino Ecuador, Perú o Colombia.",
+    "No crear un corredor nuevo porque posteriormente haya ocurrido un sismo en la zona receptora.",
     "No modificar reglas después de observar el resultado.",
     "No interpretar coincidencia como causalidad.",
-    "Registrar tanto coincidencias como ventanas vencidas sin evento.",
+    "Registrar ventanas vencidas, coincidencias, falsas alarmas y omisiones.",
     "Penalizar zonas receptoras con alta actividad de fondo al evaluar desempeño.",
     "La capa automática no modifica por sí sola el semáforo científico."
-  ]
+  ],
+  "study_scope": {
+    "countries": [
+      "Ecuador",
+      "Perú",
+      "Colombia"
+    ],
+    "principle": "Un evento fuente puede ocurrir en cualquier parte del mundo, pero solo activa una proyección automática si una regla congelada lo conecta explícitamente con una zona receptora dentro de Ecuador, Perú o Colombia.",
+    "exclude_unrelated_targets": true
+  }
 }
