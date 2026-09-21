@@ -1,0 +1,132 @@
+{
+  "version": "MIVIGE-LEARN-2026-09-21-01",
+  "published_at_ecuador": "21 sep 2026 · 07:55",
+  "title": "Motor de Aprendizaje + Convergencia",
+  "mode": "Champion / Challenger con aprendizaje conservador",
+  "principle": "Separar evidencia científica de hipótesis experimentales y permitir que el peso experimental aumente solo después de validación prospectiva suficiente y desempeño superior al fondo/ETAS.",
+  "blocks": {
+    "scientific": {
+      "label": "CAPA A · Científica",
+      "max_influence_pct": 100,
+      "adaptive": false,
+      "families": [
+        {
+          "id": "IDS",
+          "label": "Sismicidad / ETAS / clustering / migración",
+          "base_weight_pct": 35,
+          "status": "operativa"
+        },
+        {
+          "id": "IDG",
+          "label": "GNSS / InSAR / slow-slip",
+          "base_weight_pct": 25,
+          "status": "datos insuficientes de baja latencia"
+        },
+        {
+          "id": "IITE",
+          "label": "Mecanismos focales / fallas / Coulomb",
+          "base_weight_pct": 15,
+          "status": "parcial / bajo disponibilidad"
+        },
+        {
+          "id": "IAC",
+          "label": "Acoplamiento interplaca / slip deficit",
+          "base_weight_pct": 15,
+          "status": "contexto estructural"
+        },
+        {
+          "id": "IRH",
+          "label": "Recurrencia histórica / ciclo sísmico",
+          "base_weight_pct": 10,
+          "status": "propuesto / en construcción"
+        }
+      ],
+      "rule": "El semáforo científico se determina por familias independientes. Naranja requiere al menos 2 familias científicas coherentes; Rojo requiere 3 o más o un boletín oficial extraordinario."
+    },
+    "experimental": {
+      "label": "CAPA B · Experimental",
+      "max_influence_pct": 20,
+      "adaptive": true,
+      "models": [
+        {
+          "id": "IEMD",
+          "label": "IEM-D · migración direccional",
+          "prior_weight_pct": 0,
+          "current_weight_pct": 0,
+          "max_weight_pct": 15,
+          "evaluable_cases": 0,
+          "fulfilled": 0,
+          "partial": 0,
+          "failed": 0,
+          "not_evaluable": 1,
+          "minimum_cases_to_unlock": 20,
+          "target_information_gain": "> 0 frente a ETAS/fondo",
+          "status": "APRENDIZAJE BLOQUEADO · muestra insuficiente"
+        },
+        {
+          "id": "IAEX",
+          "label": "IAEX · antipodal experimental",
+          "prior_weight_pct": 0,
+          "current_weight_pct": 0,
+          "max_weight_pct": 5,
+          "evaluable_cases": 0,
+          "fulfilled": 0,
+          "partial": 0,
+          "failed": 0,
+          "minimum_cases_to_unlock": 20,
+          "target_information_gain": "> 0 frente a ETAS/fondo",
+          "status": "APRENDIZAJE BLOQUEADO · muestra insuficiente"
+        }
+      ],
+      "rule": "Los modelos experimentales no cuentan como segunda familia científica. Su peso se aprende solo con casos prospectivos, sin modificar reglas retrospectivamente."
+    }
+  },
+  "learning_rules": {
+    "score_per_case": {
+      "fulfilled": 1,
+      "partial": 0.5,
+      "failed": 0,
+      "not_evaluable": null
+    },
+    "reliability_formula": "reliability = ((cumplidos + 0.5*parciales + 1)/(evaluables + 2)) × (evaluables/(evaluables+20))",
+    "weight_formula": "peso_modelo = min(peso_maximo, peso_maximo × reliability × IG_factor)",
+    "information_gain_factor": "IG_factor = 0 si information gain <= 0; 0–1 según mejora prospectiva frente a ETAS/fondo.",
+    "unlock_conditions": [
+      ">=20 casos prospectivos evaluables",
+      "information gain positivo frente a ETAS/fondo",
+      "sin cambios retrospectivos de zona/ventana/magnitud",
+      "falsos positivos y omisiones registrados",
+      "desempeño reproducible en más de una región o periodo"
+    ],
+    "promotion": "Un Challenger solo puede sustituir al Champion si mejora de forma estable Brier/log-likelihood/information gain y no aumenta materialmente falsas alarmas."
+  },
+  "convergence": {
+    "current_level": "CONVERGENCIA BAJA",
+    "current_reason": "IDS presenta señal activa en focos regionales, pero no hay segunda familia científica independiente. IEM-D tiene casos pendientes/no evaluables y aún no posee peso operativo.",
+    "levels": [
+      {
+        "level": "BAJA",
+        "rule": "1 familia científica activa o solo coincidencias experimentales"
+      },
+      {
+        "level": "MEDIA",
+        "rule": "2 familias científicas moderadamente coherentes, o 1 científica + experimental validado con muestra suficiente e IG positivo"
+      },
+      {
+        "level": "ALTA",
+        "rule": ">=2 familias científicas robustas y una tercera evidencia independiente de apoyo"
+      },
+      {
+        "level": "CRÍTICA",
+        "rule": ">=3 familias científicas robustas o boletín oficial extraordinario"
+      }
+    ]
+  },
+  "safeguards": [
+    "No convertir coincidencias experimentales en evidencia causal.",
+    "No aumentar pesos por un caso aislado.",
+    "Registrar omisiones y falsas alarmas.",
+    "Mantener científico y experimental visibles por separado.",
+    "No usar el peso experimental para subir por sí solo el semáforo general."
+  ]
+}
