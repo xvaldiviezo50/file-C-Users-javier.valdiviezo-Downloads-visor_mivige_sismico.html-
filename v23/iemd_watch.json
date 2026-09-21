@@ -1,10 +1,10 @@
 {
-  "version": "IEMD-2026-09-20-01",
-  "published_at_ecuador": "20 sep 2026 · 22:35",
+  "version": "IEMD-2026-09-21-02",
+  "published_at_ecuador": "21 sep 2026 · 07:45",
   "title": "IEM-D · Migración direccional experimental",
-  "status": "Validación prospectiva activa",
+  "status": "Validación prospectiva andina activa",
   "scientific_status": "CAPA EXPERIMENTAL · no modifica por sí sola el semáforo MIVIGE",
-  "methodology": "Cada caso se congela antes de resolverse. Se evalúan por separado coincidencia espacial, temporal, magnitud, profundidad y compatibilidad física. Una zona receptora ya activa se penaliza en la evaluación para evitar atribuir a migración una continuación esperable por ETAS/Omori.",
+  "methodology": "Cada proyección se congela antes de resolverse. Se evalúan espacio, tiempo, magnitud, profundidad y compatibilidad física. El sistema registra también eventos materiales no proyectados. Las coincidencias con criterios originales incompletos quedan como NO EVALUABLES y no se suman a los aciertos.",
   "cases": [
     {
       "id": "IEMD-GUAM-20260920-01",
@@ -113,7 +113,88 @@
     "success": "Solo se marca como acierto si el evento receptor ocurre dentro de la zona y ventana previamente congeladas y satisface el umbral de magnitud documentado.",
     "partial": "Coincidencia incompleta en espacio, tiempo o magnitud; se conserva como parcial, no se reclasifica como acierto.",
     "failure": "Fuera de la zona, fuera de la ventana o sin evento que cumpla el criterio.",
-    "no_retrofit": "No cambiar zonas, ventanas ni umbrales después de conocer el resultado."
+    "no_retrofit": "No cambiar zonas, ventanas ni umbrales después de conocer el resultado.",
+    "not_evaluable": "Si la proyección original no fijó de forma verificable zona, ventana y criterio de magnitud antes del evento, el caso se muestra como coincidencia candidata pero no entra en el cálculo de cumplimiento.",
+    "omission": "Todo evento material M>=5 en Ecuador, Perú o Colombia sin una proyección congelada compatible se registra como evento no proyectado/omisión del sistema experimental."
   },
-  "disclaimer": "IEM-D es una capa experimental de validación de hipótesis externas. Las líneas del mapa representan corredores de prueba, no trayectorias físicas demostradas de energía ni predicciones oficiales."
+  "disclaimer": "IEM-D es una capa experimental de validación. CUMPLIDO/PARCIAL/FALLIDO describen cumplimiento de una proyección predefinida, no causalidad física ni probabilidad de terremoto. Las coincidencias no evaluables no se contabilizan como aciertos.",
+  "validation_summary": {
+    "active": 3,
+    "fulfilled": 0,
+    "partial": 0,
+    "failed": 0,
+    "not_evaluable": 1,
+    "unprojected_material_events": 0
+  },
+  "regional_scope": {
+    "Ecuador": {
+      "role": "receptor prioritario",
+      "zones": [
+        "sur de Ecuador / frontera Perú–Ecuador",
+        "Manabí–Esmeraldas",
+        "Carchi–Imbabura",
+        "Golfo de Guayaquil–El Oro"
+      ],
+      "rule": "Registrar todo M>=4.5 material que cumpla o contradiga una proyección congelada; los M>=5 no proyectados se registran como omisiones."
+    },
+    "Peru": {
+      "role": "receptor prioritario",
+      "zones": [
+        "Tumbes–Piura",
+        "Amazonas–Condorcanqui",
+        "La Libertad–Trujillo",
+        "Lima",
+        "Ica"
+      ],
+      "rule": "Registrar todo M>=4.5 material que cumpla o contradiga una proyección congelada; los M>=5 no proyectados se registran como omisiones."
+    },
+    "Colombia": {
+      "role": "receptor prioritario",
+      "zones": [
+        "Chocó–Nariño",
+        "Valle–Cauca",
+        "Tolima–Eje Andino",
+        "Caribe colombiano"
+      ],
+      "rule": "Registrar todo M>=4.5 material que cumpla o contradiga una proyección congelada; los M>=5 no proyectados se registran como omisiones."
+    }
+  },
+  "validation_history": [
+    {
+      "id": "VAL-FIJI-TRUJILLO-20260921-01",
+      "projection_label": "Fiji → norte de Perú / sur de Ecuador",
+      "classification": "NO EVALUABLE",
+      "display_status": "COINCIDENCIA CANDIDATA",
+      "scored": false,
+      "reason": "El evento receptor ocurrió dentro de una ventana temporal compatible con la proyección reportada, pero todavía no se dispone de una copia pre-evento con polígono geográfico, rango de magnitud y profundidad/umbral exactos. No se contabiliza como acierto ni como parcial.",
+      "origin": {
+        "label": "Fiji region",
+        "time_utc": "2026-09-18T06:42:29Z",
+        "mag": 4.7,
+        "depth_km": 548.4,
+        "lat": -21.9479,
+        "lon": -179.372,
+        "agency": "USGS/EMSC",
+        "verification": "evento fuente revisado"
+      },
+      "receiver": {
+        "country": "Perú",
+        "label": "Salaverry – Trujillo, La Libertad",
+        "time_local": "2026-09-20T22:58:23-05:00",
+        "mag": 4.9,
+        "depth_km": 59,
+        "lat": -8.42,
+        "lon": -79.1,
+        "agency": "IGP/CENSIS",
+        "intensity": "IV Salaverry",
+        "verification": "evento receptor oficial"
+      },
+      "temporal_match": {
+        "elapsed_hours": 69.27,
+        "within_7_days": true
+      },
+      "next_action": "Recuperar la publicación o video original y congelar retro-documentalmente únicamente lo que pueda demostrarse que fue anunciado antes del evento; si el área exacta incluía Trujillo y el umbral M4.9, reclasificar prospectivamente auditado. No ampliar criterios."
+    }
+  ],
+  "unprojected_events": []
 }
