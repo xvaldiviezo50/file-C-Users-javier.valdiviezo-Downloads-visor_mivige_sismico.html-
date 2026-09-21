@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-20T21:36:48-05:00-v23",
-  "updated_at": "2026-09-21T02:36:48Z",
-  "updated_at_ecuador": "20 sep 2026 · 21:36 ECU",
+  "version": "2026-09-20T23:17:32-05:00-v23",
+  "updated_at": "2026-09-21T04:17:32Z",
+  "updated_at_ecuador": "20 sep 2026 · 23:17 ECU",
   "semaforo": "AMARILLO reforzado · IDS elevado en Chocó y Condorcanqui; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -39,5 +39,5 @@
   "scientific_layer": {"IDS":"Sin cambio material nuevo verificado; Chocó y Condorcanqui permanecen bajo vigilancia.","IDG":"datos insuficientes RENGEO y baja latencia regional","IITE":"sin cálculo Coulomb sustentado nuevo","IADR":"sin respuesta local físicamente evaluable nueva"},
   "experimental_layer": {"IEM_IAEX_PER_A":"separada; sin uso como segunda familia científica"},
   "forecast_tests": [{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes": "Ciclo 21:36 ECU del 20-sep: revisión fresca de fuentes prioritarias. SGC reportó M4.1 somero en Chaparral, Tolima, a las 04:52 del 20-sep; evento individual cortical somero probable, pero no satisface por sí solo criterios de entrada al TOP ni de cambio material. No se verificó nuevo M>=5 regional relevante, foco nuevo alta/reforzada, aceleración demostrada, desviación significativa ETAS/Omori, migración coherente, anomalía GNSS/InSAR espacialmente coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
+  "notes": "Ciclo 23:17 ECU del 20-sep: revisión fresca. IGP/CENSIS reportó M4.9 a las 22:58, 26 km SO de Salaverry (La Libertad), profundidad 59 km: evento intermedio/placa subducida probable; queda bajo umbral M>=5 y no configura foco nuevo por sí solo. En Cusco se deduplicaron dos eventos distintos: M4.0 a las 20:07 (12 km) y M3.4 a las 21:02 (11 km), corticales someros probables; no satisfacen criterios de entrada al TOP. IG-EPN reportó M2.8 cerca de Machachi a las 14:41, profundidad 8 km, cortical somero probable y sin criterio de cambio material. No se verificó nuevo M>=5 regional relevante, foco nuevo alta/reforzada, aceleración demostrada, desviación ETAS/Omori significativa, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
 }
