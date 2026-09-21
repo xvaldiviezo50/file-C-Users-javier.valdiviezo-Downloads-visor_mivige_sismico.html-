@@ -1,20 +1,20 @@
 {
-  "version": "2026-09-20T23:17:32-05:00-v23",
-  "updated_at": "2026-09-21T04:17:32Z",
-  "updated_at_ecuador": "20 sep 2026 · 23:17 ECU",
+  "version": "2026-09-21T03:11:13-05:00-v23",
+  "updated_at": "2026-09-21T08:11:13Z",
+  "updated_at_ecuador": "21 sep 2026 · 03:11 ECU",
   "semaforo": "AMARILLO reforzado · IDS elevado en Chocó y Condorcanqui; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
-    {"rank":1,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta/intensificada","reason":"Permanece como foco principal por la secuencia reciente; no se verificó en este ciclo un nuevo evento o señal que cumpla criterio de cambio material.","tectonic_type":"secuencia con población intermedia 30–70 km y población más profunda separada; clasificación por evento","next_check":"Recalcular tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y persistencia M4+."},
-    {"rank":2,"name":"Condorcanqui–Santa María de Nieva / Amazonía norte de Perú","level":"Vigilancia alta/intensificada","reason":"Permanece por la secuencia del 19-sep; sin nuevo cambio material verificado en este ciclo.","tectonic_type":"somero continental según solución IGP; mecanismo y reconciliación de soluciones pendientes","next_check":"Revisar réplicas, mecanismo focal, ETAS/Omori y geodesia pública utilizable."}
+    {"rank":1,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta/intensificada","reason":"Persistencia del foco previamente establecido; no se verificó en este ciclo un cambio material nuevo.","tectonic_type":"población intermedia 30–70 km y población profunda separada; clasificación individual por evento","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y persistencia M4+."},
+    {"rank":2,"name":"Condorcanqui–Santa María de Nieva / Amazonía norte de Perú","level":"Vigilancia alta/intensificada","reason":"Seguimiento de la secuencia del 19-sep; sin nuevo cambio material verificado.","tectonic_type":"somero continental según solución IGP; mecanismo pendiente","next_check":"Réplicas, mecanismo focal, ETAS/Omori y geodesia pública utilizable."}
   ],
   "events": [],
   "gnss": {
     "sources": [
-      {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; cobertura pública conservada; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"},
-      {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada en este ciclo"},
-      {"name":"SGC-GeoRED Colombia","status":"relevante para Chocó; sin serie E/N/U RT/NRT pública completa automatizable verificada en este ciclo"},
-      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada para Condorcanqui en este ciclo"},
+      {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; cobertura conservada; no se verificó solución E/N/U reciente automatizable suficiente"},
+      {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada"},
+      {"name":"SGC-GeoRED Colombia","status":"sin serie E/N/U RT/NRT pública completa automatizable verificada"},
+      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada para el foco"},
       {"name":"CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales","status":"control regional; soluciones históricas/diarias no tratadas como tiempo real"}
     ],
     "stations_detected": null,
@@ -36,8 +36,8 @@
       "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta; no se infiere deformación nula."
     }
   },
-  "scientific_layer": {"IDS":"Sin cambio material nuevo verificado; Chocó y Condorcanqui permanecen bajo vigilancia.","IDG":"datos insuficientes RENGEO y baja latencia regional","IITE":"sin cálculo Coulomb sustentado nuevo","IADR":"sin respuesta local físicamente evaluable nueva"},
+  "scientific_layer": {"IDS":"Sin cambio material nuevo verificado; Chocó y Condorcanqui continúan bajo vigilancia.","IDG":"datos insuficientes RENGEO y baja latencia regional","IITE":"sin cálculo Coulomb sustentado nuevo","IADR":"sin respuesta local físicamente evaluable nueva"},
   "experimental_layer": {"IEM_IAEX_PER_A":"separada; sin uso como segunda familia científica"},
   "forecast_tests": [{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes": "Ciclo 23:17 ECU del 20-sep: revisión fresca. IGP/CENSIS reportó M4.9 a las 22:58, 26 km SO de Salaverry (La Libertad), profundidad 59 km: evento intermedio/placa subducida probable; queda bajo umbral M>=5 y no configura foco nuevo por sí solo. En Cusco se deduplicaron dos eventos distintos: M4.0 a las 20:07 (12 km) y M3.4 a las 21:02 (11 km), corticales someros probables; no satisfacen criterios de entrada al TOP. IG-EPN reportó M2.8 cerca de Machachi a las 14:41, profundidad 8 km, cortical somero probable y sin criterio de cambio material. No se verificó nuevo M>=5 regional relevante, foco nuevo alta/reforzada, aceleración demostrada, desviación ETAS/Omori significativa, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
+  "notes": "Ciclo 03:11 ECU del 21-sep: revisión fresca sin cambio material regional verificado. La búsqueda oficial/prioritaria no confirmó nuevo M>=5 relevante en Chile→México, nuevo foco alta/reforzada, aceleración demostrada, desviación ETAS/Omori significativa, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. BMKG sí reportó M5.3 en Manggarai Timur, Indonesia, 10 km, sin potencial de tsunami; se conserva como contraste global y no modifica el ranking Chile→México. Un reporte no oficial preliminar M4.0 cerca de Cusco no se incorpora hasta corroboración IGP. RENGEO continúa obligatorio pero sin solución E/N/U reciente públicamente automatizable suficiente para QC en este ciclo."
 }
