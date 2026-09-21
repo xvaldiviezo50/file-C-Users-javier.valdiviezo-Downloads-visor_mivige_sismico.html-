@@ -14,12 +14,19 @@
     card.innerHTML=`
       <h2>IEM-D · Migración direccional experimental</h2>
       <div class="kpis">
-        <div class="kpi"><div class="name">Casos activos</div><div class="val" id="iemdCount">—</div></div>
-        <div class="kpi"><div class="name">Estado</div><div class="val" id="iemdStatus" style="font-size:13px">—</div></div>
+        <div class="kpi"><div class="name">Pendientes</div><div class="val" id="iemdCount">—</div></div>
+        <div class="kpi"><div class="name">Cumplen</div><div class="val" id="iemdFulfilled">0</div></div>
+        <div class="kpi"><div class="name">Parciales</div><div class="val" id="iemdPartial">0</div></div>
+        <div class="kpi"><div class="name">Fallidos</div><div class="val" id="iemdFailed">0</div></div>
+        <div class="kpi"><div class="name">No evaluables</div><div class="val" id="iemdNotEval">0</div></div>
+        <div class="kpi"><div class="name">No proyectados</div><div class="val" id="iemdOmissions">0</div></div>
         <div class="kpi"><div class="name">Capa mapa</div><div class="val" id="iemdMapState" style="font-size:13px">Visible</div></div>
       </div>
       <div class="controls" style="margin-top:8px"><button id="iemdToggle">Ocultar IEM-D</button></div>
+      <div id="iemdCountry" class="small" style="margin-top:10px">—</div>
       <div id="iemdCases" class="small" style="margin-top:10px">Cargando…</div>
+      <div id="iemdHistory" class="small" style="margin-top:10px">—</div>
+      <div id="iemdOmissionList" class="small" style="margin-top:10px">—</div>
       <div id="iemdMethod" class="small" style="margin-top:10px;padding:8px;border:1px solid #7549a8;border-radius:8px;background:#171020">—</div>
       <div id="iemdDisclaimer" class="small" style="margin-top:8px;color:#b8a6cf">—</div>`;
     const exp=document.querySelector('section.card h2');
@@ -42,6 +49,7 @@
     if(status==='CUMPLIDO') return '#42b86b';
     if(status==='FALLIDO') return '#e4493f';
     if(status==='PARCIAL') return '#f08a24';
+    if(status==='NO EVALUABLE') return '#7f8da0';
     return '#af7cff';
   }
 
@@ -60,10 +68,35 @@
   function renderCard(d){
     ensureCard();
     const cases=d.cases||[];
-    document.getElementById('iemdCount').textContent=cases.length;
-    document.getElementById('iemdStatus').textContent=d.status||'—';
-    document.getElementById('iemdCases').innerHTML=cases.map(caseHtml).join('')||'Sin casos.';
-    document.getElementById('iemdMethod').innerHTML='<b>Regla de validación:</b> '+(d.methodology||'—')+'<br><b>No retrofit:</b> '+(d.evaluation_rules?.no_retrofit||'—');
+    const s=d.validation_summary||{};
+    document.getElementById('iemdCount').textContent=s.active ?? cases.length;
+    document.getElementById('iemdFulfilled').textContent=s.fulfilled ?? 0;
+    document.getElementById('iemdPartial').textContent=s.partial ?? 0;
+    document.getElementById('iemdFailed').textContent=s.failed ?? 0;
+    document.getElementById('iemdNotEval').textContent=s.not_evaluable ?? 0;
+    document.getElementById('iemdOmissions').textContent=s.unprojected_material_events ?? 0;
+
+    const countries=d.regional_scope||{};
+    document.getElementById('iemdCountry').innerHTML='<b>Validación andina:</b> '+Object.keys(countries).map(k=>`<span style="display:inline-block;margin:3px 5px 3px 0;padding:3px 7px;border:1px solid #3b5672;border-radius:999px">${k}</span>`).join('');
+
+    document.getElementById('iemdCases').innerHTML='<b>Proyecciones activas</b>'+ (cases.map(caseHtml).join('')||'<br>Sin casos activos.');
+
+    const hist=d.validation_history||[];
+    document.getElementById('iemdHistory').innerHTML='<b>Registro de cumplimiento</b>'+ (hist.length?hist.map(h=>{
+      const rc=h.receiver||{}, tm=h.temporal_match||{};
+      return `<div style="margin:8px 0;padding:9px 10px;border-left:4px solid #7f8da0;background:#101923;border-radius:8px">
+        <div style="display:flex;justify-content:space-between;gap:8px"><b>${h.projection_label}</b><span style="font-weight:800;color:#c8b8dd">${h.display_status||h.classification}</span></div>
+        <div style="margin-top:4px">Receptor: <b>${rc.label||'—'}</b> · M${Number(rc.mag||0).toFixed(1)} · ${rc.depth_km??'—'} km</div>
+        <div style="color:#9db2c8;margin-top:4px">Tiempo transcurrido: ${tm.elapsed_hours??'—'} h · dentro de 7 días: ${tm.within_7_days?'sí':'no'}</div>
+        <div style="margin-top:4px">${h.reason||''}</div>
+        <div style="color:#f0c644;margin-top:4px"><b>No suma como acierto:</b> ${h.scored?'no aplica':'faltan criterios pre-evento verificables'}</div>
+      </div>`;
+    }).join(''):'<br>Sin casos cerrados.');
+
+    const omissions=d.unprojected_events||[];
+    document.getElementById('iemdOmissionList').innerHTML='<b>Eventos materiales no proyectados</b>'+ (omissions.length?omissions.map(o=>`<div>• ${o.label||'Evento'} · M${o.mag||'—'} · ${o.country||''}</div>`).join(''):'<br><span style="color:#9db2c8">Sin omisiones registradas en esta versión.</span>');
+
+    document.getElementById('iemdMethod').innerHTML='<b>Regla de validación:</b> '+(d.methodology||'—')+'<br><b>No retrofit:</b> '+(d.evaluation_rules?.no_retrofit||'—')+'<br><b>Omisiones:</b> '+(d.evaluation_rules?.omission||'—');
     document.getElementById('iemdDisclaimer').textContent=d.disclaimer||'';
   }
 
@@ -97,7 +130,26 @@
     if(layer){ try{map.removeLayer(layer);}catch(_){} }
     layer=L.layerGroup();
 
-    (d.cases||[]).forEach((c,idx)=>{
+    const drawable=[...(d.cases||[])];
+    (d.validation_history||[]).forEach(h=>{
+      if(h.origin && h.receiver){
+        drawable.push({
+          origin:h.origin,
+          projection:{
+            target_name:h.receiver.label,
+            target_center:[h.receiver.lat,h.receiver.lon],
+            target_radius_km:80,
+            window_label:'caso observado',
+            status:h.classification==='NO EVALUABLE'?'NO EVALUABLE':h.classification,
+            baseline_penalty:'Caso histórico de validación; no modifica el semáforo.',
+            magnitude_rule:'No puntuable hasta documentar criterios originales.'
+          },
+          physics:{interpretation:h.reason||''},
+          historical_validation:true
+        });
+      }
+    });
+    drawable.forEach((c,idx)=>{
       const o=c.origin||{}, p=c.projection||{};
       if(!Number.isFinite(Number(o.lat))||!Number.isFinite(Number(o.lon))||!Array.isArray(p.target_center)) return;
       const src=[Number(o.lat),Number(o.lon)];
