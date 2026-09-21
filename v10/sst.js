@@ -120,7 +120,7 @@
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button id="refreshSST">Actualizar valores</button><button id="inocarToggle">Ocultar referencias Ecuador</button><button id="sstToggle">Mostrar campo SST global</button></div>
         <div class="small" style="margin-top:8px"><b>Cómo leerlo:</b> INOCAR sigue siendo la referencia oficial ecuatoriana y sus gráficos costeros se actualizan cada hora. Como INOCAR no expone aquí una API numérica pública estable, el número automático se obtiene para la coordenada marina de cada estación con el modelo marino Copernicus servido por Open‑Meteo. Por eso el visor distingue explícitamente <b>referencia oficial</b> de <b>estimación modelada actual</b>.</div>
         <details style="margin-top:8px"><summary style="cursor:pointer;font-weight:700">Ver monitor oficial INOCAR</summary><div style="margin-top:7px"><iframe src="${INOCAR_MAP}" title="INOCAR estaciones de monitoreo" style="width:100%;height:420px;border:1px solid #24415f;border-radius:8px;background:#fff" loading="lazy"></iframe></div></details>`;
-      const cards=aside.querySelectorAll('.card'); if(cards.length>=4)cards[3].insertAdjacentElement('afterend',card);else aside.appendChild(card);
+      aside.appendChild(card);
       document.getElementById('sstToggle').onclick=()=>setSST(!sstEnabled);
       document.getElementById('inocarToggle').onclick=()=>setINOCAR(!inocarEnabled);
       document.getElementById('refreshSST').onclick=loadNumericSST;
