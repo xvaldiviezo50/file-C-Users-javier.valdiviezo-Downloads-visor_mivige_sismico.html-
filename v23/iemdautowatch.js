@@ -8,17 +8,17 @@
     const card=document.createElement('section');
     card.className='card'; card.id='iemdAutoCard';
     card.innerHTML=`
-      <h2>IEM-D automático · proyección migratoria</h2>
+      <h2>IEM-D automático · fuentes globales → zona de estudio</h2>
       <div class="kpis">
         <div class="kpi"><div class="name">Fuentes detectadas</div><div class="val" id="autoSrcCount">—</div></div>
         <div class="kpi"><div class="name">Proyecciones activas</div><div class="val" id="autoActiveCount">—</div></div>
         <div class="kpi"><div class="name">Coincidencias</div><div class="val" id="autoMatchCount">—</div></div>
-        <div class="kpi"><div class="name">Motor</div><div class="val" id="autoEngineState" style="font-size:12px">Esperando feeds…</div></div>
+        <div class="kpi"><div class="name">Zona de estudio</div><div class="val" style="font-size:12px">EC · PE · CO</div></div><div class="kpi"><div class="name">Motor</div><div class="val" id="autoEngineState" style="font-size:12px">Esperando feeds…</div></div>
       </div>
       <div class="controls" style="margin-top:8px"><button id="autoToggle">Ocultar proyecciones automáticas</button></div>
       <div id="autoProjectionList" class="small" style="margin-top:10px">Esperando datos sísmicos…</div>
       <div class="small" style="margin-top:8px;padding:8px;border:1px solid #7549a8;border-radius:8px;background:#171020">
-        <b>Lectura:</b> el motor detecta automáticamente eventos fuente que cumplen reglas IEM-D congeladas, genera un corredor prospectivo de 7 días y busca eventos receptores posteriores dentro de la zona objetivo. Una coincidencia no demuestra transferencia física de energía.
+        <b>Lectura:</b> el motor detecta automáticamente eventos fuente globales, pero solo activa reglas congeladas cuyo destino esté en <b>Ecuador, Perú o Colombia</b>. Genera el corredor prospectivo y busca eventos receptores posteriores. Una coincidencia no demuestra transferencia física de energía.
       </div>`;
     const learning=document.getElementById('learningCard');
     if(learning) learning.insertAdjacentElement('beforebegin',card);
@@ -48,9 +48,12 @@
   }
   function project(events){
     if(!rulesDoc) return [];
+    const allowed=new Set(rulesDoc.study_scope?.countries||['Ecuador','Perú','Colombia']);
     const usgs=events.filter(e=>e.source==='USGS');
     const out=[];
     for(const r of rulesDoc.rules||[]){
+      const targets=Array.isArray(r.target_countries)?r.target_countries:[];
+      if(!targets.length || !targets.some(c=>allowed.has(c))) continue;
       for(const e of usgs){
         if(!inRule(e,r)) continue;
         const age=hoursSince(e.time);
@@ -116,7 +119,7 @@
       });
     });
     if(visible)autoLayer.addTo(map);
-    window.mivigeAutoIEMDStats={sources:srcCount,active:projects.length,matches};
+    window.mivigeAutoIEMDStats={sources:srcCount,active:projects.length,matches,scope:'Ecuador–Perú–Colombia'};
   }
 
   function recalc(){
