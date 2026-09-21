@@ -12,13 +12,13 @@
       <div class="kpis">
         <div class="kpi"><div class="name">Fuentes detectadas</div><div class="val" id="autoSrcCount">—</div></div>
         <div class="kpi"><div class="name">Proyecciones activas</div><div class="val" id="autoActiveCount">—</div></div>
-        <div class="kpi"><div class="name">Coincidencias</div><div class="val" id="autoMatchCount">—</div></div><div class="kpi"><div class="name">PM máximo</div><div class="val" id="autoPMMax">—</div></div>
+        <div class="kpi"><div class="name">Coincidencias</div><div class="val" id="autoMatchCount">—</div></div><div class="kpi"><div class="name">PM máximo</div><div class="val" id="autoPMMax">—</div></div><div class="kpi"><div class="name">σdyn proxy máx.</div><div class="val" id="autoSigmaMax" style="font-size:12px">—</div></div>
         <div class="kpi"><div class="name">Zona de estudio</div><div class="val" style="font-size:12px">EC · PE · CO</div></div><div class="kpi"><div class="name">Motor</div><div class="val" id="autoEngineState" style="font-size:12px">Esperando feeds…</div></div>
       </div>
       <div class="controls" style="margin-top:8px"><button id="autoToggle">Ocultar proyecciones automáticas</button></div>
       <div id="autoProjectionList" class="small" style="margin-top:10px">Esperando datos sísmicos…</div>
       <div class="small" style="margin-top:8px;padding:8px;border:1px solid #7549a8;border-radius:8px;background:#171020">
-        <b>Lectura:</b> el motor detecta automáticamente eventos fuente globales, pero solo activa reglas congeladas cuyo destino esté en <b>Ecuador, Perú o Colombia</b>. Genera el corredor prospectivo y busca eventos receptores posteriores. Una coincidencia no demuestra transferencia física de energía.
+        <b>Lectura:</b> el motor detecta automáticamente eventos fuente globales, pero solo activa reglas congeladas cuyo destino esté en <b>Ecuador, Perú o Colombia</b>. Genera el corredor prospectivo y busca eventos receptores posteriores. Una coincidencia no demuestra transferencia física de energía. El IPD usa un PGV/σdyn proxy de primer orden para evaluar plausibilidad física relativa.
       </div>`;
     const learning=document.getElementById('learningCard');
     if(learning) learning.insertAdjacentElement('beforebegin',card);
@@ -48,10 +48,28 @@
     const depthBonus=e.depth<=40?18:e.depth<=100?10:e.depth<=300?4:0;
     return clamp(mag+depthBonus);
   }
+  function seismicMomentMw(mw){
+    return Math.pow(10,1.5*mw+9.1);
+  }
+  function depthFactor(h){
+    if(h<=50) return 1.0;
+    if(h<=150) return 0.85;
+    return 0.65;
+  }
+  function ipdPhysics(e,r){
+    const R=Math.max(100,distKm(e.lat,e.lon,r.target_center[0],r.target_center[1]));
+    const M0=seismicMomentMw(e.mag);
+    // Proxy heurístico de PGV para comparación interna; no es registro instrumental ni GMPE validada.
+    const pgv=1e-4*Math.pow(10,0.5*(e.mag-5))*Math.pow(1000/R,0.8)*Math.exp(-R/18000)*depthFactor(e.depth);
+    const rho=2700, Vs=3500;
+    const sigmaPa=rho*Vs*pgv;
+    const sigmaKPa=sigmaPa/1000;
+    // Escala IPD 0–100 basada en orden de magnitud de σdyn proxy.
+    const score=clamp(25*(Math.log10(Math.max(sigmaKPa,0.01))+2),0,100);
+    return {score,distance_km:R,m0_nm:M0,pgv_m_s:pgv,sigma_kpa:sigmaKPa,depth_factor:depthFactor(e.depth)};
+  }
   function pmPropagation(e,r){
-    const d=distKm(e.lat,e.lon,r.target_center[0],r.target_center[1]);
-    const distScore=clamp(100-(d/180),5,100);
-    return clamp(distScore*(Number(r.propagation_factor)||0.5));
+    return ipdPhysics(e,r).score;
   }
   function preSourceReceiver(src,r,events){
     const before=events.filter(e=>e.time<src.time&&e.time>=src.time-72*3600000&&distKm(r.target_center[0],r.target_center[1],e.lat,e.lon)<=r.target_radius_km);
@@ -63,9 +81,9 @@
     return {score:clamp(raw*backgroundPenalty),count:before.length,maxMag:max,penalty:backgroundPenalty};
   }
   function pmFor(src,r,events){
-    const S=pmSource(src), P=pmPropagation(src,r), R=preSourceReceiver(src,r,events);
-    const total=clamp(0.35*S+0.25*P+0.40*R.score);
-    return {source:S,propagation:P,receiver:R.score,total,receiver_meta:R};
+    const S=pmSource(src), IPD=ipdPhysics(src,r), R=preSourceReceiver(src,r,events);
+    const total=clamp(0.35*S+0.25*IPD.score+0.40*R.score);
+    return {source:S,propagation:IPD.score,receiver:R.score,total,receiver_meta:R,ipd:IPD};
   }
   function targetEvents(src,r,events){
     const end=endTime(src,r);
@@ -100,6 +118,12 @@
   function fmt(t){try{return new Intl.DateTimeFormat('es-EC',{timeZone:'America/Guayaquil',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(t));}catch(_){return new Date(t).toLocaleString();}}
   function color(s){return s==='COINCIDENCIA'?'#42b86b':'#af7cff';}
   function pmLabel(v){return v>=70?'Muy alto exp.':v>=50?'Alto exp.':v>=30?'Moderado exp.':'Bajo exp.';}
+  function sigmaLabel(kpa){
+    if(kpa>=10) return 'físicamente relevante como perturbación proxy';
+    if(kpa>=1) return 'rango de interés experimental';
+    return 'perturbación proxy baja';
+  }
+  function sci(n,d=2){ if(!Number.isFinite(Number(n)))return '—'; return Number(n).toExponential(d); }
   function miniBar(label,v){
     const n=clamp(Number(v)||0);
     return '<div style="margin-top:4px"><div style="display:flex;justify-content:space-between"><span>'+label+'</span><b>'+n.toFixed(0)+'</b></div><div style="height:6px;background:#142538;border-radius:999px;overflow:hidden"><div style="width:'+n+'%;height:100%;background:#8c6fd1"></div></div></div>';
@@ -112,10 +136,12 @@
     const srcCount=new Set(projects.map(p=>p.source.id)).size;
     const matches=projects.filter(p=>p.status==='COINCIDENCIA').length;
     const pmMax=projects.length?Math.max(...projects.map(p=>p.pm?.total||0)):0;
+    const sigmaMax=projects.length?Math.max(...projects.map(p=>p.pm?.ipd?.sigma_kpa||0)):0;
     document.getElementById('autoSrcCount').textContent=srcCount;
     document.getElementById('autoActiveCount').textContent=projects.length;
     document.getElementById('autoMatchCount').textContent=matches;
     document.getElementById('autoPMMax').textContent=pmMax.toFixed(0)+'/100';
+    document.getElementById('autoSigmaMax').textContent=sigmaMax.toFixed(3)+' kPa';
     document.getElementById('autoEngineState').textContent='AUTO · '+fmt(Date.now());
 
     const host=document.getElementById('autoProjectionList');
@@ -128,9 +154,14 @@
         ${m?`<div style="margin-top:4px;color:#9fd5ad"><b>Receptor:</b> M${m.mag.toFixed(1)} · ${fmt(m.time)} · ${m.depth.toFixed(0)} km · ${m.source}</div>`:''}
         <div style="margin-top:7px;padding:7px;border:1px solid #4b3e6d;border-radius:7px;background:#161221"><b>PM experimental: ${(p.pm?.total||0).toFixed(0)}/100 · ${pmLabel(p.pm?.total||0)}</b>
           ${miniBar('Fuente',p.pm?.source)}
-          ${miniBar('Propagación',p.pm?.propagation)}
+          ${miniBar('IPD físico',p.pm?.propagation)}
           ${miniBar('Receptor',p.pm?.receiver)}
-          <div style="color:#9db2c8;margin-top:4px">Actividad previa receptor: ${p.pm?.receiver_meta?.count||0} eventos / 72 h · penalización fondo: ${p.pm?.receiver_meta?.penalty||1}</div>
+          <div style="margin-top:5px;color:#b8cbe0"><b>Física fuente→receptor:</b><br>
+          R = ${(p.pm?.ipd?.distance_km||0).toFixed(0)} km · M0 = ${sci(p.pm?.ipd?.m0_nm,2)} N·m<br>
+          PGV proxy = ${sci(p.pm?.ipd?.pgv_m_s,2)} m/s · σdyn proxy = <b>${(p.pm?.ipd?.sigma_kpa||0).toFixed(3)} kPa</b><br>
+          <span style="color:#9db2c8">${sigmaLabel(p.pm?.ipd?.sigma_kpa||0)} · proxy de primer orden, no medición instrumental.</span>
+        </div>
+        <div style="color:#9db2c8;margin-top:4px">Actividad previa receptor: ${p.pm?.receiver_meta?.count||0} eventos / 72 h · penalización fondo: ${p.pm?.receiver_meta?.penalty||1}</div>
         </div>
         <div style="color:#9db2c8;margin-top:4px">${p.rule.note}</div>
       </div>`;
@@ -146,7 +177,7 @@
         .addTo(autoLayer);
       const bend=mid(src,dst);
       L.polyline([src,bend,dst],{color:c,weight:Math.max(2,2+(p.pm?.total||0)/35),opacity:.75,dashArray:'8,7'})
-        .bindPopup(`<b>Proyección automática experimental</b><br>${p.rule.source_label} → ${p.rule.target_name}<br>Estado: ${p.status}<br>PM: <b>${(p.pm?.total||0).toFixed(0)}/100</b> · ${pmLabel(p.pm?.total||0)}<br>Fuente ${p.pm?.source?.toFixed(0)||0} · Propagación ${p.pm?.propagation?.toFixed(0)||0} · Receptor ${p.pm?.receiver?.toFixed(0)||0}<br>Umbral receptor: M≥${p.rule.receiver_min_mag.toFixed(1)}`)
+        .bindPopup(`<b>Proyección automática experimental</b><br>${p.rule.source_label} → ${p.rule.target_name}<br>Estado: ${p.status}<br>PM: <b>${(p.pm?.total||0).toFixed(0)}/100</b> · ${pmLabel(p.pm?.total||0)}<br>Fuente ${p.pm?.source?.toFixed(0)||0} · IPD ${p.pm?.propagation?.toFixed(0)||0} · Receptor ${p.pm?.receiver?.toFixed(0)||0}<br>σdyn proxy ${(p.pm?.ipd?.sigma_kpa||0).toFixed(3)} kPa · ${sigmaLabel(p.pm?.ipd?.sigma_kpa||0)}<br>Umbral receptor: M≥${p.rule.receiver_min_mag.toFixed(1)}`)
         .addTo(autoLayer);
       L.circle(dst,{radius:p.rule.target_radius_km*1000,color:c,weight:2,fillColor:c,fillOpacity:.07,dashArray:'6,6'})
         .bindPopup(`<b>Zona receptora IEM-D</b><br>${p.rule.target_name}<br>Estado: ${p.status}<br>Ventana restante: ${remaining(p)}`)
@@ -158,7 +189,7 @@
       });
     });
     if(visible)autoLayer.addTo(map);
-    window.mivigeAutoIEMDStats={sources:srcCount,active:projects.length,matches,pmMax,scope:'Ecuador–Perú–Colombia'};
+    window.mivigeAutoIEMDStats={sources:srcCount,active:projects.length,matches,pmMax,sigmaMax,scope:'Ecuador–Perú–Colombia'};
   }
 
   function recalc(){
