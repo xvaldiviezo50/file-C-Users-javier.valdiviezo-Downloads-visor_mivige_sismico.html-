@@ -1,5 +1,5 @@
 {
-  "version": "MIVIGE-LEARN-2026-09-21-03",
+  "version": "MIVIGE-LEARN-2026-09-21-04",
   "published_at_ecuador": "21 sep 2026 · 07:55",
   "title": "Motor de Aprendizaje + Convergencia",
   "mode": "Champion / Challenger con aprendizaje conservador",
@@ -129,7 +129,8 @@
     "Mantener científico y experimental visibles por separado.",
     "No usar el peso experimental para subir por sí solo el semáforo general.",
     "Las fuentes globales experimentales solo se consideran si la regla receptora apunta a Ecuador, Perú o Colombia.",
-    "El PM experimental es comparativo, no una probabilidad física."
+    "El PM experimental es comparativo, no una probabilidad física.",
+    "IPD/PGV/σdyn son proxies hasta disponer de registros instrumentales o una GMPE validada para el trayecto."
   ],
   "scope": {
     "primary_study_area": [
@@ -148,5 +149,21 @@
     ],
     "use": "priorizar visualmente casos IEM-D dentro de la capa experimental",
     "restriction": "PM no desbloquea peso adaptativo ni modifica semáforo científico por sí solo"
+  },
+  "experimental_ipd": {
+    "name": "IPD · Índice de Perturbación Dinámica",
+    "role": "componente físico auxiliar de IEM-D",
+    "variables": [
+      "Mw",
+      "M0",
+      "distancia",
+      "profundidad",
+      "PGV proxy",
+      "σdyn proxy",
+      "susceptibilidad del receptor"
+    ],
+    "dynamic_stress_relation": "σdyn ≈ ρ·Vs·PGV",
+    "status": "proxy físico de primer orden; pendiente de sustituir por waveform/GMPE validada cuando haya datos disponibles",
+    "restriction": "No se interpreta como probabilidad ni como prueba causal."
   }
 }
