@@ -1,5 +1,5 @@
 {
-  "version": "IEMD-AUTO-RULEBOOK-2026-09-21-02",
+  "version": "IEMD-AUTO-RULEBOOK-2026-09-21-03",
   "title": "Reglas automáticas IEM-D · fuentes globales con destino Ecuador–Perú–Colombia",
   "methodology": "El motor detecta eventos fuente globales en los feeds y aplica únicamente corredores experimentales previamente congelados cuyo destino pertenezca a Ecuador, Perú o Colombia. No se crean relaciones nuevas automáticamente a partir de coincidencias posteriores.",
   "default_window_hours": 168,
@@ -34,7 +34,9 @@
       "target_countries": [
         "Perú",
         "Ecuador"
-      ]
+      ],
+      "propagation_factor": 0.5,
+      "receiver_context": "zona tectónicamente activa; validar frente a ETAS/fondo"
     },
     {
       "id": "MARIANAS-SECUADOR-NPERU",
@@ -62,7 +64,9 @@
       "target_countries": [
         "Ecuador",
         "Perú"
-      ]
+      ],
+      "propagation_factor": 0.5,
+      "receiver_context": "zona tectónicamente activa; validar frente a ETAS/fondo"
     },
     {
       "id": "VERACRUZ-LIMA-ICA",
@@ -89,7 +93,9 @@
       "note": "Regla experimental reportada: Veracruz / Istmo → Lima–Ica.",
       "target_countries": [
         "Perú"
-      ]
+      ],
+      "propagation_factor": 0.5,
+      "receiver_context": "zona tectónicamente activa; validar frente a ETAS/fondo"
     }
   ],
   "safeguards": [
@@ -109,5 +115,34 @@
     ],
     "principle": "Un evento fuente puede ocurrir en cualquier parte del mundo, pero solo activa una proyección automática si una regla congelada lo conecta explícitamente con una zona receptora dentro de Ecuador, Perú o Colombia.",
     "exclude_unrelated_targets": true
+  },
+  "pm_model": {
+    "name": "PM · Potencial Migratorio Experimental",
+    "range": "0–100",
+    "components": {
+      "source": "Magnitud y profundidad del evento fuente.",
+      "propagation": "Distancia fuente–receptor y factor direccional de la regla experimental.",
+      "receiver": "Actividad previa, clustering y sensibilidad tectónica del receptor."
+    },
+    "formula": "PM = 0.35·Fuente + 0.25·Propagación + 0.40·Receptor, con penalización por actividad de fondo alta.",
+    "interpretation": [
+      {
+        "range": "0–29",
+        "label": "Bajo experimental"
+      },
+      {
+        "range": "30–49",
+        "label": "Moderado experimental"
+      },
+      {
+        "range": "50–69",
+        "label": "Alto experimental"
+      },
+      {
+        "range": "70–100",
+        "label": "Muy alto experimental"
+      }
+    ],
+    "disclaimer": "PM no es probabilidad de terremoto ni evidencia causal; es un índice interno para comparar proyecciones experimentales."
   }
 }
