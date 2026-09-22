@@ -1,18 +1,17 @@
 {
-  "version": "2026-09-22T15:59:24-05:00-v23",
-  "updated_at": "2026-09-22T20:59:24Z",
-  "updated_at_ecuador": "22 sep 2026 · 15:59 ECU",
+  "version": "2026-09-22T17:16:30-05:00-v23",
+  "updated_at": "2026-09-22T22:16:30Z",
+  "updated_at_ecuador": "22 sep 2026 · 17:16 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto en Chaparral; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
-    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero previamente establecido; continúa actividad, pero no se verificó una nueva escalada material frente al corte anterior.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, decaimiento, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
+    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero previamente establecido; continúa actividad, sin nueva escalada material verificada frente al corte anterior.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, decaimiento, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
     {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Foco previamente establecido; sin nueva escalada material verificada en esta ventana.","tectonic_type":"mantener separadas poblaciones somera/intermedia e intraslab","next_check":"Persistencia M4+, tasa 12 h/12 h, ETAS/Omori y migración hipocentral."},
     {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin nueva escalada material verificada en esta ventana.","tectonic_type":"cortical/volcano-tectónico local","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
   ],
   "events": [
-    {"time_local":"2026-09-22T11:05:00-05:00","place":"Chaparral, Tolima","magnitude":3.2,"depth_class":"superficial <30 km","status":"deduplicated; non-material"},
     {"time_local":"2026-09-22T11:21:00-05:00","place":"Chaparral, Tolima","magnitude":3.6,"depth_class":"superficial <30 km","status":"deduplicated; non-material"},
-    {"time_local":"2026-09-22T12:42:00-05:00","place":"Tolima / Chaparral sequence","magnitude":3.1,"depth_class":"superficial <30 km","status":"deduplicated; non-material"}
+    {"time_local":"2026-09-22T12:42:00-05:00","place":"Chaparral, Tolima","magnitude":3.1,"depth_class":"superficial <30 km","status":"deduplicated; non-material"}
   ],
   "gnss": {
     "sources": [
@@ -49,5 +48,5 @@
   },
   "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
   "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 15:59 ECU: sin cambio material frente a 14:55. Chaparral continúa activo con eventos someros deduplicados, pero no se verificó nuevo M>=5 regional, nuevo foco alta/reforzada, aceleración adicional claramente demostrada, exceso ETAS/Omori cuantificado, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, alerta de tsunami ni cambio de semáforo. RENGEO permanece obligatoria; sin solución E/N/U reciente automatizable suficiente para QC, IDG=datos insuficientes y no deformación nula."
+  "notes":"Ciclo 17:16 ECU: sin cambio material frente a 15:59. Chaparral continúa activo, pero no se verificó nuevo M>=5 regional, nuevo foco alta/reforzada, aceleración adicional claramente demostrada, exceso ETAS/Omori cuantificado, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, alerta de tsunami ni cambio de semáforo. RENGEO permanece obligatoria; sin solución E/N/U reciente automatizable suficiente para QC, IDG=datos insuficientes y no deformación nula."
 }
