@@ -1,13 +1,13 @@
 {
-  "version": "2026-09-22T12:35:32-05:00-v23",
-  "updated_at": "2026-09-22T17:35:32Z",
-  "updated_at_ecuador": "22 sep 2026 · 12:35 ECU",
+  "version": "2026-09-22T14:55:11-05:00-v23",
+  "updated_at": "2026-09-22T19:55:11Z",
+  "updated_at_ecuador": "22 sep 2026 · 14:55 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto en Chaparral; sin segunda familia científica independiente",
-  "material_change": false,
+  "material_change": true,
   "focus": [
-    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Persistencia intensa durante el 22-sep; continúan sismos corticales someros. Sin nuevo M>=5 ni nueva aceleración material demostrada frente al corte 12:09 ECU.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, decaimiento, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
+    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Cambio material: la secuencia supera 200 eventos M>=2 en menos de 48 h y SGC la caracteriza ya como enjambre; predominio cortical somero y múltiples M4+. No implica por sí mismo preparación de un evento mayor.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, decaimiento, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
     {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Foco previamente establecido; sin nueva escalada material verificada en esta ventana.","tectonic_type":"mantener separadas poblaciones somera/intermedia e intraslab","next_check":"Persistencia M4+, tasa 12 h/12 h, ETAS/Omori y migración hipocentral."},
-    {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin nueva escalada material verificada.","tectonic_type":"cortical/volcano-tectónico local","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
+    {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin nueva escalada material verificada en esta ventana.","tectonic_type":"cortical/volcano-tectónico local","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
   ],
   "events": [],
   "gnss": {
@@ -38,12 +38,12 @@
     }
   },
   "scientific_layer": {
-    "IDS":"Chaparral mantiene actividad cortical somera; sin cambio material adicional demostrado frente al corte anterior.",
+    "IDS":"Chaparral reforzado: >200 M>=2 en menos de 48 h y clasificación de enjambre atribuida a SGC; múltiples M4+, cortical somero. ETAS/Omori cuantitativo aún pendiente.",
     "IDG":"datos insuficientes RENGEO y baja latencia regional",
     "IITE":"sin cálculo Coulomb sustentado nuevo",
     "IADR":"sin respuesta local físicamente evaluable nueva"
   },
   "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
   "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 12:35 ECU: sin cambio material frente al estado 12:09. Chaparral continúa activo; búsquedas frescas no verifican nuevo M>=5 regional relevante, nuevo foco ALTA/reforzada, aceleración nueva demostrada, exceso ETAS/Omori, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO permanece obligatoria; sin solución E/N/U reciente automatizable suficiente para QC, IDG=datos insuficientes y no deformación nula."
+  "notes":"Ciclo 14:55 ECU: cambio material en Chaparral frente al estado 12:35: fuentes que entrevistan/citan al SGC reportan >200 eventos M>=2 en menos de 48 h y caracterización como enjambre. No se verificó nuevo M>=5 regional, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, alerta de tsunami ni cambio de semáforo. RENGEO permanece obligatoria; sin solución E/N/U reciente automatizable suficiente para QC, IDG=datos insuficientes y no deformación nula."
 }
