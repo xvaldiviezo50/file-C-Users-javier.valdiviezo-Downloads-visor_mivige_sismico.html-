@@ -1,12 +1,12 @@
 {
-  "version": "2026-09-22T10:07:27-05:00-v23",
-  "updated_at": "2026-09-22T15:07:27Z",
-  "updated_at_ecuador": "22 sep 2026 · 10:07 ECU",
+  "version": "2026-09-22T10:42:13-05:00-v23",
+  "updated_at": "2026-09-22T15:42:13Z",
+  "updated_at_ecuador": "22 sep 2026 · 10:42 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto en Chaparral; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
     {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Persistencia intensa durante el 22-sep; continúan sismos someros M3–M4, pero no se verificó M>=5 ni una nueva aceleración estadísticamente demostrada frente al estado previo.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, decaimiento, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
-    {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Foco previamente establecido; actividad reciente incluye eventos intermedios, sin nueva escalada material verificada en esta ventana.","tectonic_type":"mantener separadas poblaciones somera/intermedia e intraslab","next_check":"Persistencia M4+, tasa 12 h/12 h, ETAS/Omori y migración hipocentral."},
+    {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Foco previamente establecido; sin nueva escalada material verificada en esta ventana.","tectonic_type":"mantener separadas poblaciones somera/intermedia e intraslab","next_check":"Persistencia M4+, tasa 12 h/12 h, ETAS/Omori y migración hipocentral."},
     {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin nueva escalada material verificada.","tectonic_type":"cortical/volcano-tectónico local","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
   ],
   "events": [],
@@ -45,5 +45,5 @@
   },
   "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
   "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 10:07 ECU: sin cambio material nuevo frente al estado 08:09. Chaparral continúa activo con eventos someros M3–M4; no se verificó nuevo M>=5 regional relevante, nuevo foco ALTA/reforzada, aceleración nueva claramente demostrada, exceso ETAS/Omori, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO permanece obligatoria; no se obtuvo solución E/N/U reciente automatizable suficiente para QC, por lo que IDG=datos insuficientes y no deformación nula."
+  "notes":"Ciclo 10:42 ECU: sin cambio material frente al estado 10:07. Chaparral continúa activo; se verificaron reportes del SGC reproducidos por medios sobre actividad somera M3–M4 y un M4.2 a las 02:35, ya perteneciente al estado previo. A las 09:51 se reportó un M2.1 a 6 km en la frontera oriental Ecuador/Colombia, zona Chiles-Cerro Negro, insuficiente por sí solo para crear o elevar un foco. No se verificó nuevo M>=5 regional relevante, nuevo foco ALTA/reforzada, aceleración nueva demostrada, exceso ETAS/Omori, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, alerta de tsunami ni comunicado oficial extraordinario. RENGEO permanece obligatoria; sin solución E/N/U reciente automatizable suficiente para QC, IDG=datos insuficientes y no deformación nula."
 }
