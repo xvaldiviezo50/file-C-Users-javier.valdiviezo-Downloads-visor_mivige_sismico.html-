@@ -16,8 +16,8 @@
         <div class="kpi"><div class="name">Lectura</div><div class="val" id="chocoReading" style="font-size:13px">—</div></div>
         <div class="kpi"><div class="name">Enjambre SGC</div><div class="val" id="chocoSwarmCount">—</div><div class="small" id="chocoSwarmCut" style="margin-top:3px">—</div></div>
         <div class="kpi"><div class="name">Réplicas M7,4</div><div class="val" id="chocoAftershockCount">—</div><div class="small" style="margin-top:3px">conteo separado</div></div>
-        <div class="kpi"><div class="name">Pulso 18-sep</div><div class="val" id="chocoPulseCount">—</div><div class="small" id="chocoPulseM4" style="margin-top:3px">—</div></div>
-        <div class="kpi"><div class="name">Mayor SGC hoy</div><div class="val" id="chocoLargestToday">—</div><div class="small" id="chocoLargestTime" style="margin-top:3px">—</div></div>
+        <div class="kpi"><div class="name">Enjambre M≥4</div><div class="val" id="chocoPulseCount">—</div><div class="small" id="chocoPulseM4" style="margin-top:3px">30–60 km · N–S</div></div>
+        <div class="kpi"><div class="name">Migración</div><div class="val" id="chocoLargestToday">—</div><div class="small" id="chocoLargestTime" style="margin-top:3px">tiempo × distancia × profundidad</div></div>
       </div>
       <div id="chocoCountNote" class="small" style="margin-top:8px;padding:8px;border:1px solid #335777;border-radius:8px;background:#0b1a2a">—</div>
       <div id="chocoAgency" class="small" style="margin-top:8px;padding:8px;border:1px solid #8a6b24;border-radius:8px;background:#241f0d">—</div>
@@ -37,7 +37,7 @@
   function renderCard(s){
     ensureCard();
     document.getElementById('chocoLevel').textContent=s.level||'—';
-    document.getElementById('chocoReading').textContent='Enjambre / pulso activo';
+    document.getElementById('chocoReading').textContent='Réplicas profundas + enjambre separado';
 
     const c=s.official_counts||{};
     const p=s.recent_pulse||{};
@@ -45,13 +45,13 @@
     document.getElementById('chocoSwarmCount').textContent=c.swarm_label||'—';
     document.getElementById('chocoSwarmCut').textContent=c.swarm_cutoff?`corte oficial ${c.swarm_cutoff}`:'—';
     document.getElementById('chocoAftershockCount').textContent=c.aftershocks_label||'—';
-    document.getElementById('chocoPulseCount').textContent=p.events_label||'—';
-    document.getElementById('chocoPulseM4').textContent=p.m4plus_label||'—';
-    document.getElementById('chocoLargestToday').textContent=p.largest_sgc_today||'—';
-    document.getElementById('chocoLargestTime').textContent=p.largest_sgc_time?`${p.largest_sgc_time} · SGC`:'—';
+    document.getElementById('chocoPulseCount').textContent=c.swarm_m4plus_label||'—';
+    document.getElementById('chocoPulseM4').textContent='30–60 km · N–S';
+    document.getElementById('chocoLargestToday').textContent=s.migration_detector?.status||'NO CONFIRMADO';
+    document.getElementById('chocoLargestTime').textContent='tiempo × distancia × profundidad';
 
-    document.getElementById('chocoCountNote').innerHTML=`<b>${c.source||'SGC'}:</b> ${c.note||'—'}<br><b>Pulso actual:</b> ${p.interpretation||'—'}`;
-    document.getElementById('chocoAgency').innerHTML=`<b>Contraste de agencias:</b> ${a.event_time||'—'} · SGC ${a.sgc_solution||'—'} · USGS ${a.usgs_solution||'—'}<br>${a.rule||''}`;
+    document.getElementById('chocoCountNote').innerHTML=`<b>${c.source||'SGC'}:</b> ${c.note||'—'}<br><b>Réplicas:</b> ${s.sequence_groups?.deep_aftershocks?.depth_km||'70–105'} km · ${s.sequence_groups?.deep_aftershocks?.behavior||'—'}<br><b>Enjambre:</b> ${s.sequence_groups?.swarm?.depth_km||'30–60'} km · ${s.sequence_groups?.swarm?.behavior||'—'}`;
+    document.getElementById('chocoAgency').innerHTML=`<b>Hipótesis SGC (preliminar):</b> ${s.scientific_hypothesis?.text||'—'}<br><b>Detector de migración:</b> ${s.migration_detector?.rule||'—'}`;
 
     const evidence=(s.evidence||[]).map(x=>`• ${x}`).join('<br>');
     const alerts=(s.alert_conditions||[]).map(x=>`• ${x}`).join('<br>');
@@ -71,7 +71,7 @@
     const p=s.recent_pulse||{};
     if(Array.isArray(c)&&c.length===2){
       L.circle(c,{radius:r,color:'#f0c644',weight:2,fillColor:'#f0c644',fillOpacity:0.08,dashArray:'7,6'})
-        .bindPopup(`<b>${s.title}</b><br>${s.level}<br><br><b>Enjambre SGC:</b> ${counts.swarm_label||'—'} (corte ${counts.swarm_cutoff||'—'})<br><b>Pulso 18-sep:</b> ${p.events_label||'—'} · ${p.m4plus_label||'—'}<br><b>Mayor SGC hoy:</b> ${p.largest_sgc_today||'—'}<br><br>${s.current_reading}`)
+        .bindPopup(`<b>${s.title}</b><br>${s.level}<br><br><b>Enjambre SGC:</b> ${counts.swarm_label||'—'} (corte ${counts.swarm_cutoff||'—'})<br><b>Réplicas profundas:</b> ${counts.aftershocks_label||'—'} · 70–105 km<br><b>Enjambre:</b> ${counts.swarm_label||'—'} · ${counts.swarm_m4plus_label||'—'} · 30–60 km<br><br>${s.current_reading}`)
         .addTo(layer);
       L.marker(c,{title:s.map?.label||'Vigilancia Chocó'})
         .bindTooltip(`${s.map?.label||'Vigilancia Chocó'} · ${p.m4plus_label||''}`,{permanent:false,direction:'top'})
