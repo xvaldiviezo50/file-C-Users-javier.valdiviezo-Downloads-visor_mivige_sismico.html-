@@ -1,11 +1,11 @@
 {
-  "version": "2026-09-23T11:45:16-05:00-v23",
-  "updated_at": "2026-09-23T16:45:16Z",
-  "updated_at_ecuador": "23 sep 2026 · 11:45 ECU",
+  "version": "2026-09-23T12:57:34-05:00-v23",
+  "updated_at": "2026-09-23T17:57:34Z",
+  "updated_at_ecuador": "23 sep 2026 · 12:57 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto en Chaparral; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
-    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero establecido; corte público SGC citado por fuentes frescas: 25 eventos entre 00:09 y 06:57, Mmax 4.2; sin escalada material nueva verificada después del corte previo.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
+    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero establecido; verificación fresca mantiene Mmax 4.2 y al menos 25 eventos entre 00:09 y 06:57 según cortes públicos atribuidos al SGC; no se verificó escalada material nueva posterior al corte 11:45.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
     {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Foco previamente establecido; sin nueva escalada material verificable en esta ventana.","tectonic_type":"mantener separadas poblaciones somera/intermedia e intraslab","next_check":"Persistencia M4+, tasa 12 h/12 h, ETAS/Omori y migración hipocentral."},
     {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin nueva escalada material verificable en esta ventana.","tectonic_type":"cortical/volcano-tectónico local","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
   ],
@@ -34,16 +34,16 @@
       "rengeo_median_latency": null,
       "rengeo_focus_stations": ["ESMR","RVRD","SNLR","PTGL","MOMP","PDNS","JAM2","BAHI","ISPT","AYAN","MRO2"],
       "rengeo_coherent_anomalies": [],
-      "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta; no se infiere deformación nula."
+      "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta; el portal IG-EPN consultado presenta mantenimiento parcial. No se infiere deformación nula."
     }
   },
   "scientific_layer": {
-    "IDS":"Chaparral continúa activo como enjambre cortical somero. Fuentes frescas que reproducen el corte SGC reportan 25 eventos entre 00:09 y 06:57 del 23 de septiembre, todos superficiales, Mmax 4.2; este pulso ya estaba incorporado en el estado previo y no constituye por sí solo un cambio material adicional. ETAS/Omori cuantitativo pendiente.",
+    "IDS":"Chaparral continúa activo como enjambre cortical somero. Verificación fresca mantiene el pulso conocido con Mmax 4.2; no se verificó una escalada material posterior al corte anterior. ETAS/Omori cuantitativo pendiente.",
     "IDG":"datos insuficientes RENGEO y baja latencia regional",
     "IITE":"sin cálculo Coulomb sustentado nuevo",
     "IADR":"sin respuesta local físicamente evaluable nueva"
   },
   "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
   "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 11:45 ECU: sin cambio material frente al corte 10:13. Verificación fresca confirma el pulso ya conocido de Chaparral: un corte público atribuido al SGC registra 25 sismos entre 00:09 y 06:57, todos superficiales, con Mmax 4.2. No se verificó después del corte previo un M>=5 regional relevante, nuevo foco alta/reforzada, aceleración adicional clara, exceso ETAS/Omori cuantificado, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, alerta de tsunami ni cambio de semáforo. Se deduplican revisiones del mismo evento. RENGEO permanece obligatoria; no se obtuvieron soluciones E/N/U recientes automatizables suficientes para QC, por lo que IDG=datos insuficientes RENGEO, no deformación nula."
+  "notes":"Ciclo 12:57 ECU: sin cambio material frente al corte 11:45. Fuentes frescas siguen mostrando el mismo pulso de Chaparral ya incorporado (Mmax 4.2; al menos 25 eventos 00:09–06:57). Un medio no oficial reporta un acumulado de 439 eventos y una alerta naranja municipal, pero no se usa ese conteo para elevar el semáforo científico sin corroboración primaria oficial. No se verificó M>=5 regional relevante nuevo, foco alta/reforzada nuevo, aceleración adicional clara, exceso ETAS/Omori cuantificado, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, alerta de tsunami ni comunicado científico extraordinario. Se deduplican revisiones del mismo evento. RENGEO permanece obligatoria; no se obtuvieron soluciones E/N/U recientes automatizables suficientes para QC, por lo que IDG=datos insuficientes RENGEO, no deformación nula."
 }
