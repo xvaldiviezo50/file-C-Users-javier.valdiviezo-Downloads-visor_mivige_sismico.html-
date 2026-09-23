@@ -1,18 +1,21 @@
 {
-  "version": "CHOCO-18SEP-2026-03",
-  "published_at_ecuador": "18 sep 2026 · 15:41",
+  "version": "CHOCO-22SEP-2026-04",
+  "published_at_ecuador": "22 sep 2026 · actualización SGC",
   "title": "Chocó – Istmina / Sipí / Medio San Juan",
-  "level": "Actividad sísmica persistente / vigilancia intensificada",
+  "level": "Dos poblaciones diferenciadas / vigilancia intensificada",
   "scientific_family": "Sismicidad (IDS)",
-  "current_reading": "El enjambre/secuencia de Chocó continúa activo y hoy presenta un nuevo pulso con dos eventos M4+ confirmados por SGC y varios M2–3 en el corredor Istmina–Sipí. La concentración de varios eventos revisados en ~39–49 km de profundidad refuerza la vigilancia, pero aún no demuestra aceleración sostenida, migración tectónica coherente ni preparación de un evento mayor.",
+  "current_reading": "El SGC distingue dos procesos: (1) >330 réplicas intraplaca profundas, 70–105 km, alineación NE–SO y decaimiento progresivo; (2) >1.500 eventos del enjambre Istmina–Medio San Juan–Sipí–Litoral del San Juan, 30–60 km, alineación N–S y sin decaimiento típico de réplicas. No hay evidencia oficial suficiente, por sí sola, para afirmar escalamiento hacia un terremoto mayor ni migración hipocentral coherente.",
   "official_counts": {
-    "swarm_events_min": 1200,
-    "swarm_label": ">1.200 eventos",
-    "swarm_cutoff": "8 sep 2026",
-    "aftershocks_approx": 300,
-    "aftershocks_label": "~300 réplicas",
+    "swarm_events_min": 1500,
+    "swarm_label": ">1.500 eventos",
+    "swarm_cutoff": "22 sep 2026",
+    "swarm_m4plus": 28,
+    "swarm_m4plus_label": "28 eventos M≥4,0 ML",
+    "aftershocks_min": 330,
+    "aftershocks_label": ">330 réplicas",
+    "aftershocks_m4plus": 2,
     "source": "Servicio Geológico Colombiano (SGC)",
-    "note": "El SGC distingue el enjambre sísmico de las réplicas asociadas al M7,4 del 10 de agosto. El acumulado >1.200 corresponde al último corte oficial citado y no es un contador en tiempo real."
+    "note": "Corte oficial SGC del 22-sep-2026. Los dos grupos se contabilizan e interpretan por separado: réplicas profundas 70–105 km y enjambre 30–60 km."
   },
   "recent_pulse": {
     "date": "18 sep 2026",
@@ -33,22 +36,22 @@
     "rule": "Se trata como una sola ocurrencia por coincidencia tiempo/espacio. El umbral M>=5 se considera alcanzado en la solución USGS, pero no se usa para duplicar ni para elevar por sí solo el semáforo general."
   },
   "evidence": [
-    "18-sep: SGC M4.6 en Istmina a las 01:17, profundidad 42 km.",
-    "18-sep: SGC M4.4 en Istmina a las 13:41, profundidad 46 km.",
-    "18-sep: varios M2–3 adicionales en Istmina/Sipí; varios eventos revisados se agrupan aproximadamente entre 39 y 49 km.",
-    "16-sep: USGS mantiene una solución revisada M5.0 para el evento de las 15:12 local; se deduplica respecto del pulso reportado por SGC.",
-    "Con corte al 8-sep, SGC había reportado >1.200 eventos del enjambre y ~300 réplicas del M7.4, contabilizadas por separado."
+    "22-sep SGC: >330 eventos del grupo profundo 70–105 km; dos M≥4,0 ML; réplica máxima M4,8 ML.",
+    "22-sep SGC: >1.500 eventos del enjambre 30–60 km; 28 M≥4,0 ML.",
+    "Grupo profundo: alineación NE–SO y decaimiento progresivo, compatible con réplicas.",
+    "Enjambre: alineación N–S, actividad persistente sin decaimiento típico de réplicas.",
+    "SGC plantea de forma preliminar posible participación de fluidos y cambios de esfuerzo/presión de poros/permeabilidad."
   ],
   "alert_conditions": [
-    "Nuevo evento M>=5 confirmado por la agencia local o concordante entre varias agencias dentro de la secuencia activa.",
-    "Aceleración sostenida de la tasa sísmica respecto de ETAS/Omori en ventanas 6 h, 12 h y 24 h.",
-    "Migración espacial o en profundidad coherente hacia una estructura definida.",
-    "Segunda familia científica independiente: deformación GNSS/InSAR, slow slip, mecanismos focales o Coulomb consistentes."
+    "Nuevo M≥5 confirmado en o cerca de la secuencia activa.",
+    "Aceleración clara y sostenida frente a la línea base reciente, no un pulso breve.",
+    "Migración coherente en tiempo–distancia–profundidad.",
+    "Segunda familia científica independiente: GNSS/InSAR, mecanismos focales consistentes o evidencia de cambios de esfuerzo/Coulomb."
   ],
   "status_logic": {
     "current": "Vigilancia intensificada",
     "escalate_to": "Revisión de nivel superior",
-    "rule": "El M5.0 USGS obliga a revisión, pero no a elevar automáticamente el semáforo general. Para escalar MIVIGE se exige cambio de régimen estadístico o una segunda familia científica independiente."
+    "rule": "Mantener AMARILLO reforzado mientras persista el enjambre sin evidencia de cambio de régimen. No escalar por conteo acumulado o un pulso aislado; exigir aceleración sostenida, migración coherente o evidencia geofísica independiente."
   },
   "map": {
     "center": [
@@ -59,5 +62,39 @@
     "label": "Zona de vigilancia Chocó"
   },
   "general_status": "AMARILLO reforzado",
-  "disclaimer": "Vigilancia geodinámica experimental. La persistencia del enjambre y los eventos M4–5 no permiten predecir fecha, lugar o magnitud de un terremoto futuro."
+  "disclaimer": "Vigilancia geodinámica experimental. Un enjambre sísmico no implica por sí mismo que vaya a ocurrir un terremoto mayor y estos datos no permiten predecir fecha, lugar o magnitud de un evento futuro.",
+  "sequence_groups": {
+    "deep_aftershocks": {
+      "depth_km": "70–105",
+      "orientation": "NE–SO",
+      "behavior": "decaimiento progresivo en frecuencia y magnitud",
+      "tectonic_context": "intraplaca, interior de la losa subducida",
+      "interpretation": "Secuencia de réplicas del Mw 7,4 del 10-ago."
+    },
+    "swarm": {
+      "depth_km": "30–60",
+      "orientation": "N–S",
+      "behavior": "actividad persistente con fluctuaciones; sin decaimiento progresivo típico",
+      "interpretation": "Enjambre sísmico separado de las réplicas profundas."
+    }
+  },
+  "scientific_hypothesis": {
+    "status": "preliminar, no confirmada",
+    "text": "El SGC plantea que el enjambre podría estar asociado a migración de fluidos derivados de deshidratación mineral de la placa subducida hacia la base de la corteza/cu​​ña del manto, y que cambios de esfuerzo, presión de poros y permeabilidad inducidos por el Mw 7,4 pudieron favorecer la actividad."
+  },
+  "migration_detector": {
+    "status": "VIGILAR / NO CONFIRMADO",
+    "dimensions": [
+      "tiempo",
+      "distancia",
+      "profundidad"
+    ],
+    "rule": "Marcar migración solo si existe desplazamiento hipocentral espacio-temporal coherente y persistente; la dispersión o fluctuación del enjambre no cuenta como migración.",
+    "windows_hours": [
+      6,
+      12,
+      24,
+      72
+    ]
+  }
 }
