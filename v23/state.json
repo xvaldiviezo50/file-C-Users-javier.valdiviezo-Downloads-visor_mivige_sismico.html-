@@ -1,12 +1,12 @@
 {
-  "version": "2026-09-24T05:11:58-05:00-v23",
-  "updated_at": "2026-09-24T10:11:58Z",
-  "updated_at_ecuador": "24 sep 2026 · 05:11 ECU",
+  "version": "2026-09-24T07:00:22-05:00-v23",
+  "updated_at": "2026-09-24T12:00:22Z",
+  "updated_at_ecuador": "24 sep 2026 · 07:00 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
-    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero persistente. En la madrugada del 24 sep se verifican al menos M3.0 00:07, M3.0 01:12 y M3.3 01:23, todos superficiales según boletines SGC reproducidos por fuentes recientes. No se verificó nuevo M>=5, aceleración estadística nueva ni segunda familia científica.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
-    {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Foco persistente previamente establecido; el SGC ha diferenciado allí una secuencia de réplicas del M7.4 y un enjambre con >1500 eventos en el grupo reportado, pero sin escalada material nueva verificada en esta ventana.","tectonic_type":"familias diferenciadas: réplicas y enjambre; geometría a evaluar evento por evento","next_check":"Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y contraste ETAS/Omori."},
+    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero persistente. En la madrugada del 24 sep continúan eventos superficiales, incluido M3.3 a las 01:23; no se verificó nuevo M>=5, aceleración estadística nueva ni segunda familia científica en este ciclo.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
+    {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Foco persistente previamente establecido; sin escalada material nueva verificada en esta ventana.","tectonic_type":"familias diferenciadas: réplicas y enjambre; geometría a evaluar evento por evento","next_check":"Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y contraste ETAS/Omori."},
     {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin nueva escalada material verificable en esta ventana.","tectonic_type":"cortical/volcano-tectónico local","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
   ],
   "events": [
@@ -42,12 +42,12 @@
     }
   },
   "scientific_layer": {
-    "IDS":"Chaparral mantiene enjambre cortical somero elevado, sin cambio material adicional demostrado en esta ventana. Chocó permanece bajo vigilancia con familias sísmicas diferenciadas por SGC.",
+    "IDS":"Chaparral mantiene enjambre cortical somero elevado, sin cambio material adicional demostrado en esta ventana. Chocó permanece bajo vigilancia.",
     "IDG":"datos insuficientes RENGEO y baja latencia regional",
     "IITE":"sin cálculo Coulomb nuevo sustentado",
     "IADR":"sin respuesta local físicamente evaluable nueva"
   },
   "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
   "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 05:11 ECU: sin cambio material. Chaparral sigue activo con tres eventos M3.0–3.3 verificados entre 00:07 y 01:23, dentro del patrón ya establecido. No se verificó nuevo M>=5 regional, nuevo foco alta/reforzada, aceleración estadística nueva, segunda familia científica, anomalía GNSS/InSAR coherente, Coulomb sustentado, cambio de semáforo, tsunami o comunicado extraordinario. RENGEO obligatoria: sin E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
+  "notes":"Ciclo 07:00 ECU: sin cambio material. Chaparral continúa activo dentro del patrón ya establecido; no se verificó nuevo M>=5 regional, nuevo foco alta/reforzada, aceleración estadística nueva, segunda familia científica, anomalía GNSS/InSAR coherente, Coulomb sustentado, cambio de semáforo, tsunami o comunicado extraordinario. RENGEO obligatoria: sin E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
 }
