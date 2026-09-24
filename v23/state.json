@@ -1,13 +1,13 @@
 {
-  "version": "2026-09-24T08:14:15-05:00-v23",
-  "updated_at": "2026-09-24T13:14:15Z",
-  "updated_at_ecuador": "24 sep 2026 · 08:14 ECU",
+  "version": "2026-09-24T08:50:16-05:00-v23",
+  "updated_at": "2026-09-24T13:50:16Z",
+  "updated_at_ecuador": "24 sep 2026 · 08:50 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
-    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero persistente; no se verificó nuevo M>=5, aceleración estadística nueva ni segunda familia científica en este ciclo.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
-    {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Actividad reciente persiste como foco de vigilancia, sin escalada material nueva verificada.","tectonic_type":"geometría a evaluar evento por evento","next_check":"Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y ETAS/Omori."},
-    {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; un M3.6 fue reportado cerca de San Isidro esta madrugada, sin evidencia suficiente para escalada material del foco Irazú.","tectonic_type":"cortical/volcano-tectónico local a discriminar","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
+    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero persistente. En fuentes frescas revisadas no se verificó nuevo M>=5, nueva aceleración estadística demostrada ni segunda familia científica independiente.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
+    {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Actividad reciente continúa como corredor de vigilancia; sin escalada material nueva verificada.","tectonic_type":"geometría a evaluar evento por evento","next_check":"Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y ETAS/Omori."},
+    {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin señal nueva suficiente para escalada material en este ciclo.","tectonic_type":"cortical/volcano-tectónico local a discriminar","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
   ],
   "events": [
     {"time_local":"2026-09-24T00:07:00-05:00","region":"Chaparral, Tolima, Colombia","magnitude":3.0,"depth_class":"superficial/cortical probable","dedup_status":"evento independiente SGC","material":false},
@@ -49,5 +49,5 @@
   },
   "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
   "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 08:14 ECU: sin cambio material. No se verificó nuevo M>=5 regional, nuevo foco alta/reforzada, aceleración estadística nueva, segunda familia científica, anomalía GNSS/InSAR coherente, Coulomb sustentado, cambio de semáforo, tsunami o comunicado extraordinario. RENGEO obligatoria: sin E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
+  "notes":"Ciclo 08:50 ECU: sin cambio material frente a 08:14. Revisión fresca priorizó SGC, IG-EPN, IGP, USGS y redes regionales. No se verificó nuevo M>=5 regional, nuevo foco alta/reforzada, aceleración estadística nueva, segunda familia científica, anomalía GNSS/InSAR coherente, Coulomb sustentado, cambio de semáforo, tsunami o comunicado extraordinario. RENGEO obligatoria: sin E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
 }
