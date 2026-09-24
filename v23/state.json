@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-23T17:40:22-05:00-v23",
-  "updated_at": "2026-09-23T22:40:22Z",
-  "updated_at_ecuador": "23 sep 2026 · 17:40 ECU",
+  "version": "2026-09-23T19:56:50-05:00-v23",
+  "updated_at": "2026-09-24T00:56:50Z",
+  "updated_at_ecuador": "23 sep 2026 · 19:56 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto en Chaparral; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -10,7 +10,7 @@
     {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin nueva escalada material verificable en esta ventana.","tectonic_type":"cortical/volcano-tectónico local","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
   ],
   "events": [
-    {"time_local":"2026-09-23T15:09:00-05:00","place":"Chaparral, Tolima, Colombia","magnitude":4.5,"source":"SGC, confirmado por reportes frescos","deduplicated":true,"classification":"cortical somero probable (<30 km)","material_event":false,"note":"Evento independiente ya incorporado en ciclo anterior; no se vuelve a contar como cambio material."}
+    {"time_local":"2026-09-23T15:09:00-05:00","place":"Chaparral, Tolima, Colombia","magnitude":4.5,"source":"SGC, confirmado por reportes frescos","deduplicated":true,"classification":"cortical somero probable (<30 km)","material_event":false,"note":"Evento independiente ya incorporado previamente; no se vuelve a contar como cambio material."}
   ],
   "gnss": {
     "sources": [
@@ -47,5 +47,5 @@
   },
   "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
   "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 17:40 ECU: sin cambio material nuevo respecto de 17:15. El M4.5 de Chaparral a las 15:09 permanece como mayor evento fresco verificado y ya estaba deduplicado. SGC anunció boletines diarios mientras persista la sismicidad destacada de Tolima y Chocó, pero no se verificó nuevo M>=5 regional, nuevo foco ALTA/reforzada, aceleración clara adicional, exceso ETAS/Omori, migración coherente, anomalía GNSS/InSAR, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami o comunicado oficial extraordinario. RENGEO permanece obligatoria; sin soluciones E/N/U recientes automatizables suficientes para QC, IDG=datos insuficientes RENGEO, no deformación nula."
+  "notes":"Ciclo 19:56 ECU: sin cambio material nuevo respecto del estado 17:40. El M4.5 de Chaparral a las 15:09 permanece como mayor evento fresco verificado y ya estaba deduplicado. No se verificó nuevo M>=5 regional, nuevo foco ALTA/reforzada, aceleración clara adicional, exceso ETAS/Omori, migración coherente, anomalía GNSS/InSAR, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami o comunicado oficial extraordinario. RENGEO permanece obligatoria; sin soluciones E/N/U recientes automatizables suficientes para QC, IDG=datos insuficientes RENGEO, no deformación nula."
 }
