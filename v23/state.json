@@ -1,15 +1,17 @@
 {
-  "version": "2026-09-23T23:31:21-05:00-v23",
-  "updated_at": "2026-09-24T04:31:21Z",
-  "updated_at_ecuador": "23 sep 2026 · 23:31 ECU",
+  "version": "2026-09-24T02:27:18-05:00-v23",
+  "updated_at": "2026-09-24T07:27:18Z",
+  "updated_at_ecuador": "24 sep 2026 · 02:27 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
-  "material_change": true,
+  "material_change": false,
   "focus": [
-    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero persistente. SGC había consolidado al menos 280 M>=2 y 11 M>=4; balance municipal/departamental divulgado el 23 sep eleva el acumulado a >440–450 movimientos desde el 20 sep. El M4.5 de las 15:09 sigue siendo el mayor evento fresco verificado. El aumento acumulado es material como persistencia/expansión del enjambre, pero no prueba aceleración ETAS ni anticipa un sismo mayor.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Confirmar el acumulado >440–450 en próximo boletín SGC; tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
-    {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"SGC distingue este grupo como enjambre persistente: >1500 eventos y 28 M>=4 en el boletín más reciente disponible; profundidades dominantes 30–60 km y alineación N-S.","tectonic_type":"intermedio/placa subducida probable y/o base cortical; mantener separado de la secuencia de réplicas del M7.4","next_check":"Tasa 12 h/12 h, nuevos M4+, distribución hipocentral, mecanismos y contraste ETAS/Omori."},
+    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero persistente. El corte previo conservaba >440 movimientos divulgados por autoridades locales/departamentales y SGC había consolidado al menos 280 M>=2 y 11 M>=4. En esta ventana aparecen nuevos eventos someros, incluido M3.3 a las 01:23 del 24 sep, pero no se verificó un nuevo M>=5, una aceleración estadística nueva ni un cambio de familia científica.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
+    {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Foco persistente previamente establecido; sin escalada material nueva verificada en esta ventana.","tectonic_type":"intermedio/placa subducida probable y/o base cortical; separado de réplicas del M7.4","next_check":"Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y contraste ETAS/Omori."},
     {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin nueva escalada material verificable en esta ventana.","tectonic_type":"cortical/volcano-tectónico local","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
   ],
-  "events": [],
+  "events": [
+    {"time_local":"2026-09-24T01:23:00-05:00","region":"Chaparral, Tolima, Colombia","magnitude":3.3,"depth_class":"superficial/cortical probable","dedup_status":"evento independiente reportado por SGC; no tratado como revisión de eventos previos","material":false}
+  ],
   "gnss": {
     "sources": [
       {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; búsqueda pública repetida; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"},
@@ -38,12 +40,12 @@
     }
   },
   "scientific_layer": {
-    "IDS":"Chaparral mantiene enjambre cortical somero elevado; balance local >440–450 movimientos, pendiente de homologación con catálogo SGC M>=2. Chocó mantiene enjambre persistente >1500 según boletín SGC previo.",
+    "IDS":"Chaparral mantiene enjambre cortical somero elevado, sin cambio material adicional demostrado en esta ventana. Chocó permanece bajo vigilancia por su enjambre previo.",
     "IDG":"datos insuficientes RENGEO y baja latencia regional",
     "IITE":"sin cálculo Coulomb nuevo sustentado",
     "IADR":"sin respuesta local físicamente evaluable nueva"
   },
   "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
   "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 23:31 ECU: cambio material por persistencia/expansión acumulada de Chaparral. Balance de autoridades locales/departamentales divulgado esta noche: >440–450 movimientos desde 20 sep; el último consolidado SGC citado públicamente era >=280 M>=2 y 11 M>=4, por lo que no se mezclan umbrales ni se presenta el conteo local como catálogo SGC. M4.5 de 15:09 sigue siendo el mayor fresco verificado. Sin nuevo M>=5 regional, segunda familia científica, anomalía GNSS/InSAR coherente, Coulomb sustentado, cambio de semáforo o tsunami. RENGEO obligatoria: sin E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
+  "notes":"Ciclo 02:27 ECU: sin cambio material respecto al corte previo. Chaparral continúa activo y se verificó M3.3 a las 01:23 del 24 sep, dentro del patrón ya establecido; no hay nuevo M>=5 regional, nuevo foco alta/reforzada, aceleración estadística nueva, segunda familia científica, anomalía GNSS/InSAR coherente, Coulomb sustentado, cambio de semáforo, tsunami o comunicado extraordinario. RENGEO obligatoria: sin E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
 }
