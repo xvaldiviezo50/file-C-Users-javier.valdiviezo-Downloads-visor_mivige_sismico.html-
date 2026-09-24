@@ -1,11 +1,11 @@
 {
-  "version": "2026-09-24T08:50:16-05:00-v23",
-  "updated_at": "2026-09-24T13:50:16Z",
-  "updated_at_ecuador": "24 sep 2026 · 08:50 ECU",
+  "version": "2026-09-24T09:39:51-05:00-v23",
+  "updated_at": "2026-09-24T14:39:51Z",
+  "updated_at_ecuador": "24 sep 2026 · 09:39 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
-  "material_change": false,
+  "material_change": true,
   "focus": [
-    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero persistente. En fuentes frescas revisadas no se verificó nuevo M>=5, nueva aceleración estadística demostrada ni segunda familia científica independiente.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
+    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero persistente. Reporte local fresco del 24-Sep eleva el acumulado a 636 movimientos en Tolima, 614 en Chaparral; el corte oficial previamente consolidado era >437 M>2. El nuevo total debe homologarse por umbral antes de compararlo directamente.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Confirmar corte SGC y umbral; tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
     {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Actividad reciente continúa como corredor de vigilancia; sin escalada material nueva verificada.","tectonic_type":"geometría a evaluar evento por evento","next_check":"Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y ETAS/Omori."},
     {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin señal nueva suficiente para escalada material en este ciclo.","tectonic_type":"cortical/volcano-tectónico local a discriminar","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
   ],
@@ -42,12 +42,12 @@
     }
   },
   "scientific_layer": {
-    "IDS":"Chaparral mantiene enjambre cortical somero elevado, sin cambio material adicional demostrado en esta ventana. Chocó permanece bajo vigilancia.",
+    "IDS":"Chaparral mantiene enjambre cortical somero elevado; nuevo conteo local reporta 614 movimientos en Chaparral, pendiente homologación con el umbral del corte SGC >437 M>2. Chocó permanece bajo vigilancia.",
     "IDG":"datos insuficientes RENGEO y baja latencia regional",
     "IITE":"sin cálculo Coulomb nuevo sustentado",
     "IADR":"sin respuesta local físicamente evaluable nueva"
   },
   "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
   "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 08:50 ECU: sin cambio material frente a 08:14. Revisión fresca priorizó SGC, IG-EPN, IGP, USGS y redes regionales. No se verificó nuevo M>=5 regional, nuevo foco alta/reforzada, aceleración estadística nueva, segunda familia científica, anomalía GNSS/InSAR coherente, Coulomb sustentado, cambio de semáforo, tsunami o comunicado extraordinario. RENGEO obligatoria: sin E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
+  "notes":"Ciclo 09:39 ECU: CAMBIO MATERIAL por expansión del enjambre de Chaparral. Fuente local fresca reporta 636 movimientos en Tolima y 614 en Chaparral desde el 20-Sep; el último corte consolidado citado del SGC era >437 M>2 y 16 M>4. No se mezclan ambos conteos hasta homologar umbral y ventana. No se verificó nuevo M>=5 regional, segunda familia científica, anomalía GNSS/InSAR coherente, Coulomb sustentado, tsunami ni cambio de semáforo. RENGEO obligatoria: sin E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
 }
