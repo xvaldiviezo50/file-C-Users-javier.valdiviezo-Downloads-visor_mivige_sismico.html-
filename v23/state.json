@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-24T23:33:52-05:00-v23",
-  "updated_at": "2026-09-25T04:33:52Z",
-  "updated_at_ecuador": "24 sep 2026 · 23:33 ECU",
+  "version": "2026-09-25T04:41:16-05:00-v23",
+  "updated_at": "2026-09-25T09:41:16Z",
+  "updated_at_ecuador": "25 sep 2026 · 04:41 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -9,7 +9,7 @@
       "rank": 1,
       "name": "Chaparral–San Antonio–Roncesvalles / Tolima, Colombia",
       "level": "ALTA/reforzada",
-      "reason": "Sin cambio material confirmado desde el corte 20:44 ECU; persiste el enjambre cortical somero.",
+      "reason": "Persistencia del enjambre cortical somero: SGC reportó en la madrugada M3.3 00:33, M3.4 00:52, M3.1 01:30 y M4.0 02:19; no se demuestra por sí solo aceleración material ni exceso ETAS/Omori.",
       "tectonic_type": "cortical somero probable (<30 km)",
       "next_check": "Tasa 12 h/12 h con catálogo SGC homogéneo, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."
     },
@@ -17,14 +17,14 @@
       "rank": 2,
       "name": "Istmina–Sipí–San José del Palmar / Chocó, Colombia",
       "level": "Vigilancia alta",
-      "reason": "Sin cambio material confirmado desde el M4.0 ~19:57 del 24 sep.",
-      "tectonic_type": "intermedio/placa subducida probable (30–70 km), pendiente profundidad oficial del evento más reciente",
+      "reason": "Enjambre de Istmina–Medio San Juan–Sipí–Litoral del San Juan continúa documentado con >1500 eventos y 28 M>=4; réplicas del M7.4 de San José del Palmar siguen disminuyendo y se mantienen como población separada.",
+      "tectonic_type": "intermedio/placa subducida probable (30–70 km) para el enjambre; réplicas profundas 70–105 km separadas",
       "next_check": "Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y ETAS/Omori."
     },
     {
       "rank": 3,
       "name": "Irazú–Oreamuno / Costa Rica",
-      "level": "Vigilancia reforzada",
+      "level": "Vigilancia",
       "reason": "Sin señal nueva suficiente para escalada material en este ciclo.",
       "tectonic_type": "cortical/volcano-tectónico local a discriminar",
       "next_check": "Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."
@@ -33,26 +33,11 @@
   "events": [],
   "gnss": {
     "sources": [
-      {
-        "name": "IG-EPN RENGEO Ecuador",
-        "status": "obligatoria; búsqueda pública repetida; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"
-      },
-      {
-        "name": "IGM-REGME Ecuador",
-        "status": "complementaria; sin solución de baja latencia automatizable verificada"
-      },
-      {
-        "name": "SGC-GeoRED Colombia",
-        "status": "sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"
-      },
-      {
-        "name": "IGN-REGPMOC/ERP e IGP Perú",
-        "status": "sin solución GNSS pública de baja latencia automatizable verificada"
-      },
-      {
-        "name": "CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales",
-        "status": "control regional; soluciones históricas/diarias no tratadas como tiempo real"
-      }
+      {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; búsqueda pública repetida; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"},
+      {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada"},
+      {"name":"SGC-GeoRED Colombia","status":"sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"},
+      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada"},
+      {"name":"CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales","status":"control regional; soluciones históricas/diarias no tratadas como tiempo real"}
     ],
     "stations_detected": null,
     "stations_fresh": null,
@@ -68,40 +53,18 @@
       "rengeo_used_qc": 0,
       "rengeo_non_automatable": null,
       "rengeo_median_latency": null,
-      "rengeo_focus_stations": [
-        "ESMR",
-        "RVRD",
-        "SNLR",
-        "PTGL",
-        "MOMP",
-        "PDNS",
-        "JAM2",
-        "BAHI",
-        "ISPT",
-        "AYAN",
-        "MRO2"
-      ],
+      "rengeo_focus_stations": ["ESMR","RVRD","SNLR","PTGL","MOMP","PDNS","JAM2","BAHI","ISPT","AYAN","MRO2"],
       "rengeo_coherent_anomalies": [],
       "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta. No se infiere deformación nula."
     }
   },
   "scientific_layer": {
-    "IDS": "Sin cambio material nuevo confirmado; Chaparral continúa como señal dominante.",
+    "IDS": "Chaparral persiste con cuatro M>=3 en ~2 h, máximo M4.0; no se demuestra aún aceleración significativa sobre ETAS/Omori.",
     "IDG": "datos insuficientes RENGEO y baja latencia regional",
     "IITE": "sin cálculo Coulomb nuevo sustentado",
     "IADR": "sin respuesta local físicamente evaluable nueva"
   },
-  "experimental_layer": {
-    "IEM_IAEX_PER_A": "separada; no usada como segunda familia científica"
-  },
-  "forecast_tests": [
-    {
-      "id": "P-COL-14SEP-2026-01",
-      "status": "VENTANA CERRADA",
-      "window_start": "2026-09-14T16:41:00-05:00",
-      "window_end": "2026-09-16T16:41:00-05:00",
-      "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
-    }
-  ],
-  "notes": "Ciclo 23:33 ECU: SIN CAMBIO MATERIAL verificado frente al corte anterior. La revisión fresca no confirmó M>=5 regional relevante nuevo, nuevo foco ALTA/reforzada, aceleración demostrada, desviación ETAS/Omori, migración coherente, anomalía GNSS/InSAR espacialmente coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami o comunicado extraordinario. Chaparral mantiene como último evento material conocido el M4.1 de 19:37; el consolidado público citado por SGC continúa alrededor de 639 eventos en Tolima/614 en Chaparral en fuentes revisadas. IDG=datos insuficientes RENGEO; no equivale a deformación nula."
+  "experimental_layer": {"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
+  "forecast_tests": [{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
+  "notes": "Ciclo 04:41 ECU: SIN CAMBIO MATERIAL frente al criterio de notificación. Chaparral registró M3.3 00:33, M3.4 00:52, M3.1 01:30 y M4.0 02:19, todos superficiales, confirmando persistencia pero no por sí sola aceleración clara. Perú: M4.4 frente a Huacho a las 23:26 del 24 sep, profundidad 46 km, sin tsunami; no alcanza umbral material. No se confirmó M>=5 regional nuevo, nueva anomalía GNSS/InSAR coherente, segunda familia científica, cambio de semáforo ni alerta de tsunami. IDG=datos insuficientes RENGEO; no equivale a deformación nula."
 }
