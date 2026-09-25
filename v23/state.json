@@ -1,30 +1,75 @@
 {
-  "version": "2026-09-24T15:13:39-05:00-v23",
-  "updated_at": "2026-09-24T20:13:39Z",
-  "updated_at_ecuador": "24 sep 2026 · 15:13 ECU",
+  "version": "2026-09-24T20:44:40-05:00-v23",
+  "updated_at": "2026-09-25T01:44:40Z",
+  "updated_at_ecuador": "24 sep 2026 · 20:44 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
-  "material_change": false,
+  "material_change": true,
   "focus": [
-    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"Enjambre cortical somero persistente. Nuevo M4.2 preliminar a las 11:46, revisado/citado también como M4.1; se deduplica como un solo evento. Continúan M3.x durante la tarde, sin M>=5 ni evidencia suficiente de aceleración sobre ETAS/Omori.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."},
-    {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"M3.3 a las 11:33 con 43 km de profundidad en Istmina; actividad reciente sin escalada material.","tectonic_type":"intermedio/placa subducida probable (30–70 km)","next_check":"Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y ETAS/Omori."},
-    {"rank":3,"name":"Irazú–Oreamuno / Costa Rica","level":"Vigilancia reforzada","reason":"Foco previamente establecido; sin señal nueva suficiente para escalada material en este ciclo.","tectonic_type":"cortical/volcano-tectónico local a discriminar","next_check":"Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."}
+    {
+      "rank": 1,
+      "name": "Chaparral–San Antonio–Roncesvalles / Tolima, Colombia",
+      "level": "ALTA/reforzada",
+      "reason": "Enjambre cortical somero persistente: corte divulgado con base en actualización SGC alcanza al menos 661 eventos M>=2 desde el 20 de septiembre y 19 M>=4; nuevo M4.1 a las 19:37 del 24 de septiembre. Persistencia/refuerzo claro, sin M>=5 ni demostración nueva de exceso ETAS/Omori.",
+      "tectonic_type": "cortical somero probable (<30 km)",
+      "next_check": "Tasa 12 h/12 h con catálogo SGC homogéneo, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."
+    },
+    {
+      "rank": 2,
+      "name": "Istmina–Sipí–San José del Palmar / Chocó, Colombia",
+      "level": "Vigilancia alta",
+      "reason": "Nuevo M4.0 alrededor de las 19:57 del 24 de septiembre en Istmina, Chocó, posterior al M3.3 de la mañana; actividad reciente reforzada, sin M>=5.",
+      "tectonic_type": "intermedio/placa subducida probable (30–70 km)",
+      "next_check": "Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y ETAS/Omori."
+    },
+    {
+      "rank": 3,
+      "name": "Irazú–Oreamuno / Costa Rica",
+      "level": "Vigilancia reforzada",
+      "reason": "Foco previamente establecido; sin señal nueva suficiente para escalada material en este ciclo.",
+      "tectonic_type": "cortical/volcano-tectónico local a discriminar",
+      "next_check": "Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."
+    }
   ],
   "events": [
-    {"time_local":"2026-09-24T11:33:00-05:00","region":"Istmina, Chocó, Colombia","magnitude":3.3,"depth_km":43,"depth_class":"intermedio/placa subducida probable","dedup_status":"evento independiente SGC","material":false},
-    {"time_local":"2026-09-24T11:46:00-05:00","region":"Chaparral, Tolima, Colombia","magnitude":4.1,"magnitude_preliminary":4.2,"depth_class":"superficial/cortical probable","dedup_status":"boletín preliminar M4.2 y actualización/cita M4.1 tratados como una sola solución del mismo evento","material":false},
-    {"time_local":"2026-09-24T12:44:00-05:00","region":"Chaparral, Tolima, Colombia","magnitude":3.1,"depth_class":"superficial/cortical probable","dedup_status":"evento independiente SGC","material":false},
-    {"time_local":"2026-09-24T13:32:00-05:00","region":"Chaparral, Tolima, Colombia","magnitude":3.0,"depth_class":"superficial/cortical probable","dedup_status":"evento independiente SGC","material":false},
-    {"time_local":"2026-09-24T13:40:00-05:00","region":"Chaparral, Tolima, Colombia","magnitude":3.3,"depth_class":"superficial/cortical probable","dedup_status":"evento independiente SGC","material":false},
-    {"time_local":"2026-09-24T13:51:00-05:00","region":"Chaparral, Tolima, Colombia","magnitude":3.0,"depth_class":"superficial/cortical probable","dedup_status":"evento independiente SGC","material":false},
-    {"time_local":"2026-09-24T14:15:00-05:00","region":"Chaparral, Tolima, Colombia","magnitude":3.3,"depth_class":"superficial/cortical probable","dedup_status":"evento independiente SGC","material":false}
+    {
+      "time_local": "2026-09-24T19:37:00-05:00",
+      "region": "Chaparral, Tolima, Colombia",
+      "magnitude": 4.1,
+      "depth_class": "superficial/cortical probable (<30 km)",
+      "dedup_status": "evento independiente reportado por SGC; no duplicado con los M4.1 de 11:46 y 12:14",
+      "material": true
+    },
+    {
+      "time_local": "2026-09-24T19:57:00-05:00",
+      "region": "Istmina, Chocó, Colombia",
+      "magnitude": 4,
+      "depth_class": "profundidad exacta pendiente de verificación en catálogo oficial",
+      "dedup_status": "evento independiente posterior al M4.1 de Chaparral",
+      "material": true
+    }
   ],
   "gnss": {
     "sources": [
-      {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; búsqueda pública repetida; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"},
-      {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada"},
-      {"name":"SGC-GeoRED Colombia","status":"sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"},
-      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada"},
-      {"name":"CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales","status":"control regional; soluciones históricas/diarias no tratadas como tiempo real"}
+      {
+        "name": "IG-EPN RENGEO Ecuador",
+        "status": "obligatoria; búsqueda pública repetida; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"
+      },
+      {
+        "name": "IGM-REGME Ecuador",
+        "status": "complementaria; sin solución de baja latencia automatizable verificada"
+      },
+      {
+        "name": "SGC-GeoRED Colombia",
+        "status": "sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"
+      },
+      {
+        "name": "IGN-REGPMOC/ERP e IGP Perú",
+        "status": "sin solución GNSS pública de baja latencia automatizable verificada"
+      },
+      {
+        "name": "CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales",
+        "status": "control regional; soluciones históricas/diarias no tratadas como tiempo real"
+      }
     ],
     "stations_detected": null,
     "stations_fresh": null,
@@ -40,18 +85,40 @@
       "rengeo_used_qc": 0,
       "rengeo_non_automatable": null,
       "rengeo_median_latency": null,
-      "rengeo_focus_stations": ["ESMR","RVRD","SNLR","PTGL","MOMP","PDNS","JAM2","BAHI","ISPT","AYAN","MRO2"],
+      "rengeo_focus_stations": [
+        "ESMR",
+        "RVRD",
+        "SNLR",
+        "PTGL",
+        "MOMP",
+        "PDNS",
+        "JAM2",
+        "BAHI",
+        "ISPT",
+        "AYAN",
+        "MRO2"
+      ],
       "rengeo_coherent_anomalies": [],
       "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta. No se infiere deformación nula."
     }
   },
   "scientific_layer": {
-    "IDS":"Chaparral mantiene enjambre cortical somero elevado; M4.2 preliminar de 11:46 revisado/citado como M4.1 y deduplicado. Secuencia M3.x continúa, sin demostración nueva de exceso ETAS/Omori.",
-    "IDG":"datos insuficientes RENGEO y baja latencia regional",
-    "IITE":"sin cálculo Coulomb nuevo sustentado",
-    "IADR":"sin respuesta local físicamente evaluable nueva"
+    "IDS": "Chaparral: al menos 661 M>=2 y 19 M>=4 según actualización SGC divulgada el 24 sep; nuevo M4.1 a las 19:37. Chocó: nuevo M4.0 en Istmina ~19:57. IDS reforzado; no se demuestra aún exceso ETAS/Omori ni migración coherente.",
+    "IDG": "datos insuficientes RENGEO y baja latencia regional",
+    "IITE": "sin cálculo Coulomb nuevo sustentado",
+    "IADR": "sin respuesta local físicamente evaluable nueva"
   },
-  "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
-  "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 15:13 ECU: SIN CAMBIO MATERIAL según umbrales. Chaparral sigue activo: evento 11:46 preliminar M4.2, citado/revisado M4.1, deduplicado; posteriores M3.x hasta 14:15. Istmina M3.3 a 43 km. No M>=5 regional nuevo verificado, no segunda familia científica, anomalía GNSS/InSAR coherente, Coulomb sustentado, tsunami ni cambio de semáforo. RENGEO obligatoria: sin E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
+  "experimental_layer": {
+    "IEM_IAEX_PER_A": "separada; no usada como segunda familia científica"
+  },
+  "forecast_tests": [
+    {
+      "id": "P-COL-14SEP-2026-01",
+      "status": "VENTANA CERRADA",
+      "window_start": "2026-09-14T16:41:00-05:00",
+      "window_end": "2026-09-16T16:41:00-05:00",
+      "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
+    }
+  ],
+  "notes": "Ciclo 20:44 ECU: CAMBIO MATERIAL. Chaparral sube a al menos 661 eventos M>=2 y 19 M>=4 según actualización SGC divulgada esta noche; nuevo M4.1 a las 19:37. Istmina registra M4.0 ~19:57. Sin M>=5 regional nuevo verificado ni segunda familia científica independiente. RENGEO obligatoria: la red >80 estaciones y cadencias 30/1/0.2 s están documentadas por IG-EPN, pero no se expuso solución E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
 }
