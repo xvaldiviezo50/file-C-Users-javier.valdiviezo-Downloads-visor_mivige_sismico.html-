@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-25T04:41:16-05:00-v23",
-  "updated_at": "2026-09-25T09:41:16Z",
-  "updated_at_ecuador": "25 sep 2026 · 04:41 ECU",
+  "version": "2026-09-25T13:32:20-05:00-v23",
+  "updated_at": "2026-09-25T18:32:20Z",
+  "updated_at_ecuador": "25 sep 2026 · 13:32 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -9,9 +9,9 @@
       "rank": 1,
       "name": "Chaparral–San Antonio–Roncesvalles / Tolima, Colombia",
       "level": "ALTA/reforzada",
-      "reason": "Persistencia del enjambre cortical somero: SGC reportó en la madrugada M3.3 00:33, M3.4 00:52, M3.1 01:30 y M4.0 02:19; no se demuestra por sí solo aceleración material ni exceso ETAS/Omori.",
+      "reason": "Persistencia del enjambre cortical somero. El evento de las 02:19 fue actualizado por SGC a M4.0 (<30 km); reportes que reproducen el catálogo SGC contabilizan >40 eventos durante la madrugada. Esto confirma el pulso ya detectado, sin cambio material adicional respecto del corte anterior.",
       "tectonic_type": "cortical somero probable (<30 km)",
-      "next_check": "Tasa 12 h/12 h con catálogo SGC homogéneo, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+."
+      "next_check": "Tasa 12 h/12 h con catálogo SGC homogéneo, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+/M5+."
     },
     {
       "rank": 2,
@@ -33,11 +33,26 @@
   "events": [],
   "gnss": {
     "sources": [
-      {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; búsqueda pública repetida; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"},
-      {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada"},
-      {"name":"SGC-GeoRED Colombia","status":"sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"},
-      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada"},
-      {"name":"CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales","status":"control regional; soluciones históricas/diarias no tratadas como tiempo real"}
+      {
+        "name": "IG-EPN RENGEO Ecuador",
+        "status": "obligatoria; búsqueda pública repetida; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"
+      },
+      {
+        "name": "IGM-REGME Ecuador",
+        "status": "complementaria; sin solución de baja latencia automatizable verificada"
+      },
+      {
+        "name": "SGC-GeoRED Colombia",
+        "status": "sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"
+      },
+      {
+        "name": "IGN-REGPMOC/ERP e IGP Perú",
+        "status": "sin solución GNSS pública de baja latencia automatizable verificada"
+      },
+      {
+        "name": "CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales",
+        "status": "control regional; soluciones históricas/diarias no tratadas como tiempo real"
+      }
     ],
     "stations_detected": null,
     "stations_fresh": null,
@@ -53,18 +68,40 @@
       "rengeo_used_qc": 0,
       "rengeo_non_automatable": null,
       "rengeo_median_latency": null,
-      "rengeo_focus_stations": ["ESMR","RVRD","SNLR","PTGL","MOMP","PDNS","JAM2","BAHI","ISPT","AYAN","MRO2"],
+      "rengeo_focus_stations": [
+        "ESMR",
+        "RVRD",
+        "SNLR",
+        "PTGL",
+        "MOMP",
+        "PDNS",
+        "JAM2",
+        "BAHI",
+        "ISPT",
+        "AYAN",
+        "MRO2"
+      ],
       "rengeo_coherent_anomalies": [],
       "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta. No se infiere deformación nula."
     }
   },
   "scientific_layer": {
-    "IDS": "Chaparral persiste con cuatro M>=3 en ~2 h, máximo M4.0; no se demuestra aún aceleración significativa sobre ETAS/Omori.",
+    "IDS": "Chaparral mantiene el pulso nocturno ya notificado (>40 eventos reportados durante la madrugada; máximo actualizado M4.0 a las 02:19). Sin nuevo M>=5 ni evidencia nueva suficiente para elevar semáforo.",
     "IDG": "datos insuficientes RENGEO y baja latencia regional",
     "IITE": "sin cálculo Coulomb nuevo sustentado",
     "IADR": "sin respuesta local físicamente evaluable nueva"
   },
-  "experimental_layer": {"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
-  "forecast_tests": [{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes": "Ciclo 04:41 ECU: SIN CAMBIO MATERIAL frente al criterio de notificación. Chaparral registró M3.3 00:33, M3.4 00:52, M3.1 01:30 y M4.0 02:19, todos superficiales, confirmando persistencia pero no por sí sola aceleración clara. Perú: M4.4 frente a Huacho a las 23:26 del 24 sep, profundidad 46 km, sin tsunami; no alcanza umbral material. No se confirmó M>=5 regional nuevo, nueva anomalía GNSS/InSAR coherente, segunda familia científica, cambio de semáforo ni alerta de tsunami. IDG=datos insuficientes RENGEO; no equivale a deformación nula."
+  "experimental_layer": {
+    "IEM_IAEX_PER_A": "separada; no usada como segunda familia científica"
+  },
+  "forecast_tests": [
+    {
+      "id": "P-COL-14SEP-2026-01",
+      "status": "VENTANA CERRADA",
+      "window_start": "2026-09-14T16:41:00-05:00",
+      "window_end": "2026-09-16T16:41:00-05:00",
+      "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
+    }
+  ],
+  "notes": "Ciclo 13:32 ECU: SIN CAMBIO MATERIAL adicional frente al último aviso. Chaparral mantiene el pulso nocturno ya detectado; el evento 02:19 fue actualizado a M4.0 y reportes basados en SGC indican >40 eventos durante la madrugada. No se verificó M>=5 regional nuevo, segunda familia científica, cambio de semáforo, anomalía GNSS/InSAR coherente, Coulomb sustentado ni alerta de tsunami. RENGEO permanece obligatoria pero no se obtuvo solución E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
 }
