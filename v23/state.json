@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-25T13:32:20-05:00-v23",
-  "updated_at": "2026-09-25T18:32:20Z",
-  "updated_at_ecuador": "25 sep 2026 · 13:32 ECU",
+  "version": "2026-09-25T21:04:28-05:00-v23",
+  "updated_at": "2026-09-26T02:04:28Z",
+  "updated_at_ecuador": "25 sep 2026 · 21:04 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -9,50 +9,35 @@
       "rank": 1,
       "name": "Chaparral–San Antonio–Roncesvalles / Tolima, Colombia",
       "level": "ALTA/reforzada",
-      "reason": "Persistencia del enjambre cortical somero. El evento de las 02:19 fue actualizado por SGC a M4.0 (<30 km); reportes que reproducen el catálogo SGC contabilizan >40 eventos durante la madrugada. Esto confirma el pulso ya detectado, sin cambio material adicional respecto del corte anterior.",
+      "reason": "Persistencia del enjambre cortical somero. En este ciclo no se verificó un nuevo M>=5, una nueva aceleración demostrable frente al pulso ya notificado ni una segunda familia científica independiente.",
       "tectonic_type": "cortical somero probable (<30 km)",
-      "next_check": "Tasa 12 h/12 h con catálogo SGC homogéneo, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+/M5+."
+      "next_check": "Catálogo SGC homogéneo, tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+/M5+."
     },
     {
       "rank": 2,
       "name": "Istmina–Sipí–San José del Palmar / Chocó, Colombia",
       "level": "Vigilancia alta",
-      "reason": "Enjambre de Istmina–Medio San Juan–Sipí–Litoral del San Juan continúa documentado con >1500 eventos y 28 M>=4; réplicas del M7.4 de San José del Palmar siguen disminuyendo y se mantienen como población separada.",
-      "tectonic_type": "intermedio/placa subducida probable (30–70 km) para el enjambre; réplicas profundas 70–105 km separadas",
+      "reason": "Actividad reciente documentada; sin cambio material nuevo verificado en este ciclo.",
+      "tectonic_type": "intermedio/placa subducida probable para parte del enjambre; población profunda separada",
       "next_check": "Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y ETAS/Omori."
     },
     {
       "rank": 3,
-      "name": "Irazú–Oreamuno / Costa Rica",
+      "name": "Irazú–Oreamuno–Uvita / Costa Rica",
       "level": "Vigilancia",
-      "reason": "Sin señal nueva suficiente para escalada material en este ciclo.",
-      "tectonic_type": "cortical/volcano-tectónico local a discriminar",
-      "next_check": "Persistencia, magnitud máxima, distribución espacial y comunicados OVSICORI/RSN."
+      "reason": "OVSICORI reportó M4.6 cerca de Uvita a 40 km de profundidad durante el día; no alcanza por sí solo criterio de cambio material ni demuestra foco acelerado.",
+      "tectonic_type": "intermedio/placa subducida probable para Uvita; mantener separado del sistema Irazú",
+      "next_check": "Persistencia, nuevos M>=3.5, distribución espacial y comunicados OVSICORI/RSN."
     }
   ],
   "events": [],
   "gnss": {
     "sources": [
-      {
-        "name": "IG-EPN RENGEO Ecuador",
-        "status": "obligatoria; búsqueda pública repetida; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"
-      },
-      {
-        "name": "IGM-REGME Ecuador",
-        "status": "complementaria; sin solución de baja latencia automatizable verificada"
-      },
-      {
-        "name": "SGC-GeoRED Colombia",
-        "status": "sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"
-      },
-      {
-        "name": "IGN-REGPMOC/ERP e IGP Perú",
-        "status": "sin solución GNSS pública de baja latencia automatizable verificada"
-      },
-      {
-        "name": "CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales",
-        "status": "control regional; soluciones históricas/diarias no tratadas como tiempo real"
-      }
+      {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"},
+      {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada"},
+      {"name":"SGC-GeoRED Colombia","status":"sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"},
+      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada"},
+      {"name":"CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales","status":"control regional; soluciones históricas/diarias no tratadas como tiempo real"}
     ],
     "stations_detected": null,
     "stations_fresh": null,
@@ -68,40 +53,18 @@
       "rengeo_used_qc": 0,
       "rengeo_non_automatable": null,
       "rengeo_median_latency": null,
-      "rengeo_focus_stations": [
-        "ESMR",
-        "RVRD",
-        "SNLR",
-        "PTGL",
-        "MOMP",
-        "PDNS",
-        "JAM2",
-        "BAHI",
-        "ISPT",
-        "AYAN",
-        "MRO2"
-      ],
+      "rengeo_focus_stations": ["ESMR","RVRD","SNLR","PTGL","MOMP","PDNS","JAM2","BAHI","ISPT","AYAN","MRO2"],
       "rengeo_coherent_anomalies": [],
       "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta. No se infiere deformación nula."
     }
   },
   "scientific_layer": {
-    "IDS": "Chaparral mantiene el pulso nocturno ya notificado (>40 eventos reportados durante la madrugada; máximo actualizado M4.0 a las 02:19). Sin nuevo M>=5 ni evidencia nueva suficiente para elevar semáforo.",
+    "IDS": "Chaparral permanece elevado pero sin cambio material nuevo demostrado en este ciclo.",
     "IDG": "datos insuficientes RENGEO y baja latencia regional",
     "IITE": "sin cálculo Coulomb nuevo sustentado",
     "IADR": "sin respuesta local físicamente evaluable nueva"
   },
-  "experimental_layer": {
-    "IEM_IAEX_PER_A": "separada; no usada como segunda familia científica"
-  },
-  "forecast_tests": [
-    {
-      "id": "P-COL-14SEP-2026-01",
-      "status": "VENTANA CERRADA",
-      "window_start": "2026-09-14T16:41:00-05:00",
-      "window_end": "2026-09-16T16:41:00-05:00",
-      "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
-    }
-  ],
-  "notes": "Ciclo 13:32 ECU: SIN CAMBIO MATERIAL adicional frente al último aviso. Chaparral mantiene el pulso nocturno ya detectado; el evento 02:19 fue actualizado a M4.0 y reportes basados en SGC indican >40 eventos durante la madrugada. No se verificó M>=5 regional nuevo, segunda familia científica, cambio de semáforo, anomalía GNSS/InSAR coherente, Coulomb sustentado ni alerta de tsunami. RENGEO permanece obligatoria pero no se obtuvo solución E/N/U reciente automatizable suficiente; IDG=datos insuficientes RENGEO, no deformación nula."
+  "experimental_layer": {"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
+  "forecast_tests": [{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
+  "notes": "Ciclo 21:04 ECU: SIN CAMBIO MATERIAL frente al último aviso. El M5.3 frente a Navidad, Chile, ya fue notificado previamente y queda fuera de la ventana material de 6 h de este corte. No se verificó un nuevo M>=5 regional, nueva aceleración demostrable, segunda familia científica, cambio de semáforo, anomalía GNSS/InSAR coherente, Coulomb sustentado ni alerta de tsunami. RENGEO permanece obligatoria; no se obtuvo solución E/N/U reciente automatizable suficiente, por lo que IDG=datos insuficientes RENGEO, no deformación nula."
 }
