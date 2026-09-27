@@ -1,30 +1,118 @@
 {
-  "version": "2026-09-26T21:40:37-05:00-v23",
-  "updated_at": "2026-09-27T02:40:37Z",
-  "updated_at_ecuador": "26 sep 2026 · 21:40 ECU",
+  "version": "2026-09-27T15:36:00-05:00-v23",
+  "updated_at": "2026-09-27T20:36:00Z",
+  "updated_at_ecuador": "27 sep 2026 · 15:36 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
-    {"rank":1,"name":"Chaparral–San Antonio–Roncesvalles / Tolima, Colombia","level":"ALTA/reforzada","reason":"La secuencia continúa activa. Corte atribuido al SGC: 909 eventos M>=2 acumulados desde el 20 sep; al corte de 16:00 del 26 sep hubo 50 eventos del día frente a 186 el 23 sep. El M4.5 de 01:38 ya fue notificado; no se verificó cambio material posterior.","tectonic_type":"cortical somero probable (<30 km)","next_check":"Catálogo SGC homogéneo, tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+/M5+."},
-    {"rank":2,"name":"Istmina–Sipí–San José del Palmar / Chocó, Colombia","level":"Vigilancia alta","reason":"Actividad reciente documentada; sin nuevo cambio material verificado en este ciclo.","tectonic_type":"intermedio/placa subducida probable para parte del enjambre; población profunda separada","next_check":"Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y ETAS/Omori."},
-    {"rank":3,"name":"Irazú–Oreamuno–Uvita / Costa Rica","level":"Vigilancia","reason":"Sin escalada sísmica material nueva verificada. El deslizamiento reportado en el sector de torres del Irazú es un proceso superficial y no se usa como segunda familia sísmica.","tectonic_type":"mantener separado sistema Irazú de sismicidad regional de subducción","next_check":"Persistencia sísmica, nuevos M>=3.5 y comunicados OVSICORI/RSN."}
+    {
+      "rank": 1,
+      "name": "Chaparral–San Antonio–Roncesvalles / Tolima, Colombia",
+      "level": "ALTA/reforzada",
+      "reason": "La secuencia continúa activa. Corte atribuido al SGC: 909 eventos M>=2 acumulados desde el 20 sep; al corte de 16:00 del 26 sep hubo 50 eventos del día frente a 186 el 23 sep. El M4.5 de 01:38 ya fue notificado; no se verificó cambio material posterior.",
+      "tectonic_type": "cortical somero probable (<30 km)",
+      "next_check": "Catálogo SGC homogéneo, tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+/M5+."
+    },
+    {
+      "rank": 2,
+      "name": "Istmina–Sipí–San José del Palmar / Chocó, Colombia",
+      "level": "Vigilancia alta",
+      "reason": "Actividad reciente documentada; sin nuevo cambio material verificado en este ciclo.",
+      "tectonic_type": "intermedio/placa subducida probable para parte del enjambre; población profunda separada",
+      "next_check": "Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y ETAS/Omori."
+    },
+    {
+      "rank": 3,
+      "name": "Irazú–Oreamuno–Uvita / Costa Rica",
+      "level": "Vigilancia",
+      "reason": "Sin escalada sísmica material nueva verificada. El deslizamiento reportado en el sector de torres del Irazú es un proceso superficial y no se usa como segunda familia sísmica.",
+      "tectonic_type": "mantener separado sistema Irazú de sismicidad regional de subducción",
+      "next_check": "Persistencia sísmica, nuevos M>=3.5 y comunicados OVSICORI/RSN."
+    }
   ],
   "events": [],
   "gnss": {
-    "sources":[
-      {"name":"IG-EPN RENGEO Ecuador","status":"obligatoria; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"},
-      {"name":"IGM-REGME Ecuador","status":"complementaria; sin solución de baja latencia automatizable verificada"},
-      {"name":"SGC-GeoRED Colombia","status":"sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"},
-      {"name":"IGN-REGPMOC/ERP e IGP Perú","status":"sin solución GNSS pública de baja latencia automatizable verificada"},
-      {"name":"CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales","status":"control regional; soluciones históricas/diarias no tratadas como tiempo real"}
+    "sources": [
+      {
+        "name": "IG-EPN RENGEO Ecuador",
+        "status": "obligatoria; no se verificó solución E/N/U reciente automatizable suficiente en este ciclo"
+      },
+      {
+        "name": "IGM-REGME Ecuador",
+        "status": "complementaria; sin solución de baja latencia automatizable verificada"
+      },
+      {
+        "name": "SGC-GeoRED Colombia",
+        "status": "sin serie E/N/U RT/NRT pública completa automatizable verificada para los focos"
+      },
+      {
+        "name": "IGN-REGPMOC/ERP e IGP Perú",
+        "status": "sin solución GNSS pública de baja latencia automatizable verificada"
+      },
+      {
+        "name": "CSN/SIRGAS-CON/IGS/EarthScope/NOTA/COCONet y redes regionales",
+        "status": "control regional; soluciones históricas/diarias no tratadas como tiempo real"
+      }
     ],
-    "stations_detected":null,"stations_fresh":null,"stations_used_qc":0,"stations_rejected":null,"median_latency":null,
-    "focus_coverage":"insuficiente para confirmar o descartar deformación transitoria de corto plazo",
-    "idg_status":"datos insuficientes RENGEO y de baja latencia regional","coherent_anomalies":[],
-    "rengeo":{"rengeo_detected":null,"rengeo_fresh":null,"rengeo_used_qc":0,"rengeo_non_automatable":null,"rengeo_median_latency":null,"rengeo_focus_stations":["ESMR","RVRD","SNLR","PTGL","MOMP","PDNS","JAM2","BAHI","ISPT","AYAN","MRO2"],"rengeo_coherent_anomalies":[],"limitation":"RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta. No se infiere deformación nula."}
+    "stations_detected": null,
+    "stations_fresh": null,
+    "stations_used_qc": 0,
+    "stations_rejected": null,
+    "median_latency": null,
+    "focus_coverage": "insuficiente para confirmar o descartar deformación transitoria de corto plazo",
+    "idg_status": "datos insuficientes RENGEO y de baja latencia regional",
+    "coherent_anomalies": [],
+    "rengeo": {
+      "rengeo_detected": null,
+      "rengeo_fresh": null,
+      "rengeo_used_qc": 0,
+      "rengeo_non_automatable": null,
+      "rengeo_median_latency": null,
+      "rengeo_focus_stations": [
+        "ESMR",
+        "RVRD",
+        "SNLR",
+        "PTGL",
+        "MOMP",
+        "PDNS",
+        "JAM2",
+        "BAHI",
+        "ISPT",
+        "AYAN",
+        "MRO2"
+      ],
+      "rengeo_coherent_anomalies": [],
+      "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta. No se infiere deformación nula."
+    }
   },
-  "scientific_layer":{"IDS":"Chaparral permanece elevado, pero el corte diario disponible (50 eventos hasta 16:00 del 26 sep frente a 186 el 23 sep) no demuestra aceleración nueva; M4.5 de 01:38 ya notificado.","IDG":"datos insuficientes RENGEO y baja latencia regional","IITE":"sin cálculo Coulomb nuevo sustentado","IADR":"sin respuesta local físicamente evaluable nueva"},
-  "experimental_layer":{"IEM_IAEX_PER_A":"separada; no usada como segunda familia científica"},
-  "forecast_tests":[{"id":"P-COL-14SEP-2026-01","status":"VENTANA CERRADA","window_start":"2026-09-14T16:41:00-05:00","window_end":"2026-09-16T16:41:00-05:00","evaluation":"Congelado; reglas preservadas sin modificación retrospectiva."}],
-  "notes":"Ciclo 21:40 ECU: SIN CAMBIO MATERIAL frente al aviso previo del M4.5 Chaparral 01:38. Nuevo consolidado público atribuido al SGC: 909 M>=2 desde 20 sep y 50 eventos el 26 sep hasta 16:00, frente a 186 el 23 sep; persistencia alta pero sin aceleración nueva demostrada. No se verificó nuevo M>=5 regional, nuevo foco alta/reforzada, segunda familia científica, cambio de semáforo, anomalía GNSS/InSAR coherente, Coulomb sustentado ni alerta de tsunami. RENGEO obligatoria; IDG=datos insuficientes RENGEO, no deformación nula."
+  "scientific_layer": {
+    "IDS": "Chaparral permanece elevado, pero el corte diario disponible (50 eventos hasta 16:00 del 26 sep frente a 186 el 23 sep) no demuestra aceleración nueva; M4.5 de 01:38 ya notificado.",
+    "IDG": "datos insuficientes RENGEO y baja latencia regional",
+    "IITE": "sin cálculo Coulomb nuevo sustentado",
+    "IADR": "sin respuesta local físicamente evaluable nueva"
+  },
+  "experimental_layer": {
+    "IEM_IAEX_PER_A": "separada; no usada como segunda familia científica",
+    "iceland_20260927": {
+      "source": "Icelandic Meteorological Office (IMO)",
+      "event": "178.9 km NNE of Kolbeinsey, Iceland region",
+      "time_utc": "2026-09-27T10:57:09Z",
+      "magnitude_official": 3.6,
+      "status": "Checked",
+      "iaex_status": "NO ACTIVA",
+      "reason": "Magnitud oficial M3.6 por debajo del umbral IAEX M6.0. Reporte secundario M4.3 no sustituye la solución oficial.",
+      "regional_migration_assessment": "Sin señal sustentada hacia Chile→México; no cuenta como familia científica ni modifica semáforo.",
+      "next_check": "Vigilar 0–6 h y 6–72 h solo como control experimental de actividad local regional, sin atribuir causalidad."
+    }
+  },
+  "forecast_tests": [
+    {
+      "id": "P-COL-14SEP-2026-01",
+      "status": "VENTANA CERRADA",
+      "window_start": "2026-09-14T16:41:00-05:00",
+      "window_end": "2026-09-16T16:41:00-05:00",
+      "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
+    }
+  ],
+  "notes": "Ciclo 15:36 ECU, 27 sep: se incorporó el evento islandés revisado por IMO M3.6 (10:57:09 UTC, 178.9 km NNE de Kolbeinsey). No activa IAEX (umbral congelado M6.0) y no existe señal sustentada de migración hacia Chile→México. Se conserva separación científica/experimental; no cambia semáforo. RENGEO sigue obligatoria e IDG continúa como datos insuficientes RENGEO hasta disponer de soluciones recientes automatizables; no se infiere deformación nula."
 }
