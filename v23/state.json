@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-27T15:36:00-05:00-v23",
-  "updated_at": "2026-09-27T20:36:00Z",
-  "updated_at_ecuador": "27 sep 2026 · 15:36 ECU",
+  "version": "2026-09-27T15:40:00-05:00-v23",
+  "updated_at": "2026-09-27T20:40:00Z",
+  "updated_at_ecuador": "27 sep 2026 · 15:40 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -103,6 +103,28 @@
       "reason": "Magnitud oficial M3.6 por debajo del umbral IAEX M6.0. Reporte secundario M4.3 no sustituye la solución oficial.",
       "regional_migration_assessment": "Sin señal sustentada hacia Chile→México; no cuenta como familia científica ni modifica semáforo.",
       "next_check": "Vigilar 0–6 h y 6–72 h solo como control experimental de actividad local regional, sin atribuir causalidad."
+    },
+    "external_report_258": {
+      "status": "PARCIAL/COMPATIBLE, no validación causal",
+      "frozen_claim_from_user_evidence": {
+        "origin": "M7.7 Ende, Indonesia",
+        "start_date": "2026-08-17",
+        "max_window_days": 65,
+        "magnitude_range": "M6.9–7.9",
+        "point_1": "Nueva Zelanda / Vanuatu / Fiji / Tonga e islas aledañas",
+        "point_1_weight": "40%"
+      },
+      "observed_official": {
+        "source": "VMGD Vanuatu",
+        "event": "Loyalty Islands",
+        "magnitude": 6.5,
+        "date_time_as_listed": "2026-09-25 21:23",
+        "depth_km": 26
+      },
+      "evaluation": "Coincidencia espacial amplia y dentro de la ventana temporal, pero magnitud oficial M6.5 queda fuera del rango previsto M6.9–7.9. No demuestra migración ni causalidad. Debe contarse como parcial, no acierto pleno.",
+      "iaex_status": "EXPLORATORIO FUERTE por M6.5 según umbral congelado",
+      "scientific_family": false,
+      "next_test": "Contrastar 0–6 h y 6–72 h en receptores definidos a priori, penalizar actividad explicable por ETAS/Omori y registrar falsos positivos/omisiones."
     }
   },
   "forecast_tests": [
@@ -114,5 +136,5 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Ciclo 15:36 ECU, 27 sep: se incorporó el evento islandés revisado por IMO M3.6 (10:57:09 UTC, 178.9 km NNE de Kolbeinsey). No activa IAEX (umbral congelado M6.0) y no existe señal sustentada de migración hacia Chile→México. Se conserva separación científica/experimental; no cambia semáforo. RENGEO sigue obligatoria e IDG continúa como datos insuficientes RENGEO hasta disponer de soluciones recientes automatizables; no se infiere deformación nula."
+  "notes": "Ciclo 15:40 ECU, 27 sep: se evaluó prospectivamente el Informe 258 mostrado por el usuario. VMGD registra M6.5 Loyalty Islands (25 sep 21:23, 26 km), no M6.9–7.0. La localización cae dentro del amplio Punto 1 y dentro de 65 días, pero la magnitud queda fuera de M6.9–7.9: evaluación PARCIAL/COMPATIBLE, no acierto pleno ni prueba de migración. El M6.5 activa IAEX exploratorio fuerte según reglas congeladas, separado de Capa A y sin modificar por sí solo el semáforo."
 }
