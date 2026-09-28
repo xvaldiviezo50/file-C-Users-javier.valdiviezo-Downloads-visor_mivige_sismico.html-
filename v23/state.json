@@ -1,36 +1,37 @@
 {
-  "version": "2026-09-27T15:40:00-05:00-v23",
-  "updated_at": "2026-09-27T20:40:00Z",
-  "updated_at_ecuador": "27 sep 2026 · 15:40 ECU",
-  "semaforo": "AMARILLO reforzado · IDS alto; sin segunda familia científica independiente",
-  "material_change": false,
+  "version": "2026-09-27T21:21:51-05:00-v23",
+  "updated_at": "2026-09-28T02:21:51Z",
+  "updated_at_ecuador": "27 sep 2026 · 21:21 ECU",
+  "semaforo": "AMARILLO reforzado · IDS alto en Chocó y Chaparral; sin segunda familia científica independiente",
+  "material_change": true,
   "focus": [
     {
       "rank": 1,
-      "name": "Chaparral–San Antonio–Roncesvalles / Tolima, Colombia",
+      "name": "Istmina–Medio San Juan–Sipí–Litoral del San Juan / Chocó, Colombia",
       "level": "ALTA/reforzada",
-      "reason": "La secuencia continúa activa. Corte atribuido al SGC: 909 eventos M>=2 acumulados desde el 20 sep; al corte de 16:00 del 26 sep hubo 50 eventos del día frente a 186 el 23 sep. El M4.5 de 01:38 ya fue notificado; no se verificó cambio material posterior.",
-      "tectonic_type": "cortical somero probable (<30 km)",
-      "next_check": "Catálogo SGC homogéneo, tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, mecanismos y nuevos M4+/M5+."
+      "reason": "Boletín oficial SGC 27 sep: enjambre >1530 eventos, 31 M>=4; nuevo M4.3 a las 16:57 local. Réplicas profundas separadas: 332, con frecuencia y magnitud en descenso.",
+      "tectonic_type": "enjambre intermedio / probable placa subducida (30–70 km); réplicas profundas 70–105 km separadas",
+      "next_check": "Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, nuevos M4.5+/M5+ y mecanismos."
     },
     {
       "rank": 2,
-      "name": "Istmina–Sipí–San José del Palmar / Chocó, Colombia",
-      "level": "Vigilancia alta",
-      "reason": "Actividad reciente documentada; sin nuevo cambio material verificado en este ciclo.",
-      "tectonic_type": "intermedio/placa subducida probable para parte del enjambre; población profunda separada",
-      "next_check": "Tasa 12 h/12 h, nuevos M4+, distribución hipocentral y ETAS/Omori."
-    },
-    {
-      "rank": 3,
-      "name": "Irazú–Oreamuno–Uvita / Costa Rica",
-      "level": "Vigilancia",
-      "reason": "Sin escalada sísmica material nueva verificada. El deslizamiento reportado en el sector de torres del Irazú es un proceso superficial y no se usa como segunda familia sísmica.",
-      "tectonic_type": "mantener separado sistema Irazú de sismicidad regional de subducción",
-      "next_check": "Persistencia sísmica, nuevos M>=3.5 y comunicados OVSICORI/RSN."
+      "name": "Chaparral / Tolima, Colombia",
+      "level": "ALTA/reforzada",
+      "reason": "Boletín oficial SGC 27 sep eleva el consolidado a al menos 979 M>=2 desde 20 sep, 22 M>=4, todos principalmente <30 km.",
+      "tectonic_type": "cortical somero probable (<30 km)",
+      "next_check": "Tasa 12 h/12 h, ETAS/Omori, migración hipocentral y nuevos M4.5+/M5+."
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "time_local": "2026-09-27 16:57 Colombia",
+      "place": "Istmina, Chocó, Colombia",
+      "magnitude": 4.3,
+      "depth_km": 43,
+      "classification": "intermedio / placa subducida probable",
+      "material_reason": "refuerza foco dinámico Chocó dentro de enjambre oficial >1530; no es M>=5"
+    }
+  ],
   "gnss": {
     "sources": [
       {
@@ -82,11 +83,11 @@
         "MRO2"
       ],
       "rengeo_coherent_anomalies": [],
-      "limitation": "RENGEO pública · medición no automatizable en este ciclo para estaciones sin solución E/N/U reciente expuesta. No se infiere deformación nula."
+      "limitation": "RENGEO pública · medición no automatizable en este ciclo para soluciones E/N/U recientes. No se infiere deformación nula."
     }
   },
   "scientific_layer": {
-    "IDS": "Chaparral permanece elevado, pero el corte diario disponible (50 eventos hasta 16:00 del 26 sep frente a 186 el 23 sep) no demuestra aceleración nueva; M4.5 de 01:38 ya notificado.",
+    "IDS": "Chocó reforzado por boletín SGC: >1530 eventos del enjambre, 31 M>=4 y M4.3 a 16:57; Chaparral >=979 M>=2 y 22 M>=4.",
     "IDG": "datos insuficientes RENGEO y baja latencia regional",
     "IITE": "sin cálculo Coulomb nuevo sustentado",
     "IADR": "sin respuesta local físicamente evaluable nueva"
@@ -136,5 +137,5 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Ciclo 15:40 ECU, 27 sep: se evaluó prospectivamente el Informe 258 mostrado por el usuario. VMGD registra M6.5 Loyalty Islands (25 sep 21:23, 26 km), no M6.9–7.0. La localización cae dentro del amplio Punto 1 y dentro de 65 días, pero la magnitud queda fuera de M6.9–7.9: evaluación PARCIAL/COMPATIBLE, no acierto pleno ni prueba de migración. El M6.5 activa IAEX exploratorio fuerte según reglas congeladas, separado de Capa A y sin modificar por sí solo el semáforo."
+  "notes": "Ciclo 21:21 ECU, 27 sep: CAMBIO MATERIAL por actualización oficial SGC. Chocó: enjambre >1530, 31 M>=4, nuevo M4.3 a 16:57 local; réplicas profundas 332 y disminuyendo. Chaparral: >=979 M>=2 desde 20 sep, 22 M>=4, principalmente <30 km. Semáforo permanece AMARILLO reforzado por ausencia de segunda familia científica independiente. RENGEO obligatoria; sin solución E/N/U reciente automatizable suficiente en este ciclo, IDG=datos insuficientes RENGEO, no deformación nula."
 }
