@@ -1,9 +1,9 @@
 {
-  "version": "2026-09-27T21:21:51-05:00-v23",
-  "updated_at": "2026-09-28T02:21:51Z",
-  "updated_at_ecuador": "27 sep 2026 · 21:21 ECU",
+  "version": "2026-09-27T21:40:24-05:00-v23",
+  "updated_at": "2026-09-28T02:40:24Z",
+  "updated_at_ecuador": "27 sep 2026 · 21:40 ECU",
   "semaforo": "AMARILLO reforzado · IDS alto en Chocó y Chaparral; sin segunda familia científica independiente",
-  "material_change": true,
+  "material_change": false,
   "focus": [
     {
       "rank": 1,
@@ -22,16 +22,7 @@
       "next_check": "Tasa 12 h/12 h, ETAS/Omori, migración hipocentral y nuevos M4.5+/M5+."
     }
   ],
-  "events": [
-    {
-      "time_local": "2026-09-27 16:57 Colombia",
-      "place": "Istmina, Chocó, Colombia",
-      "magnitude": 4.3,
-      "depth_km": 43,
-      "classification": "intermedio / placa subducida probable",
-      "material_reason": "refuerza foco dinámico Chocó dentro de enjambre oficial >1530; no es M>=5"
-    }
-  ],
+  "events": [],
   "gnss": {
     "sources": [
       {
@@ -137,5 +128,5 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Ciclo 21:21 ECU, 27 sep: CAMBIO MATERIAL por actualización oficial SGC. Chocó: enjambre >1530, 31 M>=4, nuevo M4.3 a 16:57 local; réplicas profundas 332 y disminuyendo. Chaparral: >=979 M>=2 desde 20 sep, 22 M>=4, principalmente <30 km. Semáforo permanece AMARILLO reforzado por ausencia de segunda familia científica independiente. RENGEO obligatoria; sin solución E/N/U reciente automatizable suficiente en este ciclo, IDG=datos insuficientes RENGEO, no deformación nula."
+  "notes": "Ciclo 21:40 ECU: sin cambio material nuevo frente al corte previo. El SGC mantiene como última novedad material el M4.3 de Istmina (27 sep 16:57 local, 43 km) y el consolidado del día; no se verificó en las fuentes consultadas un nuevo M>=5 regional relevante, nueva aceleración demostrada, segunda familia científica, cambio de semáforo, anomalía GNSS/InSAR coherente, Coulomb sustentado, alerta de tsunami o comunicado extraordinario posterior. RENGEO obligatoria: no se recuperó una solución E/N/U reciente automatizable suficiente en este ciclo; IDG=dato insuficiente RENGEO, no deformación nula."
 }
