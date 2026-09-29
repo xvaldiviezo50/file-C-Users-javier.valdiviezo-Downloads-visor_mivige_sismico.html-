@@ -1,9 +1,9 @@
 {
-  "version": "2026-09-28T20:14:43-05:00-v23-mivige-v1.7",
-  "updated_at": "2026-09-29T01:14:43Z",
-  "updated_at_ecuador": "28 sep 2026 · 20:14 ECU",
+  "version": "2026-09-28T22:40:26-05:00-v23-mivige-v1.7",
+  "updated_at": "2026-09-29T03:40:26Z",
+  "updated_at_ecuador": "28 sep 2026 · 22:40 ECU",
   "semaforo": "AMARILLO reforzado · sin segunda familia científica independiente",
-  "material_change": true,
+  "material_change": false,
   "focus": [
     {
       "rank": 1,
@@ -220,5 +220,5 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Ciclo MIVIGE v1.7: CAMBIO MATERIAL de integridad prospectiva: Earthquakes Canada muestra revisión oficial de la secuencia Port Hardy a M5.4 (27-sep 21:41 PDT) y M4.9 (28-sep 02:13 PDT). Se preserva sin cambios retrospectivos la prueba Challenger congelada desde el reporte M5.5 como 'exploratorio reforzado', pero la magnitud oficial revisada queda registrada. No se demuestra propagación Canadá→Centroamérica→Sudamérica, exceso ETAS/Omori significativo, anomalía GNSS/InSAR coherente, Coulomb sustentado ni segunda familia científica. Semáforo científico permanece amarillo reforzado. RENGEO: datos insuficientes, no deformación cero."
+  "notes": "Ciclo MIVIGE v1.7 22:40 ECU: sin cambio material verificado respecto al corte anterior. No se verificó nuevo M>=5 regional relevante, foco alta/reforzada nuevo, exceso ETAS/Omori cuantitativamente sustentado, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami ni comunicado oficial extraordinario. RENGEO continúa como datos insuficientes/no automatizables para QC E-N-U de baja latencia; no implica deformación cero. Challenger Vancouver permanece congelado y en ventana 6–72 h; Chocó/Chaparral mantienen penalización por actividad previa."
 }
