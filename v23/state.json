@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-29T06:46:22-05:00-v23-mivige-v1.7",
-  "updated_at": "2026-09-29T11:46:22Z",
-  "updated_at_ecuador": "29 sep 2026 · 06:46 ECU",
+  "version": "2026-09-29T06:50:00-05:00-v23",
+  "updated_at": "2026-09-29T11:50:00Z",
+  "updated_at_ecuador": "29 sep 2026 · 06:50 ECU",
   "semaforo": "AMARILLO reforzado · sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -78,6 +78,22 @@
       "source": "SGC citado en reportes contemporáneos",
       "status": "secuencia preexistente; no acierto Challenger",
       "material": false
+    },
+    {
+      "id": "PER-ALIANZA-20260929T102214Z",
+      "time_utc": "2026-09-29T10:22:14Z",
+      "time_local": "2026-09-29 05:22:14 UTC-5",
+      "place": "Alianza Cristiana / Datem del Marañón, Loreto, Perú",
+      "preliminary_magnitude": 5,
+      "revised_magnitude": 4.5,
+      "revised_type": "mb",
+      "depth_km": 73,
+      "lat": -3.12,
+      "lon": -75.64,
+      "source_status": "EMSC preliminar M5.0; revisión EMSC/NEIC M4.5 mb; IGP/CENSIS aún no recuperado de forma verificable en este ciclo",
+      "tectonic_classification": "intraslab probable (70–150 km)",
+      "challenger_m5_status": "NO CUENTA como activación vigente tras revisión a M4.5; registrar trigger preliminar y retiro por revisión",
+      "vancouver_chain_status": "NO CUENTA como acierto Canadá→Sudamérica: fuera del receptor costero Perú definido a priori y magnitud revisada <M5.0"
     }
   ],
   "gnss": {
@@ -209,7 +225,15 @@
         "information_gain": null,
         "reason_null": "la definición congelada no proporciona probabilidades/tasas calibradas suficientes"
       }
-    }
+    },
+    "prospectivity_log": [
+      {
+        "test": "Challenger M5+ / Vancouver Island 28-sep-2026",
+        "observation": "Alianza Cristiana, Loreto, Perú",
+        "result": "NO HIT / control de revisión",
+        "rationale": "Detección preliminar EMSC M5.0 fue revisada a M4.5 mb por EMSC/NEIC; además el receptor a priori para Perú era costa de Perú, no Loreto/Datem del Marañón. No atribuir causalidad ni migración."
+      }
+    ]
   },
   "forecast_tests": [
     {
@@ -220,5 +244,5 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Ciclo MIVIGE v1.7 06:46 ECU: sin cambio material verificado. Chaparral/Tolima mantiene actividad preexistente; se reportó M3.3 durante la madrugada del 29-sep, por debajo del umbral M>=5 y sin evidencia cuantitativa nueva suficiente para declarar aceleración o exceso ETAS/Omori. Chile mantiene como evento destacado reciente M4.1 del 29-sep 01:02:45 local, ~14 km NO de Quillota, 72 km de profundidad (CSN citado por fuentes contemporáneas), también bajo umbral. No se verificó un nuevo M>=5 regional relevante, foco alta/reforzada nuevo, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami ni comunicado oficial extraordinario. RENGEO IG-EPN sigue obligatoria; no se recuperó solución pública E-N-U reciente automatizable suficiente para QC, por lo que IDG=null/datos insuficientes, nunca deformación cero. Challenger Vancouver permanece congelado y en ventana 6–72 h; Chocó y Chaparral mantienen penalización fuerte por actividad previa."
+  "notes": "Ciclo MIVIGE v1.7 06:46 ECU: sin cambio material verificado. Chaparral/Tolima mantiene actividad preexistente; se reportó M3.3 durante la madrugada del 29-sep, por debajo del umbral M>=5 y sin evidencia cuantitativa nueva suficiente para declarar aceleración o exceso ETAS/Omori. Chile mantiene como evento destacado reciente M4.1 del 29-sep 01:02:45 local, ~14 km NO de Quillota, 72 km de profundidad (CSN citado por fuentes contemporáneas), también bajo umbral. No se verificó un nuevo M>=5 regional relevante, foco alta/reforzada nuevo, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami ni comunicado oficial extraordinario. RENGEO IG-EPN sigue obligatoria; no se recuperó solución pública E-N-U reciente automatizable suficiente para QC, por lo que IDG=null/datos insuficientes, nunca deformación cero. Challenger Vancouver permanece congelado y en ventana 6–72 h; Chocó y Chaparral mantienen penalización fuerte por actividad previa. 29 sep 06:50 ECU: evento Alianza Cristiana/Datem del Marañón detectado preliminarmente M5.0 y revisado a M4.5 mb, 73 km. Clasificación intraslab probable. No activa de forma vigente Challenger M5+ y no cuenta como acierto del corredor Vancouver→Sudamérica por revisión <M5 y por estar fuera del receptor costero Perú definido a priori. Esperar solución IGP/CENSIS oficial antes de elevar interpretación."
 }
