@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-29T01:20:17-05:00-v23-mivige-v1.7",
-  "updated_at": "2026-09-29T06:20:17Z",
-  "updated_at_ecuador": "29 sep 2026 · 01:20 ECU",
+  "version": "2026-09-29T03:30:01-05:00-v23-mivige-v1.7",
+  "updated_at": "2026-09-29T08:30:01Z",
+  "updated_at_ecuador": "29 sep 2026 · 03:30 ECU",
   "semaforo": "AMARILLO reforzado · sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -220,5 +220,5 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Ciclo MIVIGE v1.7 01:20 ECU: sin cambio material verificado. En Chile, CSN reportó M4.1 a las 01:02:45 local, ~14 km NO de Quillota, profundidad 72 km; está bajo el umbral regional M>=5 y no constituye por sí solo aceleración/migración ni evidencia del corredor Challenger. No se verificó nuevo M>=5 regional relevante, foco alta/reforzada nuevo, exceso ETAS/Omori cuantitativamente sustentado, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami ni comunicado oficial extraordinario. RENGEO continúa sin solución E-N-U pública reciente automatizable suficiente para QC en este corte: IDG=null/datos insuficientes, no deformación cero. Challenger Vancouver permanece congelado en ventana 6–72 h; Chocó/Chaparral mantienen penalización fuerte por actividad previa."
+  "notes": "Ciclo MIVIGE v1.7 03:30 ECU: sin cambio material verificado. Chile: CSN reportó M4.1 a las 01:02:45 local, ~14 km NO de Quillota, profundidad 72 km; bajo M>=5 y sin evidencia suficiente de aceleración, migración o relación con Challenger. No se verificó en fuentes oficiales consultadas un nuevo M>=5 regional relevante, foco alta/reforzada nuevo, exceso ETAS/Omori estadísticamente sustentado, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami ni comunicado extraordinario. RENGEO IG-EPN continúa obligatoria; la fuente pública confirma >80 estaciones y cadencias 30/1/0.2 s, pero no se recuperó solución E-N-U reciente automatizable suficiente para QC: IDG=null/datos insuficientes, no deformación cero. Challenger Vancouver permanece congelado en ventana 6–72 h; Chocó/Chaparral conservan penalización fuerte por actividad previa."
 }
