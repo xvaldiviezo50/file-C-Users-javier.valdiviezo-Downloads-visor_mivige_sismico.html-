@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-28T22:52:34-05:00-v23-mivige-v1.7",
-  "updated_at": "2026-09-29T03:52:34Z",
-  "updated_at_ecuador": "28 sep 2026 · 22:52 ECU",
+  "version": "2026-09-29T01:20:17-05:00-v23-mivige-v1.7",
+  "updated_at": "2026-09-29T06:20:17Z",
+  "updated_at_ecuador": "29 sep 2026 · 01:20 ECU",
   "semaforo": "AMARILLO reforzado · sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -220,5 +220,5 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Ciclo MIVIGE v1.7 22:52 ECU: sin cambio material verificado respecto al corte anterior. No se verificó nuevo M>=5 regional relevante, foco alta/reforzada nuevo, exceso ETAS/Omori cuantitativamente sustentado, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami ni comunicado oficial extraordinario. RENGEO continúa como datos insuficientes/no automatizables para QC E-N-U de baja latencia; no implica deformación cero. Challenger Vancouver permanece congelado y en ventana 6–72 h; Chocó/Chaparral mantienen penalización por actividad previa."
+  "notes": "Ciclo MIVIGE v1.7 01:20 ECU: sin cambio material verificado. En Chile, CSN reportó M4.1 a las 01:02:45 local, ~14 km NO de Quillota, profundidad 72 km; está bajo el umbral regional M>=5 y no constituye por sí solo aceleración/migración ni evidencia del corredor Challenger. No se verificó nuevo M>=5 regional relevante, foco alta/reforzada nuevo, exceso ETAS/Omori cuantitativamente sustentado, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami ni comunicado oficial extraordinario. RENGEO continúa sin solución E-N-U pública reciente automatizable suficiente para QC en este corte: IDG=null/datos insuficientes, no deformación cero. Challenger Vancouver permanece congelado en ventana 6–72 h; Chocó/Chaparral mantienen penalización fuerte por actividad previa."
 }
