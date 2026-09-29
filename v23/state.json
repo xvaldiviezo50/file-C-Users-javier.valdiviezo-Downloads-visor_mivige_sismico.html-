@@ -1,28 +1,85 @@
 {
-  "version": "2026-09-27T21:40:24-05:00-v23",
-  "updated_at": "2026-09-28T02:40:24Z",
-  "updated_at_ecuador": "27 sep 2026 · 21:40 ECU",
-  "semaforo": "AMARILLO reforzado · IDS alto en Chocó y Chaparral; sin segunda familia científica independiente",
-  "material_change": false,
+  "version": "2026-09-28T20:14:43-05:00-v23-mivige-v1.7",
+  "updated_at": "2026-09-29T01:14:43Z",
+  "updated_at_ecuador": "28 sep 2026 · 20:14 ECU",
+  "semaforo": "AMARILLO reforzado · sin segunda familia científica independiente",
+  "material_change": true,
   "focus": [
     {
       "rank": 1,
-      "name": "Istmina–Medio San Juan–Sipí–Litoral del San Juan / Chocó, Colombia",
+      "name": "Chaparral / Tolima, Colombia",
       "level": "ALTA/reforzada",
-      "reason": "Boletín oficial SGC 27 sep: enjambre >1530 eventos, 31 M>=4; nuevo M4.3 a las 16:57 local. Réplicas profundas separadas: 332, con frecuencia y magnitud en descenso.",
-      "tectonic_type": "enjambre intermedio / probable placa subducida (30–70 km); réplicas profundas 70–105 km separadas",
-      "next_check": "Tasa 12 h/12 h, ETAS/Omori, distribución hipocentral, nuevos M4.5+/M5+ y mecanismos."
+      "opScore": null,
+      "reason": "Secuencia preexistente; M4.2 reportado el 28-sep y múltiples eventos. Penalización fuerte para Challenger por actividad anterior a Vancouver.",
+      "tectonic_type": "cortical somero probable",
+      "metrics": {
+        "rate_ratio_etas": null,
+        "significance": null,
+        "migration": null
+      },
+      "missing": [
+        "catálogo oficial estructurado suficiente para tasas 0–12/12–24 h y ajuste ETAS reproducible"
+      ]
     },
     {
       "rank": 2,
-      "name": "Chaparral / Tolima, Colombia",
+      "name": "Istmina–Medio San Juan–Sipí–Litoral del San Juan / Chocó, Colombia",
       "level": "ALTA/reforzada",
-      "reason": "Boletín oficial SGC 27 sep eleva el consolidado a al menos 979 M>=2 desde 20 sep, 22 M>=4, todos principalmente <30 km.",
-      "tectonic_type": "cortical somero probable (<30 km)",
-      "next_check": "Tasa 12 h/12 h, ETAS/Omori, migración hipocentral y nuevos M4.5+/M5+."
+      "opScore": null,
+      "reason": "Enjambre preexistente; no atribuible retrospectivamente a Vancouver sin exceso ETAS/fondo demostrado.",
+      "tectonic_type": "enjambre intermedio / probable placa subducida; separar réplicas profundas",
+      "metrics": {
+        "rate_ratio_etas": null,
+        "significance": null,
+        "migration": null
+      },
+      "missing": [
+        "catálogo oficial estructurado suficiente para ETAS y tasas comparables en este corte"
+      ]
+    },
+    {
+      "rank": 3,
+      "name": "Vancouver Island–Port Hardy, British Columbia",
+      "level": "EXPERIMENTAL/reforzada (prueba congelada)",
+      "opScore": null,
+      "reason": "Earthquakes Canada revisó los eventos significativos a M5.4 (27-sep 21:41 PDT) y M4.9 (28-sep 02:13 PDT). La prueba Challenger originalmente congelada desde el reporte M5.5 conserva su etiqueta/criterios para evitar cambio retrospectivo; la revisión oficial queda registrada.",
+      "tectonic_type": "oceánico regional; fuente experimental, no familia científica MIVIGE",
+      "metrics": {
+        "rate_ratio_etas": null,
+        "significance": null,
+        "migration": null
+      },
+      "missing": [
+        "ETAS/fondo local y parámetros físicos suficientes"
+      ]
     }
   ],
-  "events": [],
+  "events": [
+    {
+      "region": "Vancouver Island–Port Hardy",
+      "time_local_source": "2026-09-27 21:41 PDT",
+      "magnitude_official": 5.4,
+      "source": "Earthquakes Canada",
+      "status": "revisión oficial; trigger prospectivo originalmente congelado como M5.5",
+      "material": true
+    },
+    {
+      "region": "Vancouver Island–Port Hardy",
+      "time_local_source": "2026-09-28 02:13 PDT",
+      "magnitude_official": 4.9,
+      "source": "Earthquakes Canada",
+      "status": "revisión oficial; reportes tempranos/medios citaron M5.2",
+      "material": true
+    },
+    {
+      "region": "Chaparral, Tolima",
+      "time_local_source": "2026-09-28 03:39 COT",
+      "magnitude_official": 4.2,
+      "source": "SGC citado en reportes contemporáneos",
+      "status": "secuencia preexistente; no acierto Challenger",
+      "material": false
+    }
+  ],
   "gnss": {
     "sources": [
       {
@@ -52,7 +109,7 @@
     "stations_rejected": null,
     "median_latency": null,
     "focus_coverage": "insuficiente para confirmar o descartar deformación transitoria de corto plazo",
-    "idg_status": "datos insuficientes RENGEO y de baja latencia regional",
+    "idg_status": "datos insuficientes RENGEO y baja latencia regional",
     "coherent_anomalies": [],
     "rengeo": {
       "rengeo_detected": null,
@@ -74,14 +131,18 @@
         "MRO2"
       ],
       "rengeo_coherent_anomalies": [],
-      "limitation": "RENGEO pública · medición no automatizable en este ciclo para soluciones E/N/U recientes. No se infiere deformación nula."
+      "limitation": "RENGEO obligatoria: no se recuperó en este ciclo una solución pública E/N/U reciente automatizable con latencia/QC suficiente; no se infiere deformación cero."
     }
   },
   "scientific_layer": {
-    "IDS": "Chocó reforzado por boletín SGC: >1530 eventos del enjambre, 31 M>=4 y M4.3 a 16:57; Chaparral >=979 M>=2 y 22 M>=4.",
-    "IDG": "datos insuficientes RENGEO y baja latencia regional",
-    "IITE": "sin cálculo Coulomb nuevo sustentado",
-    "IADR": "sin respuesta local físicamente evaluable nueva"
+    "IDS": null,
+    "IDG": null,
+    "IITE": null,
+    "IADR": null,
+    "IDS_status": "datos insuficientes para score 0–100 y exceso ETAS/Omori cuantitativo reproducible en este corte",
+    "IDG_status": "datos insuficientes RENGEO/NRT; sin anomalía coherente demostrada",
+    "IITE_status": "sin cálculo Coulomb nuevo sustentado",
+    "IADR_status": "sin respuesta remota estadísticamente anómala y físicamente corroborada demostrada"
   },
   "experimental_layer": {
     "IEM_IAEX_PER_A": "separada; no usada como segunda familia científica",
@@ -117,6 +178,37 @@
       "iaex_status": "EXPLORATORIO FUERTE por M6.5 según umbral congelado",
       "scientific_family": false,
       "next_test": "Contrastar 0–6 h y 6–72 h en receptores definidos a priori, penalizar actividad explicable por ETAS/Omori y registrar falsos positivos/omisiones."
+    },
+    "champion": {
+      "name": "IAEX M6+",
+      "status": "CONGELADO",
+      "scientific_family": false
+    },
+    "challenger": {
+      "name": "Challenger M5+",
+      "frozen_since": "2026-09-28",
+      "status": "ACTIVO prospectivo",
+      "vancouver_test": {
+        "frozen_input": "M5.5 Vancouver Island 28-sep-2026",
+        "frozen_class": "exploratorio reforzado",
+        "official_revision": "Earthquakes Canada actualmente lista M5.4 a 21:41 PDT del 27-sep; conserva prueba congelada sin reescribir reglas",
+        "window_0_6h": "cerrada",
+        "window_6_72h": "abierta",
+        "causality": "no demostrada",
+        "southward_progression": "no demostrada",
+        "choco_chaparral_penalty": "fuerte por actividad previa"
+      },
+      "scores": {
+        "hits": 0,
+        "partials": 0,
+        "false_alarms": 0,
+        "failures": 0,
+        "omissions": 0,
+        "brier": null,
+        "log_likelihood": null,
+        "information_gain": null,
+        "reason_null": "la definición congelada no proporciona probabilidades/tasas calibradas suficientes"
+      }
     }
   },
   "forecast_tests": [
@@ -128,5 +220,5 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Ciclo 21:40 ECU: sin cambio material nuevo frente al corte previo. El SGC mantiene como última novedad material el M4.3 de Istmina (27 sep 16:57 local, 43 km) y el consolidado del día; no se verificó en las fuentes consultadas un nuevo M>=5 regional relevante, nueva aceleración demostrada, segunda familia científica, cambio de semáforo, anomalía GNSS/InSAR coherente, Coulomb sustentado, alerta de tsunami o comunicado extraordinario posterior. RENGEO obligatoria: no se recuperó una solución E/N/U reciente automatizable suficiente en este ciclo; IDG=dato insuficiente RENGEO, no deformación nula."
+  "notes": "Ciclo MIVIGE v1.7: CAMBIO MATERIAL de integridad prospectiva: Earthquakes Canada muestra revisión oficial de la secuencia Port Hardy a M5.4 (27-sep 21:41 PDT) y M4.9 (28-sep 02:13 PDT). Se preserva sin cambios retrospectivos la prueba Challenger congelada desde el reporte M5.5 como 'exploratorio reforzado', pero la magnitud oficial revisada queda registrada. No se demuestra propagación Canadá→Centroamérica→Sudamérica, exceso ETAS/Omori significativo, anomalía GNSS/InSAR coherente, Coulomb sustentado ni segunda familia científica. Semáforo científico permanece amarillo reforzado. RENGEO: datos insuficientes, no deformación cero."
 }
