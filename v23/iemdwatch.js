@@ -59,7 +59,8 @@
     return `<div style="margin:8px 0;padding:9px 10px;border-left:4px solid ${col};background:#0d1623;border-radius:8px">
       <div style="display:flex;justify-content:space-between;gap:8px"><b>${o.label} · M${Number(o.mag).toFixed(1)}</b><span style="color:${col};font-weight:800">${p.status||'—'}</span></div>
       <div style="margin-top:4px">→ <b>${p.target_name}</b> · ${p.window_label}</div>
-      <div style="color:#9db2c8;margin-top:4px">Origen: ${o.agency} · ${o.depth_km} km · ${o.verification}</div>
+      <div style="color:#d9c9ee;margin-top:4px"><b>Criterio receptor:</b> ${p.magnitude_rule||'—'}</div>
+      <div style="color:#9db2c8;margin-top:4px">Origen: ${o.agency} · prof. ${Number.isFinite(Number(o.depth_km))?Number(o.depth_km).toFixed(0)+' km':'no verificada'} · ${o.verification}</div>
       <div style="color:#c8b8dd;margin-top:4px">Física: ${ph.dynamic_triggering||'—'}</div>
       <div style="color:#9db2c8;margin-top:4px">Control: ${p.baseline_penalty||'—'}</div>
     </div>`;
@@ -157,7 +158,7 @@
       const color=statusColor(p.status);
 
       L.circleMarker(src,{radius:8+Math.max(0,Number(o.mag)-4)*2,color:'#fff',weight:1.5,fillColor:color,fillOpacity:.95})
-        .bindPopup(`<b>Origen IEM-D</b><br>${o.label}<br>M${Number(o.mag).toFixed(1)} · ${o.depth_km} km<br>${o.agency}<br><br><b>Destino experimental:</b> ${p.target_name}<br><b>Ventana:</b> ${p.window_label}<br><span style="color:#b8a6cf">No implica trayectoria física demostrada de energía.</span>`)
+        .bindPopup(`<b>Origen IEM-D</b><br>${o.label}<br>M${Number(o.mag).toFixed(1)} · prof. ${Number.isFinite(Number(o.depth_km))?Number(o.depth_km).toFixed(0)+' km':'no verificada'}<br>${o.agency}<br><span style="color:#9db2c8">${o.verification||''}</span><br><br><b>Destino experimental:</b> ${p.target_name}<br><b>Ventana:</b> ${p.window_label}<br><b>Criterio:</b> ${p.magnitude_rule||'—'}<br><span style="color:#b8a6cf">No implica trayectoria física demostrada de energía.</span>`)
         .bindTooltip(`Origen · ${o.label} M${Number(o.mag).toFixed(1)}`,{direction:'top'})
         .addTo(layer);
 
