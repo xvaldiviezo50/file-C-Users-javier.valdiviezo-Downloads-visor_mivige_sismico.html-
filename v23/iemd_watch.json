@@ -1,6 +1,6 @@
 {
-  "version": "IEMD-2026-09-21-02",
-  "published_at_ecuador": "21 sep 2026 · 07:45",
+  "version": "IEMD-2026-09-29-03",
+  "published_at_ecuador": "29 sep 2026 · 21:40",
   "title": "IEM-D · Migración direccional experimental",
   "status": "Validación prospectiva andina activa",
   "scientific_status": "CAPA EXPERIMENTAL · no modifica por sí sola el semáforo MIVIGE",
@@ -107,6 +107,43 @@
         "antipodal": "no",
         "interpretation": "Caso de control especialmente útil: si parece acertar, debe compararse rigurosamente con ETAS/fondo."
       }
+    },
+    {
+      "id": "IEMD-FIJI-LEVUKA-20260928-01",
+      "origin": {
+        "label": "Levuka / Islas Fiji",
+        "time_utc": null,
+        "date_claimed": "2026-09-28",
+        "mag": 4.6,
+        "depth_km": null,
+        "lat": -17.68,
+        "lon": 178.83,
+        "agency": "Proyección externa aportada por el usuario",
+        "event_id": null,
+        "verification": "M4.6 y referencia Levuka según captura aportada; punto del mapa usa Levuka como referencia geográfica, no un hipocentro oficial verificado."
+      },
+      "projection": {
+        "target_name": "Sur de Ecuador / norte de Perú",
+        "target_center": [
+          -4,
+          -79.5
+        ],
+        "target_radius_km": 380,
+        "window_start": "2026-09-28T00:00:00-05:00",
+        "window_end": "2026-10-05T23:59:59-05:00",
+        "window_label": "máx. 7 días desde 28-sep-2026",
+        "magnitude_rule": "Mw 4.4–4.9, criterio congelado según la proyección aportada",
+        "receiver_mag_min": 4.4,
+        "receiver_mag_max": 4.9,
+        "status": "PENDIENTE",
+        "source_claim": "Captura aportada por el usuario: «Levuka - Islas FIJI 4.6» → «Zona sur de Ecuador o Zona Norte de Perú», M4.4–4.9, plazo máximo 7 días desde 28-09-2026.",
+        "baseline_penalty": "ALTA: sur de Ecuador / norte de Perú es una zona sísmicamente activa; cualquier coincidencia deberá compararse con la actividad de fondo y no se interpretará como causalidad."
+      },
+      "physics": {
+        "dynamic_triggering": "Plausibilidad física no establecida para un corredor Fiji→Andes con M4.6; se conserva únicamente como prueba prospectiva.",
+        "antipodal": "no establecido",
+        "interpretation": "Caso congelado para validación. Un evento receptor dentro de la ventana y rango de magnitud sería una coincidencia con la proyección, no una demostración de transferencia o «migración de energía»."
+      }
     }
   ],
   "evaluation_rules": {
@@ -115,11 +152,12 @@
     "failure": "Fuera de la zona, fuera de la ventana o sin evento que cumpla el criterio.",
     "no_retrofit": "No cambiar zonas, ventanas ni umbrales después de conocer el resultado.",
     "not_evaluable": "Si la proyección original no fijó de forma verificable zona, ventana y criterio de magnitud antes del evento, el caso se muestra como coincidencia candidata pero no entra en el cálculo de cumplimiento.",
-    "omission": "Todo evento material M>=5 en Ecuador, Perú o Colombia sin una proyección congelada compatible se registra como evento no proyectado/omisión del sistema experimental."
+    "omission": "Todo evento material M>=5 en Ecuador, Perú o Colombia sin una proyección congelada compatible se registra como evento no proyectado/omisión del sistema experimental.",
+    "range_match": "Para este caso Fiji–Levuka, el receptor solo puede cumplir el criterio de magnitud si queda entre Mw 4.4 y 4.9; valores fuera de ese rango no se reclasifican como acierto."
   },
   "disclaimer": "IEM-D es una capa experimental de validación. CUMPLIDO/PARCIAL/FALLIDO describen cumplimiento de una proyección predefinida, no causalidad física ni probabilidad de terremoto. Las coincidencias no evaluables no se contabilizan como aciertos.",
   "validation_summary": {
-    "active": 3,
+    "active": 4,
     "fulfilled": 0,
     "partial": 0,
     "failed": 0,
