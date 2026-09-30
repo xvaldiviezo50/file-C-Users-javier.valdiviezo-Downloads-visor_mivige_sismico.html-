@@ -1,7 +1,7 @@
 {
-  "version": "2026-09-30T13:06:53-05:00-v23",
-  "updated_at": "2026-09-30T18:06:53Z",
-  "updated_at_ecuador": "30 sep 2026 · 13:06 ECU",
+  "version": "2026-09-30T14:48:31-05:00-v23",
+  "updated_at": "2026-09-30T19:48:31Z",
+  "updated_at_ecuador": "30 sep 2026 · 14:48 ECU",
   "semaforo": "AMARILLO reforzado · sin segunda familia científica independiente",
   "material_change": false,
   "focus": [
@@ -268,7 +268,7 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Ciclo 30 sep 2026 13:06 ECU: sin cambio material. Revisión regional Chile→México: Perú reportó hoy M4.0 frente a Callao (11:12 local, 28 km) y M3.5 Atalaya/Ucayali; Guatemala/CONRED-INSIVUMEH reportó M4.1 Santa Rosa 08:24, M3.0 08:43 y 47 eventos en 24 h; México reportó M4.1 Sinaloa y M4.1 Chiapas; Chile M3.3 O de Tongoy. Ningún nuevo M>=5 regional verificado en este corte. Chocó mantiene patrón oficialmente descrito como decreciente al corte SGC 27-sep; Chaparral/Chocó siguen penalizados por actividad pre-Vancouver. No se demostró exceso ETAS/Omori, migración coherente, anomalía GNSS/InSAR, Coulomb, segunda familia científica, tsunami ni comunicado extraordinario. RENGEO obligatoria: medición reciente E/N/U automatizable con QC no recuperada; IDG=null/datos insuficientes, nunca deformación cero. Challenger Vancouver conserva reglas y ventana congeladas; sin nuevo resultado material.",
+  "notes": "Ciclo 30 sep 2026 13:06 ECU: sin cambio material. Revisión regional Chile→México: Perú reportó hoy M4.0 frente a Callao (11:12 local, 28 km) y M3.5 Atalaya/Ucayali; Guatemala/CONRED-INSIVUMEH reportó M4.1 Santa Rosa 08:24, M3.0 08:43 y 47 eventos en 24 h; México reportó M4.1 Sinaloa y M4.1 Chiapas; Chile M3.3 O de Tongoy. Ningún nuevo M>=5 regional verificado en este corte. Chocó mantiene patrón oficialmente descrito como decreciente al corte SGC 27-sep; Chaparral/Chocó siguen penalizados por actividad pre-Vancouver. No se demostró exceso ETAS/Omori, migración coherente, anomalía GNSS/InSAR, Coulomb, segunda familia científica, tsunami ni comunicado extraordinario. RENGEO obligatoria: medición reciente E/N/U automatizable con QC no recuperada; IDG=null/datos insuficientes, nunca deformación cero. Challenger Vancouver conserva reglas y ventana congeladas; sin nuevo resultado material. 30 sep 14:48 ECU: corte sin cambio material verificado. En Chocó se reportó M2.8 en Istmina a las 08:16:58 local, 38 km, por debajo de umbrales materiales; Quinchía M3.1 a 102 km. No se verificó nuevo M>=5 regional en fuentes recuperadas. No hay soporte cuantitativo nuevo para exceso ETAS/Omori, migración coherente, Coulomb, segunda familia científica o cambio de semáforo. RENGEO continúa obligatoria; sin solución E/N/U NRT automatizable recuperada en este ciclo, IDG permanece null/datos insuficientes.",
   "last_cycle": {
     "time_ecuador": "2026-09-29T23:49:30-05:00",
     "material_change": false,
