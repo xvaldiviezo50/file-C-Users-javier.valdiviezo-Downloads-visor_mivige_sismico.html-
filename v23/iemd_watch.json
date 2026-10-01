@@ -1,113 +1,11 @@
 {
-  "version": "IEMD-2026-09-29-03",
-  "published_at_ecuador": "29 sep 2026 · 21:40",
+  "version": "IEMD-2026-09-30-04",
+  "published_at_ecuador": "30 sep 2026 · interpretación técnico-científica",
   "title": "IEM-D · Migración direccional experimental",
   "status": "Validación prospectiva andina activa",
   "scientific_status": "CAPA EXPERIMENTAL · no modifica por sí sola el semáforo MIVIGE",
-  "methodology": "Cada proyección se congela antes de resolverse. Se evalúan espacio, tiempo, magnitud, profundidad y compatibilidad física. El sistema registra también eventos materiales no proyectados. Las coincidencias con criterios originales incompletos quedan como NO EVALUABLES y no se suman a los aciertos.",
+  "methodology": "Cada proyección se congela antes de resolverse. Se evalúan espacio, tiempo, magnitud, profundidad y compatibilidad física. La acomodación de placas no se interpreta como una onda que recorre corredores fijos: las coincidencias remotas solo se conservan como hipótesis estadísticas hasta demostrar exceso sobre el fondo y un mecanismo físico compatible.",
   "cases": [
-    {
-      "id": "IEMD-GUAM-20260920-01",
-      "origin": {
-        "label": "Guam / Marianas",
-        "time_utc": "2026-09-20T03:43:24Z",
-        "mag": 5.3,
-        "depth_km": 10,
-        "lat": 13.0568,
-        "lon": 145.7591,
-        "agency": "USGS",
-        "event_id": "us7000tinl",
-        "verification": "evento fuente verificado"
-      },
-      "projection": {
-        "target_name": "Sur de Ecuador / norte de Perú",
-        "target_center": [
-          -3.8,
-          -79.6
-        ],
-        "target_radius_km": 300,
-        "window_start": "2026-09-20T03:43:24Z",
-        "window_end": "2026-09-27T03:43:24Z",
-        "window_label": "7 días",
-        "magnitude_rule": "según proyección externa; umbral exacto por documentar",
-        "status": "PENDIENTE",
-        "source_claim": "Proyección externa reportada por el usuario a partir de transmisión en vivo",
-        "baseline_penalty": "ALTA: el corredor Perú–Ecuador ya presenta actividad M5+ previa"
-      },
-      "physics": {
-        "dynamic_triggering": "plausibilidad baja con M5.3 a distancia transpacífica",
-        "antipodal": "no",
-        "interpretation": "Caso útil para validación estadística, no evidencia de transferencia física demostrada."
-      }
-    },
-    {
-      "id": "IEMD-SOLOMON-20260920-01",
-      "origin": {
-        "label": "Islas Salomón",
-        "time_utc": "2026-09-20T12:24:22Z",
-        "mag": 4.8,
-        "depth_km": 33.9,
-        "lat": -10.6446,
-        "lon": 164.9562,
-        "agency": "USGS",
-        "event_id": "us7000tirf",
-        "verification": "evento fuente verificado"
-      },
-      "projection": {
-        "target_name": "Chile centro-norte",
-        "target_center": [
-          -28.5,
-          -71
-        ],
-        "target_radius_km": 450,
-        "window_start": "2026-09-20T12:24:22Z",
-        "window_end": "2026-09-27T12:24:22Z",
-        "window_label": "7 días",
-        "magnitude_rule": "según proyección externa; umbral exacto por documentar",
-        "status": "PENDIENTE",
-        "source_claim": "Proyección externa reportada por el usuario",
-        "baseline_penalty": "MEDIA/ALTA: Chile presenta alta tasa sísmica de fondo"
-      },
-      "physics": {
-        "dynamic_triggering": "plausibilidad muy baja con M4.8 a distancia transpacífica",
-        "antipodal": "no",
-        "interpretation": "Se conserva como prueba empírica prospectiva; requiere superar el fondo sísmico chileno."
-      }
-    },
-    {
-      "id": "IEMD-VERACRUZ-20260920-01",
-      "origin": {
-        "label": "Veracruz / Istmo de Tehuantepec",
-        "time_utc": "2026-09-20T10:55:00Z",
-        "mag": 3.8,
-        "depth_km": 126.2,
-        "lat": 17.644,
-        "lon": -95.013,
-        "agency": "EMSC / contraste SSN",
-        "event_id": "emsc-20260920_0000172",
-        "verification": "evento fuente regional verificado"
-      },
-      "projection": {
-        "target_name": "Lima – Ica, Perú",
-        "target_center": [
-          -12.9,
-          -76.2
-        ],
-        "target_radius_km": 280,
-        "window_start": "2026-09-20T10:55:00Z",
-        "window_end": "2026-09-27T10:55:00Z",
-        "window_label": "7 días",
-        "magnitude_rule": "según proyección externa; umbral exacto por documentar",
-        "status": "PENDIENTE",
-        "source_claim": "Proyección externa reportada por el usuario",
-        "baseline_penalty": "ALTA: Lima–Ica es un corredor sísmico activo"
-      },
-      "physics": {
-        "dynamic_triggering": "plausibilidad física muy baja para M3.8 a miles de km",
-        "antipodal": "no",
-        "interpretation": "Caso de control especialmente útil: si parece acertar, debe compararse rigurosamente con ETAS/fondo."
-      }
-    },
     {
       "id": "IEMD-FIJI-LEVUKA-20260928-01",
       "origin": {
@@ -120,7 +18,7 @@
         "lon": 178.83,
         "agency": "Proyección externa aportada por el usuario",
         "event_id": null,
-        "verification": "M4.6 y referencia Levuka según captura aportada; punto del mapa usa Levuka como referencia geográfica, no un hipocentro oficial verificado."
+        "verification": "La captura reporta Levuka/Fiji M4.6. Como contraste regional, USGS registró Fiji M4.5 a 602.2 km el 27-sep 23:55 UTC y Fiji M4.7 a 573.1 km el 28-sep 12:14 UTC; esos eventos no se sustituyen automáticamente por el hipocentro exacto de la captura."
       },
       "projection": {
         "target_name": "Sur de Ecuador / norte de Perú",
@@ -136,33 +34,34 @@
         "receiver_mag_min": 4.4,
         "receiver_mag_max": 4.9,
         "status": "PENDIENTE",
-        "source_claim": "Captura aportada por el usuario: «Levuka - Islas FIJI 4.6» → «Zona sur de Ecuador o Zona Norte de Perú», M4.4–4.9, plazo máximo 7 días desde 28-09-2026.",
-        "baseline_penalty": "ALTA: sur de Ecuador / norte de Perú es una zona sísmicamente activa; cualquier coincidencia deberá compararse con la actividad de fondo y no se interpretará como causalidad."
+        "source_claim": "Levuka/Fiji M4.6 → sur de Ecuador o norte de Perú; M4.4–4.9; máximo 7 días.",
+        "baseline_penalty": "ALTA: el receptor es sísmicamente activo; una coincidencia debe compararse con la tasa de fondo."
       },
       "physics": {
-        "dynamic_triggering": "Plausibilidad física no establecida para un corredor Fiji→Andes con M4.6; se conserva únicamente como prueba prospectiva.",
+        "dynamic_triggering": "Plausibilidad física baja para un evento M4.x profundo y transpacífico. Las ondas sísmicas llegan globalmente, pero no existe una ley validada que convierta este evento en un corredor predictivo Fiji→Andes.",
+        "plate_accommodation": "Las placas Pacífico/Australia/Tonga-Kermadec y Nazca–Sudamérica pertenecen a sistemas tectónicos distintos; no hay continuidad mecánica que permita tratar esta proyección como acomodación directa de una misma placa.",
         "antipodal": "no establecido",
-        "interpretation": "Caso congelado para validación. Un evento receptor dentro de la ventana y rango de magnitud sería una coincidencia con la proyección, no una demostración de transferencia o «migración de energía»."
+        "interpretation": "Caso prospectivo válido para prueba estadística; cualquier coincidencia será cumplimiento del criterio, no demostración causal."
       }
     }
   ],
   "evaluation_rules": {
-    "success": "Solo se marca como acierto si el evento receptor ocurre dentro de la zona y ventana previamente congeladas y satisface el umbral de magnitud documentado.",
-    "partial": "Coincidencia incompleta en espacio, tiempo o magnitud; se conserva como parcial, no se reclasifica como acierto.",
+    "success": "Solo se marca como acierto si el evento receptor ocurre dentro de la zona y ventana congeladas y satisface el rango de magnitud documentado.",
+    "partial": "Coincidencia incompleta en espacio, tiempo o magnitud; no se reclasifica como acierto.",
     "failure": "Fuera de la zona, fuera de la ventana o sin evento que cumpla el criterio.",
     "no_retrofit": "No cambiar zonas, ventanas ni umbrales después de conocer el resultado.",
-    "not_evaluable": "Si la proyección original no fijó de forma verificable zona, ventana y criterio de magnitud antes del evento, el caso se muestra como coincidencia candidata pero no entra en el cálculo de cumplimiento.",
-    "omission": "Todo evento material M>=5 en Ecuador, Perú o Colombia sin una proyección congelada compatible se registra como evento no proyectado/omisión del sistema experimental.",
-    "range_match": "Para este caso Fiji–Levuka, el receptor solo puede cumplir el criterio de magnitud si queda entre Mw 4.4 y 4.9; valores fuera de ese rango no se reclasifican como acierto."
+    "not_evaluable": "Si la proyección original no fijó de forma verificable zona, ventana y magnitud antes del evento, el caso no entra en el cálculo de cumplimiento.",
+    "omission": "Todo evento material M>=5 en Ecuador, Perú o Colombia sin una proyección congelada compatible se registra como omisión del sistema experimental.",
+    "physical_filter": "Separar cumplimiento estadístico de plausibilidad física: una coincidencia remota no se interpreta como transferencia de esfuerzos sin mecanismo y evidencia independiente."
   },
-  "disclaimer": "IEM-D es una capa experimental de validación. CUMPLIDO/PARCIAL/FALLIDO describen cumplimiento de una proyección predefinida, no causalidad física ni probabilidad de terremoto. Las coincidencias no evaluables no se contabilizan como aciertos.",
+  "disclaimer": "IEM-D es una capa experimental. CUMPLIDO/PARCIAL/FALLIDO describe cumplimiento de una regla prospectiva, no causalidad física ni probabilidad de terremoto.",
   "validation_summary": {
-    "active": 4,
+    "active": 1,
     "fulfilled": 0,
     "partial": 0,
     "failed": 0,
-    "not_evaluable": 1,
-    "unprojected_material_events": 0
+    "not_evaluable": 4,
+    "unprojected_material_events": 1
   },
   "regional_scope": {
     "Ecuador": {
@@ -173,18 +72,19 @@
         "Carchi–Imbabura",
         "Golfo de Guayaquil–El Oro"
       ],
-      "rule": "Registrar todo M>=4.5 material que cumpla o contradiga una proyección congelada; los M>=5 no proyectados se registran como omisiones."
+      "rule": "Registrar M>=4.5 relevantes y M>=5 no proyectados."
     },
     "Peru": {
       "role": "receptor prioritario",
       "zones": [
         "Tumbes–Piura",
         "Amazonas–Condorcanqui",
+        "Loreto–Andoas",
         "La Libertad–Trujillo",
         "Lima",
         "Ica"
       ],
-      "rule": "Registrar todo M>=4.5 material que cumpla o contradiga una proyección congelada; los M>=5 no proyectados se registran como omisiones."
+      "rule": "Registrar M>=4.5 relevantes y M>=5 no proyectados."
     },
     "Colombia": {
       "role": "receptor prioritario",
@@ -194,45 +94,91 @@
         "Tolima–Eje Andino",
         "Caribe colombiano"
       ],
-      "rule": "Registrar todo M>=4.5 material que cumpla o contradiga una proyección congelada; los M>=5 no proyectados se registran como omisiones."
+      "rule": "Registrar M>=4.5 relevantes y M>=5 no proyectados."
     }
   },
   "validation_history": [
+    {
+      "id": "IEMD-GUAM-20260920-01-CLOSE",
+      "projection_label": "Guam / Marianas → sur de Ecuador / norte de Perú",
+      "classification": "NO EVALUABLE",
+      "display_status": "VENTANA CERRADA",
+      "scored": false,
+      "reason": "La ventana terminó el 27-sep. El umbral receptor exacto de la proyección externa no quedó documentado de forma verificable antes del resultado; no se puntúa.",
+      "receiver": {
+        "label": "—",
+        "mag": 0,
+        "depth_km": null
+      },
+      "temporal_match": {
+        "elapsed_hours": null,
+        "within_7_days": null
+      }
+    },
+    {
+      "id": "IEMD-SOLOMON-20260920-01-CLOSE",
+      "projection_label": "Islas Salomón → Chile centro-norte",
+      "classification": "NO EVALUABLE",
+      "display_status": "VENTANA CERRADA",
+      "scored": false,
+      "reason": "La ventana terminó el 27-sep y el criterio de magnitud receptor no estaba congelado con precisión. Se conserva fuera del puntaje.",
+      "receiver": {
+        "label": "—",
+        "mag": 0,
+        "depth_km": null
+      },
+      "temporal_match": {
+        "elapsed_hours": null,
+        "within_7_days": null
+      }
+    },
+    {
+      "id": "IEMD-VERACRUZ-20260920-01-CLOSE",
+      "projection_label": "Veracruz / Istmo → Lima–Ica",
+      "classification": "NO EVALUABLE",
+      "display_status": "VENTANA CERRADA",
+      "scored": false,
+      "reason": "La ventana terminó el 27-sep. Por la alta sismicidad de fondo Lima–Ica y la falta de umbral receptor exacto pre-evento, no puede calificarse como acierto.",
+      "receiver": {
+        "label": "—",
+        "mag": 0,
+        "depth_km": null
+      },
+      "temporal_match": {
+        "elapsed_hours": null,
+        "within_7_days": null
+      }
+    },
     {
       "id": "VAL-FIJI-TRUJILLO-20260921-01",
       "projection_label": "Fiji → norte de Perú / sur de Ecuador",
       "classification": "NO EVALUABLE",
       "display_status": "COINCIDENCIA CANDIDATA",
       "scored": false,
-      "reason": "El evento receptor ocurrió dentro de una ventana temporal compatible con la proyección reportada, pero todavía no se dispone de una copia pre-evento con polígono geográfico, rango de magnitud y profundidad/umbral exactos. No se contabiliza como acierto ni como parcial.",
-      "origin": {
-        "label": "Fiji region",
-        "time_utc": "2026-09-18T06:42:29Z",
-        "mag": 4.7,
-        "depth_km": 548.4,
-        "lat": -21.9479,
-        "lon": -179.372,
-        "agency": "USGS/EMSC",
-        "verification": "evento fuente revisado"
-      },
+      "reason": "El receptor Salaverry–Trujillo M4.9 ocurrió dentro de una ventana temporal compatible, pero no existía copia pre-evento con polígono y magnitud exactos. No se suma como acierto.",
       "receiver": {
         "country": "Perú",
         "label": "Salaverry – Trujillo, La Libertad",
         "time_local": "2026-09-20T22:58:23-05:00",
         "mag": 4.9,
         "depth_km": 59,
-        "lat": -8.42,
-        "lon": -79.1,
-        "agency": "IGP/CENSIS",
-        "intensity": "IV Salaverry",
-        "verification": "evento receptor oficial"
+        "agency": "IGP/CENSIS"
       },
       "temporal_match": {
         "elapsed_hours": 69.27,
         "within_7_days": true
-      },
-      "next_action": "Recuperar la publicación o video original y congelar retro-documentalmente únicamente lo que pueda demostrarse que fue anunciado antes del evento; si el área exacta incluía Trujillo y el umbral M4.9, reclasificar prospectivamente auditado. No ampliar criterios."
+      }
     }
   ],
-  "unprojected_events": []
+  "unprojected_events": [
+    {
+      "id": "OM-PER-ANDOAS-20260929",
+      "label": "Andoas / Loreto, Perú",
+      "time_local": "2026-09-29T05:22:15-05:00",
+      "mag_reference": "IG-EPN M5.0; USGS M4.5 mb",
+      "depth_reference": "IG-EPN 115.2 km; USGS 134.8 km",
+      "classification": "EVENTO MATERIAL NO PROYECTADO",
+      "reason": "No estaba dentro de una proyección congelada compatible. Se registra para evitar sesgo de selección."
+    }
+  ]
 }
