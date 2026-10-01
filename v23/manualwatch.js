@@ -10,7 +10,7 @@
     card.className='card';
     card.id='manualScientificWatch';
     card.innerHTML=`
-      <h2>Corredor Perú–Ecuador · lectura visual</h2>
+      <h2>Norte Perú–Ecuador · acomodación de losa</h2>
       <div class="kpis">
         <div class="kpi"><div class="name">Estado local</div><div class="val" id="mwLevel" style="font-size:13px">—</div></div>
         <div class="kpi"><div class="name">Señal</div><div class="val" id="mwSignal" style="font-size:13px">—</div></div>
@@ -50,7 +50,7 @@
     el.innerHTML=`
       <div style="padding:8px 10px;border-left:4px solid #f0c644;background:#0b1a2a;border-radius:8px;margin-bottom:10px">
         <b>${s.title}</b><br>
-        <span style="color:#ffd665">Recurrencia espacial M5+ · vigilancia reforzada</span>
+        <span style="color:#ffd665">Recurrencia M5+ en distintos niveles de profundidad</span>
       </div>
       <div>${evidence.map(fmtEvent).join('')}</div>
       <div style="margin-top:10px"><b>Cómo interpretarlo:</b> ${s.interpretation}</div>
@@ -79,14 +79,14 @@
       fillColor:'#f0c644',
       fillOpacity:0.08,
       dashArray:'7,6'
-    }).bindPopup(`<b>${s.title}</b><br>${s.level}<br><br>Radio operativo de vigilancia: ~100 km.<br><b>Nuevo M≥5 el 19-sep: disparador cumplido.</b><br>Este halo no representa una zona de predicción.`).addTo(watchLayer);
+    }).bindPopup(`<b>${s.title}</b><br>${s.level}<br><br>Radio operativo de vigilancia: ~100 km.<br><b>Nuevo evento regional M5 el 29-sep: vigilancia mantenida.</b><br>No demuestra migración; este halo no representa una zona de predicción.`).addTo(watchLayer);
 
     L.polyline(latlngs,{
       color:'#f08a24',
       weight:3,
       opacity:0.85,
       dashArray:'9,7'
-    }).bindTooltip('Secuencia espacial M5+ · 10–19 sep 2026',{sticky:true}).addTo(watchLayer);
+    }).bindTooltip('Secuencia regional M5+ · 10–29 sep 2026',{sticky:true}).addTo(watchLayer);
 
     ev.forEach((e,i)=>{
       const mag=Number(e.mag), depth=Number(e.depth_km);
@@ -108,7 +108,7 @@
         const legend=L.control({position:'bottomleft'});
         legend.onAdd=function(){
           const d=L.DomUtil.create('div','legend mivige-watch-legend');
-          d.innerHTML='<b>Corredor Perú–Ecuador</b><br><span style="color:#ffd665">●</span> M5+ observado<br><span style="color:#f08a24">- - -</span> corredor/halo de vigilancia';
+          d.innerHTML='<b>Norte Perú–Ecuador</b><br><span style="color:#ffd665">●</span> M5+ observado<br><span style="color:#f08a24">- - -</span> corredor/halo de vigilancia';
           return d;
         };
         legend.addTo(map);
