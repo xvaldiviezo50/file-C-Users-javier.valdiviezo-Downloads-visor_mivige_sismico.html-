@@ -1,0 +1,111 @@
+{
+  "version": "MIVIGE-TECTONIC-PROSPECT-2026-09-30-01",
+  "updated_at_ecuador": "30 sep 2026 · 22:00",
+  "title": "Prospección técnico-científica · acomodación tectónica",
+  "principle": "La acomodación de placas es continua y los sismos redistribuyen esfuerzos. La transferencia estática es principalmente local/regional; el triggering dinámico remoto existe en algunos casos, pero no valida cadenas fijas de sismos a miles de kilómetros. Por eso MIVIGE separa mecanismos físicamente plausibles de correlaciones experimentales.",
+  "observed_chain": [
+    {
+      "region": "Chocó, Colombia",
+      "observation": "Mw7.4 del 10-ago; 333 réplicas profundas en decaimiento y >1541 eventos de enjambre 30–70 km al 29-sep.",
+      "reading": "reajuste local/regional plausible por cambios de esfuerzo y posible participación de fluidos"
+    },
+    {
+      "region": "Norte de Perú / frontera Ecuador",
+      "observation": "varios M5+ en septiembre con profundidades desde ~20 km hasta >100 km; Andoas M5.0 IG-EPN el 29-sep a 115.2 km.",
+      "reading": "acomodación distribuida en la losa de Nazca; no una sola ruptura migrante"
+    },
+    {
+      "region": "Guatemala / Ocós",
+      "observation": "USGS M4.5 el 29-sep a 41.5 km.",
+      "reading": "actividad del margen de subducción de Cocos; compartir un cinturón tectónico no demuestra transferencia hacia Andes"
+    },
+    {
+      "region": "Fiji",
+      "observation": "USGS M4.5 profundo el 27-sep y M4.7 profundo el 28-sep.",
+      "reading": "sismicidad profunda del Pacífico; relación causal con Andes no demostrada"
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "Chocó → reajuste local",
+      "support": "MECANISMO PLAUSIBLE",
+      "scientific_weight": "alto dentro del entorno local, no extrapolable automáticamente",
+      "mechanism": "transferencia estática de esfuerzos + after-slip/relajación + presión de poros/fluidos",
+      "future_prospect": "La señal más informativa será la evolución de tasa, profundidad y posición del enjambre. Si la tasa cae, favorece relajación; si aumenta de forma sostenida y el centro migra con coherencia, se revisa el modelo.",
+      "triggers": [
+        "ratio observado/ETAS significativo",
+        "migración tiempo–distancia–profundidad",
+        "mecanismos focales consistentes",
+        "GNSS/InSAR o Coulomb independiente"
+      ]
+    },
+    {
+      "name": "Norte Perú–Ecuador → acomodación de la losa Nazca",
+      "support": "PLAUSIBLE COMO RÉGIMEN DISTRIBUIDO",
+      "scientific_weight": "moderado; vínculo evento-a-evento no demostrado",
+      "mechanism": "rupturas en distintos volúmenes de la placa subducida y/o corteza superior según profundidad",
+      "future_prospect": "Es razonable esperar continuidad de sismicidad regional de fondo e intermedia; MIVIGE no asignará dirección migratoria mientras los hipocentros someros y profundos no formen una trayectoria coherente.",
+      "triggers": [
+        "nuevo M≥5 acompañado de aumento de tasa",
+        "gradiente de profundidad persistente",
+        "mecanismos focales comparables",
+        "deformación independiente"
+      ]
+    },
+    {
+      "name": "Guatemala / Centroamérica → Andes",
+      "support": "VÍNCULO DIRECTO NO DEMOSTRADO",
+      "scientific_weight": "bajo como cadena causal",
+      "mechanism": "Cocos subduce bajo Caribe/Norteamérica; Nazca subduce bajo Sudamérica. Son segmentos conectados tectónicamente a escala de placas, pero con acoplamiento y geometría propios.",
+      "future_prospect": "Tratar los eventos de Guatemala como control regional. Solo elevar la hipótesis si aparece una secuencia espacial-temporal reproducible que exceda el fondo en varios segmentos.",
+      "triggers": [
+        "secuencia M≥5 en segmentos sucesivos",
+        "tiempos compatibles repetidos en múltiples casos",
+        "exceso sobre fondo/ETAS",
+        "no selección retrospectiva"
+      ]
+    },
+    {
+      "name": "Fiji / Tonga → Ecuador–Perú",
+      "support": "EXPERIMENTAL",
+      "scientific_weight": "muy bajo como acomodación directa",
+      "mechanism": "posible llegada de ondas dinámicas globales, pero sin corredor mecánico fijo ni evidencia de transferencia estática transpacífica para M4.x",
+      "future_prospect": "Mantener la regla Fiji→sur Ecuador/norte Perú únicamente como prueba prospectiva hasta 5-oct. Una coincidencia no cambia el semáforo científico.",
+      "triggers": [
+        "cumplimiento exacto de zona/ventana/magnitud",
+        "comparación contra tasa de fondo",
+        "repetición prospectiva en muchos casos",
+        "significancia estadística"
+      ]
+    },
+    {
+      "name": "Vancouver → México/Centroamérica → Sudamérica",
+      "support": "EXPERIMENTAL / CONTROL ESTADÍSTICO",
+      "scientific_weight": "bajo como propagación física unidireccional",
+      "mechanism": "Juan de Fuca, Pacífico, Cocos y Nazca forman un sistema de límites del Pacífico oriental, pero no una sola placa que 'acomode' sismos en cascada.",
+      "future_prospect": "Conservar el Challenger M5+ para medir aciertos, fallos y omisiones; no reinterpretar Chaparral, Chocó o Andoas como resultados si estaban activos antes o fuera del receptor congelado.",
+      "triggers": [
+        "reglas a priori",
+        "penalización por actividad previa",
+        "Brier/information gain cuando haya muestra suficiente",
+        "mecanismo físico independiente"
+      ]
+    }
+  ],
+  "horizons": [
+    {
+      "window": "0–72 h",
+      "prospect": "Prioridad en secuencias ya activas: Chocó y norte de Perú. Vigilar cambios de tasa y profundidad; no emitir fecha/magnitud esperada."
+    },
+    {
+      "window": "3–14 días",
+      "prospect": "Evaluar persistencia o decaimiento. La hipótesis de acomodación gana soporte solo si aparecen patrones reproducibles y una segunda familia científica."
+    },
+    {
+      "window": "semanas–meses",
+      "prospect": "Buscar after-slip, relajación y deformación pos-sísmica con GNSS/InSAR; estas variables explican acomodación mejor que correlaciones remotas aisladas."
+    }
+  ],
+  "decision_rule": "CAPA A científica solo escala con ≥2 familias independientes. CAPA B puede registrar coincidencias, pero nunca sustituye ETAS/Omori, mecanismos focales, Coulomb o geodesia.",
+  "disclaimer": "Prospección = escenarios condicionales de vigilancia, no predicción determinista de terremotos."
+}
