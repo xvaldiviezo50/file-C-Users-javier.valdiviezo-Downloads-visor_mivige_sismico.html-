@@ -1,6 +1,9 @@
-# MIVIGE v42 — reconstrucción técnica de la proyección externa del 02-oct-2026
+# MIVIGE v42 — redistribución progresiva de esfuerzos tectónicos y activación sísmica secuencial
 
-## Qué se conserva del claim
+## Denominación técnica
+La formulación operativa del visor es **redistribución progresiva de esfuerzos tectónicos con activación sísmica secuencial y respuesta retardada**. Es una traducción técnica del patrón descrito; no se afirma que sea el nombre formal utilizado por el autor de la publicación.
+
+## Patrón externo que se somete a contraste
 - Secuencia declarada: Chile → Perú → Ecuador → Colombia.
 - Ventana explícita para Ecuador: sábado–domingo.
 - Dependencia declarada de Colombia respecto del “desahogo” en Perú/Ecuador.
@@ -16,7 +19,7 @@
 
 ## Índice técnico reconstruido por zona (ex ante)
 - 35% continuidad a lo largo del margen;
-- 30% susceptibilidad sísmica del receptor antes del claim;
+- 30% susceptibilidad sísmica del receptor antes del hipótesis;
 - 20% fuerza de la fuente Chile–Perú en las 48 h previas;
 - 15% compatibilidad de familia tectónica/profundidad.
 
@@ -30,7 +33,7 @@ Antípoda y SST se muestran como modificadores vivos separados y no forman parte
 5. Chocó: vigilancia secundaria con penalización conceptual por actividad preexistente.
 
 ## Validación
-Después del claim se comprueba:
+Después del hipótesis se comprueba:
 - primera activación M>=3.5 por segmento;
 - cambio de tasa respecto de ventana previa comparable;
 - correlación temporal con el orden sur→norte;
