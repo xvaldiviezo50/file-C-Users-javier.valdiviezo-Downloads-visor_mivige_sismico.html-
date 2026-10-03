@@ -141,8 +141,8 @@
     const aside=document.querySelector('aside');if(!aside)return;
     const card=document.createElement('section');card.className='card';card.id='technicalClaim42';
     card.innerHTML=
-      '<h2>🧠 Proyección del sismólogo · reconstrucción técnica</h2>'+
-      '<div class="small"><b>No conocemos su algoritmo original.</b> Esta capa reconstruye qué mecanismos podrían corresponder a sus frases y los somete a prueba con datos. La publicación externa no modifica por sí sola el semáforo científico.</div>'+
+      '<h2>🧠 Redistribución progresiva de esfuerzos tectónicos · activación sísmica secuencial</h2>'+
+      '<div class="small"><b>Hipótesis técnica reconstruida.</b> Esta capa evalúa si el patrón descrito puede explicarse mediante redistribución progresiva de esfuerzos tectónicos, activación sísmica secuencial y respuesta sísmica retardada. La referencia externa no modifica por sí sola el semáforo científico.</div>'+
       '<div class="kpis" style="margin-top:8px">'+
         '<div class="kpi"><div class="name">Fuente Chile–Perú</div><div class="val" id="t42src">—</div></div>'+
         '<div class="kpi"><div class="name">Migración observada</div><div class="val" id="t42mig">—</div></div>'+
@@ -150,7 +150,7 @@
         '<div class="kpi"><div class="name">Venezuela 12 h</div><div class="val" id="t42ven">—</div></div>'+
       '</div>'+
       '<div id="t42zones" style="margin-top:8px"></div>'+
-      '<details style="margin-top:8px"><summary>Traducción física de sus criterios</summary>'+
+      '<details style="margin-top:8px"><summary>Mecanismos físicos evaluados</summary>'+
         '<div class="small" style="margin-top:6px">'+
         '<b>1. “Chile no termina de ajustarse”</b> → post-sismicidad, afterslip y relajación post-sísmica. Para confirmarlo se necesita GNSS/InSAR; la sola sismicidad no basta.<br>'+
         '<b>2. “Tensión con Perú”</b> → posible redistribución de esfuerzos. El cambio estático de Coulomb requiere mecanismo focal, plano de falla y geometría del receptor; sin esos datos queda no calculado.<br>'+
@@ -162,11 +162,11 @@
     const p=document.getElementById('projection40');p?p.insertAdjacentElement('afterend',card):aside.insertBefore(card,aside.firstChild);
 
     const key=document.createElement('section');key.className='card';key.id='zones42legend';
-    key.innerHTML='<h2>🗺️ Zonas proyectadas experimentales</h2><div class="small"><b>Naranja/rojo:</b> mayor prioridad técnica del modelo reconstruido. <b>Amarillo:</b> vigilancia intermedia. <b>Azul:</b> exploratoria. Son zonas de vigilancia, no probabilidades de ocurrencia ni alertas oficiales.</div>';
+    key.innerHTML='<h2>🗺️ Zonas de activación sísmica secuencial · vigilancia experimental</h2><div class="small"><b>Naranja/rojo:</b> mayor prioridad técnica del modelo reconstruido. <b>Amarillo:</b> vigilancia intermedia. <b>Azul:</b> exploratoria. Son zonas de vigilancia, no probabilidades de ocurrencia ni alertas oficiales.</div>';
     card.insertAdjacentElement('afterend',key);
 
     const base=document.createElement('section');base.className='card';base.id='baseScientific42';
-    base.innerHTML='<h2>📚 Base científica usada para reconstruir la proyección</h2><div class="small">'+
+    base.innerHTML='<h2>📚 Base científica de la redistribución de esfuerzos y respuesta retardada</h2><div class="small">'+
       '<b>Coulomb:</b> una ruptura puede aumentar o disminuir el esfuerzo de falla en receptores según geometría, deslizamiento y fricción; no se calcula sin mecanismo focal. '+
       '<a href="https://www.usgs.gov/publications/static-stress-changes-and-triggering-earthquakes" target="_blank" rel="noopener">USGS</a><br>'+
       '<b>Disparo dinámico:</b> ondas sísmicas de grandes terremotos pueden disparar sismicidad remota en fallas susceptibles; no implica una ruta fija. '+
@@ -198,7 +198,7 @@
       return '<div class="listitem"><div class="dot" style="background:'+color(x.display)+'"></div><div><div class="zname"><b>#'+(i+1)+'</b> '+x.z.name+'</div><div class="zdesc">'+
         '<b>Índice técnico reconstruido:</b> '+x.frozen.toFixed(1)+'/100'+(mods.length?' · '+mods.join(''):'')+'<br>'+
         'continuidad '+x.continuity.toFixed(1)+' · susceptibilidad previa '+x.priorPts.toFixed(1)+' · fuente '+x.sourcePts.toFixed(1)+' · familia/profundidad '+x.famPts.toFixed(1)+'<br>'+
-        '<b>Ventana del claim:</b> '+x.z.window+' · <b>validación:</b> '+v.state+(v.post.length?' · '+v.post.length+' M≥3.5 · razón tasa ×'+v.ratio.toFixed(2):'')+
+        '<b>Ventana de respuesta retardada:</b> '+x.z.window+' · <b>validación:</b> '+v.state+(v.post.length?' · '+v.post.length+' M≥3.5 · razón tasa ×'+v.ratio.toFixed(2):'')+
         '</div></div><div class="pct">'+(x.display>=70?'Alta':x.display>=55?'Prioritaria':x.display>=40?'Media':'Exploratoria')+'</div></div>';
     }).join('');
 
@@ -215,7 +215,7 @@
     if(claimLayer){
       claimLayer.clearLayers();
       const path=[[-28.5,-71.4],[-10.5,-77.5],[-3.15,-80.25],[-1.05,-80.55],[.55,-79.95],[2.55,-77.65],[4.95,-76.75]];
-      L.polyline(path,{weight:4,dashArray:'10 8',opacity:.75}).bindTooltip('Trayectoria declarada: Sur→Norte · claim externo').addTo(claimLayer);
+      L.polyline(path,{weight:4,dashArray:'10 8',opacity:.75}).bindTooltip('Trayectoria hipotética de activación S→N · redistribución progresiva de esfuerzos').addTo(claimLayer);
       if(mig.pts.length>1){
         for(let i=0;i<mig.pts.length-1;i++){
           L.polyline([[mig.pts[i].e.lat,mig.pts[i].e.lon],[mig.pts[i+1].e.lat,mig.pts[i+1].e.lon]],{weight:2,dashArray:'4 5',opacity:.75}).bindTooltip('Orden observado de primera activación M≥3.5').addTo(claimLayer);
@@ -224,8 +224,8 @@
     }
     if(atlLayer){
       atlLayer.clearLayers();
-      L.circle([10.3,-64.4],{radius:520000,weight:2,dashArray:'7 6',fillOpacity:.04}).bindTooltip('Venezuela costera · nodo externo del claim').addTo(atlLayer);
-      L.polyline([[10,-52],[10.3,-64.4]],{weight:3,dashArray:'8 7',opacity:.65}).bindTooltip('Atlántico→Venezuela · origen no especificado en la publicación').addTo(atlLayer);
+      L.circle([10.3,-64.4],{radius:520000,weight:2,dashArray:'7 6',fillOpacity:.04}).bindTooltip('Venezuela costera · nodo de la hipótesis remota').addTo(atlLayer);
+      L.polyline([[10,-52],[10.3,-64.4]],{weight:3,dashArray:'8 7',opacity:.65}).bindTooltip('Atlántico→Venezuela · origen fuente no especificado en la hipótesis').addTo(atlLayer);
     }
     window.mivigeTechnicalClaim42={claim:CLAIM,source:src,migration:mig,zones:scored};
   }
@@ -233,9 +233,9 @@
   ensure();
   if(layer&&claimLayer&&atlLayer){
     try{L.control.layers({},{
-      'Zonas proyectadas técnicas v42':layer,
-      'Trayectoria declarada vs observada':claimLayer,
-      'Rama Atlántico→Venezuela':atlLayer
+      'Zonas RPE · activación secuencial v42':layer,
+      'Trayectoria hipotética vs activación observada':claimLayer,
+      'Hipótesis de transferencia remota Atlántico→Venezuela':atlLayer
     },{collapsed:false,position:'topright'}).addTo(map);}catch(_){}
   }
   setTimeout(render,2600);setInterval(render,60000);
