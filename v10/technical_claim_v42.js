@@ -164,6 +164,19 @@
     const key=document.createElement('section');key.className='card';key.id='zones42legend';
     key.innerHTML='<h2>🗺️ Zonas proyectadas experimentales</h2><div class="small"><b>Naranja/rojo:</b> mayor prioridad técnica del modelo reconstruido. <b>Amarillo:</b> vigilancia intermedia. <b>Azul:</b> exploratoria. Son zonas de vigilancia, no probabilidades de ocurrencia ni alertas oficiales.</div>';
     card.insertAdjacentElement('afterend',key);
+
+    const base=document.createElement('section');base.className='card';base.id='baseScientific42';
+    base.innerHTML='<h2>📚 Base científica usada para reconstruir la proyección</h2><div class="small">'+
+      '<b>Coulomb:</b> una ruptura puede aumentar o disminuir el esfuerzo de falla en receptores según geometría, deslizamiento y fricción; no se calcula sin mecanismo focal. '+
+      '<a href="https://www.usgs.gov/publications/static-stress-changes-and-triggering-earthquakes" target="_blank" rel="noopener">USGS</a><br>'+
+      '<b>Disparo dinámico:</b> ondas sísmicas de grandes terremotos pueden disparar sismicidad remota en fallas susceptibles; no implica una ruta fija. '+
+      '<a href="https://www.usgs.gov/publications/dynamic-triggering-0" target="_blank" rel="noopener">USGS</a><br>'+
+      '<b>Respuesta retardada:</b> cambios de tasa pueden aparecer con retraso bajo modelos rate-and-state o procesos post-sísmicos. '+
+      '<a href="https://www.usgs.gov/publications/a-hypothesis-delayed-dynamic-earthquake-triggering" target="_blank" rel="noopener">USGS</a><br>'+
+      '<b>Margen sudamericano:</b> Nazca–Sudamérica forma un arco continuo, pero la geometría de la losa cambia notablemente entre Chile, Perú y Ecuador. '+
+      '<a href="https://www.usgs.gov/publications/seismicity-earth-1900-2013-seismotectonics-south-america-nazca-plate-region" target="_blank" rel="noopener">USGS</a>'+
+      '</div>';
+    key.insertAdjacentElement('afterend',base);
   }
 
   function render(){
