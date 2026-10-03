@@ -41,7 +41,7 @@
     if(!a||!b)return .45;
     if(a===b)return 1;
     const slab=new Set(['interface','intermediate','intraslab']);
-    return slab.has(a)&&slab.has(b)?.68:.28;
+    return (slab.has(a)&&slab.has(b)) ? .68 : .28;
   }
   function near(ev,z,a,b,minMag){
     return ev.filter(e=>e.time>=a&&e.time<b&&Number(e.mag)>=minMag&&distKm(e.lat,e.lon,z.lat,z.lon)<=z.r);
