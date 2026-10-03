@@ -46,7 +46,7 @@ function focusState(d){
 function sourceCandidates(events,r,now){
   const ap=anti(r.lat,r.lon);
   const cut=now-CFG.watchHours*3600e3;
-  const pool=events.filter(e=>e.source==='USGS'&&e.time>=cut&&Number(e.mag)>=CFG.sourceMag);
+  const pool=events.filter(e=>e.source==='USGS'&&e.time>=cut&&e.time<=now&&Number(e.mag)>=CFG.sourceMag);
   return pool.map(e=>{
     const d=distKm(ap.lat,ap.lon,e.lat,e.lon);
     const f=focusState(d);
@@ -128,8 +128,11 @@ function run(){
     const st=src?src.f:{label:'FUERA',score:0};
     if(st.label==='NÚCLEO')nCore++; else if(st.label==='HALO')nHalo++;
     const resp=response(allEvents,r,src&&src.e,now);
-    if(src)active.push({r,ap,src});
-    drawReceiver(r,ap,st,src);
+    // Draw every qualifying event, not only the nearest event per receptor.
+    cand.forEach(candidate=>{
+      active.push({r,ap,src:candidate});
+      drawReceiver(r,ap,candidate.f,candidate);
+    });
     const windowLabel=src?((now-src.e.time)/3600e3<=6?'0–6 h':(now-src.e.time)/3600e3<=24?'6–24 h':'24–72 h'):'—';
     rows.push('<div class="listitem"><div class="dot" style="background:'+color(st.label)+'"></div><div><div class="zname">'+r.country+' · '+r.name+'</div><div class="zdesc">'+
       '<b>Fuente antipodal:</b> '+r.sourceRegion+' · exacta '+ap.lat.toFixed(2)+'°, '+ap.lon.toFixed(2)+'°<br>'+
