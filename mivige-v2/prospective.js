@@ -196,7 +196,7 @@ function render(){
   const now=Date.now();
   const results=model.states.filter(st=>TARGETS.includes(st.s.id)).filter(st=>st.dataReady).map(st=>scoreOne(model,st,allEvents,now)).sort((a,b)=>b.score-a.score);
   const top=results[0];
-  if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='SIN EVALUACIÓN PROSPECTIVA';document.getElementById('ppeRows').textContent='No se calcula puntaje con catálogos parciales, ausentes o muestra menor a 20 eventos.';document.getElementById('ppeTop').textContent='—';document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,results:[],config:CFG};return;}
+  if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='SIN EVALUACIÓN PROSPECTIVA';document.getElementById('ppeRows').textContent='No se calcula puntaje con catálogos parciales, ausentes o muestra menor a 20 eventos.';document.getElementById('ppeTop').textContent='—';document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,results:[],config:CFG};window.dispatchEvent(new Event('mivige:prospective'));return;}
 
   document.getElementById('ppeTop').textContent=top.st.s.name;
   document.getElementById('ppeLevel').textContent=top.level.name+' · '+top.score.toFixed(0)+'/100';
@@ -215,7 +215,7 @@ function render(){
 
 
   draw(results);
-  window.mivigeProspectiveV2={time:now,results,top,config:CFG};
+  window.mivigeProspectiveV2={time:now,results,top,config:CFG};window.dispatchEvent(new Event('mivige:prospective'));
 }
 ensureCard();
 try{L.control.layers({},{

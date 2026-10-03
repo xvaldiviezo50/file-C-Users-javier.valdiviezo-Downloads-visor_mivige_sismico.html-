@@ -1,5 +1,5 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MIVIGE v3.0 Público · Nowcasting geodinámico multievidencia</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><link rel="stylesheet" href="../v10/style.css?v=3000"><style>a{color:#86ccff}summary{cursor:pointer;font-size:12px}#gnssPlot svg{width:100%;height:auto}.badge{white-space:normal;max-width:270px}@media(max-width:600px){header{position:static;flex-wrap:wrap}header h1{font-size:17px}.badge{margin-left:0}#map{min-height:330px}}</style></head><body>
-<header><div><h1>MIVIGE v3.0 Público – Vigilancia y nowcasting geodinámico multievidencia</h1><div class="sub">Chile → Venezuela • sismicidad + geodesia + interacción tectónica + migración • capas científicas separadas de Challengers experimentales • NA ≠ 0 • no constituye predicción determinista ni alerta oficial</div></div><div class="badge" id="semaforo">CARGANDO</div></header>
+<header><div><h1>MIVIGE v3.0 Público – Vigilancia y nowcasting geodinámico multievidencia</h1><div class="sub">Chile → Venezuela • sismicidad + geodesia + interacción tectónica + migración • capas científicas separadas de Challengers experimentales • NA ≠ 0 • no constituye predicción determinista ni alerta oficial</div></div><div id="semaforo" hidden aria-hidden="true"></div><div class="badge" id="projectionBadge" role="status" aria-live="polite">PROYECCIÓN EXPERIMENTAL · ECUADOR · CARGANDO</div></header>
 <main><div id="map"></div><aside>
 <section class="card"><h2>Actualización y control</h2><div class="controls"><button id="refresh">Actualizar datos</button><select id="window"><option value="24">24 h</option><option value="72" selected>72 h</option><option value="168">7 días</option></select><select id="minmag"><option value="2.5">M≥2.5</option><option value="3" selected>M≥3.0</option><option value="3.5">M≥3.5</option><option value="4">M≥4.0</option><option value="4.5">M≥4.5</option></select><select id="tectonicFilter"><option value="all" selected>Todos</option><option value="shallow">Somero (mecanismo sin resolver)</option><option value="unknown">Profundidad desconocida</option><option value="intermediate">Intermedio</option><option value="intraslab">Intraslab</option></select></div><div class="small">Corte: <b id="cut">—</b><br>Próxima consulta: <b id="next">—</b><br><b>Regla:</b> ausencia de GNSS/InSAR = datos insuficientes, nunca deformación cero.</div></section>
 
@@ -40,7 +40,7 @@
 <script src="model.js?v=3003"></script>
 <script src="sst-summary.js?v=3007"></script>
 <script src="antipode-links.js?v=3006"></script>
-<script src="prospective.js?v=3000"></script>
+<script src="prospective.js?v=3008"></script>
 
 
 
@@ -48,4 +48,4 @@
 <script src="external-variables.js?v=3002"></script>
 <script src="migration-experimental.js?v=3004"></script>
 <script src="validation.js?v=3000"></script>
-</body></html>
+<script src="projection-badge.js?v=3008"></script>\n</body></html>
