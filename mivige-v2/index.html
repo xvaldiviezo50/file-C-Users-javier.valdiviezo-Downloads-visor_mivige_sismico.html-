@@ -1,0 +1,37 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MIVIGE v2 Público · Nowcasting geodinámico multievidencia</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><link rel="stylesheet" href="../v10/style.css?v=2001"></head><body>
+<header><div><h1>MIVIGE v2 Público – Vigilancia y nowcasting geodinámico multievidencia</h1><div class="sub">Chile → Venezuela • sismicidad + geodesia + interacción tectónica + migración • capas científicas separadas de Challengers experimentales • NA ≠ 0 • no constituye predicción determinista ni alerta oficial</div></div><div class="badge" id="semaforo">CARGANDO</div></header>
+<main><div id="map"></div><aside>
+<section class="card"><h2>Actualización y control</h2><div class="controls"><button id="refresh">Actualizar datos</button><select id="window"><option value="24">24 h</option><option value="72" selected>72 h</option><option value="168">7 días</option></select><select id="minmag"><option value="2.5">M≥2.5</option><option value="3" selected>M≥3.0</option><option value="3.5">M≥3.5</option><option value="4">M≥4.0</option><option value="4.5">M≥4.5</option></select><select id="tectonicFilter"><option value="all" selected>Todos</option><option value="cortical">Cortical</option><option value="interface">Interfaz</option><option value="intermediate">Intermedio</option><option value="intraslab">Intraslab</option></select></div><div class="small">Corte: <b id="cut">—</b><br>Próxima consulta: <b id="next">—</b><br><b>Regla:</b> ausencia de GNSS/InSAR = datos insuficientes, nunca deformación cero.</div></section>
+
+<section class="card"><h2>Convergencia multievidencia · ICM</h2><div class="kpis">
+<div class="kpi"><div class="name">Foco técnico actual</div><div class="val" id="mainDecision">—</div></div>
+<div class="kpi"><div class="name">IDG-ST</div><div class="val" id="idgST">—</div></div>
+<div class="kpi"><div class="name">IMST</div><div class="val" id="imst">—</div></div>
+<div class="kpi"><div class="name">IDQ</div><div class="val" id="idq">—</div></div>
+</div><div class="small" style="margin-top:8px"><b>ICM-0:</b> fondo · <b>ICM-1:</b> anomalía sísmica · <b>ICM-2:</b> + deformación · <b>ICM-3:</b> + interacción física compatible · <b>ICM-4:</b> + migración coherente. ICM expresa convergencia de evidencia, no probabilidad de terremoto.</div></section>
+
+<section class="card"><h2>Capas científicas</h2><div class="kpis">
+<div class="kpi"><div class="name">IITE-S · Coulomb</div><div class="val" id="iiteS">—</div></div>
+<div class="kpi"><div class="name">IITE-D · dinámico</div><div class="val" id="iiteD">—</div></div>
+<div class="kpi"><div class="name">IAC · acoplamiento</div><div class="val" id="iac">—</div></div>
+<div class="kpi"><div class="name">IDG-HR</div><div class="val" id="idgHR">—</div></div>
+</div><div id="evidenceMatrix" style="margin-top:8px"></div></section>
+
+<section class="card"><h2>Zonas de vigilancia · grafo tectónico</h2><div id="zones"></div><div class="small" style="margin-top:8px">El visor calcula un <b>Mc proxy de ventana</b>, tasa 24 h/fondo, clustering, magnitud equivalente, b-value cuando hay muestra suficiente, desplazamiento de centroides y migración vertical. El baseline mostrado es un tamiz ETAS-like, no un ETAS calibrado.</div></section>
+
+<section class="card"><h2>Comparación de modelos</h2><div id="models"></div><div class="small" style="margin-top:8px">La arquitectura final debe validarse prospectivamente contra un baseline ETAS calibrado con log-likelihood, information gain, Brier score, falsos positivos y omisiones. Hasta disponer de esa historia, no se publica una probabilidad física.</div></section>
+
+<section class="card"><h2>Challenger experimental</h2><div id="experimental"></div><div class="small" style="margin-top:8px">Antípoda, huella antipodal, SST y redistribución progresiva/activación secuencial se conservan para prueba prospectiva; por sí solas no elevan el ICM científico.</div></section>
+
+<section class="card"><h2>Eventos recientes deduplicados</h2><table class="table"><thead><tr><th>Hora</th><th>M</th><th>Prof.</th><th>Tipo</th><th>Fuente</th></tr></thead><tbody id="events"></tbody></table></section>
+<section class="card"><h2>Fuentes sísmicas</h2><div id="sources"></div></section>
+</aside></main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="../v10/app1.js?v=2001"></script>
+<script src="../v10/mivige_v2_public.js?v=2001"></script>
+<script src="../v10/sst_signal_v40.js?v=2001"></script>
+<script src="../v10/gnss.js?v=2001"></script>
+<script src="../v10/gnss_stations.js?v=2001"></script>
+<script src="../v10/rengeo.js?v=2001"></script>
+<script src="../v10/rengeo_labels_v32.js?v=2001"></script>
+</body></html>
