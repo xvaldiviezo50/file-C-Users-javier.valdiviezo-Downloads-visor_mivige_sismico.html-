@@ -256,9 +256,9 @@ function renderSources(){
 }
 function render(states,im,dyn,anti,idg,idqv){
   states.forEach(st=>{st.icm=icmFor(st,idg,dyn.by[st.s.id],im);});
-  const ranked=states.slice().sort((a,b)=>b.icm.tier-a.icm.tier||b.ids-a.ids);
-  const top=ranked[0];
-  const maxTier=top?top.icm.tier:0;
+  const ranked=states.slice().sort((a,b)=>Math.max(0,b.icm.tier)-Math.max(0,a.icm.tier)||((a.icm.tier>=1&&b.icm.tier>=1)?b.ids-a.ids:a.s.ord-b.s.ord));
+  const top=ranked.find(st=>st.dataReady&&st.icm.tier>=1)||null;
+  const maxTier=top?top.icm.tier:states.some(st=>st.dataReady)?0:-1;
   const sem=document.getElementById('semaforo');
   if(sem){
     const publicLevel=projectionLevel(maxTier);
@@ -266,7 +266,7 @@ function render(states,im,dyn,anti,idg,idqv){
     sem.style.background=publicLevel.color;
     sem.style.color=maxTier===2?'#07111e':'#fff';
   }
-  document.getElementById('mainDecision').textContent=top?(projectionLevel(top.icm.tier).label+' · '+top.s.name):'DATOS INSUFICIENTES';
+  document.getElementById('mainDecision').textContent=top?(projectionLevel(top.icm.tier).label+' · '+top.s.name):(maxTier<0?'EVALUACIÓN PARCIAL · sin prioridad asignable':'SIN VIGILANCIA REFORZADA en zonas evaluables');
   const coverage=document.getElementById('coverageSummary');if(coverage)coverage.textContent=allEvents.length+' eventos descargados · '+states.filter(s=>s.dataReady).length+'/'+states.length+' zonas con muestra para prueba de tasa. Los eventos y series disponibles se muestran aunque una prueba no sea evaluable. Consulta el motivo por zona.';
   document.getElementById('idgST').textContent=idg.state;
   document.getElementById('idgHR').textContent='canal co/post-sísmico · no precursor';
@@ -279,7 +279,7 @@ function render(states,im,dyn,anti,idg,idqv){
   const host=document.getElementById('zones');
   host.innerHTML=ranked.map((st,i)=>{
     const d=dyn.by[st.s.id];
-    return '<div class="listitem"><div class="dot" style="background:'+tierColor(st.icm.tier)+'"></div><div><div class="zname"><b>#'+(i+1)+'</b> '+st.s.name+'</div><div class="zdesc">'+
+    return '<div class="listitem"><div class="dot" style="background:'+tierColor(st.icm.tier)+'"></div><div><div class="zname">'+st.s.name+'</div><div class="zdesc">'+
       '<b>Evaluación:</b> '+(st.dataReady?st.icm.label:st.coverageReason)+' · <b>IDS:</b> '+st.ids.toFixed(0)+'/100<br>'+
       '<b>Mc:</b> '+st.mc.toFixed(1)+' ('+st.mcInfo.confidence+') · <b>tasa 24h/fondo:</b> ×'+st.rateRatio.toFixed(2)+' · <b>cluster:</b> '+Math.round(st.cluster*100)+'%<br>'+
       '<b>Meq 24 h:</b> '+(st.meqRecent==null?'NA':st.meqRecent.toFixed(1))+' · <b>b:</b> '+(st.b==null?'NA':st.b.toFixed(2))+' · <b>Δcentroide:</b> '+(st.horizontalShift==null?'NA':Math.round(st.horizontalShift)+' km')+' · <b>Δz:</b> '+(st.verticalShift==null?'NA':st.verticalShift.toFixed(0)+' km')+'<br>'+

@@ -20,7 +20,7 @@
 <section class="card" id="externalVariablesCard"><h2>Activación sísmica regional · variables técnicas</h2><div id="externalVariables">Esperando catálogos para calcular las variables…</div></section>
 <section class="card"><h2>Redes GNSS nacionales · cobertura y acceso</h2><div id="nationalNetworks">Consultando inventarios oficiales…</div></section>
 <section class="card"><h2>GNSS regional · observaciones procesadas</h2><div id="gnssRegional">Cargando series públicas…</div></section>
-<section class="card"><h2>Zonas de vigilancia · grafo tectónico</h2><div id="zones"></div><div class="small" style="margin-top:8px">El visor calcula un <b>Mc proxy de ventana</b>, tasa 24 h/fondo, clustering, magnitud equivalente, b-value cuando hay muestra suficiente, desplazamiento de centroides y migración vertical. El baseline mostrado es una comparación de tasas con los seis días previos, no un ETAS calibrado.</div></section>
+<section class="card"><h2>Zonas de vigilancia · estado por segmento</h2><p class="small">Solo una señal que supera los controles activa vigilancia reforzada. Las demás zonas se muestran en orden geográfico; su posición no indica riesgo ni dirección de propagación.</p><div id="zones"></div><div class="small" style="margin-top:8px">El visor calcula un <b>Mc proxy de ventana</b>, tasa 24 h/fondo, clustering, magnitud equivalente, b-value cuando hay muestra suficiente, desplazamiento de centroides y migración vertical. El baseline mostrado es una comparación de tasas con los seis días previos, no un ETAS calibrado.</div></section>
 
 <section class="card"><h2>Comparación de modelos</h2><div id="models"></div><div class="small" style="margin-top:8px">La arquitectura final debe validarse prospectivamente contra un baseline ETAS calibrado con log-likelihood, information gain, Brier score, falsos positivos y omisiones. Hasta disponer de esa historia, no se publica una probabilidad física.</div></section>
 
@@ -49,7 +49,7 @@
 <script src="data-quality.js?v=3000"></script>
 <script src="geodesy.js?v=3000"></script>
 <script src="networks.js?v=3000"></script>
-<script src="model.js?v=3000"></script>
+<script src="model.js?v=3003"></script>
 <script src="../v10/sst_signal_v40.js?v=3000"></script>
 <script src="antipode-links.js?v=3000"></script>
 <script src="prospective.js?v=3000"></script>
