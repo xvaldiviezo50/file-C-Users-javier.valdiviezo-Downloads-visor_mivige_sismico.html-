@@ -16,7 +16,7 @@ const CFG={
 
 const TARGETS=['pe_s','pe_c','pe_n','ec_s','ec_az','ec_c','ec_n','co_p','co_ch','ven'];
 const layer=L.layerGroup().addTo(map);
-const linkLayer=L.layerGroup().addTo(map);
+const linkLayer=L.layerGroup(); // Experimental regional links are optional; antipodes use their own strict filter.
 
 function clamp(x,a=0,b=1){return Math.max(a,Math.min(b,x));}
 function level(score){
@@ -180,7 +180,7 @@ function draw(results){
   layer.clearLayers();linkLayer.clearLayers();
   for(const x of results){
     const st=x.st,c=x.level.color;
-    L.circle([st.s.lat,st.s.lon],{radius:st.s.r*1000,color:c,weight:x.score>=CFG.low?3:1.5,fillColor:c,fillOpacity:x.score>=CFG.low?.12:.025,dashArray:x.score>=CFG.low?'':'5 7'})
+    L.marker([st.s.lat,st.s.lon],{icon:L.divIcon({className:'prospective-symbol',html:'<span style="display:block;color:'+c+';font-size:19px;line-height:18px">◇</span>',iconSize:[18,18],iconAnchor:[9,9]})})
       .bindPopup('<b>'+st.s.name+'</b><br><b>'+x.level.name+'</b> · '+x.score.toFixed(0)+'/100<br>Validación predictiva: '+x.conf.label+'<br>Fuente: '+fmtSource(x)+'<br>'+x.seq.label+'<br>'+x.anti.label)
       .addTo(layer);
     if(x.src&&x.score>=CFG.low){
@@ -196,7 +196,7 @@ function render(){
   const now=Date.now();
   const results=model.states.filter(st=>TARGETS.includes(st.s.id)).filter(st=>st.dataReady).map(st=>scoreOne(model,st,allEvents,now)).sort((a,b)=>b.score-a.score);
   const top=results[0];
-  if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='DATOS INSUFICIENTES';document.getElementById('ppeRows').textContent='No se calcula puntaje con catálogos parciales, ausentes o muestra menor a 20 eventos.';document.getElementById('ppeTop').textContent='—';document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,results:[],config:CFG};return;}
+  if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='SIN EVALUACIÓN PROSPECTIVA';document.getElementById('ppeRows').textContent='No se calcula puntaje con catálogos parciales, ausentes o muestra menor a 20 eventos.';document.getElementById('ppeTop').textContent='—';document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,results:[],config:CFG};return;}
 
   document.getElementById('ppeTop').textContent=top.st.s.name;
   document.getElementById('ppeLevel').textContent=top.level.name+' · '+top.score.toFixed(0)+'/100';

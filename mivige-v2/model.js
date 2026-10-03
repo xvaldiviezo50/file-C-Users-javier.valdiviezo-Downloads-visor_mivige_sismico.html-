@@ -29,7 +29,7 @@ const SEG=[
 
 const graphLayer=L.layerGroup().addTo(map);
 const activationLayer=L.layerGroup().addTo(map);
-const experimentalLayer=L.layerGroup().addTo(map);
+const experimentalLayer=L.layerGroup();
 
 let gnssState=null;
 let lastModel=null;
@@ -216,7 +216,7 @@ function icmFor(st,idg,dyn,im){
   if(ids&&geo&&interaction&&mig){tier=4;label='convergencia multimétodo + migración coherente';}
   return {tier,label,ids,geo,interaction,mig};
 }
-function projectionLevel(t){if(t<0)return {label:'DATOS INSUFICIENTES',short:'NA',color:'#8993a4'};if(t>=3)return {label:'CONVERGENCIA ALTA',short:'Alta',color:'#e4493f'};if(t>=1)return {label:'ACTIVIDAD ELEVADA',short:'Elevada',color:'#f0c644'};return {label:'SIN EXCESO ROBUSTO DETECTADO',short:'Fondo',color:'#42b86b'};}
+function projectionLevel(t){if(t<0)return {label:'EVALUACIÓN PARCIAL',short:'Parcial',color:'#8993a4'};if(t>=3)return {label:'CONVERGENCIA ALTA',short:'Alta',color:'#e4493f'};if(t>=1)return {label:'ACTIVIDAD ELEVADA',short:'Elevada',color:'#f0c644'};return {label:'SIN EXCESO ROBUSTO DETECTADO',short:'Fondo',color:'#42b86b'};}
 function tierColor(t){return projectionLevel(t).color;}
 function renderMap(states,im){
   eventLayer.clearLayers();graphLayer.clearLayers();activationLayer.clearLayers();
@@ -237,7 +237,7 @@ function renderMap(states,im){
   }
   states.forEach(st=>{
     const c=tierColor(st.icm.tier);
-    L.circle([st.s.lat,st.s.lon],{radius:st.s.r*1000,color:c,weight:st.icm.tier?2.4:1,fillColor:c,fillOpacity:st.icm.tier?.09:.018,dashArray:st.icm.tier?'':'4 8'})
+    L.marker([st.s.lat,st.s.lon],{icon:L.divIcon({className:'zone-symbol',html:'<span style="display:block;width:10px;height:10px;background:'+c+';border:2px solid white;transform:rotate(45deg)"></span>',iconSize:[14,14],iconAnchor:[7,7]})})
       .bindPopup('<b>'+st.s.name+'</b><br><b>'+projectionLevel(st.icm.tier).label+'</b><br>Nivel técnico: ICM-'+st.icm.tier+' · '+st.icm.label+'<br>IDS '+st.ids.toFixed(0)+'/100 · Mc '+st.mc.toFixed(1)+'<br>'+st.baseline).addTo(graphLayer);
   });
   if(im&&im.pts.length>1){
@@ -251,7 +251,7 @@ function renderMap(states,im){
 function renderSources(){
   const d=document.getElementById('sources');if(!d)return;d.innerHTML='';
   for(const [name,s] of Object.entries(sourceStatus)){
-    d.insertAdjacentHTML('beforeend','<div class="statusrow"><span>'+name+'</span><span class="'+(s.ok?'ok':'bad')+'">'+(s.ok?'✓ '+s.count+' registros'+(s.truncated?' · PARCIAL (límite de consulta)':'')+(s.rejected?' · '+s.rejected+' inválidos excluidos':''):'✕ no disponible')+'</span></div>');
+    d.insertAdjacentHTML('beforeend','<div class="statusrow"><span>'+name+'</span><span class="'+(s.ok?'ok':'bad')+'">'+(s.ok?'✓ '+s.count+' registros'+(s.truncated?' · PARCIAL (límite de consulta)':'')+(s.rejected?' · '+s.rejected+' inválidos excluidos':''):'✕ '+String(s.error||'no disponible').replace(/[<>&]/g,''))+'</span></div>');
   }
 }
 function render(states,im,dyn,anti,idg,idqv){
@@ -267,7 +267,7 @@ function render(states,im,dyn,anti,idg,idqv){
     sem.style.color=maxTier===2?'#07111e':'#fff';
   }
   document.getElementById('mainDecision').textContent=top?(projectionLevel(top.icm.tier).label+' · '+top.s.name):'DATOS INSUFICIENTES';
-  const coverage=document.getElementById('coverageSummary');if(coverage)coverage.textContent=allEvents.length+' eventos descargados · '+states.filter(s=>s.dataReady).length+'/'+states.length+' zonas con muestra para prueba de tasa. Una muestra pequeña no implica ausencia de sismos.';
+  const coverage=document.getElementById('coverageSummary');if(coverage)coverage.textContent=allEvents.length+' eventos descargados · '+states.filter(s=>s.dataReady).length+'/'+states.length+' zonas con muestra para prueba de tasa. Los eventos y series disponibles se muestran aunque una prueba no sea evaluable. Consulta el motivo por zona.';
   document.getElementById('idgST').textContent=idg.state;
   document.getElementById('idgHR').textContent='canal co/post-sísmico · no precursor';
   document.getElementById('imst').textContent=im.r==null?'NA · '+im.label:('r='+im.r.toFixed(2)+' · '+im.label);
@@ -280,7 +280,7 @@ function render(states,im,dyn,anti,idg,idqv){
   host.innerHTML=ranked.map((st,i)=>{
     const d=dyn.by[st.s.id];
     return '<div class="listitem"><div class="dot" style="background:'+tierColor(st.icm.tier)+'"></div><div><div class="zname"><b>#'+(i+1)+'</b> '+st.s.name+'</div><div class="zdesc">'+
-      '<b>ICM-'+st.icm.tier+':</b> '+st.icm.label+' · <b>IDS:</b> '+st.ids.toFixed(0)+'/100<br>'+
+      '<b>Evaluación:</b> '+(st.dataReady?st.icm.label:st.coverageReason)+' · <b>IDS:</b> '+st.ids.toFixed(0)+'/100<br>'+
       '<b>Mc:</b> '+st.mc.toFixed(1)+' ('+st.mcInfo.confidence+') · <b>tasa 24h/fondo:</b> ×'+st.rateRatio.toFixed(2)+' · <b>cluster:</b> '+Math.round(st.cluster*100)+'%<br>'+
       '<b>Meq 24 h:</b> '+(st.meqRecent==null?'NA':st.meqRecent.toFixed(1))+' · <b>b:</b> '+(st.b==null?'NA':st.b.toFixed(2))+' · <b>Δcentroide:</b> '+(st.horizontalShift==null?'NA':Math.round(st.horizontalShift)+' km')+' · <b>Δz:</b> '+(st.verticalShift==null?'NA':st.verticalShift.toFixed(0)+' km')+'<br>'+
       '<b>GNSS de la zona:</b> '+st.idg.state+' · '+st.idg.used+' estaciones utilizables'+(st.idg.latency==null?'':' · antigüedad mediana '+st.idg.latency.toFixed(1)+' días')+'<br>'+
@@ -332,6 +332,7 @@ async function runModel(){
     const feed=sourceStatus[national];
     st.idg=idgState(st.s.id);
     st.dataReady=Boolean(feed?.ok&&!feed.truncated&&now-feed.fetchedAt<15*60000&&st.hist.length>=20);
+    st.coverageReason=!feed?.ok?national+': fuente no vigente o consulta fallida':feed.truncated?national+': catálogo parcial':now-feed.fetchedAt>=15*60000?national+': consulta atrasada':st.hist.length<20?'Muestra de '+st.hist.length+'/20 eventos en 7 días para evaluar la tasa':'Catálogo y muestra disponibles';
     st.rateP=st.hist.length>=20?MivigeQuality.rateTest(st.recent.length,st.prev.length,1,6):null;st.rateSignificant=st.dataReady&&significant[i];
   });
   const im=imst(states,now);
