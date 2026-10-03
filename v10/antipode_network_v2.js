@@ -22,7 +22,7 @@ const RECEIVERS=[
   {id:'co_ch',country:'Colombia',name:'Colombia · Chocó',lat:4.9,lon:-76.75,r:250,sourceRegion:'Sumatra sur / Indonesia'}
 ];
 
-const layer=L.layerGroup();
+const layer=L.layerGroup().addTo(map);
 const links=L.layerGroup();
 const sourceEvents=L.layerGroup();
 
