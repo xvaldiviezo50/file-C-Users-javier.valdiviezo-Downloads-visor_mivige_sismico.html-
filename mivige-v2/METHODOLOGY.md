@@ -54,3 +54,21 @@ La evaluación requiere las cuatro fuentes operativas sin truncamiento detectado
 5. Calibración de probabilidades y evaluación de log-score, Brier y ganancia de información cuando existan salidas probabilísticas defendibles.
 
 Referencias primarias: [USGS — fundamento de pronósticos de réplicas](https://earthquake.usgs.gov/data/oaf/background.php), [USGS — descripción del pronóstico](https://earthquake.usgs.gov/data/products/oaf/overview.php), [Helmstetter y Sornette — límites de predictibilidad ETAS](https://arxiv.org/abs/cond-mat/0208597).
+
+## Inventarios nacionales recuperados (v2.2.3)
+
+El colector `collect_networks.py` consulta REGME/IGM (WFS), GeoRED/SGC
+(GeoJSON) y la capa GNSS de IGP Perú. Guarda fecha de consulta, procedencia,
+estado declarado y último inventario correcto si falla la actualización.
+RENGEO conserva 38 ubicaciones aproximadas del visor anterior: referencia
+heredada, no inventario completo actualizado ni telemetría en vivo.
+
+Los códigos nacionales amplían la selección de series NGL cuando coinciden
+código y ubicación (≤5 km, tolerancia para coordenadas de inventario redondeadas).
+El proveedor de la solución ENU sigue siendo NGL, distinto de la institución
+que publica el inventario. No se descargan ni procesan todavía los RINEX
+nacionales; enlaces a portales y gráficos no equivalen a ingestión numérica.
+La consulta de inventarios no alimenta IDG por sí sola. Se mantienen los
+controles de fechas, incertidumbre, historia mínima y deduplicación espacial
+para las series. Los marcadores de inventario usan rombos y controles de
+capa independientes; no modifican los enlaces antipodales.

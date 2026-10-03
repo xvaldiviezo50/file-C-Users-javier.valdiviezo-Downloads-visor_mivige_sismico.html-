@@ -134,6 +134,17 @@ def build():
             if any(distance(s,x)<2 for x in local):continue
             local.append(s);selected[s['code']]=s
             if len(local)>=8:break
+    # National inventories expand selection; same code AND nearby coordinates required.
+    national_path=ROOT/'data/networks.json'
+    if national_path.exists():
+        networks=json.loads(national_path.read_text())
+        for source in networks.get('sources',[]):
+            for entry in source.get('stations',[]):
+                candidate=inventory.get(entry['code'])
+                if candidate and distance(candidate,entry)<=5:
+                    selected.setdefault(candidate['code'],dict(candidate))
+                    labels=selected[candidate['code']].setdefault('national_networks',[])
+                    if source['name'] not in labels:labels.append(source['name'])
     with cf.ThreadPoolExecutor(max_workers=6) as ex:
         stations=list(ex.map(station,selected.values()))
     zones={}

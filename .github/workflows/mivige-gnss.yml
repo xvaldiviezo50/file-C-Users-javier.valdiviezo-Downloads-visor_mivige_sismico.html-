@@ -6,6 +6,8 @@ on:
   push:
     paths:
       - 'mivige-v2/scripts/collect_gnss.py'
+      - 'mivige-v2/scripts/collect_networks.py'
+      - 'mivige-v2/data/rengeo-reference.json'
       - 'mivige-v2/segments.json'
       - '.github/workflows/mivige-gnss.yml'
 permissions:
@@ -23,12 +25,13 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s mivige-v2/scripts -p 'test_*.py'
+      - run: python mivige-v2/scripts/collect_networks.py
       - run: python mivige-v2/scripts/collect_gnss.py
       - name: Publicar snapshot verificable
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add mivige-v2/data/gnss.json
+          git add mivige-v2/data/gnss.json mivige-v2/data/networks.json
           if ! git diff --cached --quiet; then
             git commit -m 'Actualizar observaciones GNSS NGL y cobertura regional'
             git pull --rebase origin main

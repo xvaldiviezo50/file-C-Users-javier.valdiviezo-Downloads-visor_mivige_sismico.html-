@@ -1,0 +1,315 @@
+{
+  "id": "rengeo",
+  "name": "IG-EPN · RENGEO Ecuador",
+  "portal": "https://igepn.edu.ec/red-nacional-de-geodesia",
+  "url": "https://igepn.edu.ec/red-nacional-de-geodesia",
+  "status": "referencia recuperada del visor anterior",
+  "retrieved_at": null,
+  "access": "38 ubicaciones de referencia heredadas; coordenadas aproximadas y vigencia no verificada. No es el inventario completo ni una conexión ENU en vivo.",
+  "stations": [
+    {
+      "code": "ESMR",
+      "lat": 0.94,
+      "lon": -79.72,
+      "name": "ESMR",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "GGPA",
+      "lat": -0.18,
+      "lon": -78.59,
+      "name": "GGPA",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "GMTE",
+      "lat": -1.94,
+      "lon": -78.71,
+      "name": "GMTE",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "IBEC",
+      "lat": 0.35,
+      "lon": -78.12,
+      "name": "IBEC",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "JAM2",
+      "lat": -0.21,
+      "lon": -80.26,
+      "name": "JAM2",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "MHLA",
+      "lat": -1.29,
+      "lon": -80.45,
+      "name": "MHLA",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "MLEC",
+      "lat": -1.07,
+      "lon": -80.91,
+      "name": "MLEC",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "MOMP",
+      "lat": 0.49,
+      "lon": -80.05,
+      "name": "MOMP",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "MRO2",
+      "lat": -2.64,
+      "lon": -80.34,
+      "name": "MRO2",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "MUIS",
+      "lat": 0.6,
+      "lon": -80.02,
+      "name": "MUIS",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "NORE",
+      "lat": -0.92,
+      "lon": -75.4,
+      "name": "NORE",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "PBLR",
+      "lat": 0.88,
+      "lon": -79.08,
+      "name": "PBLR",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "PPRT",
+      "lat": -0.13,
+      "lon": -80.22,
+      "name": "PPRT",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "PSTO",
+      "lat": -0.69,
+      "lon": -78.64,
+      "name": "PSTO",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "PIS1",
+      "lat": -1.08,
+      "lon": -78.44,
+      "name": "PIS1",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "PUYO",
+      "lat": -1.52,
+      "lon": -78.04,
+      "name": "PUYO",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "RIOP",
+      "lat": -1.65,
+      "lon": -78.65,
+      "name": "RIOP",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "SLGO",
+      "lat": -1.6,
+      "lon": -80.85,
+      "name": "SLGO",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "SALF",
+      "lat": -0.23,
+      "lon": -78.15,
+      "name": "SALF",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "SECO",
+      "lat": 0.0,
+      "lon": -79.87,
+      "name": "SECO",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "SIDR",
+      "lat": -0.38,
+      "lon": -80.19,
+      "name": "SIDR",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "TEN1",
+      "lat": -0.99,
+      "lon": -77.82,
+      "name": "TEN1",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "UIOM",
+      "lat": -0.18,
+      "lon": -78.46,
+      "name": "UIOM",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "VIHE",
+      "lat": -0.63,
+      "lon": -79.55,
+      "name": "VIHE",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "YTZA",
+      "lat": -4.06,
+      "lon": -78.95,
+      "name": "YTZA",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "CABP",
+      "lat": -0.39,
+      "lon": -80.45,
+      "name": "CABP",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "FLFR",
+      "lat": -0.36,
+      "lon": -79.84,
+      "name": "FLFR",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "HSPR",
+      "lat": -0.35,
+      "lon": -78.85,
+      "name": "HSPR",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "ISPT",
+      "lat": -1.26,
+      "lon": -81.07,
+      "name": "ISPT",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "LCSD",
+      "lat": -0.91,
+      "lon": -80.27,
+      "name": "LCSD",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "LGCB",
+      "lat": 0.38,
+      "lon": -79.58,
+      "name": "LGCB",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "MADL",
+      "lat": 0.26,
+      "lon": -79.89,
+      "name": "MADL",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "PDNS",
+      "lat": 0.07,
+      "lon": -80.05,
+      "name": "PDNS",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "PTGL",
+      "lat": 0.78,
+      "lon": -80.03,
+      "name": "PTGL",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "QUEM",
+      "lat": -0.24,
+      "lon": -78.49,
+      "name": "QUEM",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "RVRD",
+      "lat": 1.07,
+      "lon": -79.39,
+      "name": "RVRD",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "SEVG",
+      "lat": -1.06,
+      "lon": -79.96,
+      "name": "SEVG",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    },
+    {
+      "code": "SNLR",
+      "lat": 1.29,
+      "lon": -78.84,
+      "name": "SNLR",
+      "network": "RENGEO",
+      "declared_status": "no verificado"
+    }
+  ]
+}
