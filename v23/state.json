@@ -1,9 +1,9 @@
 {
-  "version": "2026-10-03T01:54:52-05:00-v23",
-  "updated_at": "2026-10-03T06:54:52Z",
-  "updated_at_ecuador": "03 oct 2026 · 01:54 ECU",
+  "version": "2026-10-03T09:23:56-05:00-v23",
+  "updated_at": "2026-10-03T14:23:56Z",
+  "updated_at_ecuador": "03 oct 2026 · 09:23 ECU",
   "semaforo": "AMARILLO reforzado · sin segunda familia científica independiente",
-  "material_change": true,
+  "material_change": false,
   "focus": [
     {
       "rank": 1,
@@ -280,16 +280,16 @@
       "evaluation": "Congelado; reglas preservadas sin modificación retrospectiva."
     }
   ],
-  "notes": "Ciclo 30 sep 2026 13:06 ECU: sin cambio material. Revisión regional Chile→México: Perú reportó hoy M4.0 frente a Callao (11:12 local, 28 km) y M3.5 Atalaya/Ucayali; Guatemala/CONRED-INSIVUMEH reportó M4.1 Santa Rosa 08:24, M3.0 08:43 y 47 eventos en 24 h; México reportó M4.1 Sinaloa y M4.1 Chiapas; Chile M3.3 O de Tongoy. Ningún nuevo M>=5 regional verificado en este corte. Chocó mantiene patrón oficialmente descrito como decreciente al corte SGC 27-sep; Chaparral/Chocó siguen penalizados por actividad pre-Vancouver. No se demostró exceso ETAS/Omori, migración coherente, anomalía GNSS/InSAR, Coulomb, segunda familia científica, tsunami ni comunicado extraordinario. RENGEO obligatoria: medición reciente E/N/U automatizable con QC no recuperada; IDG=null/datos insuficientes, nunca deformación cero. Challenger Vancouver conserva reglas y ventana congeladas; sin nuevo resultado material. 30 sep 14:48 ECU: corte sin cambio material verificado. En Chocó se reportó M2.8 en Istmina a las 08:16:58 local, 38 km, por debajo de umbrales materiales; Quinchía M3.1 a 102 km. No se verificó nuevo M>=5 regional en fuentes recuperadas. No hay soporte cuantitativo nuevo para exceso ETAS/Omori, migración coherente, Coulomb, segunda familia científica o cambio de semáforo. RENGEO continúa obligatoria; sin solución E/N/U NRT automatizable recuperada en este ciclo, IDG permanece null/datos insuficientes. 30 sep 17:18 ECU: ciclo sin cambio material; no nuevo M>=5 regional verificado. Chocó M2.8 Istmina y Chile M3.x no cambian semáforo. RENGEO obligatoria: red pública detectada, sin solución E/N/U reciente automatizable suficiente; IDG=null/datos insuficientes.\n01 oct 04:22 ECU: ciclo horario sin cambio material verificado en fuentes recuperables. No se confirmó nuevo M>=5 regional posterior al corte previo, ni exceso ETAS/Omori cuantificado, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami o comunicado oficial extraordinario. México: actividad recuperada hasta M4.0 en Pinotepa Nacional, Oaxaca. RENGEO continúa obligatoria; sin solución pública E/N/U NRT automatizable suficiente en este ciclo, IDG permanece null/datos insuficientes, nunca deformación cero.\\n02 oct 13:53 ECU: cambio material por revisión SSN del evento de Colima/Manzanillo a M5.3 (00:53:38 hora México; 18.67,-104.33; 10 km). Challenger=exploratorio bajo. No se infiere causalidad Vancouver→México: faltan exceso ETAS/fondo, migración coherente y corroboración geodésica/física. Capa A permanece AMARILLO reforzado; IDS/IDG/IITE/IADR=null por datos insuficientes.\\n03 oct 01:54 ECU: corregido Manzanillo/Colima a M4.7 revisado SSN; se retira activación Challenger M5+. SGC 02-oct: Chocó 336 réplicas, 2 nuevas en 24 h, tendencia decreciente; enjambre >1580, 31 ML>=4, seis M>2 y <4. Capa A sin segunda familia; IDS/IDG/IITE/IADR=null.",
+  "notes": "Ciclo 30 sep 2026 13:06 ECU: sin cambio material. Revisión regional Chile→México: Perú reportó hoy M4.0 frente a Callao (11:12 local, 28 km) y M3.5 Atalaya/Ucayali; Guatemala/CONRED-INSIVUMEH reportó M4.1 Santa Rosa 08:24, M3.0 08:43 y 47 eventos en 24 h; México reportó M4.1 Sinaloa y M4.1 Chiapas; Chile M3.3 O de Tongoy. Ningún nuevo M>=5 regional verificado en este corte. Chocó mantiene patrón oficialmente descrito como decreciente al corte SGC 27-sep; Chaparral/Chocó siguen penalizados por actividad pre-Vancouver. No se demostró exceso ETAS/Omori, migración coherente, anomalía GNSS/InSAR, Coulomb, segunda familia científica, tsunami ni comunicado extraordinario. RENGEO obligatoria: medición reciente E/N/U automatizable con QC no recuperada; IDG=null/datos insuficientes, nunca deformación cero. Challenger Vancouver conserva reglas y ventana congeladas; sin nuevo resultado material. 30 sep 14:48 ECU: corte sin cambio material verificado. En Chocó se reportó M2.8 en Istmina a las 08:16:58 local, 38 km, por debajo de umbrales materiales; Quinchía M3.1 a 102 km. No se verificó nuevo M>=5 regional en fuentes recuperadas. No hay soporte cuantitativo nuevo para exceso ETAS/Omori, migración coherente, Coulomb, segunda familia científica o cambio de semáforo. RENGEO continúa obligatoria; sin solución E/N/U NRT automatizable recuperada en este ciclo, IDG permanece null/datos insuficientes. 30 sep 17:18 ECU: ciclo sin cambio material; no nuevo M>=5 regional verificado. Chocó M2.8 Istmina y Chile M3.x no cambian semáforo. RENGEO obligatoria: red pública detectada, sin solución E/N/U reciente automatizable suficiente; IDG=null/datos insuficientes.\n01 oct 04:22 ECU: ciclo horario sin cambio material verificado en fuentes recuperables. No se confirmó nuevo M>=5 regional posterior al corte previo, ni exceso ETAS/Omori cuantificado, migración coherente, anomalía GNSS/InSAR coherente, Coulomb sustentado, segunda familia científica, cambio de semáforo, tsunami o comunicado oficial extraordinario. México: actividad recuperada hasta M4.0 en Pinotepa Nacional, Oaxaca. RENGEO continúa obligatoria; sin solución pública E/N/U NRT automatizable suficiente en este ciclo, IDG permanece null/datos insuficientes, nunca deformación cero.\\n02 oct 13:53 ECU: cambio material por revisión SSN del evento de Colima/Manzanillo a M5.3 (00:53:38 hora México; 18.67,-104.33; 10 km). Challenger=exploratorio bajo. No se infiere causalidad Vancouver→México: faltan exceso ETAS/fondo, migración coherente y corroboración geodésica/física. Capa A permanece AMARILLO reforzado; IDS/IDG/IITE/IADR=null por datos insuficientes.\\n03 oct 01:54 ECU: corregido Manzanillo/Colima a M4.7 revisado SSN; se retira activación Challenger M5+. SGC 02-oct: Chocó 336 réplicas, 2 nuevas en 24 h, tendencia decreciente; enjambre >1580, 31 ML>=4, seis M>2 y <4. Capa A sin segunda familia; IDS/IDG/IITE/IADR=null.\\n03 oct 09:23 ECU: sin cambio material. Chaparral: 9 eventos M2.2–3.2 entre 01:18–05:48 COT; Istmina M3.5 03:24 COT, 45 km. Chile hasta 06:16 máximo M3.7; México hasta 07:18 sin M>4. Sin evidencia cuantitativa nueva de exceso ETAS/Omori, migración coherente, GNSS/InSAR, Coulomb o segunda familia. RENGEO E/N/U NRT no recuperable: IDG=null/datos insuficientes.",
   "last_cycle": {
-    "time_ecuador": "2026-10-03T01:54:52-05:00",
-    "material_change": true,
+    "time_ecuador": "2026-10-03T09:23:56-05:00",
+    "material_change": false,
     "etas_rate_ratio": null,
     "etas_significance": null,
-    "limitation": "Corrección oficial SSN M4.7; sin catálogo homogéneo suficiente para ETAS/opScore reproducible y sin solución RENGEO E/N/U NRT automatizable suficiente para QC."
+    "limitation": "Sin catálogo oficial homogéneo suficiente para ETAS/opScore reproducible y sin solución RENGEO E/N/U NRT automatizable suficiente para QC. Chaparral: 9 eventos M2.2–3.2 entre 01:18–05:48 COT; Istmina M3.5 a 03:24 COT, 45 km. Actividad preexistente; no se declara aceleración."
   },
   "cycle_status": {
-    "material_change": true,
+    "material_change": false,
     "regional_m5_new": false,
     "semaphore_change": false,
     "etas_excess_supported": false,
@@ -298,6 +298,6 @@
     "coulomb_supported": false,
     "second_scientific_family": false,
     "tsunami_or_extraordinary_official": false,
-    "note": "03-oct 01:54 ECU: corrección de integridad: SSN mantiene Manzanillo/Colima en M4.7, por debajo de Challenger M5+. SGC 02-oct: Chocó 336 réplicas, dos nuevas M2.0/M1.5 en 24 h y tendencia decreciente; enjambre >1580, 31 ML>=4, seis eventos M>2 y <4 el 02-oct. Sin soporte nuevo para exceso ETAS/Omori, migración coherente, anomalía GNSS/InSAR, Coulomb o segunda familia."
+    "note": "03-oct 09:23 ECU: sin cambio material. Chaparral registró 9 sismos M2.2–3.2 entre 01:18 y 05:48 COT; Istmina M3.5 a 03:24 COT, 45 km. Chile hasta 06:16 CLT máximo M3.7; México hasta 07:18 sin M>4 reportado. Secuencias colombianas preexistentes: no atribuir a Vancouver ni declarar aceleración/ETAS sin tasa esperada y significancia reproducibles. RENGEO obligatoria: sin solución E/N/U NRT automatizable recuperada; IDG=null/datos insuficientes."
   }
 }
