@@ -216,7 +216,8 @@ function icmFor(st,idg,dyn,im){
   if(ids&&geo&&interaction&&mig){tier=4;label='convergencia multimétodo + migración coherente';}
   return {tier,label,ids,geo,interaction,mig};
 }
-function tierColor(t){return t>=4?'#e4493f':t===3?'#f08a24':t===2?'#f0c644':t===1?'#52a8ff':'#46647e';}
+function projectionLevel(t){if(t>=3)return {label:'PROYECCIÓN ALTA',short:'Alta',color:'#e4493f'};if(t===2)return {label:'PROYECCIÓN MODERADA',short:'Moderada',color:'#f0c644'};return {label:'PROYECCIÓN BAJA',short:'Baja',color:'#42b86b'};}
+function tierColor(t){return projectionLevel(t).color;}
 function renderMap(states,im){
   eventLayer.clearLayers();graphLayer.clearLayers();activationLayer.clearLayers();
   const hours=Number(document.getElementById('window').value||72),minMag=Number(document.getElementById('minmag').value||3),tf=document.getElementById('tectonicFilter').value,cut=Date.now()-hours*3600e3;
@@ -237,7 +238,7 @@ function renderMap(states,im){
   states.forEach(st=>{
     const c=tierColor(st.icm.tier);
     L.circle([st.s.lat,st.s.lon],{radius:st.s.r*1000,color:c,weight:st.icm.tier?2.4:1,fillColor:c,fillOpacity:st.icm.tier?.09:.018,dashArray:st.icm.tier?'':'4 8'})
-      .bindPopup('<b>'+st.s.name+'</b><br>ICM-'+st.icm.tier+' · '+st.icm.label+'<br>IDS '+st.ids.toFixed(0)+'/100 · Mc '+st.mc.toFixed(1)+'<br>'+st.baseline).addTo(graphLayer);
+      .bindPopup('<b>'+st.s.name+'</b><br><b>'+projectionLevel(st.icm.tier).label+'</b><br>Nivel técnico: ICM-'+st.icm.tier+' · '+st.icm.label+'<br>IDS '+st.ids.toFixed(0)+'/100 · Mc '+st.mc.toFixed(1)+'<br>'+st.baseline).addTo(graphLayer);
   });
   if(im&&im.pts.length>1){
     for(let i=0;i<im.pts.length-1;i++){
@@ -260,11 +261,12 @@ function render(states,im,dyn,anti,idg,idqv){
   const maxTier=top?top.icm.tier:0;
   const sem=document.getElementById('semaforo');
   if(sem){
-    const labels=['VERDE · fondo','AZUL · ICM-1 sismicidad','AMARILLO · ICM-2 multievidencia','NARANJA · ICM-3 interacción','ROJO TÉCNICO · ICM-4 convergencia'];
-    sem.textContent=labels[maxTier];
-    sem.style.background=maxTier>=3?'#6b3515':maxTier===2?'#6b5715':maxTier===1?'#17445f':'#174f2c';
+    const publicLevel=projectionLevel(maxTier);
+    sem.textContent=(maxTier>=3?'ROJO':maxTier===2?'AMARILLO':'VERDE')+' · '+publicLevel.label;
+    sem.style.background=publicLevel.color;
+    sem.style.color=maxTier===2?'#07111e':'#fff';
   }
-  document.getElementById('mainDecision').textContent=top?(top.s.name+' · ICM-'+top.icm.tier+' · IDS '+top.ids.toFixed(0)):'Sin foco material';
+  document.getElementById('mainDecision').textContent=top?(projectionLevel(top.icm.tier).label+' · '+top.s.name):'PROYECCIÓN BAJA · sin foco material';
   document.getElementById('idgST').textContent=idg.state;
   document.getElementById('idgHR').textContent='canal co/post-sísmico · no precursor';
   document.getElementById('imst').textContent=im.r==null?'NA · '+im.label:('r='+im.r.toFixed(2)+' · '+im.label);
@@ -281,7 +283,7 @@ function render(states,im,dyn,anti,idg,idqv){
       '<b>Mc:</b> '+st.mc.toFixed(1)+' ('+st.mcInfo.confidence+') · <b>tasa 24h/fondo:</b> ×'+st.rateRatio.toFixed(2)+' · <b>cluster:</b> '+Math.round(st.cluster*100)+'%<br>'+
       '<b>Meq 24 h:</b> '+(st.meqRecent==null?'NA':st.meqRecent.toFixed(1))+' · <b>b:</b> '+(st.b==null?'NA':st.b.toFixed(2))+' · <b>Δcentroide:</b> '+(st.horizontalShift==null?'NA':Math.round(st.horizontalShift)+' km')+' · <b>Δz:</b> '+(st.verticalShift==null?'NA':st.verticalShift.toFixed(0)+' km')+'<br>'+
       '<b>Baseline:</b> '+st.baseline+' · <b>IITE-D:</b> '+d.state+
-      '</div></div><div class="pct">ICM-'+st.icm.tier+'</div></div>';
+      '</div></div><div class="pct" style="color:'+projectionLevel(st.icm.tier).color+'">'+projectionLevel(st.icm.tier).short+'</div></div>';
   }).join('');
 
   const sci=document.getElementById('evidenceMatrix');
