@@ -1,0 +1,114 @@
+[
+  {
+    "id": "cl_c",
+    "name": "Chile central",
+    "lat": -32.0,
+    "lon": -71.5,
+    "r": 360,
+    "ord": 0,
+    "country": "Chile"
+  },
+  {
+    "id": "cl_n",
+    "name": "Chile norte",
+    "lat": -23.5,
+    "lon": -70.5,
+    "r": 390,
+    "ord": 1,
+    "country": "Chile"
+  },
+  {
+    "id": "pe_s",
+    "name": "Perú sur",
+    "lat": -16.2,
+    "lon": -73.3,
+    "r": 360,
+    "ord": 2,
+    "country": "Perú"
+  },
+  {
+    "id": "pe_c",
+    "name": "Perú central",
+    "lat": -11.5,
+    "lon": -77.2,
+    "r": 340,
+    "ord": 3,
+    "country": "Perú"
+  },
+  {
+    "id": "pe_n",
+    "name": "Perú norte",
+    "lat": -6.0,
+    "lon": -80.4,
+    "r": 330,
+    "ord": 4,
+    "country": "Perú"
+  },
+  {
+    "id": "ec_s",
+    "name": "Ecuador sur · Golfo/El Oro",
+    "lat": -3.15,
+    "lon": -80.2,
+    "r": 190,
+    "ord": 5,
+    "country": "Ecuador"
+  },
+  {
+    "id": "ec_az",
+    "name": "Ecuador · Azuay/intraslab",
+    "lat": -2.9,
+    "lon": -79.0,
+    "r": 150,
+    "ord": 5.4,
+    "country": "Ecuador",
+    "depth": [
+      60,
+      180
+    ]
+  },
+  {
+    "id": "ec_c",
+    "name": "Ecuador centro · Manabí",
+    "lat": -1.0,
+    "lon": -80.55,
+    "r": 220,
+    "ord": 6,
+    "country": "Ecuador"
+  },
+  {
+    "id": "ec_n",
+    "name": "Ecuador norte · Esmeraldas",
+    "lat": 0.55,
+    "lon": -79.9,
+    "r": 210,
+    "ord": 7,
+    "country": "Ecuador"
+  },
+  {
+    "id": "co_p",
+    "name": "Colombia Pacífico · Nariño/Cauca",
+    "lat": 2.5,
+    "lon": -77.7,
+    "r": 250,
+    "ord": 8,
+    "country": "Colombia"
+  },
+  {
+    "id": "co_ch",
+    "name": "Colombia · Chocó",
+    "lat": 4.9,
+    "lon": -76.75,
+    "r": 250,
+    "ord": 9,
+    "country": "Colombia"
+  },
+  {
+    "id": "ven",
+    "name": "Venezuela costera",
+    "lat": 10.2,
+    "lon": -64.5,
+    "r": 520,
+    "ord": 10,
+    "country": "Venezuela"
+  }
+]

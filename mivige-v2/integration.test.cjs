@@ -4,7 +4,7 @@ function el(id=''){if(elements.has(id))return elements.get(id);const e={id,style
 const layer=()=>new Proxy({},{get:(o,k)=>k==='then'?undefined:(...a)=>o.proxy||(o.proxy=layer())});
 const ctx={console,Date,Math,Number,String,Array,Object,JSON,Intl,Map,Set,Promise,AbortController,URL,Blob,Event,setInterval(){},setTimeout(){},clearTimeout(){},document:{getElementById:el,querySelector:()=>el('aside'),querySelectorAll:()=>[],createElement:()=>el()},L:new Proxy({control:{layers:layer}},{get:(o,k)=>o[k]||layer}),localStorage:{getItem:()=>null,setItem(){}},fetch:async()=>({ok:true,json:async()=>({features:[]})}),addEventListener(n,f){(listeners[n]??=[]).push(f);},dispatchEvent(e){for(const f of listeners[e.type]||[])f();}};
 ctx.window=ctx;vm.createContext(ctx);
-for(const f of ['../v10/app1.js','quality.js','data-quality.js','model.js','prospective.js','validation.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,f),'utf8'),ctx,{filename:f});
+for(const f of ['../v10/app1.js','quality.js','data-quality.js','geodesy.js','model.js','prospective.js','validation.js'])vm.runInContext(fs.readFileSync(path.join(__dirname,f),'utf8'),ctx,{filename:f});
 (async()=>{
  await new Promise(resolve=>setImmediate(resolve));
  await ctx.refresh();

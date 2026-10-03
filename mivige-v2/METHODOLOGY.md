@@ -1,3 +1,21 @@
+# MIVIGE v2.2 — observaciones GNSS regionales
+
+Se incorpora un colector reproducible de series NGL IGS20. No se afirma precisión predictiva ni que los cambios detectados sean precursores.
+
+- Descubre estaciones en inventarios finales y rápidos, selecciona hasta ocho por zona priorizando última observación y evita sitios a menos de 2 km. Radio de selección: máximo del radio de zona y 250 km. Selección geográfica NO prueba conexión a la falla ni sensibilidad a fuentes profundas.
+- La primera descarga consulta 67 estaciones. El número varía con el inventario. Archivo publicado con SHA256 por producto, URLs, fechas, errores, épocas, series E/N/U relativas y decisión por zona.
+- Parser tenv3 reconstruye coordenadas completas (origen entero + fracción). Excluye fechas futuras y sigmas no válidos o >10 mm horizontales / >30 mm verticales.
+- Une finales y rápidos solo tras alinear offsets con al menos siete épocas comunes; sin solape usa un solo producto. No cuenta épocas ni sitios repetidos como evidencia independiente.
+- Tamiz: línea base de los 93 días previos a una ventana de siete días; requiere al menos 60 épocas base, cinco recientes y última observación no mayor a siete días. Regresión lineal, residuo mediano y escala MAD con piso de incertidumbre formal. Candidato horizontal: amplitud ≥5 mm y ≥3 escalas en E o N. Son umbrales exploratorios, no calibrados.
+- Coincidencia espacial preliminar: tres estaciones distintas, direcciones con coseno ≥0.8 y observaciones finales separadas no más de dos días. No se atribuye automáticamente a una misma falla. Se presenta para revisión; no eleva el nivel científico. Falta retirar estacionalidad/cargas hidrológicas y revisar offsets instrumentales/cosísmicos.
+- El navegador reevalúa antigüedad: snapshot >48 h o observaciones >7 días pierden elegibilidad. La cobertura GNSS no bloquea el cálculo sísmico independiente. Una ausencia no se convierte en deformación cero.
+- GitHub Actions consulta cada seis horas; puede sufrir demoras. El visor carga el snapshot del repositorio (raw) y usa el publicado como respaldo, siempre mostrando antigüedad. Así las actualizaciones del bot no requieren reconstruir GitHub Pages. El botón actualiza la lectura, no ejecuta procesamiento GNSS remoto bajo demanda.
+- InSAR, redes nacionales autenticadas, Coulomb y acoplamiento tienen enlaces de acceso y estado pendiente. No se presentan como fuentes numéricas integradas. IDG-HR permanece co/postsísmico. El tamiz dinámico temporal no confirma IITE.
+
+Fuentes: [NGL](https://geodesy.unr.edu/PlugNPlayPortal.php), Blewitt, Hammond y Kreemer (2018), DOI: 10.1029/2018EO104623; atribución adicional por estación en su ficha NGL. Los datos originales mantienen sus condiciones de uso.
+
+## Metodología conservada de v2.1
+
 # MIVIGE v2.1 — vigilancia observada y evaluación prospectiva
 
 Esta versión corrige controles de calidad del visor. No demuestra una mejora de precisión predictiva, ni constituye alerta oficial. No hay un ETAS calibrado ni probabilidades de terremoto validadas.
@@ -10,7 +28,7 @@ Esta versión corrige controles de calidad del visor. No demuestra una mejora de
 - Clasificación por profundidad descriptiva. Una longitud geográfica fija ya no decide si el evento rompió la interfaz o la corteza; se necesitan geometría de losa y mecanismos focales.
 - El semáforo principal muestra vigilancia observada. Gris: catálogo ausente/parcial o menos de 20 eventos en la zona. Verde: sin exceso detectado bajo el tamiz; no significa seguridad. Amarillo: IDS elevado y prueba de aumento de tasa. Las hipótesis experimentales no sobrescriben este semáforo.
 - El tamiz dinámico compara tasas por día, corrigiendo ventanas de exposición diferentes. Es asociación temporal, no prueba de transferencia de esfuerzos.
-- GNSS requiere fecha de observación reciente. Sin asociación geográfica de estaciones a receptores, una anomalía regional no eleva todas las zonas. Coulomb, acoplamiento y geodesia espacial siguen pendientes de datos verificables.
+- GNSS requiere fecha de observación reciente. Sin asociación geográfica de estaciones a receptores, una anomalía regional no eleva todas las zonas. Coulomb y acoplamiento siguen pendientes; v2.2 incorpora geodesia espacial como tamiz preliminar descrito arriba.
 - Cada evento puede ocupar como máximo un nodo en el cálculo del orden de primera activación. La correlación resultante no prueba migración causal.
 
 ## Prueba de tasa

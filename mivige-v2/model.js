@@ -2,7 +2,7 @@
 'use strict';
 
 const CFG={
-  version:'MIVIGE v2.1 · control de calidad',
+  version:'MIVIGE v2.2 · geodesia regional',
   refreshMs:5*60*1000,
   windowHours:72,
   minDisplayMag:3.0,
@@ -185,39 +185,34 @@ function antipodeScreen(events,now){
   return {source:src,target:best.s,distance:best.d,ap,label:best.d<=225?'huella antipodal núcleo':best.d<=560?'huella antipodal halo':'fuera de huella operativa'};
 }
 async function loadGnssState(){
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
   try{
-    const r=await fetch('../v23/state.json?t='+Date.now(),{cache:'no-store'});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    gnssState=await r.json();
+    const urls=['https://raw.githubusercontent.com/xvaldiviezo50/file-C-Users-javier.valdiviezo-Downloads-visor_mivige_sismico.html-/main/mivige-v2/data/gnss.json','data/gnss.json'];
+    let value=null;
+    for(const url of urls){try{const r=await fetch(url+'?t='+Date.now(),{cache:'no-store',signal:controller.signal});if(!r.ok)continue;const j=await r.json();if(j.schema===1&&Array.isArray(j.stations)){value=j;break;}}catch(_){}}
+    if(!value)throw Error('snapshot no disponible');
+    gnssState=value;
   }catch(_){gnssState=null;}
+  finally{clearTimeout(timer);}
+  MivigeGeodesy.render(gnssState);
 }
-function idgState(){
-  const g=gnssState&&gnssState.gnss;
-  if(!g)return {state:'datos insuficientes',coherent:false,used:0,latency:null,detail:'estado GNSS no disponible'};
-  const used=Number(g.stations_used_qc||0),a=Array.isArray(g.coherent_anomalies)?g.coherent_anomalies:[];
-  const issued=Date.parse(g.observed_at||g.updated_at||'');
-  const fresh=Number.isFinite(issued)&&Date.now()-issued>=0&&Date.now()-issued<=48*3600e3;
-  if(!fresh)return {state:'datos insuficientes · GNSS sin fecha reciente verificable',coherent:false,used:0,latency:null,detail:'requiere fecha de observación y cobertura por segmento'};
-  if(used>=3 && a.length)return {state:'deformación coherente a revisar',coherent:true,used,latency:g.median_latency,detail:a.join(' · ')};
-  if(used>=3)return {state:'sin anomalía coherente en datos QC disponibles',coherent:false,used,latency:g.median_latency,detail:'cobertura válida; sin anomalía coherente reportada'};
-  return {state:'datos insuficientes',coherent:false,used,latency:g.median_latency,detail:g.focus_coverage||'GNSS/InSAR insuficiente'};
-}
+function idgState(zone){return MivigeGeodesy.assess(gnssState,zone);}
 function idq(states,idg){
   const feeds=['IG-EPN','IGP','SGC','USGS'];
   const ok=feeds.filter(k=>sourceStatus[k]&&sourceStatus[k].ok).length/feeds.length;
   const mc=states.length?mean(states.map(s=>s.mcInfo.confidence==='media'?1:.55)):.3;
-  const geo=idg.used>=3?1:idg.used>0?.55:.2;
+  const geo=states.length?states.filter(s=>s.idg.used>=3&&!s.idg.state.includes('atrasado')).length/states.length:0;
   const score=Math.round(100*(.45*ok+.30*mc+.25*geo));
   return {score,feeds:ok,mc,geo,label:score>=75?'buena':score>=55?'moderada':'limitada'};
 }
 function icmFor(st,idg,dyn,im){
   const ids=st.ids>=60;
-  const geo=false; // No regional GNSS anomaly is assigned to a segment without a spatial join.
-  const interaction=dyn&&dyn.state&&dyn.state.startsWith('tamiz dinámico compatible');
+  const geo=false; // NGL screening candidates require independent geophysical review before scientific escalation.
+  const interaction=false; // Temporal rate coincidence is experimental, not verified Coulomb or dynamic stress.
   const mig=im&&im.r!=null&&Math.abs(im.r)>=.65&&im.pts.some(x=>x.st.s.id===st.s.id);
   let tier=0,label='sin convergencia; peligro sísmico no determinado';
   if(!st.dataReady)return {tier:-1,label:'datos insuficientes / catálogo parcial',ids:false,geo:false,interaction:false,mig:false};
-  if(ids&&st.rateSignificant){tier=1;label='anomalía sísmica';}
+  if(ids&&st.rateSignificant){tier=1;label='vigilancia sísmica reforzada';}
   if(ids&&geo){tier=2;label='sismicidad + deformación';}
   if(ids&&geo&&interaction){tier=3;label='sismicidad + deformación + interacción compatible';}
   if(ids&&geo&&interaction&&mig){tier=4;label='convergencia multimétodo + migración coherente';}
@@ -274,6 +269,7 @@ function render(states,im,dyn,anti,idg,idqv){
     sem.style.color=maxTier===2?'#07111e':'#fff';
   }
   document.getElementById('mainDecision').textContent=top?(projectionLevel(top.icm.tier).label+' · '+top.s.name):'DATOS INSUFICIENTES';
+  const coverage=document.getElementById('coverageSummary');if(coverage)coverage.textContent=allEvents.length+' eventos descargados · '+states.filter(s=>s.dataReady).length+'/'+states.length+' zonas con muestra para prueba de tasa. Una muestra pequeña no implica ausencia de sismos.';
   document.getElementById('idgST').textContent=idg.state;
   document.getElementById('idgHR').textContent='canal co/post-sísmico · no precursor';
   document.getElementById('imst').textContent=im.r==null?'NA · '+im.label:('r='+im.r.toFixed(2)+' · '+im.label);
@@ -289,13 +285,16 @@ function render(states,im,dyn,anti,idg,idqv){
       '<b>ICM-'+st.icm.tier+':</b> '+st.icm.label+' · <b>IDS:</b> '+st.ids.toFixed(0)+'/100<br>'+
       '<b>Mc:</b> '+st.mc.toFixed(1)+' ('+st.mcInfo.confidence+') · <b>tasa 24h/fondo:</b> ×'+st.rateRatio.toFixed(2)+' · <b>cluster:</b> '+Math.round(st.cluster*100)+'%<br>'+
       '<b>Meq 24 h:</b> '+(st.meqRecent==null?'NA':st.meqRecent.toFixed(1))+' · <b>b:</b> '+(st.b==null?'NA':st.b.toFixed(2))+' · <b>Δcentroide:</b> '+(st.horizontalShift==null?'NA':Math.round(st.horizontalShift)+' km')+' · <b>Δz:</b> '+(st.verticalShift==null?'NA':st.verticalShift.toFixed(0)+' km')+'<br>'+
+      '<b>GNSS de la zona:</b> '+st.idg.state+' · '+st.idg.used+' estaciones utilizables'+(st.idg.latency==null?'':' · antigüedad mediana '+st.idg.latency.toFixed(1)+' días')+'<br>'+
+      (st.idg.candidate&&st.rateSignificant?'<b>Coincidencia sísmico-geodésica a revisar; no alerta predictiva.</b><br>':'')+
+      '<b>Eventos:</b> '+st.recent.length+' en 24 h / '+st.hist.length+' en 7 días sobre selección del segmento<br>'+
       '<b>Control de tasa:</b> p='+fmtNum(st.rateP,4)+' · '+(st.rateSignificant?'exceso tras control múltiple':'sin exceso robusto / muestra insuficiente')+'<br><b>Baseline:</b> '+st.baseline+' · <b>IITE-D:</b> '+d.state+
       '</div></div><div class="pct" style="color:'+projectionLevel(st.icm.tier).color+'">'+projectionLevel(st.icm.tier).short+'</div></div>';
   }).join('');
 
   const sci=document.getElementById('evidenceMatrix');
   sci.innerHTML=
-    '<div class="statusrow"><span>IDS</span><span>'+(ranked.some(s=>s.ids>=60)?'señal elevada en ≥1 segmento':'sin señal elevada')+'</span></div>'+
+    '<div class="statusrow"><span>IDS</span><span>'+(ranked.some(s=>s.dataReady&&s.ids>=60&&s.rateSignificant)?'vigilancia reforzada en ≥1 segmento':'consultar cobertura y tasas por zona')+'</span></div>'+
     '<div class="statusrow"><span>IDG-ST</span><span>'+idg.state+'</span></div>'+
     '<div class="statusrow"><span>IITE-S</span><span>NA · sin Coulomb automatizado</span></div>'+
     '<div class="statusrow"><span>IITE-D</span><span>'+(Object.values(dyn.by).some(x=>x.state.startsWith('tamiz dinámico compatible'))?'compatibilidad a contrastar':'sin compatibilidad demostrada')+'</span></div>'+
@@ -313,11 +312,11 @@ function render(states,im,dyn,anti,idg,idqv){
     '<div class="statusrow"><span>Magnitud equivalente</span><span>conservada como proxy de liberación sísmica, no como “desahogo” causal</span></div>';
 
   const models=document.getElementById('models');
-  const hasIDS=ranked.some(s=>s.ids>=60), hasGeo=idg.coherent, hasInt=Object.values(dyn.by).some(x=>x.state.startsWith('tamiz dinámico compatible'));
+  const hasIDS=ranked.some(s=>s.dataReady&&s.ids>=60&&s.rateSignificant), hasGeo=ranked.some(s=>s.idg.used>=3&&!s.idg.state.includes('atrasado')), hasInt=false;
   models.innerHTML=
     '<div class="statusrow"><span>Modelo A · baseline + IDS</span><span>'+(hasIDS?'activo':'fondo')+'</span></div>'+
-    '<div class="statusrow"><span>Modelo B · A + IDG-ST</span><span>'+(hasGeo?'evaluable':'no evaluable · geodesia insuficiente')+'</span></div>'+
-    '<div class="statusrow"><span>Modelo C · B + IITE + IAC</span><span>'+(hasGeo&&hasInt?'parcialmente evaluable':'no evaluable completo')+'</span></div>'+
+    '<div class="statusrow"><span>Modelo B · A + IDG-ST</span><span>'+(hasGeo?'tamiz GNSS disponible por zona · integración predictiva no validada':'cobertura geodésica insuficiente')+'</span></div>'+
+    '<div class="statusrow"><span>Modelo C · B + IITE + IAC</span><span>'+'pendiente de mecanismos, Coulomb y malla de acoplamiento'+'</span></div>'+
     '<div class="statusrow"><span>Modelo D · C + experimentales</span><span>Challenger · requiere validación prospectiva</span></div>';
 
   const rows=allEvents.filter(e=>e.time>=Date.now()-72*3600e3&&e.mag>=Number(document.getElementById('minmag').value||3)&&e.lat>=-56&&e.lat<=15&&e.lon>=-112&&e.lon<=-58)
@@ -333,6 +332,7 @@ async function runModel(){
   states.forEach((st,i)=>{
     const national={'Ecuador':'IG-EPN','Perú':'IGP','Colombia':'SGC'}[st.s.country]||'USGS';
     const feed=sourceStatus[national];
+    st.idg=idgState(st.s.id);
     st.dataReady=Boolean(feed?.ok&&!feed.truncated&&now-feed.fetchedAt<15*60000&&st.hist.length>=20);
     st.rateP=st.hist.length>=20?MivigeQuality.rateTest(st.recent.length,st.prev.length,1,6):null;st.rateSignificant=st.dataReady&&significant[i];
   });
@@ -340,6 +340,7 @@ async function runModel(){
   const dyn=dynamicScreen(allEvents,states,now);
   const anti=antipodeScreen(allEvents,now);
   const idg=idgState();
+  idg.state=states.filter(s=>s.idg.used>=3&&!s.idg.state.includes('atrasado')).length+'/'+states.length+' zonas con cobertura para tamiz GNSS';
   const q=idq(states,idg);
   lastModel={states,im,dyn,anti,idg,idq:q,time:now};
   render(states,im,dyn,anti,idg,q);
