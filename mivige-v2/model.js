@@ -2,7 +2,7 @@
 'use strict';
 
 const CFG={
-  version:'MIVIGE v2.2 · geodesia regional',
+  version:'MIVIGE v2.2.1 · geodesia regional',
   refreshMs:5*60*1000,
   windowHours:72,
   minDisplayMag:3.0,
@@ -185,15 +185,13 @@ function antipodeScreen(events,now){
   return {source:src,target:best.s,distance:best.d,ap,label:best.d<=225?'huella antipodal núcleo':best.d<=560?'huella antipodal halo':'fuera de huella operativa'};
 }
 async function loadGnssState(){
-  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
-  try{
-    const urls=['https://raw.githubusercontent.com/xvaldiviezo50/file-C-Users-javier.valdiviezo-Downloads-visor_mivige_sismico.html-/main/mivige-v2/data/gnss.json','data/gnss.json'];
-    let value=null;
-    for(const url of urls){try{const r=await fetch(url+'?t='+Date.now(),{cache:'no-store',signal:controller.signal});if(!r.ok)continue;const j=await r.json();if(j.schema===1&&Array.isArray(j.stations)){value=j;break;}}catch(_){}}
-    if(!value)throw Error('snapshot no disponible');
-    gnssState=value;
-  }catch(_){gnssState=null;}
-  finally{clearTimeout(timer);}
+  const urls=['https://raw.githubusercontent.com/xvaldiviezo50/file-C-Users-javier.valdiviezo-Downloads-visor_mivige_sismico.html-/main/mivige-v2/data/gnss.json','data/gnss.json'];
+  gnssState=null;
+  for(const url of urls){
+    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+    try{const r=await fetch(url+'?t='+Date.now(),{cache:'no-store',signal:controller.signal});if(!r.ok)continue;const j=await r.json();if(j.schema===1&&Array.isArray(j.stations)){gnssState=j;break;}}
+    catch(_){}finally{clearTimeout(timer);}
+  }
   MivigeGeodesy.render(gnssState);
 }
 function idgState(zone){return MivigeGeodesy.assess(gnssState,zone);}
@@ -353,9 +351,8 @@ async function refresh(){
   try{
   const btn=document.getElementById('refresh');
   if(btn){btn.disabled=true;btn.textContent='Actualizando…';}
-  const parts=await Promise.all(Object.entries(endpoints).map(([n,u])=>fetchSource(n,u)));
+  const [parts]=await Promise.all([Promise.all(Object.entries(endpoints).map(([n,u])=>fetchSource(n,u))),loadGnssState()]);
   allEvents=dedupe(parts.flat());
-  await loadGnssState();
   document.getElementById('cut').textContent=fmtFull(Date.now());
   refreshAt=Date.now()+CFG.refreshMs;
   renderSources();
