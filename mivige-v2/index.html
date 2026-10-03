@@ -27,22 +27,9 @@
 
 <section class="card"><h2>Challenger experimental</h2><div id="experimental"></div><div class="small" style="margin-top:8px">Antípoda, huella antipodal, SST y redistribución progresiva/activación secuencial se conservan para prueba prospectiva; por sí solas no elevan el ICM científico.</div></section>
 
-<section class="card"><h2>Eventos recientes deduplicados</h2><table class="table"><thead><tr><th>Hora</th><th>M</th><th>Prof.</th><th>Tipo</th><th>Fuente</th></tr></thead><tbody id="events"></tbody></table></section>
-<section class="card"><h2>Acceso a fuentes geodésicas y tectónicas</h2><div class="small"><b>Integrado:</b> NGL · series IGS20, rápidas y finales; inventarios IGM REGME, SGC GeoRED e IGP GNSS. RENGEO: referencia recuperada del visor anterior.<br><b>Acceso externo / integración pendiente:</b> la descarga numérica directa de estas redes requiere un conector y control de calidad; los inventarios no elevan el IDG.</div><ul>
-<li><a href="https://geodesy.unr.edu/PlugNPlayPortal.php" target="_blank" rel="noopener">NGL: productos y metodología</a></li>
-<li><a href="https://sirgas.ipgh.org/red-gnss/centros-de-datos/" target="_blank" rel="noopener">SIRGAS: centros regionales y nacionales</a></li>
-<li><a href="https://igs.org/data/" target="_blank" rel="noopener">IGS / NASA CDDIS: RINEX</a></li>
-<li><a href="https://www.earthscope.org/data/" target="_blank" rel="noopener">EarthScope: archivo y acceso autenticado</a></li>
-<li><a href="https://igepn.edu.ec/red-nacional-de-geodesia" target="_blank" rel="noopener">Ecuador · IG-EPN RENGEO</a> · <a href="https://igepn.edu.ec/descarga-de-datos/content/36-igepn" target="_blank" rel="noopener">Catálogo de acceso a datos y series GPS</a></li>
-<li><a href="https://www.geoportaligm.gob.ec/downloads/public/login" target="_blank" rel="noopener">Ecuador · IGM REGME: registro gratuito</a></li>
-<li><a href="https://redgeodesica.igac.gov.co/" target="_blank" rel="noopener">Colombia · IGAC: RINEX</a> · <a href="https://geored2.sgc.gov.co/redgnss/Paginas/Series-de-tiempo.aspx" target="_blank" rel="noopener">SGC GeoRED</a></li>
-<li><a href="https://www.idep.gob.pe/geovisor/erp/" target="_blank" rel="noopener">Perú · IGN REGPMOC: acceso institucional</a></li>
-<li><a href="https://www.geosismos.cl/acerca-de" target="_blank" rel="noopener">Chile · Geo-Sismos: series procesadas</a> · <a href="https://www.ipoc-network.org/observatory/gps/gps-at-ipoc/" target="_blank" rel="noopener">IPOC–GFZ</a></li>
-<li>Venezuela: estaciones disponibles en NGL/SIRGAS; acceso automatizado nacional REMOS no confirmado.</li>
-<li><a href="https://hyp3-docs.asf.alaska.edu/using/" target="_blank" rel="noopener">InSAR · ASF HyP3: procesamiento con Earthdata</a> · <a href="https://comet.nerc.ac.uk/COMET-LiCS-portal/" target="_blank" rel="noopener">COMET LiCSAR</a></li>
-<li><a href="https://www.usgs.gov/data/slab2-a-comprehensive-subduction-zone-geometry-model" target="_blank" rel="noopener">Geometría · Slab2</a> · <a href="https://www.frontiersin.org/journals/earth-science/articles/10.3389/feart.2021.701720/full" target="_blank" rel="noopener">Acoplamiento Ecuador–Colombia</a></li>
-</ul><div class="small">IAC es contexto espacial. IDG-HR caracteriza ruptura. Antípodas/SST no elevan el nivel científico. Estaciones repetidas entre proveedores no se cuentan como evidencia independiente.</div></section>
-<section class="card"><h2>Fuentes sísmicas</h2><div id="sources"></div></section>
+<table hidden aria-hidden="true"><tbody id="events"></tbody></table>
+
+<div id="sources" hidden aria-hidden="true"></div>
 </aside></main>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="../v10/app1.js?v=3000"></script>
@@ -51,7 +38,7 @@
 <script src="geodesy.js?v=3005"></script>
 <script src="networks.js?v=3000"></script>
 <script src="model.js?v=3003"></script>
-<script src="../v10/sst_signal_v40.js?v=3000"></script>
+<script src="sst-summary.js?v=3007"></script>
 <script src="antipode-links.js?v=3006"></script>
 <script src="prospective.js?v=3000"></script>
 
