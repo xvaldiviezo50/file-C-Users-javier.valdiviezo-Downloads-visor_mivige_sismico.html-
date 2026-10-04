@@ -15,7 +15,7 @@ const CFG={
   ]
 };
 
-const TARGETS=['cl_c','cl_n','pe_s','pe_c','pe_n','ec_s','ec_az','ec_c','ec_n','co_p','co_ch','ven'];
+const TARGETS=['cl_c','cl_n','pe_s','pe_c','pe_n','ec_s','ec_az','ec_c','ec_n','co_p','co_ch','pa_p','ven'];
 const layer=L.layerGroup().addTo(map);
 const linkLayer=L.layerGroup(); // Experimental regional links are optional; antipodes use their own strict filter.
 
