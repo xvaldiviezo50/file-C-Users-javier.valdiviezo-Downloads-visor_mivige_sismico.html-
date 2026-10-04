@@ -3,7 +3,7 @@
 if(typeof L==='undefined'||typeof map==='undefined')return;
 
 const CFG={
-  version:'3.2-physics-coulomb-ready',
+  version:'3.3-pattern-validation',
   historyH:168,
   low:40,
   high:65,
@@ -154,11 +154,12 @@ function scoreOne(model,st,events,now){
   // Physics v1: only evaluable physical/observational channels enter the core score.
   // Challenger channels (antipode/SST) are retained for prospective validation but contribute 0 to core.
   const components=[
-    {id:'source',value:src?100*src.score:null,weight:.20},
-    {id:'receiver',value:100*clamp((recv.points)/20),weight:.35},
+    // Validation track: preserve the pre-Coulomb weights so the historical signal is comparable over time.
+    // Coulomb is scientific evidence shown separately and NEVER changes this experimental pattern score.
+    {id:'source',value:src?100*src.score:null,weight:.25},
+    {id:'receiver',value:100*clamp((recv.points)/20),weight:.45},
     {id:'dynamic',value:model?.dyn?.by?.[st.s.id]?100*clamp(dyn.points/10):null,weight:.15},
-    {id:'geodesy',value:(st.idg&&st.idg.used>=3)?(st.idg.candidate?70:25):null,weight:.15},
-    {id:'coulomb',value:path.evaluable?path.value:null,weight:.15}
+    {id:'geodesy',value:(st.idg&&st.idg.used>=3)?(st.idg.candidate?70:25):null,weight:.15}
   ];
   const evals=components.filter(x=>Number.isFinite(x.value));
   const w=evals.reduce((a,x)=>a+x.weight,0);
@@ -178,7 +179,7 @@ function ensureCard(){
   const aside=document.querySelector('aside');if(!aside)return;
   const c=document.createElement('section');c.className='card';c.id='prospectiveEngineV2';
   c.innerHTML='<h2>🎯 Proyección prospectiva experimental · MIVIGE</h2>'+
-    '<div class="small">Esta salida es <b>independiente del ICM científico</b>. Physics v1 separa el núcleo físico de los challengers. El índice principal usa fuente, respuesta observada del receptor, tamiz dinámico y GNSS cuando son evaluables. Coulomb tiene peso físico reservado y solo entra cuando existe un cálculo ΔCFS evaluable con mecanismo/ruptura de la fuente y geometría receptora; si falta evidencia queda N/A y se renormaliza el índice. Antípoda y SST se registran para validación, pero no suman al índice principal. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
+    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. Mantiene congeladas las ponderaciones pre-Coulomb: fuente 25%, respuesta observada del receptor 45%, tamiz dinámico 15% y GNSS 15% cuando son evaluables. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
     '<div class="kpis" style="margin-top:8px">'+
       '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTop">—</div></div>'+
       '<div class="kpi"><div class="name">Nivel</div><div class="val" id="ppeLevel">—</div></div>'+
