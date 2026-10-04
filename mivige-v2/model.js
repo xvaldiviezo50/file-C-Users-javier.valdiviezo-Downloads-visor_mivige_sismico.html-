@@ -258,6 +258,15 @@ function renderSources(){
 function render(states,im,dyn,anti,idg,idqv){
   states.forEach(st=>{st.icm=icmFor(st,idg,dyn.by[st.s.id],im);});
   const ranked=states.slice().sort((a,b)=>Math.max(0,b.icm.tier)-Math.max(0,a.icm.tier)||((a.icm.tier>=1&&b.icm.tier>=1)?b.ids-a.ids:a.s.ord-b.s.ord));
+  const priorityHost=document.getElementById('priorityRankingMirror');
+  if(priorityHost){
+    priorityHost.innerHTML=ranked.map((st,i)=>{
+      const lv=projectionLevel(st.icm.tier);
+      const score=Math.round(Math.max(0,Math.min(100,st.ids)));
+      const trend=st.rateRatio>1.25?'↑':st.rateRatio<0.8?'↓':'→';
+      return '<div class="listitem"><div class="dot" style="background:'+tierColor(st.icm.tier)+'"></div><div><div class="zname"><b>#'+(i+1)+'</b> '+st.s.name+'</div><div class="zdesc"><b>'+lv.label+'</b> · IDS '+score+'/100 · tendencia '+trend+' · tasa 24 h/fondo ×'+st.rateRatio.toFixed(2)+(st.dataReady?'':' · '+st.coverageReason)+'</div></div><div class="pct" style="color:'+tierColor(st.icm.tier)+'">'+score+'</div></div>';
+    }).join('');
+  }
   const top=ranked.find(st=>st.dataReady&&st.icm.tier>=1)||null;
   const maxTier=top?top.icm.tier:states.some(st=>st.dataReady)?0:-1;
   const sem=document.getElementById('semaforo');
