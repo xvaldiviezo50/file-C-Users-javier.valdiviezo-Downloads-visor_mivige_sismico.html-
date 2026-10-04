@@ -12,7 +12,27 @@ def feed():
  u="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson"
  with urllib.request.urlopen(u,timeout=30) as f:j=json.load(f)
  return [{"id":x["id"],"t":x["properties"]["time"],"m":x["properties"]["mag"],"lat":x["geometry"]["coordinates"][1],"lon":x["geometry"]["coordinates"][0],"dep":x["geometry"]["coordinates"][2]} for x in j["features"] if x["properties"]["mag"] is not None]
-now=int(time.time()*1000); ev=feed(); s=load(); windows=s.get("windows",[])
+now=int(time.time()*1000); ev=feed(); s=load(); windows=s.get("windows",[]); anti=s.get("antipode_learning",[])
+# Challenger antipodal subthreshold: observation only, never modifies frozen V1.
+def antipode(lat,lon): return (-lat, lon+180 if lon<0 else lon-180)
+known={x["key"] for x in anti}
+for e in ev:
+ if not (5.0<=e["m"]<6.5): continue
+ alat,alon=antipode(e["lat"],e["lon"])
+ for zid,zname,zlat,zlon,zr in Z:
+  ad=dist(alat,alon,zlat,zlon)
+  if ad>560: continue
+  band="core" if ad<=225 else "halo"
+  for hours in (24,72):
+   key=e["id"]+"|"+zid+"|"+str(hours)
+   if key not in known:
+    anti.append({"key":key,"source_id":e["id"],"source_mag":e["m"],"source_time":e["t"],"source_depth":e["dep"],"source_lat":e["lat"],"source_lon":e["lon"],"antipode_lat":round(alat,4),"antipode_lon":round(alon,4),"zone":zid,"name":zname,"distance_antipode_km":round(ad,1),"band":band,"hours":hours,"start":e["t"],"end":e["t"]+hours*H,"target":4.5,"status":"pending","hits":[],"track":"subthreshold-learning-only"});known.add(key)
+for a in anti:
+ if a["status"]!="pending" or now<a["end"]: continue
+ z=next((q for q in Z if q[0]==a["zone"]),None)
+ if not z: continue
+ hits=[e for e in ev if a["start"]<=e["t"]<a["end"] and e["m"]>=a["target"] and dist(z[2],z[3],e["lat"],e["lon"])<=z[4]]
+ a["hits"]=[{"id":e["id"],"m":e["m"],"t":e["t"]} for e in hits];a["status"]="response" if hits else "noResponse";a["evaluated"]=now
 # Mature previously frozen windows. Weekly feed supports the 72 h horizons used here.
 for w in windows:
  if w["status"]!="pending" or now<w["end"]:continue
@@ -40,7 +60,7 @@ for id,name,lat,lon,r in Z:
   for target in (4.5,6.0):
    if not any(w["zone"]==id and w["hours"]==hours and w["target"]==target and w["status"]=="pending" for w in windows):
     windows.append({"version":"persistent-v2","zone":id,"name":name,"lat":lat,"lon":lon,"radius":r,"start":now,"end":now+hours*H,"hours":hours,"target":target,"active":active,"score_at_issue":round(score,1),"status":"pending","hits":[]})
-s["version"]="persistent-learning-2";s["v1_frozen"]=True;s["updated"]=now;s["snapshots"]=(s.get("snapshots",[])+[snap])[-2160:];s["windows"]=windows[-20000:]
+s["version"]="persistent-learning-3";s["v1_frozen"]=True;s["antipode_learning"]=anti[-20000:];s["antipode_metrics"]={"pending":sum(x["status"]=="pending" for x in anti),"response":sum(x["status"]=="response" for x in anti),"noResponse":sum(x["status"]=="noResponse" for x in anti)};s["updated"]=now;s["snapshots"]=(s.get("snapshots",[])+[snap])[-2160:];s["windows"]=windows[-20000:]
 closed=[w for w in windows if w["status"]!="pending"]; s["metrics"]={k:sum(w["status"]==k for w in closed) for k in ("coincidence","falseAlarm","omission","correctNegative")}
 s["learning_policy"]="Observe, validate and recommend only. Never modify V1 weights, thresholds or alerts automatically."
 OUT.parent.mkdir(parents=True,exist_ok=True);OUT.write_text(json.dumps(s,ensure_ascii=False,indent=2)+"\n")
