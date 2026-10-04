@@ -3,6 +3,7 @@
 'use strict';
 const H=3600000, cutoffHours=72;
 const reviewed=[
+{id:'igepn2026tkyp',source:'IG-EPN',time:Date.parse('2026-10-04T08:57:18Z'),lat:-3.041,lon:-80.216,depth:48.9,mag:4.5,place:'Machala · El Oro',reviewed:true},
 {id:'igepn2026tjud',source:'IG-EPN',time:Date.parse('2026-10-03T17:34:20Z'),lat:.594,lon:-79.209,depth:67.7,mag:3.8,place:'Quinindé · Esmeraldas',reviewed:true},
 {id:'igepn2026tjwt',source:'IG-EPN',time:Date.parse('2026-10-03T18:53:01Z'),lat:-1.301,lon:-80.516,depth:31,mag:3.7,place:'Jipijapa · Manabí',reviewed:true}
 ];
@@ -31,6 +32,7 @@ function pairs(es){
  }).filter(p=>p.eligible);
 }
 if(typeof module!=='undefined'&&module.exports){module.exports={prepare,pairs,reviewed};return;}
+window.mivigeReviewedSnapshot={source:'https://igepn.edu.ec/portal/sismos/index2.html',checkedOn:'2026-10-04',events:reviewed};
 const node=document.getElementById('migrationExperimental');
 if(!node)return;
 const layer=L.layerGroup().addTo(map);
@@ -60,7 +62,7 @@ function render(){
  '<li><b>Desplazamiento hacia el sur:</b> Manabí–Santa Elena–Golfo. Se conserva como hipótesis rival; un par no permite anunciar el siguiente lugar, magnitud o fecha.</li>'+
  '<li><b>Actividad local o sin dirección:</b> contrastar clustering, tasa de fondo y mecanismos focales antes de atribuir transferencia regional.</li></ul>'+
  '<p class="small">Azuay conserva su evaluación científica propia: no adquiere prioridad por el sismo de Esmeraldas. IDS, IDG-ST, IITE e IAC permanecen independientes; esta capa no eleva el ICM. GNSS/InSAR ausente continúa como datos insuficientes.</p>'+
- '<p class="small">Revisión de referencia: <a href="https://igepn.edu.ec/portal/sismos/index2.html" target="_blank" rel="noopener">boletín IG-EPN del 03/10/2026</a>: Esmeraldas 3,8 MLv / 67,7 km y Manabí 3,7 MLv / 31,0 km. Soluciones revisadas sustituyen sus mismos ID en esta capa; no se suman como nuevos sismos. Es una captura documental, no una conexión continua al boletín; se excluye automáticamente al superar 72 h. Los otros eventos proceden de los catálogos cargados. Actualización del cálculo: '+when(now)+'.</p>';
+ '<p class="small">Revisión de referencia: <a href="https://igepn.edu.ec/portal/sismos/index2.html" target="_blank" rel="noopener">boletín IG-EPN consultado el 04/10/2026</a>: Esmeraldas 3,8 MLv / 67,7 km Manabí 3,7 MLv / 31,0 km y Machala 4,5 MLv / 48,9 km. Soluciones revisadas sustituyen sus mismos ID en esta capa; no se suman como nuevos sismos. Es una captura documental, no una conexión continua al boletín; se excluye automáticamente al superar 72 h. Los otros eventos proceden de los catálogos cargados. Actualización del cálculo: '+when(now)+'.</p>';
  node.querySelector('#migrationVisible').onchange=e=>{visible=e.target.checked;if(visible)layer.addTo(map);else map.removeLayer(layer);};
  window.mivigeMigrationExperimental={events:es,pairs:ps,time:now,scientificWeight:0};
 }

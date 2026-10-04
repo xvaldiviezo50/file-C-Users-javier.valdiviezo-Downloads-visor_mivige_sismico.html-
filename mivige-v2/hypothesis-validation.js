@@ -1,7 +1,7 @@
 /* Prospective hypothesis ledger. No probability calibration or scientific-alert effects. */
 (function(){
 'use strict';
-const KEY='mivige-hypotheses-v1',VERSION='1.0.0',DAY=86400000;
+const KEY='mivige-hypotheses-v1',VERSION='1.0.1',DAY=86400000;
 const defs=[
 ['combined','Modelo combinado',x=>x.score>=65],
 ['source','Fuente regional/remota',x=>x.sourcePts>0],
@@ -33,9 +33,14 @@ function usable(id,x,model){
  return true;
 }
 function classify(active,observed){return active?(observed?'coincidence':'falseAlarm'):(observed?'omission':'correctNegative');}
+function observedEvents(r){
+ const overrides=window.mivigeReviewedSnapshot?.events||[];
+ const pool=allEvents.filter(e=>!overrides.some(o=>o.id===e.id||Math.abs(o.time-e.time)<60000&&distKm(o.lat,o.lon,e.lat,e.lon)<30&&Math.abs(o.mag-e.mag)<.6)).concat(overrides);
+ return pool.filter(e=>e.time>=r.start&&e.time<r.end&&e.time<=Date.now()&&e.mag>=r.targetMag&&distKm(e.lat,e.lon,r.zone.lat,r.zone.lon)<=r.zone.r&&(!r.zone.depth||(Number.isFinite(e.depth)&&e.depth>=r.zone.depth[0]&&e.depth<=r.zone.depth[1])));
+}
 function save(){try{localStorage.setItem(KEY,JSON.stringify({version:VERSION,records,snapshots}));}catch(_){storageOK=false;}}
 const card=document.createElement('section');card.className='card';card.id='hypothesisValidation';
-card.innerHTML='<h2>Ventanas experimentales · seguimiento y validación</h2><p class="small">Objetivos separados: M≥4,5 y M≥6,0; horizontes de 24 y 72 h desde el registro. Cada hipótesis se congela antes de observar el resultado. Una coincidencia temporal no demuestra causalidad.</p><div id="hypothesisStatus"></div><label>Objetivo <select id="hypothesisMag"><option value="4.5">M≥4,5</option><option value="6">M≥6,0</option></select></label> <label>Ventana <select id="hypothesisHours"><option value="24">24 h</option><option value="72">72 h</option></select></label><div id="hypothesisMetrics"></div><details><summary>Ventanas registradas y criterios</summary><p class="small">Combinado: ≥65/100. Capas individuales: aporte mayor que cero; atenuación: aporte negativo. Las variantes sin capa usan el mismo corte de 65, sin reajustarlo. Son controles exploratorios, no un modelo ETAS ni probabilidades. La atenuación se evalúa como asociación; su mejora se contrasta con la variante sin atenuación.</p><div id="hypothesisWindows" style="max-height:320px;overflow:auto"></div></details><button id="hypothesisExport">Descargar registro y datos de entrada</button><p class="small">Registro local en este navegador: funciona mientras el visor está abierto y se conserva al volver. No es un archivo público inmutable. Resultados provisionales por revisiones del catálogo. Ventanas de una misma hipótesis/zona/objetivo/horizonte no se superponen; otros horizontes, zonas y capas sí pueden compartir eventos. No sumar sus coincidencias como pruebas independientes. Sin evaluación suficiente no se declara fallo ni ausencia de sismo.</p>';
+card.innerHTML='<h2>Ventanas experimentales · seguimiento y validación</h2><p class="small">Objetivos separados: M≥4,5 y M≥6,0; horizontes de 24 y 72 h desde el registro. Cada hipótesis se congela antes de observar el resultado. Los eventos nuevos se contrastan con ventanas previas; no se crean aciertos retrospectivos. Un objetivo M≥6,0 no se cumple con un evento M4,5. Una coincidencia temporal no demuestra causalidad.</p><div id="hypothesisStatus"></div><label>Objetivo <select id="hypothesisMag"><option value="4.5">M≥4,5</option><option value="6">M≥6,0</option></select></label> <label>Ventana <select id="hypothesisHours"><option value="24">24 h</option><option value="72">72 h</option></select></label><div id="hypothesisMetrics"></div><details><summary>Ventanas registradas y criterios</summary><p class="small">Combinado: ≥65/100. Capas individuales: aporte mayor que cero; atenuación: aporte negativo. Las variantes sin capa usan el mismo corte de 65, sin reajustarlo. Son controles exploratorios, no un modelo ETAS ni probabilidades. La atenuación se evalúa como asociación; su mejora se contrasta con la variante sin atenuación.</p><div id="hypothesisWindows" style="max-height:320px;overflow:auto"></div></details><button id="hypothesisExport">Descargar registro y datos de entrada</button><p class="small">Registro local en este navegador: funciona mientras el visor está abierto y se conserva al volver. No es un archivo público inmutable. Resultados provisionales por revisiones del catálogo. Ventanas de una misma hipótesis/zona/objetivo/horizonte no se superponen; otros horizontes, zonas y capas sí pueden compartir eventos. No sumar sus coincidencias como pruebas independientes. Sin evaluación suficiente no se declara fallo ni ausencia de sismo.</p>';
 document.querySelector('aside').appendChild(card);
 function display(){
  const mag=Number(document.getElementById('hypothesisMag').value),hours=Number(document.getElementById('hypothesisHours').value);
@@ -46,16 +51,17 @@ function display(){
  return '<tr><td>'+label+'</td>'+['pending','coincidence','falseAlarm','omission','correctNegative','unverifiable'].map(s=>'<td>'+n(s)+'</td>').join('')+'</tr>';
  }).join('')+'</tbody></table>';
  const labels={pending:'abierta',coincidence:'coincidencia',falseAlarm:'falsa alarma experimental',omission:'omisión',correctNegative:'negativo correcto',unverifiable:'no evaluable'};
- document.getElementById('hypothesisWindows').innerHTML=rows.slice(-80).reverse().map(r=>'<p class="small"><b>'+esc(r.label)+' · '+esc(r.zone.name)+'</b><br>'+time(r.start)+' → '+time(r.end)+' (Ecuador)<br>M≥'+r.targetMag+' · '+(r.active?'señal activa':'control sin señal')+' · '+labels[r.status]+(r.reason?' · '+esc(r.reason):'')+'</p>').join('')||'<p class="small">Aún no hay ventanas para esta selección.</p>';
+ document.getElementById('hypothesisWindows').innerHTML=rows.slice(-80).reverse().map(r=>'<p class="small"><b>'+esc(r.label)+' · '+esc(r.zone.name)+'</b><br>'+time(r.start)+' → '+time(r.end)+' (Ecuador)<br>M≥'+r.targetMag+' · '+(r.active?'señal activa':'control sin señal')+' · '+labels[r.status]+(r.status==='pending'?' · '+(r.provisionalMatches||0)+' evento(s) provisional(es) dentro de la ventana':'')+(r.reason?' · '+esc(r.reason):'')+'</p>').join('')||'<p class="small">Aún no hay ventanas para esta selección.</p>';
 }
 function run(){
  const now=Date.now(),p=window.mivigeProspectiveV2,model=window.mivigeV2;
  if(!Array.isArray(typeof allEvents!=='undefined'?allEvents:null)){display();return;}
  let changed=false;
+ for(const r of records.filter(r=>r.status==='pending')){const n=observedEvents(r).length;if(r.provisionalMatches!==n){r.provisionalMatches=n;changed=true;}}
  for(const r of records.filter(r=>r.status==='pending'&&now>=r.end)){
   if(now-r.start>7*DAY){r.status='unverifiable';r.reason='Ventana fuera del catálogo móvil; falta archivo completo';changed=true;continue;}
   if(!feedOK(national(r.zone),now)){r.reason='Esperando catálogo nacional vigente y completo';continue;}
-  const found=allEvents.filter(e=>e.time>=r.start&&e.time<r.end&&e.mag>=r.targetMag&&distKm(e.lat,e.lon,r.zone.lat,r.zone.lon)<=r.zone.r&&(!r.zone.depth||(Number.isFinite(e.depth)&&e.depth>=r.zone.depth[0]&&e.depth<=r.zone.depth[1])));
+  const found=observedEvents(r);
   r.events=found.map(e=>({id:e.id,source:e.source,time:e.time,mag:e.mag,lat:e.lat,lon:e.lon,depth:e.depth}));
   r.observed=found.length>0;r.status=classify(r.active,r.observed);r.evaluatedAt=now;r.provisional=true;delete r.reason;changed=true;
  }
@@ -67,7 +73,7 @@ function run(){
    for(const hours of [24,72])for(const targetMag of [4.5,6]){
     if(records.some(r=>r.hypothesis===id&&r.zone.id===x.st.s.id&&r.hours===hours&&r.targetMag===targetMag&&r.status==='pending'))continue;
     const sid=String(now);
-    if(!snapshots[sid])snapshots[sid]={issuedAt:now,catalogueCut:p.time,sourceStatus:JSON.parse(JSON.stringify(sourceStatus)),events:allEvents.filter(e=>e.time>=now-7*DAY).map(e=>({id:e.id,source:e.source,time:e.time,mag:e.mag,lat:e.lat,lon:e.lon,depth:e.depth})),sst:window.mivigeSSTSignals||{},config:p.config};
+    if(!snapshots[sid])snapshots[sid]={issuedAt:now,catalogueCut:p.time,sourceStatus:JSON.parse(JSON.stringify(sourceStatus)),events:allEvents.filter(e=>e.time>=now-7*DAY).map(e=>({id:e.id,source:e.source,time:e.time,mag:e.mag,lat:e.lat,lon:e.lon,depth:e.depth})),sst:window.mivigeSSTSignals||{},reviewedSnapshot:window.mivigeReviewedSnapshot||null,config:p.config};
     const components={};for(const k of ['path','seq','delay','recv','dyn','anti','sst','release','quiet'])components[k]={points:x[k].points,label:x[k].label};
     records.push({version:VERSION,hypothesis:id,label,start:now,end:now+hours*3600000,hours,targetMag,zone:{...x.st.s},active:!!test(x),status:'pending',score:x.score,components,sourcePoints:x.sourcePts,sourceEvent:x.src?.e||null,snapshotId:sid});
     changed=true;
