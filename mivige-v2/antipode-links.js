@@ -45,7 +45,7 @@ function fmt(e){
 function focusState(d){
   if(d<=CFG.coreKm)return {label:'NÚCLEO',score:1};
   if(d<=CFG.haloKm)return {label:'HALO',score:Math.max(0,1-(d-CFG.coreKm)/(CFG.haloKm-CFG.coreKm))};
-  return {label:'FUERA',score:0};
+  return {label:'SIN ACTIVACIÓN',score:0};
 }
 function sourceCandidates(events,r,now){
   const ap=anti(r.lat,r.lon);
@@ -70,7 +70,7 @@ function response(events,r,src,now){
   else if(now<t0+CFG.watchHours*3600e3)state='ventana abierta · sin respuesta aún';
   return {state,post,pre,ratio,minMag};
 }
-function color(label){return label==='NÚCLEO'?'#e4493f':label==='HALO'?'#f0c644':'#46647e';}
+function color(label){return label==='NÚCLEO'?'#e4493f':label==='HALO'?'#f0c644':'#42b86b';}
 function ensureCard(){
   if(document.getElementById('antipodeNetworkV2'))return;
   const aside=document.querySelector('aside');if(!aside)return;
@@ -129,7 +129,7 @@ function run(){
     const ap=anti(r.lat,r.lon);
     const cand=sourceCandidates(allEvents,r,now);
     const src=cand[0]||null;
-    const st=src?src.f:{label:'FUERA',score:0};
+    const st=src?src.f:{label:'SIN ACTIVACIÓN',score:0};
     if(st.label==='NÚCLEO')nCore++; else if(st.label==='HALO')nHalo++;
     const resp=response(allEvents,r,src&&src.e,now);
     // Draw every qualifying event, not only the nearest event per receptor.
@@ -140,7 +140,7 @@ function run(){
     const windowLabel=src?((now-src.e.time)/3600e3<=6?'0–6 h':(now-src.e.time)/3600e3<=24?'6–24 h':'24–72 h'):'—';
     rows.push('<div class="listitem"><div class="dot" style="background:'+color(st.label)+'"></div><div><div class="zname">'+r.country+' · '+r.name+'</div><div class="zdesc">'+
       '<b>Fuente antipodal:</b> '+r.sourceRegion+' · exacta '+ap.lat.toFixed(2)+'°, '+ap.lon.toFixed(2)+'°<br>'+
-      (src?('<b>Evento:</b> '+fmt(src.e)+'<br><b>Distancia:</b> '+Math.round(src.d)+' km · <b>'+st.label+'</b> · ventana '+windowLabel+'<br><b>Receptor:</b> '+resp.state+(resp.ratio!=null?' · razón tasa ×'+resp.ratio.toFixed(2):'')):'<b>Estado:</b> sin fuente M≥'+CFG.sourceMag.toFixed(1)+' dentro del halo en '+CFG.watchHours+' h')+
+      (src?('<b>Evento:</b> '+fmt(src.e)+'<br><b>Distancia:</b> '+Math.round(src.d)+' km · <b>'+st.label+'</b> · ventana '+windowLabel+'<br><b>Receptor:</b> '+resp.state+(resp.ratio!=null?' · razón tasa ×'+resp.ratio.toFixed(2):'')):'<b>Estado:</b> SIN ACTIVACIÓN ANTIPODAL DETECTADA · sin fuente M≥'+CFG.sourceMag.toFixed(1)+' dentro del halo en '+CFG.watchHours+' h')+
       '</div></div><div class="pct">'+st.label+'</div></div>');
   }
   drawLinks(active);
