@@ -1,0 +1,6 @@
+(function(){'use strict';
+async function run(){const box=document.getElementById('persistentLearning');if(!box)return;try{const r=await fetch('data/learning-state.json?ts='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error();const s=await r.json(),m=s.metrics||{},ws=s.windows||[],p=ws.filter(x=>x.status==='pending').length;
+box.innerHTML='<b>Aprendizaje persistente 24/7</b><br>V1 congelado: <b>'+(s.v1_frozen?'SÍ':'NO')+'</b> · última ejecución: '+new Date(s.updated).toLocaleString('es-EC',{timeZone:'America/Guayaquil'})+'<br>Ventanas abiertas: <b>'+p+'</b> · coincidencias: '+(m.coincidence||0)+' · falsas alarmas: '+(m.falseAlarm||0)+' · omisiones: '+(m.omission||0)+' · negativos correctos: '+(m.correctNegative||0)+'<br><span class="small">El proceso servidor observa y valida; no modifica automáticamente pesos, umbrales ni alertas de V1. El cálculo regional persistente es un proxy auditable cuando solo dispone del catálogo global y no sustituye los componentes nacionales/GNSS del visor.</span>';
+window.mivigePersistentLearning=s;}catch(e){box.innerHTML='<b>Aprendizaje persistente:</b> esperando primer ciclo horario del servidor.'}}
+setTimeout(run,3000);setInterval(run,300000);
+})();
