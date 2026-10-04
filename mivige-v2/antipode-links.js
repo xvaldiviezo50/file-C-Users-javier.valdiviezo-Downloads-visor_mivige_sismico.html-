@@ -87,6 +87,15 @@ function ensureBottomPanel(){
   btn.onclick=()=>panel.style.display=panel.style.display==='none'?'block':'none';
   panel.querySelector('#antiBottomClose').onclick=()=>panel.style.display='none';
 }
+function renderVisibleAntipodes(active,learning){
+ const rows=document.getElementById('antiVisibleRows'),sum=document.getElementById('antiVisibleSummary');if(!rows||!sum)return;
+ const items=[];
+ active.forEach(x=>items.push({kind:'V1',r:x.r,e:x.src.e,d:x.src.d,band:x.src.f.label}));
+ learning.forEach(x=>items.push({kind:'CHALLENGER',r:x.r,e:x.q.e,d:x.q.d,band:x.q.d<=CFG.coreKm?'NÚCLEO':'HALO'}));
+ const unique=[];items.forEach(x=>{const k=x.kind+'|'+x.r.id+'|'+(x.e.id||x.e.time);if(!unique.some(y=>y.k===k))unique.push({...x,k});});
+ sum.innerHTML=unique.length?'<b>'+unique.length+' coincidencia(s) antipodal(es) M≥5,0</b> en las últimas 72 h.':'<b>SIN ACTIVACIÓN ANTIPODAL DETECTADA</b> · no hay fuentes M≥5,0 dentro de núcleo/halo en las últimas 72 h.';
+ rows.innerHTML=unique.map(x=>'<div class="listitem"><div><b>'+x.kind+' · '+x.r.country+' · '+x.r.name+'</b><div class="zdesc">Fuente: '+fmt(x.e)+'<br>Antípoda receptora: '+x.band+' · '+Math.round(x.d)+' km · seguimiento 24/72 h</div></div></div>').join('');
+}
 function renderBottom(active,learning){
   ensureBottomPanel();const el=document.getElementById('antiBottomRows'),btn=document.getElementById('antiBottomBtn');if(!el)return;
   const rows=[];
@@ -175,7 +184,7 @@ function run(){
       '</div></div><div class="pct">'+st.label+'</div></div>');
   }
   drawLinks(active);
-  drawLearningLinks(learning);\n  renderBottom(active,learning);
+  drawLearningLinks(learning);\n  renderBottom(active,learning);\n  renderVisibleAntipodes(active,learning);
   const direct=active.filter(x=>x.src.d<=CFG.coreKm);
   const sourceButton=document.getElementById('antiViewSources');sourceButton.disabled=!direct.length;sourceButton.textContent=direct.length?'Ver vínculos activos':'Sin activación núcleo';
   document.getElementById('antiRows').innerHTML=rows.join('');
