@@ -14,11 +14,15 @@ function render(){
  const badge=document.getElementById('projectionBadge'),results=(window.mivigeProspectiveV2?.results||[]).slice().sort((a,b)=>b.score-a.score);
  const top=results[0]||null,lv=level(top?.score||0),color=COLORS[lv];
  if(badge){badge.style.background=color;badge.style.color='#fff';badge.innerHTML='<strong>PROYECCIÓN EXPERIMENTAL REGIONAL</strong><div>'+lv.toUpperCase()+' · '+(top?top.st.s.name:'sin activación destacada')+'</div>';}
+ const grouped={};
+ results.forEach(x=>{const k=x.st.s.country||'Región';if(!grouped[k]||x.score>grouped[k].score)grouped[k]=x;});
+ const countries=Object.entries(grouped).map(([country,x])=>({country,x,score:x.score})).sort((a,b)=>b.score-a.score);
  const rows=results.slice(0,5);
  panel.innerHTML='<h2>Prioridad regional de seguimiento</h2>'+
  '<div style="font-size:28px;font-weight:900;color:'+color+'">'+lv.toUpperCase()+'</div>'+
  '<div class="small">Ranking absoluto de receptores regionales; no es una competencia entre países ni una predicción del próximo terremoto.</div>'+
- '<div style="margin-top:10px">'+rows.map((x,i)=>'<div style="display:grid;grid-template-columns:30px 1fr auto;gap:7px;padding:8px 0;border-bottom:1px solid rgba(148,163,184,.22)"><b>#'+(i+1)+'</b><span><b>'+x.st.s.name+'</b><br><span class="small">'+(x.st.s.country||'Región')+'</span></span><span style="font-weight:800;color:'+COLORS[level(x.score)]+'">'+level(x.score).toUpperCase()+' · '+x.score.toFixed(0)+'</span></div>').join('')+'</div>'+
+ '<div style="margin-top:10px"><div class="small" style="font-weight:900;margin-bottom:5px">PAÍSES / REGIONES A VIGILAR</div>'+countries.slice(0,5).map((r,i)=>'<div style="display:grid;grid-template-columns:30px 1fr auto;gap:7px;padding:9px 0;border-bottom:1px solid rgba(148,163,184,.22)"><b>#'+(i+1)+'</b><span><b>'+r.country+'</b><br><span class="small">segmento dominante: '+r.x.st.s.name+'</span></span><span style="font-weight:900;color:'+COLORS[level(r.score)]+'">'+level(r.score).toUpperCase()+' · '+r.score.toFixed(0)+'</span></div>').join('')+'</div>'+
+ '<details style="margin-top:10px"><summary><b>Ver ranking por segmentos</b></summary><div style="margin-top:8px">'+rows.map((x,i)=>'<div style="display:grid;grid-template-columns:30px 1fr auto;gap:7px;padding:8px 0;border-bottom:1px solid rgba(148,163,184,.22)"><b>#'+(i+1)+'</b><span><b>'+x.st.s.name+'</b><br><span class="small">'+(x.st.s.country||'Región')+'</span></span><span style="font-weight:800;color:'+COLORS[level(x.score)]+'">'+level(x.score).toUpperCase()+' · '+x.score.toFixed(0)+'</span></div>').join('')+'</div>'+
  '<p class="small"><b>Interpretación:</b> prioridad para seguimiento de una zona receptora según la convergencia experimental disponible. Fuentes lejanas pueden aportar al tamiz dinámico; la redistribución estática, deformación lenta y fluidos requieren evidencia compatible con el receptor.</p>'+
  '<button id="technicalToggle">Ver evidencia técnica</button>';
  const b=document.getElementById('technicalToggle');if(b)b.onclick=()=>{const o=document.body.classList.toggle('show-technical');b.textContent=o?'Ocultar evidencia técnica':'Ver evidencia técnica';};
