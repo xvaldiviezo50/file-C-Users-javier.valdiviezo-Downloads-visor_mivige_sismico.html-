@@ -3,6 +3,7 @@
 if(typeof L==='undefined'||typeof map==='undefined')return;
 
 const CFG={
+  version:'2.0-physical-pending',
   historyH:168,
   low:40,
   high:65,
@@ -140,14 +141,14 @@ function confidence(model,st,src,dyn){
 function scoreOne(model,st,events,now){
   const src=bestSourceFor(st,events,now);
   const sourcePts=src?20*src.score:0;
-  const path=sourcePathScore(model.states,st,src);
-  const seq=sequenceMemory(model.states,st,model.im);
+  const path={points:0,label:'transferencia de esfuerzos pendiente de cálculo',sourceNode:null};
+  const seq={points:0,label:'orden de epicentros excluido de la proyección física'};
   const delay=delayedWindow(src);
   const recv=receiverScore(st);
   const dyn=dynamicScore(st,model);
   const anti=antipodeScore(st);
   const sst=sstScore(st);
-  const release=releaseAttenuation(model.states,st,path);
+  const release={points:0,label:'descarga regional no inferida del momento sísmico'};
   const quiet=quiescenceContext(st);
   let score=sourcePts+path.points+seq.points+delay.points+recv.points+dyn.points+anti.points+sst.points+release.points+quiet.points;
   score=Math.max(0,Math.min(100,score));
@@ -164,7 +165,7 @@ function ensureCard(){
   const aside=document.querySelector('aside');if(!aside)return;
   const c=document.createElement('section');c.className='card';c.id='prospectiveEngineV2';
   c.innerHTML='<h2>🎯 Proyección prospectiva experimental · MIVIGE</h2>'+
-    '<div class="small">Esta salida es <b>independiente del ICM científico</b>. Integra memoria de cadena de 7 días, fuente dependiente de distancia, continuidad tectónica, activación secuencial, ventana retardada, estado del receptor, IITE-D, antípoda, SST y una atenuación experimental por liberación en nodos intermedios. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
+    '<div class="small">Esta salida es <b>independiente del ICM científico</b>. Conserva asociaciones exploratorias de fuente, tiempo, receptor, IITE-D, antípoda y SST. Se desactivan los aportes de secuencia geográfica, continuidad por cercanía y descarga intermedia: no sustituyen un cálculo de esfuerzos. El puntaje restante no determina dirección física. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
     '<div class="kpis" style="margin-top:8px">'+
       '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTop">—</div></div>'+
       '<div class="kpi"><div class="name">Nivel</div><div class="val" id="ppeLevel">—</div></div>'+
@@ -172,7 +173,7 @@ function ensureCard(){
       '<div class="kpi"><div class="name">Fuente dominante</div><div class="val" id="ppeSource">—</div></div>'+
     '</div><div id="ppeRows" style="margin-top:8px"></div>'+
     '<details style="margin-top:8px"><summary>Qué se añadió respecto del visor anterior</summary><div class="small" style="margin-top:6px">'+
-      '<b>Memoria:</b> 7 días, no solo 72 h. <b>Cascada:</b> cada segmento activado puede formar parte de una ruta de varios saltos. <b>Umbral fuente:</b> M5 regional, M5.5 interregional, M6 telesísmico y M6.5 global/antipodal. <b>Retardo:</b> 0–6, 6–24, 24–72 h y 3–7 d. <b>Descarga intermedia:</b> se conserva como hipótesis de atenuación experimental, no como ley física. <b>Antípoda/SST:</b> modificadores explícitos del receptor.</div></details>';
+      '<b>Memoria:</b> 7 días, no solo 72 h. <b>Dirección física:</b> pendiente de cálculo; no se extrapola una cadena de epicentros. <b>Umbral fuente:</b> M5 regional, M5.5 interregional, M6 telesísmico y M6.5 global/antipodal. <b>Retardo:</b> 0–6, 6–24, 24–72 h y 3–7 d. <b>Descarga intermedia:</b> aporte desactivado hasta disponer de un cálculo físico. <b>Antípoda/SST:</b> modificadores explícitos del receptor.</div></details>';
   const h=[...document.querySelectorAll('section.card h2')].find(x=>/Alerta sísmica experimental/i.test(x.textContent||''));
   h?h.parentElement.insertAdjacentElement('afterend',c):aside.insertBefore(c,aside.firstChild);
 }
