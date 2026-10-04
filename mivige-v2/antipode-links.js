@@ -27,7 +27,7 @@ const RECEIVERS=[
 ];
 
 const layer=L.layerGroup(); // No area circles: links are the primary representation.
-const links=L.layerGroup().addTo(map);
+const links=L.layerGroup().addTo(map);\nconst learningLinks=L.layerGroup().addTo(map);
 const sourceEvents=L.layerGroup().addTo(map);
 
 function anti(lat,lon){return {lat:-lat,lon:lon<0?lon+180:lon-180};}
@@ -112,7 +112,7 @@ function drawReceiver(r,ap,status,src){
     .bindPopup('<b>Origen del sismo · vínculo antipodal experimental</b><br>'+fmt(src.e)+'<br>Receptor: '+r.name+'<br>Distancia a antípoda exacta: '+Math.round(src.d)+' km · '+src.f.label)
     .addTo(sourceEvents);
 }
-function drawLinks(active){
+function drawLearningLinks(items){\n  learningLinks.clearLayers();\n  items.forEach(x=>{const q=x.q,r=x.r,c=q.d<=CFG.coreKm?'#f0c644':'#8fb8ff';const label='CHALLENGER M'+Number(q.e.mag).toFixed(1)+' · '+(q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(q.d)+' km → '+r.name+' · 24/72 h · no activa V1';L.polyline([[q.e.lat,q.e.lon],[r.lat,r.lon]],{color:c,weight:1.8,dashArray:'4 8',opacity:.7}).bindTooltip(label).bindPopup(label+'<br>Relación geométrica experimental; no implica transferencia causal de energía.').addTo(learningLinks);L.circleMarker([q.e.lat,q.e.lon],{radius:4,color:c,weight:1.5,fillOpacity:.75}).bindPopup('<b>Fuente antipodal en aprendizaje</b><br>'+fmt(q.e)+'<br>'+label).addTo(learningLinks);});\n}\nfunction drawLinks(active){
   links.clearLayers();
   active.filter(x=>x.src.d<=CFG.coreKm).forEach(x=>{
     const r=x.r,origin=[x.src.e.lat,x.src.e.lon],dest=[r.lat,r.lon],c='#d7a5ff';
@@ -129,11 +129,11 @@ function run(){
   ensureCard();
   if(!Array.isArray(allEvents))return;
   layer.clearLayers();sourceEvents.clearLayers();
-  const now=Date.now(),rows=[],active=[];
+  const now=Date.now(),rows=[],active=[],learning=[];
   let nCore=0,nHalo=0;
   for(const r of RECEIVERS){
     const ap=anti(r.lat,r.lon);
-    const cand=sourceCandidates(allEvents,r,now);\n    const learn=learningCandidates(allEvents,r,now);
+    const cand=sourceCandidates(allEvents,r,now);\n    const learn=learningCandidates(allEvents,r,now);\n    learn.forEach(q=>learning.push({r,q}));
     const src=cand[0]||null;
     const st=src?src.f:{label:'SIN ACTIVACIÓN',score:0};
     if(st.label==='NÚCLEO')nCore++; else if(st.label==='HALO')nHalo++;
@@ -150,7 +150,7 @@ function run(){
       (learn.length?('<br><span style="color:#f0c644"><b>CHALLENGER EN OBSERVACIÓN:</b> '+learn.slice(0,3).map(q=>'M'+Number(q.e.mag).toFixed(1)+' · '+(q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(q.d)+' km').join(' | ')+' · ventanas 24/72 h · no activa V1</span>'):'')+
       '</div></div><div class="pct">'+st.label+'</div></div>');
   }
-  drawLinks(active);
+  drawLinks(active);\n  drawLearningLinks(learning);
   const direct=active.filter(x=>x.src.d<=CFG.coreKm);
   const sourceButton=document.getElementById('antiViewSources');sourceButton.disabled=!direct.length;sourceButton.textContent=direct.length?'Ver vínculos activos':'Sin activación núcleo';
   document.getElementById('antiRows').innerHTML=rows.join('');
@@ -161,7 +161,7 @@ function run(){
 ensureCard();
 try{L.control.layers({},{
   'Antípodas · vínculos fuente → receptor':links,
-  'Red antipodal · fuentes M≥6.5':sourceEvents
+  'Red antipodal · fuentes M≥6.5':sourceEvents,\n  'Antípodas · aprendizaje M5.0–6.49':learningLinks
 },{collapsed:true,position:'topright'}).addTo(map);}catch(_){}
 window.addEventListener('mivige:model',run);
 setTimeout(run,2800);
