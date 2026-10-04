@@ -23,7 +23,7 @@ function init(){
  function load(){const f=PRODUCTS[s.value];p.querySelector("#rainImg").src=BASE+f+"?t="+Date.now();p.querySelector("#rainStamp").textContent="Consulta: "+new Date().toLocaleString("es-EC",{timeZone:"America/Guayaquil"})+" · producto servido directamente por INAMHI."}
  s.onchange=load;p.querySelector("#rainReload").onclick=load;p.querySelector("#rainClose").onclick=()=>p.hidden=true;load();
  function toggle(){p.hidden=!p.hidden;if(!p.hidden)load()}
- window.MIVIGE_RAIN={toggle,load,products:PRODUCTS};
+ window.MIVIGE_RAIN={toggle,load,products:PRODUCTS}; const mainBtn=document.getElementById("rainToggleMain"); if(mainBtn) mainBtn.onclick=toggle;
 }
 init();
 })();
