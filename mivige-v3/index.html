@@ -19,7 +19,7 @@
 
 <section class="card"><h2>Migración direccional · capa experimental adicional</h2><div id="migrationExperimental">Calculando secuencias observadas…</div></section>
 <section class="card" id="externalVariablesCard"><h2>Activación sísmica regional · variables técnicas</h2><div id="externalVariables">Esperando catálogos para calcular las variables…</div></section>
-<section class="card"><h2>Redes GNSS nacionales · cobertura y acceso</h2><div id="nationalNetworks">Consultando inventarios oficiales…</div></section>
+<div id="nationalNetworks" hidden aria-hidden="true"></div>
 <section class="card"><h2>GNSS regional · observaciones procesadas</h2><div id="gnssRegional">Cargando series públicas…</div></section>
 <section class="card"><h2>Zonas de vigilancia · estado por segmento</h2><p class="small">Solo una señal que supera los controles activa vigilancia reforzada. Las demás zonas se muestran en orden geográfico; su posición no indica riesgo ni dirección de propagación.</p><div id="zones"></div><div class="small" style="margin-top:8px">El visor calcula un <b>Mc proxy de ventana</b>, tasa 24 h/fondo, clustering, magnitud equivalente, b-value cuando hay muestra suficiente, desplazamiento de centroides y migración vertical. El baseline mostrado es una comparación de tasas con los seis días previos, no un ETAS calibrado.</div></section>
 
@@ -35,7 +35,7 @@
 <script src="../v10/app1.js?v=3000"></script>
 <script src="quality.js?v=3000"></script>
 <script src="data-quality.js?v=3000"></script>
-<script src="geodesy.js?v=3005"></script>
+<script src="geodesy.js?v=3009"></script>
 <script src="networks.js?v=3000"></script>
 <script src="model.js?v=3003"></script>
 <script src="sst-summary.js?v=3007"></script>
