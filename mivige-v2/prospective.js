@@ -239,14 +239,21 @@ function render(){
   document.getElementById('ppeConfidence').textContent=top.conf.label;
   document.getElementById('ppeSource').textContent=fmtSource(top);
 
-  document.getElementById('ppeRows').innerHTML=results.map((x,i)=>
-    '<div class="listitem"><div class="dot" style="background:'+x.level.color+'"></div><div><div class="zname"><b>#'+(i+1)+'</b> '+x.st.s.name+'</div><div class="zdesc">'+
-    '<b>'+x.level.name+'</b> · '+x.score.toFixed(1)+'/100 · '+x.conf.label+'<br>'+
-    '<b>Fuente:</b> '+fmtSource(x)+'<br>'+
-    '<b>Componentes:</b> fuente '+x.sourcePts.toFixed(1)+' · continuidad '+x.path.points.toFixed(1)+' · secuencia '+x.seq.points.toFixed(1)+' · retardo '+x.delay.points.toFixed(1)+' · receptor '+x.recv.points.toFixed(1)+' · IITE-D '+x.dyn.points.toFixed(1)+' · antípoda '+x.anti.points.toFixed(1)+' · SST '+x.sst.points.toFixed(1)+' · descarga '+x.release.points.toFixed(1)+'<br>'+
-    '<b>Trazabilidad:</b> '+auditText(x)+'<br>'+ '<b>Lectura:</b> '+x.path.label+' · '+x.seq.label+' · '+x.delay.label+' · '+x.anti.label+
-    '</div></div><div class="pct" style="color:'+x.level.color+'">'+x.level.short+'</div></div>'
-  ).join('');
+  document.getElementById('ppeRows').innerHTML=results.slice(0,5).map((x,i)=>{
+    const rankColor=i===0?'#e4493f':i===1?'#f08a24':i===2?'#f0c644':'#42b86b';
+    const rankLabel='PRIORIDAD '+(i+1);
+    const signals=[];
+    if(x.src)signals.push('fuente M'+x.src.e.mag.toFixed(1));
+    if(x.recv&&x.recv.points>0)signals.push('respuesta receptor');
+    if(x.dyn&&x.dyn.points>0)signals.push('activación dinámica');
+    if(x.anti&&x.anti.points>0)signals.push('antípoda challenger');
+    if(x.sst&&x.sst.points>0)signals.push('SST challenger');
+    return '<div style="border:2px solid '+rankColor+';border-left-width:8px;border-radius:10px;padding:10px 12px;margin:8px 0;background:rgba(255,255,255,.035)">'+
+      '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><b style="color:'+rankColor+'">'+rankLabel+'</b> · <b>'+x.st.s.name+'</b></div><div style="font-size:20px;font-weight:800;color:'+rankColor+'">'+x.score.toFixed(0)+'/100</div></div>'+
+      '<div class="small" style="margin-top:5px"><b>Proyección experimental:</b> '+x.level.short+' · <b>ventana:</b> '+x.delay.label+'</div>'+
+      '<div class="small"><b>Señales activas:</b> '+(signals.length?signals.join(' · '):'actividad del receptor')+'</div>'+
+      '<details style="margin-top:5px"><summary>Ver fundamento y trazabilidad</summary><div class="small"><b>Fuente:</b> '+fmtSource(x)+'<br><b>Componentes:</b> fuente '+x.sourcePts.toFixed(1)+' · receptor '+x.recv.points.toFixed(1)+' · IITE-D '+x.dyn.points.toFixed(1)+' · antípoda '+x.anti.points.toFixed(1)+' · SST '+x.sst.points.toFixed(1)+'<br><b>Trazabilidad:</b> '+auditText(x)+'</div></details></div>';
+  }).join('');
 
 
   draw(results);
