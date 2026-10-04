@@ -170,20 +170,19 @@ function scoreOne(model,st,events,now){
   const quiet=quiescenceContext(st);
   // Physics v1: only evaluable physical/observational channels enter the core score.
   // Challenger channels (antipode/SST) are retained for prospective validation but contribute 0 to core.
+  // EXPERIMENTAL CORE: scientific corroboration must never suppress the prospective ranking.
+  // Coulomb, GNSS/InSAR, slow/post-seismic slip and fluids remain independent explanatory evidence.
   const components=[
-    // Validation track: preserve the pre-Coulomb weights so the historical signal is comparable over time.
-    // Coulomb is scientific evidence shown separately and NEVER changes this experimental pattern score.
-    {id:'source',value:src?100*src.score:null,weight:.25},
-    {id:'receiver',value:st.hist.length?100*clamp((recv.points)/20):null,weight:.45},
-    {id:'dynamic',value:model?.dyn?.by?.[st.s.id]?.source&&model.dyn.by[st.s.id].after>=5?100*clamp(dyn.points/10):null,weight:.15},
-    {id:'geodesy',value:(st.idg&&st.idg.used>=3&&!String(st.idg.state).includes('atrasado'))?(st.idg.candidate?70:25):null,weight:.15}
+    {id:'source',value:src?100*src.score:null,weight:.30},
+    {id:'receiver',value:st.hist.length?100*clamp((recv.points)/20):null,weight:.55},
+    {id:'dynamic',value:model?.dyn?.by?.[st.s.id]?.source&&model.dyn.by[st.s.id].after>=5?100*clamp(dyn.points/10):null,weight:.15}
   ];
   const evals=components.filter(x=>Number.isFinite(x.value));
   const w=evals.reduce((a,x)=>a+x.weight,0);
   let score=w?evals.reduce((a,x)=>a+x.value*x.weight,0)/w:0;
   score=Math.max(0,Math.min(100,score));
   const coverage=Math.round(100*w);
-  const conf={score:coverage,label:'cobertura física '+coverage+'%'};
+  const conf={score:coverage,label:'cobertura experimental '+coverage+'%'};
   return {components,hasEvidence:w>0,st,src,sourcePts,path,seq,delay,recv,dyn,anti,antiContinuous,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
 }
 function fmtSource(x){
@@ -196,7 +195,7 @@ function ensureCard(){
   const aside=document.querySelector('aside');if(!aside)return;
   const c=document.createElement('section');c.className='card';c.id='prospectiveEngineV2';
   c.innerHTML='<h2>🎯 Proyección prospectiva experimental · MIVIGE</h2>'+
-    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. Mantiene congeladas las ponderaciones pre-Coulomb: fuente 25%, respuesta observada del receptor 45%, tamiz dinámico 15% y GNSS 15% cuando son evaluables. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. La antípoda continua M≥5,0 combina magnitud, proximidad geométrica y edad del evento, pero no modifica el puntaje V1 mientras no supere validación contra baseline. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
+    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. El núcleo experimental usa fuente 30%, respuesta observada del receptor 55% y activación dinámica 15% cuando son evaluables. GNSS/InSAR, Coulomb, deslizamiento lento/post-sísmico y fluidos quedan como evidencia física independiente y nunca reducen el puntaje por ausencia de datos. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. La antípoda continua M≥5,0 combina magnitud, proximidad geométrica y edad del evento, pero no modifica el puntaje V1 mientras no supere validación contra baseline. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
     '<div class="kpis" style="margin-top:8px">'+
       '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTopDetail">—</div></div>'+
       '<div class="kpi"><div class="name">Nivel</div><div class="val" id="ppeLevel">—</div></div>'+
