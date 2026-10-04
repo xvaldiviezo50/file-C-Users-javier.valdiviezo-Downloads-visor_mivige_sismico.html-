@@ -49,4 +49,20 @@
 <script src="migration-experimental.js?v=3004"></script>
 <script src="hypothesis-validation.js?v=3010"></script>
 <script src="projection-badge.js?v=3008"></script>
-<script src="rain-layer.js?v=3013"></script>\n</body></html>
+<script src="rain-layer.js?v=3013"></script>\n<style>
+#rainHardBtn{position:absolute;z-index:1200;left:84px;top:12px;background:#0b2940;color:#fff;border:2px solid #fff;border-radius:7px;padding:8px 10px;font-weight:800;box-shadow:0 2px 8px #0008}
+#rainHardPanel{position:absolute;z-index:1199;left:12px;right:12px;bottom:12px;max-width:430px;background:#071522ee;border:1px solid #76c8ff;border-radius:9px;padding:8px;color:#fff}
+#rainHardPanel img{width:100%;display:block;background:#fff;border-radius:5px}#rainHardPanel select,#rainHardPanel button{margin:4px;padding:5px}
+</style>
+<script>
+(function(){
+ var host=document.getElementById('map'); if(!host)return; host.style.position='relative';
+ var b=document.createElement('button'); b.id='rainHardBtn'; b.type='button'; b.textContent='🌧 Lluvia INAMHI'; host.appendChild(b);
+ var p=document.createElement('div'); p.id='rainHardPanel'; p.hidden=true;
+ p.innerHTML='<b>Precipitación oficial INAMHI · WRF</b><br><select id="rainHardSel"><option value="Azuay_p_3h.gif">Azuay · 3 h</option><option value="El_Oro_p_3h.gif">El Oro · 3 h</option><option value="MoronaSantiago_p_3h.gif">Morona Santiago · 3 h</option><option value="Pastaza_p_3h.gif">Pastaza · 3 h</option><option value="Tungurahua_p_3h.gif">Tungurahua · 3 h</option><option value="Cotopaxi_p_3h.gif">Cotopaxi · 3 h</option><option value="Chimborazo_p_3h.gif">Chimborazo · 3 h</option></select><button id="rainHardClose">Cerrar</button><img id="rainHardImg" alt="Animación de precipitación INAMHI"><small>Producto meteorológico independiente del modelo sísmico.</small>';
+ host.appendChild(p);
+ var s=p.querySelector('#rainHardSel'),im=p.querySelector('#rainHardImg');
+ function load(){im.src='https://www.inamhi.gob.ec/pronostico/animacion_modelo/'+s.value+'?v='+Date.now();}
+ b.onclick=function(){p.hidden=!p.hidden;if(!p.hidden)load();}; s.onchange=load;p.querySelector('#rainHardClose').onclick=function(){p.hidden=true;};
+})();
+</script>\n</body></html>
