@@ -1,5 +1,5 @@
 <!doctype html><html lang="es"><head><base href="../mivige-v2/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MIVIGE v3.0 Público · Nowcasting geodinámico multievidencia</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><link rel="stylesheet" href="../v10/style.css?v=3000"><style>a{color:#86ccff}summary{cursor:pointer;font-size:12px}#gnssPlot svg{width:100%;height:auto}.badge{white-space:normal;max-width:270px}@media(max-width:600px){header{position:static;flex-wrap:wrap}header h1{font-size:17px}.badge{margin-left:0}#map{min-height:330px}}</style></head><body>
-<header><div><h1>MIVIGE v3.14 Público · dashboard preventivo · build 3068</h1><div class="sub">Chile → Venezuela • sismicidad + geodesia + interacción tectónica + migración • capas científicas separadas de Challengers experimentales • NA ≠ 0 • no constituye predicción determinista ni alerta oficial</div></div><div id="semaforo" hidden aria-hidden="true"></div><div class="badge" id="projectionBadge" role="status" aria-live="polite">PROYECCIÓN EXPERIMENTAL REGIONAL · CARGANDO</div></header>
+<header><div><h1>MIVIGE v3.14 Público · dashboard preventivo · build 3069</h1><div class="sub">Chile → Venezuela • sismicidad + geodesia + interacción tectónica + migración • capas científicas separadas de Challengers experimentales • NA ≠ 0 • no constituye predicción determinista ni alerta oficial</div></div><div id="semaforo" hidden aria-hidden="true"></div><div class="badge" id="projectionBadge" role="status" aria-live="polite">PROYECCIÓN EXPERIMENTAL REGIONAL · CARGANDO</div></header>
 <main><div><div id="map"></div><section class="card" id="antipodeVisibleCard" style="margin:10px"><h2>Actividad antipodal experimental</h2><div id="antiVisibleSummary">Cargando fuentes M≥5,0 de las últimas 72 h…</div><div id="antiVisibleRows" style="margin-top:8px"></div><div class="small" style="margin-top:8px">Challenger experimental: describe coincidencia geométrica con la antípoda matemática. No demuestra transferencia causal de energía ni constituye predicción o alerta.</div></section></div><aside>
 <section class="card"><h2>Actualización y control</h2><div class="controls"><button id="refresh">Actualizar datos</button><select id="window"><option value="24">24 h</option><option value="72" selected>72 h</option><option value="168">7 días</option></select><select id="minmag"><option value="2.5">M≥2.5</option><option value="3" selected>M≥3.0</option><option value="3.5">M≥3.5</option><option value="4">M≥4.0</option><option value="4.5">M≥4.5</option></select><select id="tectonicFilter"><option value="all" selected>Todos</option><option value="shallow">Somero (mecanismo sin resolver)</option><option value="unknown">Profundidad desconocida</option><option value="intermediate">Intermedio</option><option value="intraslab">Intraslab</option></select></div><div class="small">Corte: <b id="cut">—</b><br>Próxima consulta: <b id="next">—</b><br><b>Regla:</b> ausencia de GNSS/InSAR = datos insuficientes, nunca deformación cero.</div></section>
 
@@ -7,6 +7,7 @@
 <section class="card" id="priorityRankingFixed"><h2>Ranking de prioridades de vigilancia</h2><div class="small">Orden regional calculado de mayor a menor prioridad experimental. Todas las zonas permanecen visibles.</div><div id="priorityRankingMirror" style="margin-top:8px">Calculando Chile · Perú · Ecuador · Colombia · Panamá · Venezuela…</div></section>
 
 
+<section class="card" id="modelArchitecture"><h2>Modelo MIVIGE · núcleo + capas experimentales</h2><div class="small">El visor conserva dos niveles simultáneos. El núcleo usa variables físicas observables; los challengers permanecen activos para validación prospectiva y aprendizaje, sin convertirse automáticamente en evidencia causal.</div><div class="kpis" style="margin-top:8px"><div class="kpi"><div class="name">Redistribución de esfuerzos</div><div class="val">Coulomb · ΔCFS cuando sea evaluable</div></div><div class="kpi"><div class="name">Deformación</div><div class="val">GNSS / InSAR · slow/after-slip</div></div><div class="kpi"><div class="name">Activación dinámica</div><div class="val">Ondas + respuesta temporal</div></div><div class="kpi"><div class="name">Fluidos</div><div class="val">Hipótesis · requiere evidencia independiente</div></div></div><div class="small" style="margin-top:10px"><b>Capas experimentales activas:</b> migración espacio-temporal · secuencias S→N/N→S · antípoda/huella antipodal · SST · vínculos fuente→receptor · aprendizaje y validación de hipótesis. <b>N/A ≠ 0.</b></div><div class="small" style="margin-top:6px"><b>Separación física:</b> esfuerzo ≠ deformación ≠ energía sísmica radiada.</div></section>
 <section class="card"><h2>Evidencia clave</h2><div class="kpis"><div class="kpi"><div class="name">Coulomb</div><div class="val" id="iiteS">—</div></div><div class="kpi"><div class="name">Dinámica</div><div class="val" id="iiteD">—</div></div><div class="kpi"><div class="name">Geodesia</div><div class="val" id="iac">—</div></div><div class="kpi"><div class="name">Antípoda / SST</div><div class="val">Observación</div></div></div><details style="margin-top:8px"><summary>Detalle técnico</summary><div id="evidenceMatrix" style="margin-top:8px"></div></details></section>
 
 <section class="card"><h2>Migración direccional · capa experimental adicional</h2><div id="migrationExperimental">Calculando secuencias observadas…</div></section>
@@ -35,9 +36,9 @@
 <script src="model.js?v=3068"></script>
 <script src="recent-quakes.js?v=3064"></script>
 <script src="sst-summary.js?v=3007"></script>
-<script src="antipode-links.js?v=3060"></script>
+<script src="antipode-links.js?v=3069"></script>
 <script src="coulomb.js?v=3046"></script>
-<script src="prospective.js?v=3067"></script>
+<script src="prospective.js?v=3069"></script>
 <script src="../mivige-v2/learning-observer.js?v=3050"></script>
 <script src="persistent-learning.js?v=3051"></script>
 
@@ -45,10 +46,10 @@
 
 
 <script src="external-variables.js?v=3002"></script>
-<script src="migration-experimental.js?v=3025"></script>
-<script src="directional-scenarios.js?v=3025"></script>
-<script src="hypothesis-validation.js?v=3049"></script>
+<script src="migration-experimental.js?v=3069"></script>
+<script src="directional-scenarios.js?v=3069"></script>
+<script src="hypothesis-validation.js?v=3069"></script>
 <script src="projection-badge.js?v=3047"></script>
 <script src="rain-layer.js?v=3011"></script>
-<script src="physical-windows.js?v=3050"></script>
+<script src="physical-windows.js?v=3069"></script>
 </body></html>
