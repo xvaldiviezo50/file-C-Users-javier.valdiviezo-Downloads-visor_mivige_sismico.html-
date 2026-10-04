@@ -49,5 +49,20 @@
 <script src="migration-experimental.js?v=3004"></script>
 <script src="hypothesis-validation.js?v=3010"></script>
 <script src="projection-badge.js?v=3008"></script>
-<a href="https://inamhi.geoglows.org/apps/met-data-explorer" target="_blank" rel="noopener" aria-label="Abrir mapa interactivo de lluvia de INAMHI" style="position:fixed;right:14px;bottom:18px;z-index:99999;background:#0b2940;color:#fff;border:2px solid #fff;border-radius:10px;padding:11px 14px;font-weight:800;text-decoration:none;box-shadow:0 3px 12px #0008">🌧 Lluvia INAMHI</a>
+<button id="inamhiRainBtn" type="button" aria-label="Mostrar lluvia INAMHI" style="position:fixed;right:14px;bottom:18px;z-index:99999;background:#0b2940;color:#fff;border:2px solid #fff;border-radius:10px;padding:11px 14px;font-weight:800;box-shadow:0 3px 12px #0008">🌧 Lluvia INAMHI</button>
+<div id="inamhiRainPanel" style="display:none;position:fixed;inset:158px 8px 8px 8px;z-index:99998;background:#071525;border:2px solid #8fb7d6;border-radius:12px;overflow:hidden;box-shadow:0 6px 24px #000b">
+  <div style="height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;background:#0b2940;color:white;font-weight:800">
+    <span>🌧 Precipitación Ecuador · INAMHI-GEOGLOWS</span>
+    <button id="inamhiRainClose" type="button" style="font-size:24px;background:transparent;color:white;border:0">×</button>
+  </div>
+  <iframe title="Mapa interactivo de precipitación INAMHI" src="https://inamhi.geoglows.org/apps/met-data-explorer" style="width:100%;height:calc(100% - 42px);border:0;background:white" loading="lazy"></iframe>
+</div>
+<script>
+(function(){
+ const b=document.getElementById('inamhiRainBtn'), p=document.getElementById('inamhiRainPanel'), x=document.getElementById('inamhiRainClose');
+ function set(on){p.style.display=on?'block':'none';b.textContent=on?'🌧 Cerrar lluvia':'🌧 Lluvia INAMHI';}
+ b.addEventListener('click',()=>set(p.style.display==='none'));
+ x.addEventListener('click',()=>set(false));
+})();
+</script>
 </body></html>
