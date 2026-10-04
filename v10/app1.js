@@ -40,7 +40,7 @@ const footprints = [
 
 const endpoints = {
  'USGS':'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson',
- 'EMSC':'https://www.seismicportal.eu/fdsnws/event/1/query?format=json&starttime=2026-09-27&minmagnitude=2.5&limit=20000&orderby=time',
+ 'EMSC':'https://www.seismicportal.eu/fdsnws/event/1/query?format=json&minmagnitude=2.5&limit=20000&orderby=time',
  'IG-EPN':"https://srvsigaweb.igepn.edu.ec/server/rest/services/Sismicidad_365/MapServer/0/query?where=1%3D1&outFields=sis3_evento%2Csis3_tiempo%2Csis3_latitud%2Csis3_longitud%2Csis3_profundidad%2Csis3_magnitud_M%2Csis3_tipo_magnitud_P&returnGeometry=true&outSR=4326&orderByFields=sis3_tiempo%20DESC&resultRecordCount=500&f=geojson",
  'IGP':"https://ide.igp.gob.pe/arcgis/rest/services/monitoreocensis/SismosReportados/MapServer/0/query?where=1%3D1&outFields=fecha%2Chora%2Clat%2Clon%2Cprof%2Cref%2Cmagnitud%2Cfechaevento%2Ccode&returnGeometry=true&outSR=4326&orderByFields=fechaevento%20DESC&resultRecordCount=500&f=geojson",
  'SGC':"https://geoportal.sgc.gov.co/arcgis/rest/services/catalogo_sismos/catalogo_de_sismos_2/MapServer/0/query?where=1%3D1&outFields=ESP_ID_EVENTO_TXT%2CESP_MAGNITUD%2CESP_PROFUNDIDAD%2CESP_FECHA_TXT%2CESP_FECHA%2CESP_LATITUD%2CESP_LONGITUD&returnGeometry=true&outSR=4326&orderByFields=ESP_FECHA%20DESC&resultRecordCount=500&f=geojson"
