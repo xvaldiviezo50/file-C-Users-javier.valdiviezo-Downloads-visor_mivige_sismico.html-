@@ -282,12 +282,12 @@ function render(states,im,dyn,anti,idg,idqv){
   if(document.getElementById('idgHR'))document.getElementById('idgHR').textContent='canal co/post-sísmico · no precursor';
   if(document.getElementById('imst'))document.getElementById('imst').textContent=im.r==null?'NA · '+im.label:('r='+im.r.toFixed(2)+' · '+im.label);
   document.getElementById('idq').textContent=idqv.score+'/100 · '+idqv.label;
-  document.getElementById('iiteS').textContent='NA · requiere mecanismos focales + geometría';
-  document.getElementById('iiteD').textContent=dyn.source?('tamiz activo · fuente M'+dyn.source.mag.toFixed(1)):'sin fuente M≥'+CFG.dynSourceMag;
-  document.getElementById('iac').textContent='NA automatizado · prior espacial pendiente de malla de acoplamiento';
+  {const e=document.getElementById('iiteS');if(e){e.textContent='';const k=e.closest('.kpi');if(k)k.style.display='none';}}
+  {const e=document.getElementById('iiteD');if(e){const ok=!!dyn.source;e.textContent=ok?('tamiz activo · fuente M'+dyn.source.mag.toFixed(1)):'';const k=e.closest('.kpi');if(k)k.style.display=ok?'':'none';}}
+  {const e=document.getElementById('iac');if(e){e.textContent='';const k=e.closest('.kpi');if(k)k.style.display='none';}}
 
   const host=document.getElementById('zones');
-  host.innerHTML=ranked.map((st,i)=>{
+  host.innerHTML=ranked.slice(0,5).map((st,i)=>{
     const d=dyn.by[st.s.id];
     return '<div class="listitem"><div class="dot" style="background:'+tierColor(st.icm.tier)+'"></div><div><div class="zname">'+st.s.name+'</div><div class="zdesc">'+
       '<b>Evaluación:</b> '+(st.dataReady?st.icm.label:st.coverageReason)+' · <b>IDS:</b> '+st.ids.toFixed(0)+'/100<br>'+
