@@ -239,7 +239,7 @@ function render(){
   document.getElementById('ppeConfidence').textContent=top.conf.label;
   document.getElementById('ppeSource').textContent=fmtSource(top);
 
-  document.getElementById('ppeRows').innerHTML=results.slice(0,7).map((x,i)=>
+  document.getElementById('ppeRows').innerHTML=results.map((x,i)=>
     '<div class="listitem"><div class="dot" style="background:'+x.level.color+'"></div><div><div class="zname"><b>#'+(i+1)+'</b> '+x.st.s.name+'</div><div class="zdesc">'+
     '<b>'+x.level.name+'</b> · '+x.score.toFixed(1)+'/100 · '+x.conf.label+'<br>'+
     '<b>Fuente:</b> '+fmtSource(x)+'<br>'+
