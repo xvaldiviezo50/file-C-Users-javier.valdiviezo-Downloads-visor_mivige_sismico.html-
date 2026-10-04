@@ -159,7 +159,8 @@ function scoreOne(model,st,events,now){
   const sourcePts=src?20*src.score:0;
   const coulomb=window.mivigeCoulomb&&window.mivigeCoulomb[st.s.id];
   const path=(coulomb&&coulomb.evaluable&&Number.isFinite(coulomb.score))?{points:coulomb.score,label:'Coulomb ΔCFS evaluable · '+(coulomb.label||'resultado disponible'),sourceNode:null,evaluable:true,value:clamp((coulomb.score+100)/200)*100}:{points:0,label:'Coulomb N/A · requiere mecanismo/ruptura y geometría receptora',sourceNode:null,evaluable:false,value:null};
-  const seq={points:0,label:'orden de epicentros excluido de la proyección física'};
+  const pathExp=sourcePathScore(model.states,st,src);
+  const seq=sequenceMemory(model.states,st,model.im);
   const delay=delayedWindow(src);
   const recv=receiverScore(st);
   const dyn=dynamicScore(st,model);
@@ -173,17 +174,23 @@ function scoreOne(model,st,events,now){
   // EXPERIMENTAL CORE: scientific corroboration must never suppress the prospective ranking.
   // Coulomb, GNSS/InSAR, slow/post-seismic slip and fluids remain independent explanatory evidence.
   const components=[
-    {id:'source',value:src?100*src.score:null,weight:.30},
-    {id:'receiver',value:st.hist.length?100*clamp((recv.points)/20):null,weight:.55},
-    {id:'dynamic',value:model?.dyn?.by?.[st.s.id]?.source&&model.dyn.by[st.s.id].after>=5?100*clamp(dyn.points/10):null,weight:.15}
+    {id:'receiver',value:st.hist.length?100*clamp(recv.points/20):null,weight:.30},
+    {id:'source',value:src?100*src.score:null,weight:.20},
+    {id:'path',value:src?100*clamp(pathExp.points/16):null,weight:.15},
+    {id:'sequence',value:(model.im&&model.im.r!=null)?100*clamp(seq.points/18):null,weight:.15},
+    {id:'dynamic',value:model?.dyn?.by?.[st.s.id]?.source&&model.dyn.by[st.s.id].after>=5?100*clamp(dyn.points/10):null,weight:.10},
+    {id:'antipode',value:Number.isFinite(antiContinuous.value)?antiContinuous.value:null,weight:.07},
+    {id:'sst',value:Number.isFinite(sst.value)?sst.value:null,weight:.03}
   ];
   const evals=components.filter(x=>Number.isFinite(x.value));
   const w=evals.reduce((a,x)=>a+x.weight,0);
   let score=w?evals.reduce((a,x)=>a+x.value*x.weight,0)/w:0;
-  score=Math.max(0,Math.min(100,score));
+  const activeFamilies=components.filter(x=>Number.isFinite(x.value)&&x.value>=20).length;
+  const convergence=activeFamilies>=4?1.08:activeFamilies===3?1:activeFamilies===2?.90:.72;
+  score=Math.max(0,Math.min(100,score*convergence));
   const coverage=Math.round(100*w);
   const conf={score:coverage,label:'cobertura experimental '+coverage+'%'};
-  return {components,hasEvidence:w>0,st,src,sourcePts,path,seq,delay,recv,dyn,anti,antiContinuous,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
+  return {components,hasEvidence:w>0,activeFamilies,convergence,st,src,sourcePts,path:pathExp,seq,delay,recv,dyn,anti,antiContinuous,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
 }
 function fmtSource(x){
   if(!x||!x.src)return 'sin fuente material';
@@ -195,7 +202,7 @@ function ensureCard(){
   const aside=document.querySelector('aside');if(!aside)return;
   const c=document.createElement('section');c.className='card';c.id='prospectiveEngineV2';
   c.innerHTML='<h2>🎯 Proyección prospectiva experimental · MIVIGE</h2>'+
-    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. El núcleo experimental usa fuente 30%, respuesta observada del receptor 55% y activación dinámica 15% cuando son evaluables. GNSS/InSAR, Coulomb, deslizamiento lento/post-sísmico y fluidos quedan como evidencia física independiente y nunca reducen el puntaje por ausencia de datos. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. La antípoda continua M≥5,0 combina magnitud, proximidad geométrica y edad del evento, pero no modifica el puntaje V1 mientras no supere validación contra baseline. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
+    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. El ranking experimental combina receptor 30%, fuente 20%, continuidad fuente→receptor 15%, migración/secuencia 15%, activación dinámica 10%, antípoda 7% y SST 3%. Una sola familia activa recibe una penalización automática de convergencia. GNSS/InSAR, Coulomb, deslizamiento lento/post-sísmico y fluidos quedan como evidencia física independiente y nunca reducen el puntaje por ausencia de datos. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. La antípoda continua M≥5,0 combina magnitud, proximidad geométrica y edad del evento, pero no modifica el puntaje V1 mientras no supere validación contra baseline. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
     '<div class="kpis" style="margin-top:8px">'+
       '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTopDetail">—</div></div>'+
       '<div class="kpi"><div class="name">Nivel</div><div class="val" id="ppeLevel">—</div></div>'+
