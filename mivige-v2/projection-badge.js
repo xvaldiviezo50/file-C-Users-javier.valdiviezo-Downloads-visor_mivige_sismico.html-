@@ -4,10 +4,11 @@ const COLORS={Alta:'#dc2626',Media:'#d97706',Baja:'#16a34a'};
 function level(score){return score>=65?'Alta':score>=40?'Media':'Baja';}
 function isEcuador(x){const id=String(x?.st?.s?.id||'');return x?.st?.s?.country==='Ecuador'||id.startsWith('ec_');}
 function ensurePanel(){
- let p=document.getElementById('regionalProjectionPanel');if(p){p.id='ecuadorProjectionPanel';return p;}
  const aside=document.querySelector('aside');if(!aside)return null;
- p=document.createElement('section');p.className='card';p.id='ecuadorProjectionPanel';
- aside.insertBefore(p,aside.firstChild);return p;
+ const old=[...aside.querySelectorAll('#regionalProjectionPanel,#ecuadorProjectionPanel')];
+ let p=old[0]||null; old.slice(1).forEach(x=>x.remove());
+ if(!p){p=document.createElement('section');p.className='card';aside.insertBefore(p,aside.firstChild);}
+ p.id='ecuadorProjectionPanel'; return p;
 }
 function markTechnical(){
  [...document.querySelectorAll('aside > section.card')].forEach(s=>{
@@ -21,8 +22,9 @@ function render(){
  const badge=document.getElementById('projectionBadge'),p=window.mivigeProspectiveV2;
  const ec=(p?.results||[]).filter(isEcuador).sort((a,b)=>b.score-a.score);
  if(!ec.length){
-  panel.innerHTML='<h2>Proyección experimental · Ecuador</h2><div style="font-size:24px;font-weight:800;color:#64748b">DATOS INSUFICIENTES</div><p class="small">Esperando datos suficientes para evaluar las ventanas experimentales.</p><button id="technicalToggle">Ver evidencia técnica</button>';
-  if(badge){badge.style.background='#475569';badge.style.color='#fff';badge.innerHTML='<strong>ECUADOR · PROYECCIÓN EXPERIMENTAL</strong><div>DATOS INSUFICIENTES</div>';}
+  const lv='Baja',color=COLORS[lv];
+  panel.innerHTML='<h2>Proyección experimental · Ecuador</h2><div style="font-size:29px;font-weight:900;color:'+color+'">BAJA</div><div class="small" style="margin-top:4px">Índice experimental 0/100 · sin señal experimental suficiente para elevar el nivel con los datos abiertos cargados en este corte.</div><p class="small"><b>Cobertura:</b> la disponibilidad de fuentes se informa por separado y no sustituye esta clasificación.</p><button id="technicalToggle">Ver evidencia técnica</button>';
+  if(badge){badge.style.background=color;badge.style.color='#fff';badge.innerHTML='<strong>ECUADOR · PROYECCIÓN EXPERIMENTAL</strong><div>BAJA · 0/100</div>';}
  }else{
   const top=ec[0],lv=level(top.score),color=COLORS[lv];
   panel.innerHTML='<h2>Proyección experimental · Ecuador</h2>'+
