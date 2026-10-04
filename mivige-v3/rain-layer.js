@@ -1,12 +1,12 @@
 (()=>{"use strict";
 const BASE="https://www.inamhi.gob.ec/pronostico/animacion_modelo/";
 const PRODUCTS={
-"Azuay":"Azuay_p_3h.gif","Cañar":"canar_p_3h.gif","Chimborazo":"Chimborazo_p_3h.gif",
+"Azuay":"Azuay_p_3h.gif","Cañar":"Canar_Prov_p_6h.gif","Chimborazo":"Chimborazo_p_3h.gif",
 "Cotopaxi":"Cotopaxi_p_3h.gif","El Oro":"El_Oro_p_3h.gif","Morona Santiago":"MoronaSantiago_p_3h.gif",
 "Pastaza":"Pastaza_p_3h.gif","Tungurahua":"Tungurahua_p_3h.gif"
 };
 function init(){
- if(!window.L||!window.map) return setTimeout(init,700);
+ if(!window.L||!window.mivigeMap) return setTimeout(init,700);
  const css=document.createElement("style");css.textContent=`
  .rainCtl{background:#0b1725;color:#e9f6ff;border:1px solid #3c6d8b;border-radius:7px;padding:7px 10px;box-shadow:0 2px 10px #0008;font:12px system-ui;cursor:pointer}
  .rainPanel{position:absolute;z-index:1002;left:12px;bottom:26px;width:min(430px,calc(100vw - 24px));max-height:72vh;overflow:auto;background:#08131eeF;color:#e9f6ff;border:1px solid #3c6d8b;border-radius:10px;padding:10px;box-shadow:0 8px 28px #000b}
@@ -15,7 +15,7 @@ function init(){
  .rainMeta{font-size:11px;line-height:1.35;color:#bcd1df;margin-top:7px}.rainDot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#52b7ff;margin-right:5px}
  `;document.head.appendChild(css);
  const C=L.Control.extend({options:{position:"topleft"},onAdd(){const b=L.DomUtil.create("button","rainCtl");b.type="button";b.innerHTML="☔ Lluvia · INAMHI";L.DomEvent.disableClickPropagation(b);b.onclick=toggle;return b;}});
- new C().addTo(map);
+ new C().addTo(window.mivigeMap);
  const p=document.createElement("div");p.id="rainPanel";p.className="rainPanel";p.hidden=true;
  p.innerHTML='<h3>Precipitación · fuente oficial INAMHI</h3><div class="rainRow"><label>Zona</label><select id="rainRegion"></select><button id="rainReload">Actualizar</button><button id="rainClose">×</button></div><img id="rainImg" alt="Animación oficial INAMHI de precipitación WRF cada 3 horas"><div class="rainMeta"><span class="rainDot"></span><b>WRF · precipitación 3-horaria</b><br>La animación muestra la evolución/recorrido previsto de la lluvia en cuadros sucesivos. Es una capa meteorológica independiente: no modifica IDG, IDS, IITE, IADR ni el semáforo sísmico.<br><span id="rainStamp"></span><br><a href="https://inamhi.geoglows.org/apps/met-data-explorer" target="_blank" rel="noopener" style="color:#86ccff">INAMHI GEOGLOWS · explorador meteorológico</a></div>';
  document.getElementById("map").appendChild(p);
