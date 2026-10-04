@@ -195,9 +195,9 @@ function render(){
   const model=window.mivigeV2;
   if(!model||!Array.isArray(model.states)||!Array.isArray(allEvents))return;
   const now=Date.now();
-  const results=model.states.filter(st=>TARGETS.includes(st.s.id)).filter(st=>st.dataReady).map(st=>scoreOne(model,st,allEvents,now)).sort((a,b)=>b.score-a.score);
+  const results=model.states.filter(st=>TARGETS.includes(st.s.id)).map(st=>scoreOne(model,st,allEvents,now)).sort((a,b)=>b.score-a.score);
   const top=results[0];
-  if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='SIN EVALUACIÓN PROSPECTIVA';document.getElementById('ppeRows').textContent='No se calcula puntaje con catálogos parciales, ausentes o muestra menor a 20 eventos.';document.getElementById('ppeTop').textContent='—';document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,results:[],config:CFG};window.dispatchEvent(new Event('mivige:prospective'));return;}
+  if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='SIN EVALUACIÓN PROSPECTIVA';document.getElementById('ppeRows').textContent='Esperando al menos un segmento definido. La capa experimental usa los catálogos abiertos disponibles y conserva la cobertura/calidad como dato separado.';document.getElementById('ppeTop').textContent='—';document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,results:[],config:CFG};window.dispatchEvent(new Event('mivige:prospective'));return;}
 
   document.getElementById('ppeTop').textContent=top.st.s.name;
   document.getElementById('ppeLevel').textContent=top.level.name+' · '+top.score.toFixed(0)+'/100';
