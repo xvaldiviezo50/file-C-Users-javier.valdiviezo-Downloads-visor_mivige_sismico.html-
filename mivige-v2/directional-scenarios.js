@@ -8,14 +8,15 @@ function assess(events,reviewed,now){
  const refs=reviewed||[],pool=events.filter(e=>!refs.some(r=>r.id===e.id||Math.abs(r.time-e.time)<60000&&km(r,e)<30&&Math.abs(r.mag-e.mag)<.6)).concat(refs);
  const eligible=pool.filter(e=>e.time<=now&&e.time>=now-72*H&&e.mag>=3&&e.lat>=-6.5&&e.lat<=3&&e.lon>=-82&&e.lon<=-79);
  const unique=[];for(const e of eligible.sort((a,b)=>a.time-b.time)){if(!unique.some(r=>r.id===e.id||Math.abs(r.time-e.time)<60000&&km(r,e)<30&&Math.abs(r.mag-e.mag)<.6))unique.push(e);}
- const last=unique.slice(-3),none={version:'1.0',available:false,events:last,reason:'Se necesitan tres eventos consecutivos en el corredor continental occidental.'};
+ const last=unique.slice(-3),none={version:'1.0',available:false,sampleCount:unique.length,events:last,reason:'Se necesitan tres eventos consecutivos en el corredor continental occidental.'};
  if(last.length<3)return none;
  const ds=last.slice(1).map((e,i)=>({hours:(e.time-last[i].time)/H,km:km(last[i],e),delta:e.lat-last[i].lat}));
  if(ds.some(d=>d.hours<=0||d.hours>24||d.km>500||Math.abs(d.delta)<=.2)||Math.sign(ds[0].delta)!==Math.sign(ds[1].delta))return {...none,reason:'Últimos tres eventos: sin continuidad direccional bajo los criterios fijados.'};
  const south=ds[0].delta<0,anchor=last[2];
  let index=0;route.forEach((r,i)=>{if(km(r,anchor)<km(route[index],anchor))index=i;});
  const step=south?1:-1;
- return {version:'1.0',available:true,direction:south?'N→S':'S→N',events:last,intervals:ds,anchor,local:route[index],continuation:route[index+step]||null,reverse:route[index-step]||null,depthSpread:Math.max(...last.map(e=>e.depth))-Math.min(...last.map(e=>e.depth))};
+ let runLength=3;for(let i=unique.length-4;i>=0;i--){const a=unique[i],b=unique[i+1],hours=(b.time-a.time)/H,delta=b.lat-a.lat;if(hours<=0||hours>24||km(a,b)>500||Math.abs(delta)<=.2||Math.sign(delta)!==Math.sign(ds[0].delta))break;runLength++;}
+ return {version:'1.0',available:true,sampleCount:unique.length,runLength,direction:south?'N→S':'S→N',events:last,intervals:ds,anchor,local:route[index],continuation:route[index+step]||null,reverse:route[index-step]||null,depthSpread:Math.max(...last.map(e=>e.depth))-Math.min(...last.map(e=>e.depth))};
 }
 function current(){return assess(typeof allEvents==='undefined'?[]:allEvents,root.mivigeReviewedSnapshot?.events||[],Date.now());}
 root.MivigePattern={assess,current};
