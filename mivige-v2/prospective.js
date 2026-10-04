@@ -3,7 +3,7 @@
 if(typeof L==='undefined'||typeof map==='undefined')return;
 
 const CFG={
-  version:'2.0-physical-pending',
+  version:'3.0-physics-v1',
   historyH:168,
   low:40,
   high:65,
@@ -150,10 +150,21 @@ function scoreOne(model,st,events,now){
   const sst=sstScore(st);
   const release={points:0,label:'descarga regional no inferida del momento sísmico'};
   const quiet=quiescenceContext(st);
-  let score=sourcePts+path.points+seq.points+delay.points+recv.points+dyn.points+anti.points+sst.points+release.points+quiet.points;
+  // Physics v1: only evaluable physical/observational channels enter the core score.
+  // Challenger channels (antipode/SST) are retained for prospective validation but contribute 0 to core.
+  const components=[
+    {id:'source',value:src?100*src.score:null,weight:.25},
+    {id:'receiver',value:100*clamp((recv.points)/20),weight:.45},
+    {id:'dynamic',value:model?.dyn?.by?.[st.s.id]?100*clamp(dyn.points/10):null,weight:.15},
+    {id:'geodesy',value:(st.idg&&st.idg.used>=3)?(st.idg.candidate?70:25):null,weight:.15}
+  ];
+  const evals=components.filter(x=>Number.isFinite(x.value));
+  const w=evals.reduce((a,x)=>a+x.weight,0);
+  let score=w?evals.reduce((a,x)=>a+x.value*x.weight,0)/w:0;
   score=Math.max(0,Math.min(100,score));
-  const conf={score:null,label:'capacidad predictiva no validada'};
-  return {st,src,sourcePts,path,seq,delay,recv,dyn,anti,sst,release,quiet,score,conf,level:level(score)};
+  const coverage=Math.round(100*w);
+  const conf={score:coverage,label:'cobertura física '+coverage+'%'};
+  return {st,src,sourcePts,path,seq,delay,recv,dyn,anti,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
 }
 function fmtSource(x){
   if(!x||!x.src)return 'sin fuente material';
@@ -165,7 +176,7 @@ function ensureCard(){
   const aside=document.querySelector('aside');if(!aside)return;
   const c=document.createElement('section');c.className='card';c.id='prospectiveEngineV2';
   c.innerHTML='<h2>🎯 Proyección prospectiva experimental · MIVIGE</h2>'+
-    '<div class="small">Esta salida es <b>independiente del ICM científico</b>. Conserva asociaciones exploratorias de fuente, tiempo, receptor, IITE-D, antípoda y SST. Se desactivan los aportes de secuencia geográfica, continuidad por cercanía y descarga intermedia: no sustituyen un cálculo de esfuerzos. El puntaje restante no determina dirección física. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
+    '<div class="small">Esta salida es <b>independiente del ICM científico</b>. Physics v1 separa el núcleo físico de los challengers. El índice principal usa fuente, respuesta observada del receptor, tamiz dinámico y GNSS cuando son evaluables. Coulomb queda N/A hasta disponer de geometría de ruptura/receptor. Antípoda y SST se registran para validación, pero no suman al índice principal. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
     '<div class="kpis" style="margin-top:8px">'+
       '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTop">—</div></div>'+
       '<div class="kpi"><div class="name">Nivel</div><div class="val" id="ppeLevel">—</div></div>'+
