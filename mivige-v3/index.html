@@ -23,7 +23,9 @@
 <section class="card"><h2>GNSS regional · observaciones procesadas</h2><div id="gnssRegional">Cargando series públicas…</div></section>
 <section class="card"><h2>Zonas de vigilancia · estado por segmento</h2><p class="small">Solo una señal que supera los controles activa vigilancia reforzada. Las demás zonas se muestran en orden geográfico; su posición no indica riesgo ni dirección de propagación.</p><div id="zones"></div><div class="small" style="margin-top:8px">El visor calcula un <b>Mc proxy de ventana</b>, tasa 24 h/fondo, clustering, magnitud equivalente, b-value cuando hay muestra suficiente, desplazamiento de centroides y migración vertical. El baseline mostrado es una comparación de tasas con los seis días previos, no un ETAS calibrado.</div></section>
 
-<section class="card"><h2>Aprendizaje persistente</h2><div id="persistentLearning">Consultando estado del servidor…</div></section>\n\n<section class="card"><h2>Comparación de modelos</h2><div id="models"></div><div class="small" style="margin-top:8px">La arquitectura final debe validarse prospectivamente contra un baseline ETAS calibrado con log-likelihood, information gain, Brier score, falsos positivos y omisiones. Hasta disponer de esa historia, no se publica una probabilidad física.</div></section>
+<section class="card"><h2>Aprendizaje persistente</h2><div id="persistentLearning">Consultando estado del servidor…</div></section>
+
+<section class="card"><h2>Comparación de modelos</h2><div id="models"></div><div class="small" style="margin-top:8px">La arquitectura final debe validarse prospectivamente contra un baseline ETAS calibrado con log-likelihood, information gain, Brier score, falsos positivos y omisiones. Hasta disponer de esa historia, no se publica una probabilidad física.</div></section>
 
 <section class="card"><h2>Challenger experimental</h2><div id="experimental"></div><div class="small" style="margin-top:8px">Antípoda, huella antipodal, SST y redistribución progresiva/activación secuencial se conservan para prueba prospectiva; por sí solas no elevan el ICM científico.</div></section>
 
@@ -39,9 +41,11 @@
 <script src="networks.js?v=3000"></script>
 <script src="model.js?v=3003"></script>
 <script src="sst-summary.js?v=3007"></script>
-<script src="antipode-links.js?v=3054"></script>
-<script src="coulomb.js?v=3046"></script>\n<script src="prospective.js?v=3048"></script>
-<script src="../mivige-v2/learning-observer.js?v=3050\"></script>\n<script src="persistent-learning.js?v=3051"></script>
+<script src="antipode-links.js?v=3055"></script>
+<script src="coulomb.js?v=3046"></script>
+<script src="prospective.js?v=3048"></script>
+<script src="../mivige-v2/learning-observer.js?v=3050"></script>
+<script src="persistent-learning.js?v=3051"></script>
 
 
 
@@ -51,5 +55,6 @@
 <script src="directional-scenarios.js?v=3025"></script>
 <script src="hypothesis-validation.js?v=3049"></script>
 <script src="projection-badge.js?v=3047"></script>
-<script src="rain-layer.js?v=3011"></script>\n<script src="physical-windows.js?v=3050"></script>
+<script src="rain-layer.js?v=3011"></script>
+<script src="physical-windows.js?v=3050"></script>
 </body></html>
