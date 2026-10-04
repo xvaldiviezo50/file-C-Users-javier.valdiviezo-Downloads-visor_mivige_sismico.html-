@@ -279,8 +279,8 @@ function render(states,im,dyn,anti,idg,idqv){
   document.getElementById('mainDecision').textContent=top?(projectionLevel(top.icm.tier).label+' · '+top.s.name):(maxTier<0?'EVALUACIÓN PARCIAL · sin prioridad asignable':'SIN VIGILANCIA REFORZADA en zonas evaluables');
   const coverage=document.getElementById('coverageSummary');if(coverage)coverage.textContent=allEvents.length+' eventos descargados · '+states.filter(s=>s.dataReady).length+'/'+states.length+' zonas con muestra para prueba de tasa. Los eventos y series disponibles se muestran aunque una prueba no sea evaluable. Consulta el motivo por zona.';
   document.getElementById('idgST').textContent=idg.state;
-  document.getElementById('idgHR').textContent='canal co/post-sísmico · no precursor';
-  document.getElementById('imst').textContent=im.r==null?'NA · '+im.label:('r='+im.r.toFixed(2)+' · '+im.label);
+  if(document.getElementById('idgHR'))document.getElementById('idgHR').textContent='canal co/post-sísmico · no precursor';
+  if(document.getElementById('imst'))document.getElementById('imst').textContent=im.r==null?'NA · '+im.label:('r='+im.r.toFixed(2)+' · '+im.label);
   document.getElementById('idq').textContent=idqv.score+'/100 · '+idqv.label;
   document.getElementById('iiteS').textContent='NA · requiere mecanismos focales + geometría';
   document.getElementById('iiteD').textContent=dyn.source?('tamiz activo · fuente M'+dyn.source.mag.toFixed(1)):'sin fuente M≥'+CFG.dynSourceMag;
@@ -364,6 +364,7 @@ async function refresh(){
   if(btn){btn.disabled=true;btn.textContent='Actualizando…';}
   const [parts]=await Promise.all([Promise.all(Object.entries(endpoints).map(([n,u])=>fetchSource(n,u))),loadGnssState()]);
   allEvents=dedupe(parts.flat());
+  window.allEvents=allEvents;
   document.getElementById('cut').textContent=fmtFull(Date.now());
   refreshAt=Date.now()+CFG.refreshMs;
   renderSources();

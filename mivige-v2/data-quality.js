@@ -41,3 +41,20 @@ fetchSource=async function(name,url){
 const oldTectonicClassV21=tectonicClass;
 tectonicFamily=function(e){if(!Number.isFinite(e.depth))return 'unknown';return e.depth>=70?'intraslab':e.depth>=30?'intermediate':'shallow';};
 tectonicClass=function(e){return !Number.isFinite(e.depth)?'Profundidad no disponible':e.depth>=70?'Profundo/intermedio; origen intraslab por confirmar':e.depth>=30?'Profundidad intermedia; mecanismo no determinado':'Somero; cortical/interfaz no resuelto';};
+
+/* Global EMSC catalogue complements USGS; national outages remain explicit. */
+endpoints.EMSC='https://www.seismicportal.eu/fdsnws/event/1/query';
+const fetchSourceBeforeEMSC=fetchSource;
+fetchSource=async function(name,url){
+ if(name!=='EMSC')return fetchSourceBeforeEMSC(name,url);
+ const now=Date.now(),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
+ try{
+  const u=new URL(url);u.searchParams.set('format','json');u.searchParams.set('starttime',new Date(now-7*86400000).toISOString());u.searchParams.set('minmag','2.5');u.searchParams.set('limit','20000');u.searchParams.set('orderby','time');
+  const r=await fetch(u,{cache:'no-store',signal:controller.signal});if(!r.ok)throw Error('HTTP '+r.status);
+  const j=r.status===204?{features:[]}:await r.json();if(!Array.isArray(j.features))throw Error('Catálogo EMSC inválido');
+  const events=MivigeQuality.clean(j.features.map(f=>{const p=f.properties||{},g=f.geometry?.coordinates||[];return {id:String(p.unid||f.id||''),source:'EMSC',time:Date.parse(p.time),mag:MivigeQuality.number(p.mag),depth:MivigeQuality.number(p.depth),lat:MivigeQuality.number(p.lat??g[1]),lon:MivigeQuality.number(p.lon??g[0]),place:p.flynn_region||'',magType:p.magtype,updated:Date.parse(p.lastupdate)};}),now);
+  sourceStatus.EMSC={ok:true,count:events.length,rejected:j.features.length-events.length,truncated:j.features.length>=20000,fetchedAt:Date.now(),newest:events.length?Math.max(...events.map(e=>e.time)):null};
+  return events;
+ }catch(error){sourceStatus.EMSC={ok:false,count:0,fetchedAt:Date.now(),error:String(error).slice(0,100)};return [];}
+ finally{clearTimeout(timer);}
+};

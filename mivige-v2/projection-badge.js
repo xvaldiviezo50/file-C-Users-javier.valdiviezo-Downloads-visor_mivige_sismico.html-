@@ -1,32 +1,62 @@
 (function(){
 'use strict';
 const COLORS={Alta:'#dc2626',Media:'#d97706',Baja:'#16a34a'};
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const time=t=>new Date(t).toLocaleString('es-EC',{timeZone:'America/Guayaquil'});
 function level(s){return s>=65?'Alta':s>=40?'Media':'Baja';}
-function ensurePanel(){
- const aside=document.querySelector('aside');if(!aside)return null;
- const old=[...aside.querySelectorAll('#regionalProjectionPanel,#ecuadorProjectionPanel')],p=old[0]||document.createElement('section');
- old.slice(1).forEach(x=>x.remove());p.className='card';p.id='regionalProjectionPanel';
- if(!p.parentNode)aside.insertBefore(p,aside.firstChild);return p;
+function markTechnical(){
+ document.querySelectorAll('aside > section.card').forEach(s=>{
+  if(s.id==='regionalProjectionPanel'||s.id==='prospectiveProtocol')return;
+  const h=(s.querySelector('h2')?.textContent||'').toLowerCase();
+  if(s.id==='preventionDashboard'||s.id==='priorityRankingFixed'||s.id==='modelArchitecture'||s.id==='observationLayers'||/evidencia activa|vigilancia observada|capas científicas|migración direccional|activación sísmica regional|gnss regional|zonas de vigilancia|comparación de modelos|challenger|proyección prospectiva|dirección y mecanismos|ventanas experimentales|contraste automático/.test(h))s.classList.add('mivige-technical');
+ });
 }
-function markTechnical(){[...document.querySelectorAll('aside > section.card')].forEach(s=>{if(s.id==='regionalProjectionPanel')return;const h=(s.querySelector('h2')?.textContent||'').toLowerCase();if(/vigilancia observada|capas científicas|migración direccional|activación sísmica regional|gnss regional|zonas de vigilancia|comparación de modelos|challenger experimental|proyección prospectiva|dirección y mecanismos|ventanas experimentales/.test(h))s.classList.add('mivige-technical');});}
+function sourceCoverage(){
+ const statuses=typeof sourceStatus==='object'?Object.entries(sourceStatus):[];
+ const active=statuses.filter(([,s])=>s.ok);
+ return '<div class="small"><b>Catálogos recibidos:</b> '+(active.length?active.map(([n,s])=>esc(n)+' ('+s.count+(s.truncated?', parcial':'')+')').join(' · '):'consultando fuentes')+
+ '</div><details><summary>Fuentes y cobertura</summary>'+statuses.map(([n,s])=>'<div class="small"><b>'+esc(n)+'</b> · '+(s.ok?'recibido '+time(s.fetchedAt)+(s.truncated?' · catálogo parcial':'')+(s.newest?' · último evento '+time(s.newest):''):'no disponible en esta consulta')+'</div>').join('')+
+ '<p class="small">USGS y EMSC aportan cobertura mundial; IG-EPN, IGP y SGC complementan la región cuando responden. Los duplicados se unifican. La ausencia de registros no demuestra ausencia de actividad. No se afirma cobertura de todas las redes del mundo.</p></details>';
+}
+function row(x,i){
+ const s=x.st,lv=level(x.score),color=COLORS[lv],obs=[];
+ const events=(s.hist||[]),names=[...new Set(events.flatMap(e=>(e.reports||[e]).map(r=>r.source)))];
+ if(events.length)obs.push(events.length+' eventos locales en 7 días · '+(s.recent||[]).length+' sobre Mc en 24 h · '+esc(names.join(' / ')));
+ if(events.length&&Number.isFinite(s.rateRatio))obs.push('Tasa 24 h/fondo ×'+s.rateRatio.toFixed(2)+' · IDS '+s.ids.toFixed(0)+'/100'+(events.length<20?' · muestra pequeña':''));
+ if(x.src)obs.push('Fuente '+esc(x.src.e.source)+' · M'+Number(x.src.e.mag).toFixed(1)+' · '+Math.round(x.src.d)+' km · '+time(x.src.e.time));
+ if(x.components?.some(c=>c.id==='geodesy'&&Number.isFinite(c.value)))obs.push('GNSS: '+s.idg.used+' estaciones utilizables');
+ if(x.components?.some(c=>c.id==='dynamic'&&Number.isFinite(c.value)))obs.push(esc(x.dyn.label));
+ const challengers=[];
+ if(x.antiContinuous?.hit)challengers.push(esc(x.antiContinuous.label));
+ else if(x.anti?.hit)challengers.push(esc(x.anti.label));
+ if(x.sst?.points>0)challengers.push(esc(x.sst.label));
+ return '<article class="obs-row" style="border-left:5px solid '+color+'"><div class="obs-row-head"><b>#'+(i+1)+' · '+esc(s.s.name)+'</b><strong style="color:'+color+'">'+Math.round(x.score)+'/100 · '+lv.toUpperCase()+'</strong></div>'+
+ '<div class="small">'+obs.join('<br>')+'</div>'+
+ (challengers.length?'<div class="small"><b>Challengers observados, fuera del puntaje:</b> '+challengers.join(' · ')+'</div>':'')+
+ '<div class="small">Cobertura de componentes: '+x.coverage+'% · seguimiento 24/72 h.</div></article>';
+}
 function render(){
- const panel=ensurePanel();markTechnical();if(!panel)return;
- const badge=document.getElementById('projectionBadge'),results=(window.mivigeProspectiveV2?.results||[]).slice().sort((a,b)=>b.score-a.score);
- const top=results[0]||null,lv=level(top?.score||0),color=COLORS[lv];
- if(badge){badge.style.background=color;badge.style.color='#fff';badge.innerHTML='<strong>PROYECCIÓN EXPERIMENTAL REGIONAL</strong><div>'+lv.toUpperCase()+' · '+(top?top.st.s.name:'sin activación destacada')+'</div>';}
- const grouped={};
- results.forEach(x=>{const k=x.st.s.country||'Región';if(!grouped[k]||x.score>grouped[k].score)grouped[k]=x;});
- const countries=Object.entries(grouped).map(([country,x])=>({country,x,score:x.score})).sort((a,b)=>b.score-a.score);
- const rows=results.slice(0,5);
- panel.innerHTML='<h2>Prioridad regional de seguimiento</h2>'+
- '<div style="font-size:28px;font-weight:900;color:'+color+'">'+lv.toUpperCase()+'</div>'+
- '<div class="small">Ranking absoluto de receptores regionales; no es una competencia entre países ni una predicción del próximo terremoto.</div>'+
- '<div style="margin-top:10px"><div class="small" style="font-weight:900;margin-bottom:5px">PATRÓN EXPERIMENTAL · VALIDACIÓN AUTOMÁTICA POR LOCALIDAD</div>'+results.slice(0,7).map((x,i)=>{const ev=[];if(x.sourcePts>0)ev.push('fuente');if(x.recv?.points>0)ev.push('respuesta local');if(x.dyn?.points>0)ev.push('dinámica');const pending=[];if(!x.path?.evaluable)pending.push('Coulomb N/A');else ev.push('Coulomb');if(!(x.st?.geo?.used>0))pending.push('GNSS N/A');return '<div style="display:grid;grid-template-columns:30px 1fr auto;gap:7px;padding:9px 0;border-bottom:1px solid rgba(148,163,184,.22)"><b>#'+(i+1)+'</b><span><b>'+x.st.s.name+'</b><br><span class="small">'+(x.st.s.country||'Región')+' · evidencia: '+(ev.join(' + ')||'señal basal')+(pending.length?' · '+pending.join(' · '):'')+'</span></span><span style="font-weight:900;color:'+COLORS[level(x.score)]+'">'+level(x.score).toUpperCase()+' · '+x.score.toFixed(0)+'/100 · cob. '+(x.coverage??0)+'%</span></div>'}).join('')+'</div>'+
- '<details style="margin-top:10px"><summary><b>Ver evidencia por zona</b></summary><div style="margin-top:8px">'+rows.map((x,i)=>'<div style="display:grid;grid-template-columns:30px 1fr auto;gap:7px;padding:8px 0;border-bottom:1px solid rgba(148,163,184,.22)"><b>#'+(i+1)+'</b><span><b>'+x.st.s.name+'</b><br><span class="small">'+(x.st.s.country||'Región')+'</span></span><span style="font-weight:800;color:'+COLORS[level(x.score)]+'">'+level(x.score).toUpperCase()+' · '+x.score.toFixed(0)+'</span></div>').join('')+'</div>'+
- '<p class="small"><b>Pista de validación:</b> conserva las ponderaciones pre-Coulomb para que los cambios de nivel sean comparables en el tiempo. <b>Coulomb:</b> evidencia científica independiente; nunca suma ni resta a esta alerta experimental. <b>Challenger Antípoda:</b> se registra por separado y sus ventanas 24/72 h permiten comprobar si aporta información adicional. La focalización antipodal de ondas no se interpreta como migración de energía tectónica ni como causalidad demostrada.</p>'+
- '<button id="technicalToggle">Ver evidencia técnica</button>';
- const b=document.getElementById('technicalToggle');if(b)b.onclick=()=>{const o=document.body.classList.toggle('show-technical');b.textContent=o?'Ocultar evidencia técnica':'Ver evidencia técnica';};
+ const aside=document.querySelector('aside');if(!aside)return;
+ let panel=document.getElementById('regionalProjectionPanel');
+ if(!panel){panel=document.createElement('section');panel.id='regionalProjectionPanel';panel.className='card';aside.insertBefore(panel,aside.firstChild);}
+ markTechnical();
+ const p=window.mivigeProspectiveV2;
+ const results=(p?.results||[]).filter(x=>x.hasEvidence!==false&&Number.isFinite(x.score)).slice().sort((a,b)=>b.score-a.score);
+ const stale=Boolean(p?.time&&Date.now()-p.time>15*60000),top=results[0],lv=top&&!stale?level(top.score):'Sin evaluación',color=COLORS[lv]||'#64748b';
+ const badge=document.getElementById('projectionBadge');
+ if(badge){badge.style.background=color;badge.style.color='#fff';badge.innerHTML='<strong>PRIORIDAD DE OBSERVACIÓN EXPERIMENTAL</strong><div>'+lv.toUpperCase()+' · '+(top&&!stale?esc(top.st.s.name):stale?'actualización pendiente':'esperando datos')+'</div>';}
+ panel.innerHTML='<h2>TOP 5 · observación experimental</h2><p class="small">Orden automático por señales disponibles. El puntaje organiza el seguimiento; no es probabilidad de un sismo ni alerta oficial. Los colores expresan el nivel del puntaje, no el puesto.</p>'+
+ (p?.time?'<div class="small"><b>Corte:</b> '+time(p.time)+(stale?' · DATOS ATRASADOS':'')+'</div>':'')+
+ (results.length?results.slice(0,5).map(row).join(''):'<p>Esperando observaciones verificables; no se asigna nivel bajo por falta de datos.</p>')+
+ sourceCoverage()+
+ '<details><summary>Método y aprendizaje</summary><p class="small">Se conservan los pesos base del modelo anterior: fuente 25%, receptor 45%, dinámica 15% y GNSS 15%. Se renormalizan solo los componentes disponibles. Un catálogo pequeño permite observación exploratoria, no confirmación estadística. Esta revisión cambia el control de disponibilidad y abre un registro prospectivo separado; no implica que haya mejorado la capacidad predictiva. Antípoda y SST se registran aparte, sin alterar el puntaje. No hay ajuste automático de pesos.</p></details>'+
+ '<button id="technicalToggle" type="button" aria-expanded="'+document.body.classList.contains('show-technical')+'">'+(document.body.classList.contains('show-technical')?'Ocultar':'Mostrar')+' contraste científico y capas complementarias</button>';
+ document.getElementById('technicalToggle').onclick=()=>{const open=document.body.classList.toggle('show-technical');const b=document.getElementById('technicalToggle');b.textContent=(open?'Ocultar':'Mostrar')+' contraste científico y capas complementarias';b.setAttribute('aria-expanded',String(open));};
 }
-if(!document.getElementById('regionalProjectionStyle')){const s=document.createElement('style');s.id='regionalProjectionStyle';s.textContent='.mivige-technical{display:none}.show-technical .mivige-technical{display:block}#regionalProjectionPanel{border:1px solid rgba(148,163,184,.3)}';document.head.appendChild(s);}
+if(!document.getElementById('regionalProjectionStyle')){
+ const s=document.createElement('style');s.id='regionalProjectionStyle';
+ s.textContent='.mivige-technical{display:none}.show-technical .mivige-technical{display:block}.obs-row{padding:10px;margin:10px 0;background:#0b1a2a;border-radius:8px}.obs-row-head{display:flex;flex-wrap:wrap;gap:6px;justify-content:space-between;margin-bottom:6px}.obs-row .small{font-size:12px;overflow-wrap:anywhere}#technicalToggle{margin-top:10px;width:100%}#regionalProjectionPanel summary{padding:8px 0}';
+ document.head.appendChild(s);
+}
 render();window.addEventListener('mivige:prospective',render);window.addEventListener('mivige:model',()=>setTimeout(render,50));setTimeout(render,4200);setInterval(render,60000);
 })();

@@ -50,14 +50,14 @@ function focusState(d){
 }
 function learningCandidates(events,r,now){
   const ap=anti(r.lat,r.lon),cut=now-CFG.watchHours*3600e3;
-  return events.filter(e=>e.source==='USGS'&&e.time>=cut&&e.time<=now&&Number(e.mag)>=5.0&&Number(e.mag)<CFG.sourceMag)
+  return events.filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=cut&&e.time<=now&&Number(e.mag)>=5.0&&Number(e.mag)<CFG.sourceMag)
     .map(e=>({e,d:distKm(ap.lat,ap.lon,e.lat,e.lon)})).filter(x=>x.d<=CFG.haloKm)
     .sort((a,b)=>a.d-b.d||b.e.mag-a.e.mag);
 }
 function sourceCandidates(events,r,now){
   const ap=anti(r.lat,r.lon);
   const cut=now-CFG.watchHours*3600e3;
-  const pool=events.filter(e=>e.source==='USGS'&&e.time>=cut&&e.time<=now&&Number(e.mag)>=CFG.sourceMag);
+  const pool=events.filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=cut&&e.time<=now&&Number(e.mag)>=CFG.sourceMag);
   return pool.map(e=>{
     const d=distKm(ap.lat,ap.lon,e.lat,e.lon);
     const f=focusState(d);
@@ -184,7 +184,9 @@ function run(){
       '</div></div><div class="pct">'+st.label+'</div></div>');
   }
   drawLinks(active);
-  drawLearningLinks(learning);\n  renderBottom(active,learning);\n  renderVisibleAntipodes(active,learning);
+  drawLearningLinks(learning);
+  renderBottom(active,learning);
+  renderVisibleAntipodes(active,learning);
   const direct=active.filter(x=>x.src.d<=CFG.coreKm);
   const sourceButton=document.getElementById('antiViewSources');sourceButton.disabled=!direct.length;sourceButton.textContent=direct.length?'Ver vínculos activos':'Sin activación núcleo';
   document.getElementById('antiRows').innerHTML=rows.join('');

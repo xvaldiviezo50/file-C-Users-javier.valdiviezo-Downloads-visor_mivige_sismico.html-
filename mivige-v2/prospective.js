@@ -3,7 +3,7 @@
 if(typeof L==='undefined'||typeof map==='undefined')return;
 
 const CFG={
-  version:'3.4-pattern-audit',
+  version:'3.5-observed-availability',
   historyH:168,
   low:40,
   high:65,
@@ -105,7 +105,7 @@ function antipodeContinuous(st){
   if(!net||!Array.isArray(net.receivers)||!Array.isArray(window.allEvents||[]))return {value:null,label:'antípoda continua N/A'};
   const r=net.receivers.find(q=>q.id===st.s.id); if(!r)return {value:null,label:'receptor antipodal N/A'};
   const ap={lat:-r.lat,lon:r.lon<0?r.lon+180:r.lon-180};
-  const pool=(window.allEvents||[]).filter(e=>e.source==='USGS'&&e.time>=now-72*3600e3&&e.time<=now&&Number(e.mag)>=5)
+  const pool=(window.allEvents||[]).filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=now-72*3600e3&&e.time<=now&&Number(e.mag)>=5)
     .map(e=>({e,d:distKm(ap.lat,ap.lon,e.lat,e.lon)})).filter(q=>q.d<=560);
   if(!pool.length)return {value:0,label:'sin fuente M≥5,0 en núcleo/halo durante 72 h'};
   pool.sort((a,b)=>{
@@ -163,7 +163,8 @@ function scoreOne(model,st,events,now){
   const delay=delayedWindow(src);
   const recv=receiverScore(st);
   const dyn=dynamicScore(st,model);
-  const anti=antipodeScore(st);\n  const antiContinuous=antipodeContinuous(st);
+  const anti=antipodeScore(st);
+  const antiContinuous=antipodeContinuous(st);
   const sst=sstScore(st);
   const release={points:0,label:'descarga regional no inferida del momento sísmico'};
   const quiet=quiescenceContext(st);
@@ -173,9 +174,9 @@ function scoreOne(model,st,events,now){
     // Validation track: preserve the pre-Coulomb weights so the historical signal is comparable over time.
     // Coulomb is scientific evidence shown separately and NEVER changes this experimental pattern score.
     {id:'source',value:src?100*src.score:null,weight:.25},
-    {id:'receiver',value:100*clamp((recv.points)/20),weight:.45},
-    {id:'dynamic',value:model?.dyn?.by?.[st.s.id]?100*clamp(dyn.points/10):null,weight:.15},
-    {id:'geodesy',value:(st.idg&&st.idg.used>=3)?(st.idg.candidate?70:25):null,weight:.15}
+    {id:'receiver',value:st.hist.length?100*clamp((recv.points)/20):null,weight:.45},
+    {id:'dynamic',value:model?.dyn?.by?.[st.s.id]?.source&&model.dyn.by[st.s.id].after>=5?100*clamp(dyn.points/10):null,weight:.15},
+    {id:'geodesy',value:(st.idg&&st.idg.used>=3&&!String(st.idg.state).includes('atrasado'))?(st.idg.candidate?70:25):null,weight:.15}
   ];
   const evals=components.filter(x=>Number.isFinite(x.value));
   const w=evals.reduce((a,x)=>a+x.weight,0);
@@ -183,7 +184,7 @@ function scoreOne(model,st,events,now){
   score=Math.max(0,Math.min(100,score));
   const coverage=Math.round(100*w);
   const conf={score:coverage,label:'cobertura física '+coverage+'%'};
-  return {st,src,sourcePts,path,seq,delay,recv,dyn,anti,antiContinuous,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
+  return {components,hasEvidence:w>0,st,src,sourcePts,path,seq,delay,recv,dyn,anti,antiContinuous,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
 }
 function fmtSource(x){
   if(!x||!x.src)return 'sin fuente material';
@@ -197,7 +198,7 @@ function ensureCard(){
   c.innerHTML='<h2>🎯 Proyección prospectiva experimental · MIVIGE</h2>'+
     '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. Mantiene congeladas las ponderaciones pre-Coulomb: fuente 25%, respuesta observada del receptor 45%, tamiz dinámico 15% y GNSS 15% cuando son evaluables. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. La antípoda continua M≥5,0 combina magnitud, proximidad geométrica y edad del evento, pero no modifica el puntaje V1 mientras no supere validación contra baseline. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
     '<div class="kpis" style="margin-top:8px">'+
-      '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTop">—</div></div>'+
+      '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTopDetail">—</div></div>'+
       '<div class="kpi"><div class="name">Nivel</div><div class="val" id="ppeLevel">—</div></div>'+
       '<div class="kpi"><div class="name">Validación predictiva</div><div class="val" id="ppeConfidence">—</div></div>'+
       '<div class="kpi"><div class="name">Fuente dominante</div><div class="val" id="ppeSource">—</div></div>'+
@@ -221,9 +222,9 @@ function draw(results){
   }
 }
 function snapshotOf(x){return {time:Date.now(),score:x.score,level:x.level.short,components:{source:x.src?100*x.src.score:null,receiver:100*clamp(x.recv.points/20),dynamic:100*clamp(x.dyn.points/10),geodesy:(x.st.idg&&x.st.idg.used>=3)?(x.st.idg.candidate?70:25):null}};}
-function audit(results){let old={};try{old=JSON.parse(localStorage.getItem('mivige-pattern-audit-v1')||'{}');}catch(_){} const out={};for(const x of results){const prev=old[x.st.s.id]||null,cur=snapshotOf(x);x.audit={prev,delta:prev?cur.score-prev.score:null,componentDelta:{}};if(prev&&prev.components){for(const k of Object.keys(cur.components)){const a=cur.components[k],b=prev.components[k];x.audit.componentDelta[k]=(Number.isFinite(a)&&Number.isFinite(b))?a-b:null;}}out[x.st.s.id]=cur;}try{localStorage.setItem('mivige-pattern-audit-v1',JSON.stringify(out));}catch(_){} }
+function audit(results){let old={};try{old=JSON.parse(localStorage.getItem('mivige-pattern-audit-v2')||'{}');}catch(_){} const out={};for(const x of results){const prev=old[x.st.s.id]||null,cur=snapshotOf(x);x.audit={prev,delta:prev?cur.score-prev.score:null,componentDelta:{}};if(prev&&prev.components){for(const k of Object.keys(cur.components)){const a=cur.components[k],b=prev.components[k];x.audit.componentDelta[k]=(Number.isFinite(a)&&Number.isFinite(b))?a-b:null;}}out[x.st.s.id]=cur;}try{localStorage.setItem('mivige-pattern-audit-v2',JSON.stringify(out));}catch(_){} }
 function freezeForecast(results,now){
-  const key='mivige-prospective-ledger-v1'; let ledger=[]; try{ledger=JSON.parse(localStorage.getItem(key)||'[]');}catch(_){}
+  const key='mivige-prospective-ledger-v2'; let ledger=[]; try{ledger=JSON.parse(localStorage.getItem(key)||'[]');}catch(_){}
   const top5=results.slice(0,5).map((x,i)=>({rank:i+1,zoneId:x.st.s.id,zone:x.st.s.name,score:+x.score.toFixed(1),level:x.level.short,window:'24–72 h',components:{source:+x.sourcePts.toFixed(1),receiver:+x.recv.points.toFixed(1),dynamic:+x.dyn.points.toFixed(1),antipode:+x.anti.points.toFixed(1),sst:+x.sst.points.toFixed(1)}}));
   const bucket=Math.floor(now/(6*3600e3));
   if(!ledger.some(x=>x.bucket===bucket)){ledger.push({bucket,time:now,model:CFG.version,top5,status:'ABIERTA',closes:now+72*3600e3});ledger=ledger.slice(-120);try{localStorage.setItem(key,JSON.stringify(ledger));}catch(_){}}
@@ -235,18 +236,19 @@ function renderLedger(ledger){
   h.innerHTML=a.length?a.map(x=>'<div class="listitem"><div><div class="zname">'+new Date(x.time).toLocaleString('es-EC')+' · '+x.status+'</div><div class="zdesc">'+x.top5.map(q=>'#'+q.rank+' '+q.zone+' '+q.score+'/100').join(' · ')+'</div></div></div>').join(''):'El primer corte prospectivo se registrará automáticamente.';
 }
 function auditText(x){const a=x.audit;if(!a||!a.prev)return 'línea base creada en este dispositivo';const ds=(a.delta>=0?'+':'')+a.delta.toFixed(1);const names={source:'fuente',receiver:'receptor',dynamic:'dinámica',geodesy:'GNSS'};const parts=Object.entries(a.componentDelta).filter(([,v])=>Number.isFinite(v)&&Math.abs(v)>=.05).sort((A,B)=>Math.abs(B[1])-Math.abs(A[1])).map(([k,v])=>names[k]+' '+(v>=0?'+':'')+v.toFixed(1));return 'anterior '+a.prev.score.toFixed(1)+'/100 ('+a.prev.level+') · Δ '+ds+(parts.length?' · cambios: '+parts.join(' · '):' · sin cambio material de componentes');}
+function setTopLabel(value){['ppeTop','ppeTopDetail'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=value;});}
 function render(){
   ensureCard();
   const model=window.mivigeV2;
   if(!model||!Array.isArray(model.states)||!Array.isArray(allEvents))return;
   const now=Date.now();
-  const results=model.states.filter(st=>TARGETS.includes(st.s.id)).map(st=>scoreOne(model,st,allEvents,now)).sort((a,b)=>b.score-a.score);
+  const results=model.states.filter(st=>TARGETS.includes(st.s.id)).map(st=>scoreOne(model,st,allEvents,now)).filter(x=>x.hasEvidence).sort((a,b)=>b.score-a.score);
   audit(results);
-  const ledger=freezeForecast(results,now); renderLedger(ledger);
+  if(results.length){const ledger=freezeForecast(results,now);renderLedger(ledger);}else{const el=document.getElementById('forecastLedger');if(el)el.textContent='Sin observaciones evaluables; no se registra un corte vacío.';}
   const top=results[0];
-  if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='SIN EVALUACIÓN PROSPECTIVA';document.getElementById('ppeRows').textContent='Esperando al menos un segmento definido. La capa experimental usa los catálogos abiertos disponibles y conserva la cobertura/calidad como dato separado.';document.getElementById('ppeTop').textContent='—';document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,results:[],config:CFG};window.dispatchEvent(new Event('mivige:prospective'));return;}
+  if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='SIN EVALUACIÓN PROSPECTIVA';document.getElementById('ppeRows').textContent='Esperando al menos un segmento definido. La capa experimental usa los catálogos abiertos disponibles y conserva la cobertura/calidad como dato separado.';setTopLabel('—');document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,results:[],config:CFG};window.dispatchEvent(new Event('mivige:prospective'));return;}
 
-  document.getElementById('ppeTop').textContent=top.st.s.name;
+  setTopLabel(top.st.s.name);
   document.getElementById('ppeLevel').textContent=top.level.name+' · '+top.score.toFixed(0)+'/100';
   document.getElementById('ppeLevel').style.color=top.level.color;
   document.getElementById('ppeConfidence').textContent=top.conf.label;
