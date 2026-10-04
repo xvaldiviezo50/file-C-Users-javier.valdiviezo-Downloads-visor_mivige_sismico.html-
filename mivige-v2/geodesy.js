@@ -39,10 +39,9 @@ function render(d){
  const g=assess(d),now=Date.now();
  host.innerHTML='<div class="kpis"><div class="kpi"><div class="name">Series consultadas</div><div class="val">'+d.stations.length+'</div></div><div class="kpi"><div class="name">Estaciones con tamiz vigente</div><div class="val">'+g.used+'</div></div></div><p class="small">Procesado: '+esc(d.generated_at)+'<br>Fuente: NGL / IGS20. Consulta programada cada 6 h; la frecuencia del proveedor puede ser menor.<br>'+esc(g.state.includes('atrasado')?g.state:'Disponibilidad regional; ver el resultado en cada zona')+'. Cada zona se evalúa por separado.</p><details><summary>Ver estaciones, fechas y motivos de exclusión</summary><div style="overflow:auto;max-height:320px"><table class="table"><thead><tr><th>Estación</th><th>Último dato</th><th>Estado</th></tr></thead><tbody>'+d.stations.map(s=>'<tr><td>'+esc(stationLabel(s))+'</td><td>'+esc(s.observed_at?.slice(0,10)||'—')+'<br>'+ (s.observed_at?Math.max(0,(now-Date.parse(s.observed_at))/DAY).toFixed(1)+' d':'')+'</td><td>'+esc((s.usable&&now-Date.parse(s.observed_at)<=7*DAY)?(s.candidate?'cambio a revisar':'tamiz disponible'):(s.usable?'observaciones atrasadas (>7 días)':s.reason||'sin datos'))+'</td></tr>').join('')+'</tbody></table></div></details><p><label for="gnssStation">Serie de estación </label><select id="gnssStation">'+d.stations.filter(s=>s.series?.length).map(s=>'<option value="'+esc(s.code)+'">'+esc(stationLabel(s))+'</option>').join('')+'</select></p><div id="gnssPlot"></div>';
  const select=document.getElementById('gnssStation');if(select){select.onchange=()=>plot(d.stations.find(s=>s.code===select.value));const initial=d.stations.find(s=>s.usable&&s.series?.length)||d.stations.find(s=>s.series?.length);if(initial)select.value=initial.code;plot(initial);}
- if(typeof L!=='undefined'&&typeof map!=='undefined'){
-  if(!layer){layer=L.layerGroup().addTo(map);L.control.layers({},{'GNSS · series procesadas NGL':layer},{collapsed:true}).addTo(map);}
-  layer.clearLayers();d.stations.forEach(s=>{const age=(now-Date.parse(s.observed_at))/DAY,valid=s.usable&&age>=0&&age<=7,c=valid?'#65d6ff':'#8993a4';L.circleMarker([s.lat,s.lon],{radius:5,color:c,fillColor:c,fillOpacity:.85,weight:2}).bindPopup('<b>GNSS '+esc(stationLabel(s))+'</b><br>'+esc(s.observed_at?.slice(0,10)||'sin observaciones')+'<br>'+esc(s.reason)+'<br>Dato procesado; no predicción.<br><a target="_blank" rel="noopener" href="'+esc(s.url)+'">NGL: datos originales</a>').addTo(layer);});
- }
+ // GNSS remains available to the analytical model and technical panels,
+ // but station markers are intentionally not rendered on the seismic map.
+ if(layer)layer.clearLayers();
 }
 root.MivigeGeodesy.render=render;
 })(typeof window!=='undefined'?window:globalThis);
