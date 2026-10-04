@@ -3,7 +3,7 @@
 if(typeof L==='undefined'||typeof map==='undefined')return;
 
 const CFG={
-  version:'3.3-pattern-validation',
+  version:'3.4-pattern-audit',
   historyH:168,
   low:40,
   high:65,
@@ -204,12 +204,16 @@ function draw(results){
     }
   }
 }
+function snapshotOf(x){return {time:Date.now(),score:x.score,level:x.level.short,components:{source:x.src?100*x.src.score:null,receiver:100*clamp(x.recv.points/20),dynamic:100*clamp(x.dyn.points/10),geodesy:(x.st.idg&&x.st.idg.used>=3)?(x.st.idg.candidate?70:25):null}};}
+function audit(results){let old={};try{old=JSON.parse(localStorage.getItem('mivige-pattern-audit-v1')||'{}');}catch(_){} const out={};for(const x of results){const prev=old[x.st.s.id]||null,cur=snapshotOf(x);x.audit={prev,delta:prev?cur.score-prev.score:null,componentDelta:{}};if(prev&&prev.components){for(const k of Object.keys(cur.components)){const a=cur.components[k],b=prev.components[k];x.audit.componentDelta[k]=(Number.isFinite(a)&&Number.isFinite(b))?a-b:null;}}out[x.st.s.id]=cur;}try{localStorage.setItem('mivige-pattern-audit-v1',JSON.stringify(out));}catch(_){} }
+function auditText(x){const a=x.audit;if(!a||!a.prev)return 'línea base creada en este dispositivo';const ds=(a.delta>=0?'+':'')+a.delta.toFixed(1);const names={source:'fuente',receiver:'receptor',dynamic:'dinámica',geodesy:'GNSS'};const parts=Object.entries(a.componentDelta).filter(([,v])=>Number.isFinite(v)&&Math.abs(v)>=.05).sort((A,B)=>Math.abs(B[1])-Math.abs(A[1])).map(([k,v])=>names[k]+' '+(v>=0?'+':'')+v.toFixed(1));return 'anterior '+a.prev.score.toFixed(1)+'/100 ('+a.prev.level+') · Δ '+ds+(parts.length?' · cambios: '+parts.join(' · '):' · sin cambio material de componentes');}
 function render(){
   ensureCard();
   const model=window.mivigeV2;
   if(!model||!Array.isArray(model.states)||!Array.isArray(allEvents))return;
   const now=Date.now();
   const results=model.states.filter(st=>TARGETS.includes(st.s.id)).map(st=>scoreOne(model,st,allEvents,now)).sort((a,b)=>b.score-a.score);
+  audit(results);
   const top=results[0];
   if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='SIN EVALUACIÓN PROSPECTIVA';document.getElementById('ppeRows').textContent='Esperando al menos un segmento definido. La capa experimental usa los catálogos abiertos disponibles y conserva la cobertura/calidad como dato separado.';document.getElementById('ppeTop').textContent='—';document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,results:[],config:CFG};window.dispatchEvent(new Event('mivige:prospective'));return;}
 
@@ -224,7 +228,7 @@ function render(){
     '<b>'+x.level.name+'</b> · '+x.score.toFixed(1)+'/100 · '+x.conf.label+'<br>'+
     '<b>Fuente:</b> '+fmtSource(x)+'<br>'+
     '<b>Componentes:</b> fuente '+x.sourcePts.toFixed(1)+' · continuidad '+x.path.points.toFixed(1)+' · secuencia '+x.seq.points.toFixed(1)+' · retardo '+x.delay.points.toFixed(1)+' · receptor '+x.recv.points.toFixed(1)+' · IITE-D '+x.dyn.points.toFixed(1)+' · antípoda '+x.anti.points.toFixed(1)+' · SST '+x.sst.points.toFixed(1)+' · descarga '+x.release.points.toFixed(1)+'<br>'+
-    '<b>Lectura:</b> '+x.path.label+' · '+x.seq.label+' · '+x.delay.label+' · '+x.anti.label+
+    '<b>Trazabilidad:</b> '+auditText(x)+'<br>'+ '<b>Lectura:</b> '+x.path.label+' · '+x.seq.label+' · '+x.delay.label+' · '+x.anti.label+
     '</div></div><div class="pct" style="color:'+x.level.color+'">'+x.level.short+'</div></div>'
   ).join('');
 
