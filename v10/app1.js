@@ -1,7 +1,7 @@
 const map = L.map('map',{zoomControl:true}).setView([-1.6,-79.4],5.7);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18, attribution:'© OpenStreetMap'}).addTo(map);
 
-const sourcePriority = {'IG-EPN':5,'IGP':4,'SGC':3,'USGS':2};
+const sourcePriority = {'IG-EPN':6,'IGP':5,'SGC':4,'USGS':3,'EMSC':2};
 const sourceStatus = {};
 const eventLayer = L.layerGroup().addTo(map);
 const eqZoneLayer = L.layerGroup().addTo(map);
@@ -10,6 +10,7 @@ const iaexLayer = L.layerGroup().addTo(map);
 const plateLayer = L.layerGroup().addTo(map);
 let platesLoaded = false;
 let allEvents = [];
+window.allEvents=allEvents;
 let refreshAt = Date.now()+3600000;
 
 const zonesEc = [
@@ -25,6 +26,7 @@ const zonesExt = [
  {id:'jaen',name:'Jaén – Cajamarca – Bagua',lat:-5.75,lon:-78.69,radius:190,base:0.40,why:'Control cortical norte Perú'},
  {id:'amazonas',name:'Amazonas – Condorcanqui',lat:-4.25,lon:-77.75,radius:180,base:0.70,why:'Secuencia cortical reciente'},
  {id:'narino',name:'Chocó – Darién / Nariño',lat:3.40,lon:-77.00,radius:300,base:0.65,why:'Secuencias regionales y control'},
+ {id:'panama',name:'Panamá – Darién – Pacífico',lat:6.7,lon:-81.0,radius:420,base:0.50,why:'Control regional Panamá y margen Pacífico'},
  {id:'cr',name:'Costa Rica',lat:9.8,lon:-84.1,radius:280,base:0.42,why:'Control Centroamérica'},
  {id:'mx',name:'Oaxaca – Guerrero',lat:16.5,lon:-98.2,radius:330,base:0.46,why:'Control México'},
  {id:'cl',name:'Chile centro-norte',lat:-28.5,lon:-71.4,radius:380,base:0.40,why:'Control Chile'}
