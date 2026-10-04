@@ -1,4 +1,5 @@
-const map = L.map('map',{zoomControl:true}).setView([-1.6,-79.4],5.7);\nwindow.mivigeMap = map;
+const map = L.map('map',{zoomControl:true}).setView([-1.6,-79.4],5.7);
+window.mivigeMap = map;
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18, attribution:'© OpenStreetMap'}).addTo(map);
 
 const sourcePriority = {'IG-EPN':5,'IGP':4,'SGC':3,'USGS':2};
