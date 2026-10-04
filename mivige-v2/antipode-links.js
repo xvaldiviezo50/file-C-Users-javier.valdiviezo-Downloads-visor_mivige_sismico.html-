@@ -78,6 +78,23 @@ function response(events,r,src,now){
   return {state,post,pre,ratio,minMag};
 }
 function color(label){return label==='NÚCLEO'?'#e4493f':label==='HALO'?'#f0c644':'#42b86b';}
+function ensureBottomPanel(){
+  if(document.getElementById('antiBottomBtn'))return;
+  const btn=document.createElement('button');btn.id='antiBottomBtn';btn.type='button';btn.textContent='🌐 ANTÍPODAS ACTIVAS';btn.style.cssText='position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:1200;padding:10px 16px;border-radius:22px;font-weight:800;box-shadow:0 3px 14px #0008';
+  const panel=document.createElement('div');panel.id='antiBottomPanel';panel.style.cssText='display:none;position:fixed;left:10px;right:10px;bottom:58px;max-height:52vh;overflow:auto;z-index:1199;background:#101820ee;border:1px solid #6b7b88;border-radius:12px;padding:12px;color:#fff;box-shadow:0 5px 22px #000a';
+  panel.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px"><b>🌐 Países/regiones antipodales activas</b><button id="antiBottomClose">×</button></div><div class="small">V1 M≥6,5 y challengers M5,0–6,49 se muestran por separado.</div><div id="antiBottomRows" style="margin-top:8px">Calculando…</div>';
+  document.body.appendChild(panel);document.body.appendChild(btn);
+  btn.onclick=()=>panel.style.display=panel.style.display==='none'?'block':'none';
+  panel.querySelector('#antiBottomClose').onclick=()=>panel.style.display='none';
+}
+function renderBottom(active,learning){
+  ensureBottomPanel();const el=document.getElementById('antiBottomRows'),btn=document.getElementById('antiBottomBtn');if(!el)return;
+  const rows=[];
+  active.forEach(x=>rows.push('<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">V1 · M'+Number(x.src.e.mag).toFixed(1)+' · '+x.src.f.label+' · '+Math.round(x.src.d)+' km · '+(x.src.e.place||'fuente global')+'</span></div></div>'));
+  learning.forEach(x=>rows.push('<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">CHALLENGER · M'+Number(x.q.e.mag).toFixed(1)+' · '+(x.q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(x.q.d)+' km · '+(x.q.e.place||'fuente global')+' · 24/72 h</span></div></div>'));
+  el.innerHTML=rows.length?rows.join(''):'<div class="small">Sin fuentes antipodales M≥5,0 dentro del núcleo/halo durante las últimas 72 h.</div>';
+  btn.textContent='🌐 ANTÍPODAS ACTIVAS · '+rows.length;
+}
 function ensureCard(){
   if(document.getElementById('antipodeNetworkV2'))return;
   const aside=document.querySelector('aside');if(!aside)return;
@@ -158,7 +175,7 @@ function run(){
       '</div></div><div class="pct">'+st.label+'</div></div>');
   }
   drawLinks(active);
-  drawLearningLinks(learning);
+  drawLearningLinks(learning);\n  renderBottom(active,learning);
   const direct=active.filter(x=>x.src.d<=CFG.coreKm);
   const sourceButton=document.getElementById('antiViewSources');sourceButton.disabled=!direct.length;sourceButton.textContent=direct.length?'Ver vínculos activos':'Sin activación núcleo';
   document.getElementById('antiRows').innerHTML=rows.join('');
