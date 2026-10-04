@@ -258,15 +258,16 @@ function render(){
     const rankColor=i===0?'#e4493f':i===1?'#f08a24':i===2?'#f0c644':'#42b86b';
     const rankLabel='PRIORIDAD '+(i+1);
     const signals=[];
-    if(x.src)signals.push('fuente M'+x.src.e.mag.toFixed(1));
-    if(x.recv&&x.recv.points>0)signals.push('respuesta receptor');
-    if(x.dyn&&x.dyn.points>0)signals.push('activación dinámica');
-    if(x.anti&&x.anti.points>0)signals.push('antípoda challenger');
-    if(x.sst&&x.sst.points>0)signals.push('SST challenger');
+    if(x.recv&&x.recv.points>0)signals.push('receptor: '+x.recv.label);
+    if(x.src)signals.push('fuente M'+x.src.e.mag.toFixed(1)+' · '+Math.round(x.src.d)+' km · '+x.delay.label);
+    if(x.dyn&&x.dyn.points>0)signals.push('activación dinámica compatible');
+    if(x.st.idg&&x.st.idg.used>=3)signals.push('geodesia evaluable');
+    if(x.anti&&x.anti.points>0)signals.push(x.anti.label+' [challenger]');
+    if(x.sst&&x.sst.points>0)signals.push(x.sst.label+' [challenger]');
     return '<div style="border:2px solid '+rankColor+';border-left-width:8px;border-radius:10px;padding:10px 12px;margin:8px 0;background:rgba(255,255,255,.035)">'+
       '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><b style="color:'+rankColor+'">'+rankLabel+'</b> · <b>'+x.st.s.name+'</b></div><div style="font-size:20px;font-weight:800;color:'+rankColor+'">'+x.score.toFixed(0)+'/100</div></div>'+
       '<div class="small" style="margin-top:5px"><b>Proyección experimental:</b> '+x.level.short+' · <b>ventana:</b> '+x.delay.label+'</div>'+
-      '<div class="small"><b>Señales activas:</b> '+(signals.length?signals.join(' · '):'actividad del receptor')+'</div>'+
+      '<div class="small" style="margin-top:4px"><b>Justificación técnica:</b> '+(signals.length?signals.slice(0,3).join(' · '):'actividad sísmica observada del receptor')+'</div>'+
       '<details style="margin-top:5px"><summary>Ver fundamento y trazabilidad</summary><div class="small"><b>Fuente:</b> '+fmtSource(x)+'<br><b>Componentes:</b> fuente '+x.sourcePts.toFixed(1)+' · receptor '+x.recv.points.toFixed(1)+' · IITE-D '+x.dyn.points.toFixed(1)+' · antípoda '+x.anti.points.toFixed(1)+' · SST '+x.sst.points.toFixed(1)+'<br><b>Trazabilidad:</b> '+auditText(x)+'</div></details></div>';
   }).join('');
 
