@@ -100,6 +100,22 @@ function dynamicScore(st,model){
   if(String(d.state||'').startsWith('tamiz dinámico compatible'))return {points:10,label:'IITE-D compatible a contrastar'};
   return {points:0,label:'sin respuesta dinámica anómala demostrada'};
 }
+function antipodeContinuous(st){
+  const net=window.mivigeAntipodeNetworkV2, now=Date.now();
+  if(!net||!Array.isArray(net.receivers)||!Array.isArray(window.allEvents||[]))return {value:null,label:'antípoda continua N/A'};
+  const r=net.receivers.find(q=>q.id===st.s.id); if(!r)return {value:null,label:'receptor antipodal N/A'};
+  const ap={lat:-r.lat,lon:r.lon<0?r.lon+180:r.lon-180};
+  const pool=(window.allEvents||[]).filter(e=>e.source==='USGS'&&e.time>=now-72*3600e3&&e.time<=now&&Number(e.mag)>=5)
+    .map(e=>({e,d:distKm(ap.lat,ap.lon,e.lat,e.lon)})).filter(q=>q.d<=560);
+  if(!pool.length)return {value:0,label:'sin fuente M≥5,0 en núcleo/halo durante 72 h'};
+  pool.sort((a,b)=>{
+    const sa=(Math.min(1,Math.max(0,(Number(a.e.mag)-5)/2))*.55 + Math.max(0,1-a.d/560)*.30 + Math.max(0,1-(now-a.e.time)/(72*3600e3))*.15);
+    const sb=(Math.min(1,Math.max(0,(Number(b.e.mag)-5)/2))*.55 + Math.max(0,1-b.d/560)*.30 + Math.max(0,1-(now-b.e.time)/(72*3600e3))*.15);return sb-sa;
+  });
+  const q=pool[0],mag=Math.min(1,Math.max(0,(Number(q.e.mag)-5)/2)),geo=Math.max(0,1-q.d/560),age=Math.max(0,1-(now-q.e.time)/(72*3600e3));
+  const value=100*(.55*mag+.30*geo+.15*age);
+  return {value,label:'challenger antipodal continuo · M'+Number(q.e.mag).toFixed(1)+' · '+(q.d<=225?'núcleo':'halo')+' · '+Math.round(q.d)+' km',hit:q};
+}
 function antipodeScore(st){
   const net=window.mivigeAntipodeNetworkV2;
   if(!net||!Array.isArray(net.active))return {points:0,label:'sin fuente antipodal activa'};
@@ -147,7 +163,7 @@ function scoreOne(model,st,events,now){
   const delay=delayedWindow(src);
   const recv=receiverScore(st);
   const dyn=dynamicScore(st,model);
-  const anti=antipodeScore(st);
+  const anti=antipodeScore(st);\n  const antiContinuous=antipodeContinuous(st);
   const sst=sstScore(st);
   const release={points:0,label:'descarga regional no inferida del momento sísmico'};
   const quiet=quiescenceContext(st);
@@ -167,7 +183,7 @@ function scoreOne(model,st,events,now){
   score=Math.max(0,Math.min(100,score));
   const coverage=Math.round(100*w);
   const conf={score:coverage,label:'cobertura física '+coverage+'%'};
-  return {st,src,sourcePts,path,seq,delay,recv,dyn,anti,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
+  return {st,src,sourcePts,path,seq,delay,recv,dyn,anti,antiContinuous,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
 }
 function fmtSource(x){
   if(!x||!x.src)return 'sin fuente material';
@@ -179,7 +195,7 @@ function ensureCard(){
   const aside=document.querySelector('aside');if(!aside)return;
   const c=document.createElement('section');c.className='card';c.id='prospectiveEngineV2';
   c.innerHTML='<h2>🎯 Proyección prospectiva experimental · MIVIGE</h2>'+
-    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. Mantiene congeladas las ponderaciones pre-Coulomb: fuente 25%, respuesta observada del receptor 45%, tamiz dinámico 15% y GNSS 15% cuando son evaluables. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
+    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. Mantiene congeladas las ponderaciones pre-Coulomb: fuente 25%, respuesta observada del receptor 45%, tamiz dinámico 15% y GNSS 15% cuando son evaluables. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. La antípoda continua M≥5,0 combina magnitud, proximidad geométrica y edad del evento, pero no modifica el puntaje V1 mientras no supere validación contra baseline. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
     '<div class="kpis" style="margin-top:8px">'+
       '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTop">—</div></div>'+
       '<div class="kpi"><div class="name">Nivel</div><div class="val" id="ppeLevel">—</div></div>'+
