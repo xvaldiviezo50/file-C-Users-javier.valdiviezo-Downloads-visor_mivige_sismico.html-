@@ -8,11 +8,11 @@ function markTechnical(){
  document.querySelectorAll('aside > section.card').forEach(s=>{
   if(s.id==='regionalProjectionPanel'||s.id==='prospectiveProtocol')return;
   const h=(s.querySelector('h2')?.textContent||'').toLowerCase();
-  if(s.id==='preventionDashboard'||s.id==='priorityRankingFixed'||s.id==='modelArchitecture'||s.id==='observationLayers'||/evidencia activa|vigilancia observada|capas científicas|migración direccional|activación sísmica regional|gnss regional|zonas de vigilancia|comparación de modelos|challenger|proyección prospectiva|dirección y mecanismos|ventanas experimentales|contraste automático/.test(h))s.classList.add('mivige-technical');
+  if(s.id==='preventionDashboard'||s.id==='priorityRankingFixed'||s.id==='modelArchitecture'||s.id==='observationLayers'||s.id==='sst40'||/evidencia activa|vigilancia observada|capas científicas|migración direccional|activación sísmica regional|gnss regional|zonas de vigilancia|comparación de modelos|challenger|proyección prospectiva|dirección y mecanismos|ventanas experimentales|contraste automático/.test(h))s.classList.add('mivige-technical');
  });
 }
 function sourceCoverage(){
- const statuses=typeof sourceStatus==='object'?Object.entries(sourceStatus):[];
+ const statuses=typeof sourceStatus==='object'?Object.entries(sourceStatus).filter(([n])=>['USGS','EMSC','IG-EPN','IGP','SGC'].includes(n)):[];
  const active=statuses.filter(([,s])=>s.ok);
  return '<div class="small"><b>Catálogos recibidos:</b> '+(active.length?active.map(([n,s])=>esc(n)+' ('+s.count+(s.truncated?', parcial':'')+')').join(' · '):'consultando fuentes')+
  '</div><details><summary>Fuentes y cobertura</summary>'+statuses.map(([n,s])=>'<div class="small"><b>'+esc(n)+'</b> · '+(s.ok?'recibido '+time(s.fetchedAt)+(s.truncated?' · catálogo parcial':'')+(s.newest?' · último evento '+time(s.newest):''):'no disponible en esta consulta')+'</div>').join('')+
@@ -42,11 +42,11 @@ function render(){
  markTechnical();
  const p=window.mivigeProspectiveV2;
  const results=(p?.results||[]).filter(x=>x.hasEvidence!==false&&Number.isFinite(x.score)).slice().sort((a,b)=>b.score-a.score);
- const stale=Boolean(p?.time&&Date.now()-p.time>15*60000),top=results[0],lv=top&&!stale?level(top.score):'Sin evaluación',color=COLORS[lv]||'#64748b';
+ const stale=Boolean(p?.dataTime&&Date.now()-p.dataTime>15*60000),top=results[0],lv=top&&!stale?level(top.score):'Sin evaluación',color=COLORS[lv]||'#64748b';
  const badge=document.getElementById('projectionBadge');
  if(badge){badge.style.background=color;badge.style.color='#fff';badge.innerHTML='<strong>PRIORIDAD DE OBSERVACIÓN EXPERIMENTAL</strong><div>'+lv.toUpperCase()+' · '+(top&&!stale?esc(top.st.s.name):stale?'actualización pendiente':'esperando datos')+'</div>';}
  panel.innerHTML='<h2>TOP 5 · observación experimental</h2><p class="small">Orden automático por señales disponibles. El puntaje organiza el seguimiento; no es probabilidad de un sismo ni alerta oficial. Los colores expresan el nivel del puntaje, no el puesto.</p>'+
- (p?.time?'<div class="small"><b>Corte:</b> '+time(p.time)+(stale?' · DATOS ATRASADOS':'')+'</div>':'')+
+ (p?.time?'<div class="small"><b>Corte:</b> '+time(p.dataTime||p.time)+(stale?' · DATOS ATRASADOS':'')+'</div>':'')+
  (results.length?results.slice(0,5).map(row).join(''):'<p>Esperando observaciones verificables; no se asigna nivel bajo por falta de datos.</p>')+
  sourceCoverage()+
  '<details><summary>Método y aprendizaje</summary><p class="small">Se conservan los pesos base del modelo anterior: fuente 25%, receptor 45%, dinámica 15% y GNSS 15%. Se renormalizan solo los componentes disponibles. Un catálogo pequeño permite observación exploratoria, no confirmación estadística. Esta revisión cambia el control de disponibilidad y abre un registro prospectivo separado; no implica que haya mejorado la capacidad predictiva. Antípoda y SST se registran aparte, sin alterar el puntaje. No hay ajuste automático de pesos.</p></details>'+
