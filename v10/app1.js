@@ -40,6 +40,7 @@ const footprints = [
 
 const endpoints = {
  'USGS':'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson',
+ 'EMSC':'https://www.seismicportal.eu/fdsnws/event/1/query?format=json&starttime=2026-09-27&minmagnitude=2.5&limit=20000&orderby=time',
  'IG-EPN':"https://srvsigaweb.igepn.edu.ec/server/rest/services/Sismicidad_365/MapServer/0/query?where=1%3D1&outFields=sis3_evento%2Csis3_tiempo%2Csis3_latitud%2Csis3_longitud%2Csis3_profundidad%2Csis3_magnitud_M%2Csis3_tipo_magnitud_P&returnGeometry=true&outSR=4326&orderByFields=sis3_tiempo%20DESC&resultRecordCount=500&f=geojson",
  'IGP':"https://ide.igp.gob.pe/arcgis/rest/services/monitoreocensis/SismosReportados/MapServer/0/query?where=1%3D1&outFields=fecha%2Chora%2Clat%2Clon%2Cprof%2Cref%2Cmagnitud%2Cfechaevento%2Ccode&returnGeometry=true&outSR=4326&orderByFields=fechaevento%20DESC&resultRecordCount=500&f=geojson",
  'SGC':"https://geoportal.sgc.gov.co/arcgis/rest/services/catalogo_sismos/catalogo_de_sismos_2/MapServer/0/query?where=1%3D1&outFields=ESP_ID_EVENTO_TXT%2CESP_MAGNITUD%2CESP_PROFUNDIDAD%2CESP_FECHA_TXT%2CESP_FECHA%2CESP_LATITUD%2CESP_LONGITUD&returnGeometry=true&outSR=4326&orderByFields=ESP_FECHA%20DESC&resultRecordCount=500&f=geojson"
@@ -102,6 +103,7 @@ function tectonicColor(e){
 function normalize(source, f){
  const p=f.properties||{}, g=f.geometry?.coordinates||[];
  if(source==='USGS') return {source,id:f.id||p.code,time:p.time,mag:n(p.mag),depth:n(g[2],0),lat:n(g[1]),lon:n(g[0]),place:p.place||'USGS'};
+ if(source==='EMSC') return {source,id:f.id||p.unid||p.eventid,time:parseTime(p.time),mag:n(p.mag),depth:n(g[2],n(p.depth,0)),lat:n(g[1],n(p.lat)),lon:n(g[0],n(p.lon)),place:p.flynn_region||p.place||'EMSC'};
  if(source==='IG-EPN') return {source,id:p.sis3_evento,time:parseTime(p.sis3_tiempo),mag:n(p.sis3_magnitud_M),depth:n(p.sis3_profundidad,0),lat:n(p.sis3_latitud,g[1]),lon:n(p.sis3_longitud,g[0]),place:'Ecuador'};
  if(source==='IGP') return {source,id:p.code||p.objectid,time:parseTime(p.fechaevento||p.fecha),mag:n(p.magnitud),depth:n(p.prof,0),lat:n(p.lat,g[1]),lon:n(p.lon,g[0]),place:p.ref||'Perú'};
  if(source==='SGC') return {source,id:p.ESP_ID_EVENTO_TXT,time:parseTime(p.ESP_FECHA||p.ESP_FECHA_TXT),mag:n(p.ESP_MAGNITUD),depth:n(p.ESP_PROFUNDIDAD,0),lat:n(p.ESP_LATITUD,g[1]),lon:n(p.ESP_LONGITUD,g[0]),place:'Colombia'};
