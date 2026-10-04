@@ -1,6 +1,9 @@
-(function(){'use strict';if(typeof L==='undefined'||typeof map==='undefined')return;
-const layer=L.layerGroup().addTo(map);
-function popup(p,c){return '<b>Sismo reciente · M'+Number(p.mag).toFixed(1)+'</b><br>'+(p.place||'')+'<br>Profundidad: '+(Number.isFinite(c[2])?Math.round(c[2])+' km':'N/A')+'<br>'+new Date(p.time).toLocaleString('es-EC',{timeZone:'America/Guayaquil'})+'<br>Fuente: USGS';}
-async function draw(){try{const r=await fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson',{cache:'no-store'});if(!r.ok)throw Error();const j=await r.json(),cut=Date.now()-259200000;layer.clearLayers();j.features.filter(f=>f.properties.time>=cut&&Number(f.properties.mag)>=3).forEach(f=>{const p=f.properties,c=f.geometry.coordinates,m=Number(p.mag);L.circleMarker([c[1],c[0]],{radius:Math.max(4,Math.min(11,2+m)),weight:2,fillOpacity:.85}).bindPopup(popup(p,c)).addTo(layer);});}catch(e){}}
-L.control.layers({},{'Sismos recientes · 72 h · M≥3':layer},{collapsed:true,position:'topright'}).addTo(map);draw();setInterval(draw,300000);
+(function(){'use strict';
+const layer=L.layerGroup().addTo(map);window.mivigeRecentQuakesLayer=layer;
+function add(e){if(!e||!Number.isFinite(+e.lat)||!Number.isFinite(+e.lon)||!Number.isFinite(+e.mag))return;const age=(Date.now()-Number(e.time))/36e5;if(age<0||age>72||+e.mag<3)return;const m=+e.mag;L.circleMarker([+e.lat,+e.lon],{radius:Math.max(5,Math.min(12,3+m)),color:'#ffb000',weight:2,fillColor:m>=5?'#e4493f':'#ffd166',fillOpacity:.9,pane:'markerPane'}).bindPopup('<b>SISMO ACTUAL · M'+m.toFixed(1)+'</b><br>'+(e.place||'')+'<br>Profundidad: '+(Number.isFinite(+e.depth)?Math.round(+e.depth)+' km':'N/A')+'<br>Hace '+age.toFixed(1)+' h<br>Fuente: '+(e.source||'catálogo integrado')).addTo(layer);}
+function fromModel(){const a=(typeof allEvents!=='undefined'&&Array.isArray(allEvents))?allEvents:(Array.isArray(window.allEvents)?window.allEvents:[]);if(!a.length)return false;layer.clearLayers();a.forEach(add);return layer.getLayers().length>0;}
+async function fromUSGS(){try{const r=await fetch('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson?ts='+Date.now(),{cache:'no-store'});if(!r.ok)return;const j=await r.json();layer.clearLayers();j.features.forEach(f=>add({lat:f.geometry.coordinates[1],lon:f.geometry.coordinates[0],depth:f.geometry.coordinates[2],mag:f.properties.mag,time:f.properties.time,place:f.properties.place,source:'USGS'}));}catch(e){}}
+async function draw(){if(!fromModel())await fromUSGS();}
+L.control.layers({},{'● SISMOS ACTUALES · 72 h · M≥3':layer},{collapsed:true,position:'topright'}).addTo(map);
+setTimeout(draw,1500);setTimeout(draw,5000);setInterval(draw,300000);document.getElementById('refresh')?.addEventListener('click',()=>setTimeout(draw,1800));
 })();
