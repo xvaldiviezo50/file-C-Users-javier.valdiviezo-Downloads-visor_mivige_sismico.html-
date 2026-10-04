@@ -24,6 +24,7 @@ const SEG=[
   {id:'ec_n',name:'Ecuador norte · Esmeraldas',lat:0.55,lon:-79.9,r:210,ord:7,country:'Ecuador'},
   {id:'co_p',name:'Colombia Pacífico · Nariño/Cauca',lat:2.5,lon:-77.7,r:250,ord:8,country:'Colombia'},
   {id:'co_ch',name:'Colombia · Chocó',lat:4.9,lon:-76.75,r:250,ord:9,country:'Colombia'},
+  {id:'pa_p',name:'Panamá · Pacífico/Darién',lat:6.2,lon:-81.2,r:430,ord:9.5,country:'Panamá'},
   {id:'ven',name:'Venezuela costera',lat:10.2,lon:-64.5,r:520,ord:10,country:'Venezuela'}
 ];
 
