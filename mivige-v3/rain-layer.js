@@ -1,6 +1,6 @@
 (()=>{"use strict";
 const BASE="https://www.inamhi.gob.ec/pronostico/animacion_modelo/";
-const PRODUCTS={
+const PRODUCTS={"Ecuador":"ecu_p_3h.gif",
 "Azuay":"Azuay_p_3h.gif","Cañar":"Canar_Prov_p_6h.gif","Chimborazo":"Chimborazo_p_3h.gif",
 "Cotopaxi":"Cotopaxi_p_3h.gif","El Oro":"El_Oro_p_3h.gif","Morona Santiago":"MoronaSantiago_p_3h.gif",
 "Pastaza":"Pastaza_p_3h.gif","Tungurahua":"Tungurahua_p_3h.gif"
@@ -19,7 +19,7 @@ function init(){
  const p=document.createElement("div");p.id="rainPanel";p.className="rainPanel";p.hidden=true;
  p.innerHTML='<h3>Precipitación · fuente oficial INAMHI</h3><div class="rainRow"><label>Zona</label><select id="rainRegion"></select><button id="rainReload">Actualizar</button><button id="rainClose">×</button></div><img id="rainImg" alt="Animación oficial INAMHI de precipitación WRF cada 3 horas"><div class="rainMeta"><span class="rainDot"></span><b>WRF · precipitación 3-horaria</b><br>La animación muestra la evolución/recorrido previsto de la lluvia en cuadros sucesivos. Es una capa meteorológica independiente: no modifica IDG, IDS, IITE, IADR ni el semáforo sísmico.<br><span id="rainStamp"></span><br><a href="https://inamhi.geoglows.org/apps/met-data-explorer" target="_blank" rel="noopener" style="color:#86ccff">INAMHI GEOGLOWS · explorador meteorológico</a></div>';
  document.getElementById("map").appendChild(p);
- const s=p.querySelector("#rainRegion");Object.keys(PRODUCTS).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k;s.appendChild(o)});s.value="Azuay";
+ const s=p.querySelector("#rainRegion");Object.keys(PRODUCTS).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=k;s.appendChild(o)});s.value="Ecuador";
  function load(){const f=PRODUCTS[s.value];p.querySelector("#rainImg").src=BASE+f+"?t="+Date.now();p.querySelector("#rainStamp").textContent="Consulta: "+new Date().toLocaleString("es-EC",{timeZone:"America/Guayaquil"})+" · producto servido directamente por INAMHI."}
  s.onchange=load;p.querySelector("#rainReload").onclick=load;p.querySelector("#rainClose").onclick=()=>p.hidden=true;load();
  function toggle(){p.hidden=!p.hidden;if(!p.hidden)load()}
