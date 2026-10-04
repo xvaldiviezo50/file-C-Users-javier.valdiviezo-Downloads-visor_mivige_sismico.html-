@@ -94,15 +94,15 @@ function renderVisibleAntipodes(active,learning){
  learning.forEach(x=>items.push({kind:'CHALLENGER',r:x.r,e:x.q.e,d:x.q.d,band:x.q.d<=CFG.coreKm?'NÚCLEO':'HALO'}));
  const unique=[];items.forEach(x=>{const k=x.kind+'|'+x.r.id+'|'+(x.e.id||x.e.time);if(!unique.some(y=>y.k===k))unique.push({...x,k});});
  sum.innerHTML=unique.length?'<b>'+unique.length+' coincidencia(s) antipodal(es) M≥5,0</b> en las últimas 72 h.':'<b>SIN ACTIVACIÓN ANTIPODAL DETECTADA</b> · no hay fuentes M≥5,0 dentro de núcleo/halo en las últimas 72 h.';
- rows.innerHTML=unique.map(x=>'<div class="listitem"><div><b>'+x.kind+' · '+x.r.country+' · '+x.r.name+'</b><div class="zdesc">Fuente: '+fmt(x.e)+'<br>Antípoda receptora: '+x.band+' · '+Math.round(x.d)+' km · seguimiento 24/72 h</div></div></div>').join('');
+ rows.innerHTML=unique.slice().sort((a,b)=>(a.kind==='V1'?0:1)-(b.kind==='V1'?0:1)||a.d-b.d||Number(b.e.mag)-Number(a.e.mag)).slice(0,5).map(x=>'<div class="listitem"><div><b>'+x.kind+' · '+x.r.country+' · '+x.r.name+'</b><div class="zdesc">Fuente: '+fmt(x.e)+'<br>Antípoda receptora: '+x.band+' · '+Math.round(x.d)+' km · seguimiento 24/72 h</div></div></div>').join('');
 }
 function renderBottom(active,learning){
   ensureBottomPanel();const el=document.getElementById('antiBottomRows'),btn=document.getElementById('antiBottomBtn');if(!el)return;
   const rows=[];
-  active.forEach(x=>rows.push('<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">V1 · M'+Number(x.src.e.mag).toFixed(1)+' · '+x.src.f.label+' · '+Math.round(x.src.d)+' km · '+(x.src.e.place||'fuente global')+'</span></div></div>'));
-  learning.forEach(x=>rows.push('<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">CHALLENGER · M'+Number(x.q.e.mag).toFixed(1)+' · '+(x.q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(x.q.d)+' km · '+(x.q.e.place||'fuente global')+' · 24/72 h</span></div></div>'));
+  active.slice().sort((a,b)=>a.src.d-b.src.d||Number(b.src.e.mag)-Number(a.src.e.mag)).slice(0,5).forEach(x=>rows.push('<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">V1 · M'+Number(x.src.e.mag).toFixed(1)+' · '+x.src.f.label+' · '+Math.round(x.src.d)+' km · '+(x.src.e.place||'fuente global')+'</span></div></div>'));
+  learning.slice().sort((a,b)=>a.q.d-b.q.d||Number(b.q.e.mag)-Number(a.q.e.mag)).slice(0,Math.max(0,5-rows.length)).forEach(x=>rows.push('<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">CHALLENGER · M'+Number(x.q.e.mag).toFixed(1)+' · '+(x.q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(x.q.d)+' km · '+(x.q.e.place||'fuente global')+' · 24/72 h</span></div></div>'));
   el.innerHTML=rows.length?rows.join(''):'<div class="small">Sin fuentes antipodales M≥5,0 dentro del núcleo/halo durante las últimas 72 h.</div>';
-  btn.textContent='🌐 ANTÍPODAS ACTIVAS · '+rows.length;
+  btn.textContent='🌐 TOP ANTIPODAL · '+rows.length;
 }
 function ensureCard(){
   if(document.getElementById('antipodeNetworkV2'))return;
