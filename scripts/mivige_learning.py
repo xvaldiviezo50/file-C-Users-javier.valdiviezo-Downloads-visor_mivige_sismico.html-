@@ -26,7 +26,7 @@ for e in ev:
   for hours in (24,72):
    key=e["id"]+"|"+zid+"|"+str(hours)
    if key not in known:
-    anti.append({"key":key,"source_id":e["id"],"source_mag":e["m"],"source_time":e["t"],"source_depth":e["dep"],"source_lat":e["lat"],"source_lon":e["lon"],"antipode_lat":round(alat,4),"antipode_lon":round(alon,4),"zone":zid,"name":zname,"distance_antipode_km":round(ad,1),"band":band,"hours":hours,"start":e["t"],"end":e["t"]+hours*H,"target":4.5,"status":"pending","hits":[],"track":"subthreshold-learning-only"});known.add(key)
+    anti.append({"key":key,"source_id":e["id"],"source_mag":e["m"],"source_time":e["t"],"source_depth":e["dep"],"source_lat":e["lat"],"source_lon":e["lon"],"antipode_lat":round(alat,4),"antipode_lon":round(alon,4),"zone":zid,"name":zname,"distance_antipode_km":round(ad,1),"band":band,"hours":hours,"start":e["t"],"end":e["t"]+hours*H,"targets":[3.0,3.5,4.0,4.5,6.0],"status":"pending","hits":[],"track":"subthreshold-learning-only"});known.add(key)
 for a in anti:
  if a["status"]!="pending" or now<a["end"]: continue
  z=next((q for q in Z if q[0]==a["zone"]),None)
