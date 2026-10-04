@@ -3,7 +3,7 @@
 if(typeof L==='undefined'||typeof map==='undefined')return;
 
 const CFG={
-  version:'3.0-physics-v1',
+  version:'3.2-physics-coulomb-ready',
   historyH:168,
   low:40,
   high:65,
@@ -15,7 +15,7 @@ const CFG={
   ]
 };
 
-const TARGETS=['pe_s','pe_c','pe_n','ec_s','ec_az','ec_c','ec_n','co_p','co_ch','ven'];
+const TARGETS=['cl_c','cl_n','pe_s','pe_c','pe_n','ec_s','ec_az','ec_c','ec_n','co_p','co_ch','ven'];
 const layer=L.layerGroup().addTo(map);
 const linkLayer=L.layerGroup(); // Experimental regional links are optional; antipodes use their own strict filter.
 
@@ -107,7 +107,7 @@ function antipodeScore(st){
   if(!hit)return {points:0,label:'sin fuente antipodal activa'};
   const d=Number(hit.src?.d);
   const pts=d<=225?10:d<=560?5:0;
-  return {points:pts,label:(d<=225?'núcleo antipodal':d<=560?'halo antipodal':'fuera')+' · '+Math.round(d)+' km',hit};
+  return {points:pts,label:(d<=225?'núcleo antipodal':d<=560?'halo antipodal':'sin activación antipodal')+' · '+Math.round(d)+' km',hit};
 }
 function sstScore(st){
   const s=window.mivigeSSTSignals&&window.mivigeSSTSignals[st.s.id];
@@ -141,7 +141,8 @@ function confidence(model,st,src,dyn){
 function scoreOne(model,st,events,now){
   const src=bestSourceFor(st,events,now);
   const sourcePts=src?20*src.score:0;
-  const path={points:0,label:'transferencia de esfuerzos pendiente de cálculo',sourceNode:null};
+  const coulomb=window.mivigeCoulomb&&window.mivigeCoulomb[st.s.id];
+  const path=(coulomb&&coulomb.evaluable&&Number.isFinite(coulomb.score))?{points:coulomb.score,label:'Coulomb ΔCFS evaluable · '+(coulomb.label||'resultado disponible'),sourceNode:null,evaluable:true,value:clamp((coulomb.score+100)/200)*100}:{points:0,label:'Coulomb N/A · requiere mecanismo/ruptura y geometría receptora',sourceNode:null,evaluable:false,value:null};
   const seq={points:0,label:'orden de epicentros excluido de la proyección física'};
   const delay=delayedWindow(src);
   const recv=receiverScore(st);
@@ -153,10 +154,11 @@ function scoreOne(model,st,events,now){
   // Physics v1: only evaluable physical/observational channels enter the core score.
   // Challenger channels (antipode/SST) are retained for prospective validation but contribute 0 to core.
   const components=[
-    {id:'source',value:src?100*src.score:null,weight:.25},
-    {id:'receiver',value:100*clamp((recv.points)/20),weight:.45},
+    {id:'source',value:src?100*src.score:null,weight:.20},
+    {id:'receiver',value:100*clamp((recv.points)/20),weight:.35},
     {id:'dynamic',value:model?.dyn?.by?.[st.s.id]?100*clamp(dyn.points/10):null,weight:.15},
-    {id:'geodesy',value:(st.idg&&st.idg.used>=3)?(st.idg.candidate?70:25):null,weight:.15}
+    {id:'geodesy',value:(st.idg&&st.idg.used>=3)?(st.idg.candidate?70:25):null,weight:.15},
+    {id:'coulomb',value:path.evaluable?path.value:null,weight:.15}
   ];
   const evals=components.filter(x=>Number.isFinite(x.value));
   const w=evals.reduce((a,x)=>a+x.weight,0);
@@ -176,7 +178,7 @@ function ensureCard(){
   const aside=document.querySelector('aside');if(!aside)return;
   const c=document.createElement('section');c.className='card';c.id='prospectiveEngineV2';
   c.innerHTML='<h2>🎯 Proyección prospectiva experimental · MIVIGE</h2>'+
-    '<div class="small">Esta salida es <b>independiente del ICM científico</b>. Physics v1 separa el núcleo físico de los challengers. El índice principal usa fuente, respuesta observada del receptor, tamiz dinámico y GNSS cuando son evaluables. Coulomb queda N/A hasta disponer de geometría de ruptura/receptor. Antípoda y SST se registran para validación, pero no suman al índice principal. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
+    '<div class="small">Esta salida es <b>independiente del ICM científico</b>. Physics v1 separa el núcleo físico de los challengers. El índice principal usa fuente, respuesta observada del receptor, tamiz dinámico y GNSS cuando son evaluables. Coulomb tiene peso físico reservado y solo entra cuando existe un cálculo ΔCFS evaluable con mecanismo/ruptura de la fuente y geometría receptora; si falta evidencia queda N/A y se renormaliza el índice. Antípoda y SST se registran para validación, pero no suman al índice principal. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
     '<div class="kpis" style="margin-top:8px">'+
       '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTop">—</div></div>'+
       '<div class="kpi"><div class="name">Nivel</div><div class="val" id="ppeLevel">—</div></div>'+
