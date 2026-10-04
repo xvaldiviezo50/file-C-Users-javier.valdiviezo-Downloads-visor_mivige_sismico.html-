@@ -222,6 +222,18 @@ function draw(results){
 }
 function snapshotOf(x){return {time:Date.now(),score:x.score,level:x.level.short,components:{source:x.src?100*x.src.score:null,receiver:100*clamp(x.recv.points/20),dynamic:100*clamp(x.dyn.points/10),geodesy:(x.st.idg&&x.st.idg.used>=3)?(x.st.idg.candidate?70:25):null}};}
 function audit(results){let old={};try{old=JSON.parse(localStorage.getItem('mivige-pattern-audit-v1')||'{}');}catch(_){} const out={};for(const x of results){const prev=old[x.st.s.id]||null,cur=snapshotOf(x);x.audit={prev,delta:prev?cur.score-prev.score:null,componentDelta:{}};if(prev&&prev.components){for(const k of Object.keys(cur.components)){const a=cur.components[k],b=prev.components[k];x.audit.componentDelta[k]=(Number.isFinite(a)&&Number.isFinite(b))?a-b:null;}}out[x.st.s.id]=cur;}try{localStorage.setItem('mivige-pattern-audit-v1',JSON.stringify(out));}catch(_){} }
+function freezeForecast(results,now){
+  const key='mivige-prospective-ledger-v1'; let ledger=[]; try{ledger=JSON.parse(localStorage.getItem(key)||'[]');}catch(_){}
+  const top5=results.slice(0,5).map((x,i)=>({rank:i+1,zoneId:x.st.s.id,zone:x.st.s.name,score:+x.score.toFixed(1),level:x.level.short,window:'24–72 h',components:{source:+x.sourcePts.toFixed(1),receiver:+x.recv.points.toFixed(1),dynamic:+x.dyn.points.toFixed(1),antipode:+x.anti.points.toFixed(1),sst:+x.sst.points.toFixed(1)}}));
+  const bucket=Math.floor(now/(6*3600e3));
+  if(!ledger.some(x=>x.bucket===bucket)){ledger.push({bucket,time:now,model:CFG.version,top5,status:'ABIERTA',closes:now+72*3600e3});ledger=ledger.slice(-120);try{localStorage.setItem(key,JSON.stringify(ledger));}catch(_){}}
+  return ledger;
+}
+function renderLedger(ledger){
+  const h=document.getElementById('forecastLedger'); if(!h)return;
+  const a=(ledger||[]).slice().reverse().slice(0,5);
+  h.innerHTML=a.length?a.map(x=>'<div class="listitem"><div><div class="zname">'+new Date(x.time).toLocaleString('es-EC')+' · '+x.status+'</div><div class="zdesc">'+x.top5.map(q=>'#'+q.rank+' '+q.zone+' '+q.score+'/100').join(' · ')+'</div></div></div>').join(''):'El primer corte prospectivo se registrará automáticamente.';
+}
 function auditText(x){const a=x.audit;if(!a||!a.prev)return 'línea base creada en este dispositivo';const ds=(a.delta>=0?'+':'')+a.delta.toFixed(1);const names={source:'fuente',receiver:'receptor',dynamic:'dinámica',geodesy:'GNSS'};const parts=Object.entries(a.componentDelta).filter(([,v])=>Number.isFinite(v)&&Math.abs(v)>=.05).sort((A,B)=>Math.abs(B[1])-Math.abs(A[1])).map(([k,v])=>names[k]+' '+(v>=0?'+':'')+v.toFixed(1));return 'anterior '+a.prev.score.toFixed(1)+'/100 ('+a.prev.level+') · Δ '+ds+(parts.length?' · cambios: '+parts.join(' · '):' · sin cambio material de componentes');}
 function render(){
   ensureCard();
@@ -230,6 +242,7 @@ function render(){
   const now=Date.now();
   const results=model.states.filter(st=>TARGETS.includes(st.s.id)).map(st=>scoreOne(model,st,allEvents,now)).sort((a,b)=>b.score-a.score);
   audit(results);
+  const ledger=freezeForecast(results,now); renderLedger(ledger);
   const top=results[0];
   if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='SIN EVALUACIÓN PROSPECTIVA';document.getElementById('ppeRows').textContent='Esperando al menos un segmento definido. La capa experimental usa los catálogos abiertos disponibles y conserva la cobertura/calidad como dato separado.';document.getElementById('ppeTop').textContent='—';document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,results:[],config:CFG};window.dispatchEvent(new Event('mivige:prospective'));return;}
 
