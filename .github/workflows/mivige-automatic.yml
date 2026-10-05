@@ -1,0 +1,49 @@
+name: MIVIGE automatic evidence and windows
+on:
+  schedule:
+    - cron: '41 * * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'mivige-v2/scripts/collect_automatic.py'
+      - 'mivige-v2/scripts/test_collect_automatic.py'
+      - 'mivige-v2/automatic-monitor.js'
+      - '.github/workflows/mivige-automatic.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: mivige-automatic
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s mivige-v2/scripts -p 'test_collect_automatic.py'
+      - run: python mivige-v2/scripts/collect_automatic.py
+      - name: Preserve central record
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add mivige-v2/data/automatic*.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record automatic evidence and prospective windows'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Publish updated data
+        id: deployment
+        uses: actions/deploy-pages@v4
+

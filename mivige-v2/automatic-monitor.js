@@ -1,0 +1,25 @@
+/* Central scheduled snapshots. No manual input required. */
+(function(){
+'use strict';
+const card=document.createElement('section');card.className='card';card.id='automaticMonitor';
+card.innerHTML='<h2>Registro programado · sismicidad y GNSS</h2><div id="autoStatus">Consultando procesamiento programado…</div><details><summary>Cobertura y criterios del registro</summary><div id="autoCoverage"></div></details><details><summary>Ventanas emitidas y controles</summary><div id="autoWindows" style="max-height:400px;overflow:auto"></div></details><p class="small">Ventanas de 24/72 h y objetivos M≥4,5/M≥6 separados. Se registran también controles sin señal. Una coincidencia no demuestra causalidad. Datos insuficientes no significan ausencia de deformación ni de peligro. Este registro independiente no modifica el ranking 3079 ni calcula dirección física o probabilidad de sismo fuerte.</p><button id="autoExport">Descargar registro automático</button>';
+document.querySelector('aside')?.appendChild(card);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const time=t=>new Date(typeof t==='number'?t*1000:t).toLocaleString('es-EC',{timeZone:'America/Guayaquil'});
+let ledger=null,layer=null;
+if(typeof L!=='undefined'&&typeof map!=='undefined'){layer=L.layerGroup().addTo(map);L.control.layers({},{'Ventanas automáticas · zonas con señal':layer},{collapsed:true}).addTo(map);}
+async function refresh(){
+ try{
+ const [a,b]=await Promise.all(['data/automatic.json','data/automatic-ledger.json'].map(async u=>{const r=await fetch(u+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);return r.json();}));
+ ledger=b;const age=(Date.now()-Date.parse(a.generated_at))/3600000,stale=!Number.isFinite(age)||age<0||age>3;
+ document.getElementById('autoStatus').innerHTML='<p><b>'+(a.run_status==='ok'&&!stale?'Proceso automático disponible':'Proceso atrasado o consulta fallida; revisar cobertura')+'</b><br>Procesado: '+esc(time(a.generated_at))+' (Ecuador). Programado cada hora; puede haber demoras del servicio. Funciona con el visor cerrado.</p><p class="small">Catálogo regional de contraste: '+(a.catalogue?.count??'—')+' eventos M≥4,5 / 90 días. Productos físicos publicados en últimos 7 días para M≥5: '+(a.product_counts?.['moment-tensor']??0)+' tensores, '+(a.product_counts?.['finite-fault']??0)+' modelos de ruptura. Ausencia de producto no equivale a ausencia de esfuerzo.</p>';
+ document.getElementById('autoCoverage').innerHTML='<table class="table"><thead><tr><th>Zona</th><th>Sismicidad</th><th>GNSS vigente</th></tr></thead><tbody>'+(a.states||[]).map(s=>'<tr><td>'+esc(s.zone.name)+'</td><td>'+esc(s.catalogue_source||'USGS')+' · M≥'+(s.detection_mag??4.5)+'<br>'+(s.seismic_evaluable?(s.seismic_candidate?'Tamiz activo':'Sin activación del tamiz'):'Muestra insuficiente')+'<br>'+s.recent_count+' / 24 h; '+s.baseline_count+' / fondo</td><td>'+s.gnss.stations.length+' estaciones<br>'+(s.gnss.available?(s.gnss.candidate?'Coincidencia exploratoria':'Sin coincidencia del tamiz'):'Cobertura insuficiente')+'</td></tr>').join('')+'</tbody></table><p class="small">Regla exploratoria v1: ≥20 eventos en 89 días de fondo, ≥3 en las últimas 24 h y tasa ≥3 veces el fondo. La combinación requiere además ≥3 estaciones GNSS con cambios coincidentes bajo el tamiz existente. Umbrales no calibrados; no es una inversión de deslizamiento ni un cálculo de Coulomb. La disponibilidad del catálogo no demuestra completitud estadística.</p>';
+ const labels={abierta:'Abierta',coincidencia:'Coincidencia provisional',falsa_alarma:'Falsa alarma experimental',omision:'Omisión',negativo_correcto:'Control negativo correcto',no_evaluable:'No evaluable'};
+ document.getElementById('autoWindows').innerHTML=(b.records||[]).slice(-160).reverse().map(r=>'<p class="small"><b>'+esc(r.zone.name)+' · '+(r.mechanism==='sismicidad_y_gnss'?'Sismicidad + GNSS':'Sismicidad')+'</b><br>'+time(r.start)+' → '+time(r.end)+' · M≥'+r.target_mag+'<br>'+(r.active?'Señal experimental':'Control sin señal')+' · '+esc(labels[r.status]||r.status)+'</p>').join('')||'<p>Sin ventanas emitidas: las reglas esperan datos suficientes.</p>';
+ if(layer){layer.clearLayers();if(!stale&&a.run_status==='ok')for(const r of b.records||[])if(r.active&&r.status==='abierta'&&r.end*1000>Date.now())L.marker([r.zone.lat,r.zone.lon]).bindPopup('<b>Ventana automática experimental</b><br>'+esc(r.zone.name)+'<br>M≥'+r.target_mag+' · '+r.hours+' h<br>'+time(r.end)+'<br>Centro del segmento; no epicentro previsto.').addTo(layer);}
+ }catch(e){document.getElementById('autoStatus').textContent='No se pudo consultar el proceso automático. No se interpreta como ausencia de señal.';if(layer)layer.clearLayers();}
+}
+document.getElementById('autoExport').onclick=()=>{if(!ledger)return;const u=URL.createObjectURL(new Blob([JSON.stringify(ledger,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='mivige-registro-automatico.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);};
+refresh();setInterval(refresh,300000);
+})();
+
