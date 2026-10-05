@@ -1,20 +1,20 @@
 {
-  "version": "CHOCO-29SEP-2026-05",
-  "published_at_ecuador": "29 sep 2026 · corte oficial SGC",
+  "version": "CHOCO-04OCT-2026-06",
+  "published_at_ecuador": "04 oct 2026 · 20:22",
   "title": "Chocó – Istmina / Sipí / Medio San Juan / Litoral del San Juan",
   "level": "Dos procesos diferenciados / vigilancia intensificada",
   "scientific_family": "Sismicidad (IDS)",
-  "current_reading": "El SGC distingue dos procesos después del Mw 7,4 del 10-ago-2026: (1) 333 réplicas profundas, principalmente 70–105 km, con frecuencia y magnitud en disminución; y (2) un enjambre separado de más de 1541 eventos entre 30–70 km, con 31 eventos ML≥4,0 y actividad fluctuante. La interpretación físicamente plausible es un reajuste local/regional del estado de esfuerzos, posiblemente combinado con cambios de presión de poros, permeabilidad y migración de fluidos. Esto no demuestra una migración tectónica regional ni permite inferir un terremoto mayor futuro.",
+  "current_reading": "SGC: 338 réplicas profundas asociadas al Mw 7,4, con una nueva M1,1 en 24 h y tendencia decreciente; enjambre >1.597 eventos, 32 ML≥4. El aumento acumulado confirma persistencia, pero no demuestra aceleración sostenida, migración coherente ni escalamiento hacia un evento mayor.",
   "official_counts": {
-    "swarm_events_min": 1541,
-    "swarm_label": ">1.541 eventos",
-    "swarm_cutoff": "29 sep 2026",
-    "swarm_m4plus": 31,
-    "swarm_m4plus_label": "31 eventos ML≥4,0",
-    "aftershocks_min": 333,
-    "aftershocks_label": "333 réplicas",
+    "swarm_events_min": 1597,
+    "swarm_label": ">1.597 eventos",
+    "swarm_cutoff": "4 oct 2026",
+    "swarm_m4plus": 32,
+    "swarm_m4plus_label": "32 eventos ML≥4,0",
+    "aftershocks_min": 338,
+    "aftershocks_label": "338 réplicas",
     "source": "Servicio Geológico Colombiano (SGC)",
-    "note": "Corte oficial SGC del 29-sep-2026. Réplicas profundas 70–105 km: sin nuevas réplicas en las últimas 24 h y tendencia decreciente. Enjambre 30–70 km: >1541 eventos; 31 ML≥4,0; tres eventos M>2 y <4 durante el 29-sep."
+    "note": "Corte SGC 04-oct-2026: 338 réplicas profundas (1 nueva M1,1/24 h), tendencia decreciente; enjambre >1.597 eventos y 32 ML≥4."
   },
   "recent_pulse": {
     "date": "29 sep 2026",
@@ -99,5 +99,28 @@
       "activación dinámica solo si existe respuesta estadísticamente anómala"
     ],
     "future_test": "Comparar tasa, profundidad y posición del enjambre contra ETAS/Omori y buscar confirmación independiente con mecanismos focales y geodesia."
+  },
+  "ranking_signal": {
+    "enabled": true,
+    "mode": "observable_evidence_only",
+    "baseline": {
+      "swarm_events_min": 1590,
+      "swarm_m4plus": 31,
+      "aftershocks": 337
+    },
+    "current": {
+      "swarm_events_min": 1597,
+      "swarm_m4plus": 32,
+      "aftershocks": 338
+    },
+    "criteria": {
+      "new_m5": false,
+      "sustained_acceleration": false,
+      "coherent_migration": false,
+      "independent_geophysical_signal": false
+    },
+    "ranking_delta": 0,
+    "interpretation": "Persistencia del enjambre sin cambio de régimen: no elevar ranking por conteo acumulado.",
+    "rule": "El ranking solo recibe bonificación por M≥5 nuevo, aceleración sostenida reproducible, migración espacio-profundidad coherente o señal geofísica independiente. El conteo acumulado se muestra pero no suma prioridad."
   }
 }
