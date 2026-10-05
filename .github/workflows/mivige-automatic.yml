@@ -6,6 +6,8 @@ on:
   push:
     paths:
       - 'mivige-v2/scripts/collect_automatic.py'
+      - 'mivige-v2/scripts/collect_history.cjs'
+      - 'mivige-v2/history-cache.js'
       - 'mivige-v2/scripts/test_collect_automatic.py'
       - 'mivige-v2/automatic-monitor.js'
       - '.github/workflows/mivige-automatic.yml'
@@ -29,12 +31,17 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s mivige-v2/scripts -p 'test_collect_automatic.py'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check mivige-v2/model.js && node --check mivige-v2/history-cache.js
+      - run: node mivige-v2/scripts/collect_history.cjs
       - run: python mivige-v2/scripts/collect_automatic.py
       - name: Preserve central record
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add mivige-v2/data/automatic*.json
+          git add mivige-v2/data/automatic*.json mivige-v2/data/observations-history.json
           if ! git diff --cached --quiet; then
             git commit -m 'Record automatic evidence and prospective windows'
             git pull --rebase origin main
@@ -46,4 +53,5 @@ jobs:
       - name: Publish updated data
         id: deployment
         uses: actions/deploy-pages@v4
+
 

@@ -193,10 +193,10 @@ function antipodeScreen(events,now){
 }
 async function loadGnssState(){
   const urls=['https://raw.githubusercontent.com/xvaldiviezo50/file-C-Users-javier.valdiviezo-Downloads-visor_mivige_sismico.html-/main/mivige-v2/data/gnss.json','data/gnss.json'];
-  gnssState=null;
+  try{gnssState=gnssState||JSON.parse(localStorage.getItem("mivige-last-gnss")||"null");}catch(_){}
   for(const url of urls){
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
-    try{const r=await fetch(url+'?t='+Date.now(),{cache:'no-store',signal:controller.signal});if(!r.ok)continue;const j=await r.json();if(j.schema===1&&Array.isArray(j.stations)){gnssState=j;break;}}
+    try{const r=await fetch(url+'?t='+Date.now(),{cache:'no-store',signal:controller.signal});if(!r.ok)continue;const j=await r.json();if(j.schema===1&&Array.isArray(j.stations)){gnssState=j;try{localStorage.setItem("mivige-last-gnss",JSON.stringify(j));}catch(_){}break;}}
     catch(_){}finally{clearTimeout(timer);}
   }
   MivigeGeodesy.render(gnssState);
@@ -302,7 +302,7 @@ function render(states,im,dyn,anti,idg,idqv){
       '<b>GNSS de la zona:</b> '+st.idg.state+' · '+st.idg.used+' estaciones utilizables'+(st.idg.latency==null?'':' · antigüedad mediana '+st.idg.latency.toFixed(1)+' días')+'<br>'+
       (st.idg.candidate&&st.rateSignificant?'<b>Coincidencia sísmico-geodésica a revisar; no alerta predictiva.</b><br>':'')+
       '<b>Eventos:</b> '+st.recent.length+' en 24 h / '+st.hist.length+' en 7 días sobre selección del segmento<br>'+
-      (st.s.id==='co_ch'&&chocoWatch?'<b>SGC Chocó:</b> '+chocoWatch.official_counts.swarm_label+' · '+chocoWatch.official_counts.swarm_m4plus_label+' · '+chocoWatch.official_counts.aftershocks_label+' · '+(st.chocoRankReason||'')+'<br>':'')+'<b>Control de tasa:</b> p='+fmtNum(st.rateP,4)+' · +(st.rateSignificant?'exceso tras control múltiple':'sin exceso robusto / muestra insuficiente')+'<br><b>Baseline:</b> '+st.baseline+' · <b>IITE-D:</b> '+d.state+
+      (st.s.id==='co_ch'&&chocoWatch?'<b>SGC Chocó:</b> '+chocoWatch.official_counts.swarm_label+' · '+chocoWatch.official_counts.swarm_m4plus_label+' · '+chocoWatch.official_counts.aftershocks_label+' · '+(st.chocoRankReason||'')+'<br>':'')+'<b>Control de tasa:</b> p='+fmtNum(st.rateP,4)+' · '+(st.rateSignificant?'exceso tras control múltiple':'sin exceso robusto / muestra insuficiente')+'<br><b>Baseline:</b> '+st.baseline+' · <b>IITE-D:</b> '+d.state+
       '</div></div><div class="pct" style="color:'+projectionLevel(st.icm.tier).color+'">'+projectionLevel(st.icm.tier).short+'</div></div>';
   }).join('');
 
@@ -400,3 +400,4 @@ setInterval(refresh,CFG.refreshMs);
 loadPlates();
 refresh();
 })();
+

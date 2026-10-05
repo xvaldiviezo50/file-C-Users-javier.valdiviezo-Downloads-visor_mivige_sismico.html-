@@ -250,7 +250,7 @@ function render(){
   const now=Date.now();
   const results=model.states.filter(st=>TARGETS.includes(st.s.id)).map(st=>scoreOne(model,st,allEvents,now)).filter(x=>x.hasEvidence).sort((a,b)=>b.score-a.score);
   audit(results);
-  if(results.length&&now-(model.time||now)<15*60000){const ledger=freezeForecast(results,now);renderLedger(ledger);}else{const el=document.getElementById('forecastLedger');if(el)el.textContent='Sin observaciones recientes evaluables; no se registra un corte vacío o atrasado.';}
+  if(results.length&&Object.values(sourceStatus).some(s=>s.ok&&Number.isFinite(s.fetchedAt)&&now-s.fetchedAt<15*60000)&&now-(model.time||now)<15*60000){const ledger=freezeForecast(results,now);renderLedger(ledger);}else{let previous=[];try{previous=JSON.parse(localStorage.getItem('mivige-prospective-ledger-v2')||'[]');}catch(_){}renderLedger(previous);}
   const top=results[0];
   if(!top){layer.clearLayers();linkLayer.clearLayers();document.getElementById('ppeLevel').textContent='SIN EVALUACIÓN PROSPECTIVA';document.getElementById('ppeRows').textContent='Esperando al menos un segmento definido. La capa experimental usa los catálogos abiertos disponibles y conserva la cobertura/calidad como dato separado.';setTopLabel('—');document.getElementById('ppeSource').textContent='—';document.getElementById('ppeConfidence').textContent='No validada';window.mivigeProspectiveV2={time:now,dataTime:model.time||now,results:[],config:CFG};window.dispatchEvent(new Event('mivige:prospective'));return;}
 
@@ -291,3 +291,4 @@ setTimeout(render,3800);
 setInterval(render,60000);
 const b=document.getElementById('refresh');if(b)b.addEventListener('click',()=>setTimeout(render,3000));
 })();
+
