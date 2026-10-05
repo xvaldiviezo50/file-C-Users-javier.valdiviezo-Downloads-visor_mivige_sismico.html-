@@ -2,6 +2,8 @@
   try{
     const WATCH_HOURS=72;
     const SNAPSHOT_KEY='mivigeProactiveSnapshotV2';
+    let chocoSignal=null;
+    async function loadChocoSignal(){try{const r=await fetch('../v23/choco_watch.json?t='+Date.now(),{cache:'no-store'});if(r.ok){const s=await r.json();chocoSignal=s.ranking_signal||null;}}catch(e){chocoSignal=null;}}
     const proactiveLayer=(typeof L!=='undefined' && typeof map!=='undefined' && L.layerGroup)?L.layerGroup().addTo(map):null;
 
     const refs=[
@@ -71,9 +73,13 @@
         const latest=c.events[0],maxMag=Math.max(...c.events.map(e=>e.mag)),count35=c.events.filter(e=>e.mag>=3.5).length,count45=c.events.filter(e=>e.mag>=4.5).length;
         const r12=c.events.filter(e=>Date.now()-e.time<=12*3600000).length,p12=c.events.filter(e=>Date.now()-e.time>12*3600000&&Date.now()-e.time<=24*3600000).length;
         const accelerating=r12>=2&&r12>p12*1.35,recencyH=(Date.now()-latest.time)/3600000,depStd=depthStd(c.events),meanDepth=c.events.reduce((s,e)=>s+e.depth,0)/c.events.length;
-        let score=0;score+=maxMag>=6?55:maxMag>=5?42:maxMag>=4.5?32:maxMag>=4?22:10;score+=Math.min(24,count35*8);score+=Math.min(15,c.events.length*3);score+=recencyH<=6?12:recencyH<=24?8:recencyH<=48?4:0;if(accelerating)score+=10;if(c.events.length>=2&&depStd<=20)score+=6;if(count45>=2)score+=8;score=Math.min(100,score);
+        let score=0;score+=maxMag>=6?55:maxMag>=5?42:maxMag>=4.5?32:maxMag>=4?22:10;score+=Math.min(24,count35*8);score+=Math.min(15,c.events.length*3);score+=recencyH<=6?12:recencyH<=24?8:recencyH<=48?4:0;if(accelerating)score+=10;if(c.events.length>=2&&depStd<=20)score+=6;if(count45>=2)score+=8;
+        const isChoco=c.lat>=3.0&&c.lat<=6.8&&c.lon>=-78.5&&c.lon<=-75.2;
+        let chocoDelta=0,chocoReason='';
+        if(isChoco&&chocoSignal?.enabled){const q=chocoSignal.criteria||{};if(q.new_m5)chocoDelta+=18;if(q.sustained_acceleration)chocoDelta+=14;if(q.coherent_migration)chocoDelta+=12;if(q.independent_geophysical_signal)chocoDelta+=16;chocoDelta+=Number(chocoSignal.ranking_delta||0);score+=chocoDelta;chocoReason=chocoDelta>0?'bonificación por cambio observable':'sin bonificación: persistencia sin cambio de régimen';}
+        score=Math.min(100,score);
         const loc=locationLabel(c.lat,c.lon);const zoneName=loc.zone&&loc.zone.d<=420?loc.zone.name:null;
-        return {...c,latest,maxMag,count35,count45,accelerating,recencyH,depStd,meanDepth,score,name:loc.label,zoneName,placeDistance:loc.dist,refDistance:loc.zone?.d||null};
+        return {...c,latest,maxMag,count35,count45,accelerating,recencyH,depStd,meanDepth,score,name:loc.label,zoneName,placeDistance:loc.dist,refDistance:loc.zone?.d||null,isChoco,chocoDelta,chocoReason};
       }).filter(c=>c.maxMag>=4.0||c.count35>=2||c.events.length>=3).sort((a,b)=>b.score-a.score);
     }
 
@@ -81,7 +87,7 @@
     function level(c){return c.score>=75?'Vigilancia reforzada':c.score>=55?'Alta prioridad':c.score>=38?'Observación prioritaria':'Seguimiento';}
     function levelColor(c){return c.score>=75?'#e4493f':c.score>=55?'#f08a24':c.score>=38?'#f0c644':'#52a8ff';}
     function action(c){if(c.family==='intraslab')return 'Revisar continuidad 70–150 km, mecanismos focales y migración hipocentral; mantener separado del riesgo cortical.';if(c.family==='intermediate')return 'Revisar geometría de la placa subducida, profundidad y continuidad espacial de los hipocentros.';if(c.family==='interface')return 'Revisar secuencia de interfaz, magnitud/profundidad, mecanismos y boletines de tsunami si la magnitud aumenta.';return 'Contrastar con fallas activas, profundidad, mecanismos focales y clustering cortical.';}
-    function why(c){const bits=[`Mmáx ${c.maxMag.toFixed(1)}`,`${c.events.length} eventos M≥3`,`${c.count35} M≥3.5`,`prof. media ${c.meanDepth.toFixed(0)} km`];if(c.accelerating)bits.push('tasa 12 h en aumento');if(c.events.length>=2&&c.depStd<=20)bits.push('profundidad coherente');return bits.join(' · ');}
+    function why(c){const bits=[`Mmáx ${c.maxMag.toFixed(1)}`,`${c.events.length} eventos M≥3`,`${c.count35} M≥3.5`,`prof. media ${c.meanDepth.toFixed(0)} km`];if(c.isChoco&&c.chocoReason)bits.push(`Chocó: ${c.chocoReason}`);if(c.accelerating)bits.push('tasa 12 h en aumento');if(c.events.length>=2&&c.depStd<=20)bits.push('profundidad coherente');return bits.join(' · ');}
     function zoneLine(c){return c.zoneName&&c.name.indexOf(c.zoneName)<0?`<br><span style="color:#9db2c8">Zona MIVIGE: ${c.zoneName}</span>`:'';}
 
     function ensurePanel(){
@@ -104,6 +110,7 @@
       saveSnapshot(events);window.mivigeProactiveClusters=clusters;
     }
 
+    loadChocoSignal().then(()=>{try{if(Array.isArray(window.allEvents)&&window.allEvents.length)updateProactive(window.allEvents);}catch(e){}});setInterval(loadChocoSignal,300000);
     ensurePanel();if(proactiveLayer&&typeof L!=='undefined'&&L.control?.layers){try{L.control.layers({}, {'Focos preventivos automáticos':proactiveLayer},{collapsed:true,position:'topright'}).addTo(map);}catch(e){}}
     const originalRender=window.render;if(typeof originalRender==='function'){window.render=function(all){const out=originalRender.apply(this,arguments);try{updateProactive(all);}catch(e){console.warn('MIVIGE proactive update failed',e);}return out;};}
     setTimeout(()=>{try{if(Array.isArray(window.allEvents)&&window.allEvents.length)updateProactive(window.allEvents);}catch(e){}},1800);window.mivigeUpdateProactive=updateProactive;
