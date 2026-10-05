@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json,urllib.request,datetime,pathlib,math,time
+from learning_targets import evaluate_antipodal
 ROOT=pathlib.Path(__file__).resolve().parents[1]; OUT=ROOT/"mivige-v2"/"data"/"learning-state.json"; H=3600000; D=24*H
 Z=[("cl_c","Chile central",-32,-71.5,360),("cl_n","Chile norte",-21,-70,430),("pe_s","Perú sur",-16,-72,430),("pe_c","Perú central",-11.5,-76,430),("pe_n","Perú norte",-6,-80,430),("ec_s","Ecuador sur · Golfo/El Oro",-3.2,-80.4,360),("ec_az","Ecuador · Azuay/intraslab",-2.9,-79,280),("ec_c","Ecuador centro · Manabí",-1,-80.4,350),("ec_n","Ecuador norte · Esmeraldas",1,-79.5,350),("co_p","Colombia Pacífico · Nariño/Cauca",3,-78,400),("co_ch","Colombia · Chocó",6,-77,400),("ven","Venezuela costera",10.5,-66.5,650)]
 def dist(a,b,c,d):
@@ -31,8 +32,7 @@ for a in anti:
  if a["status"]!="pending" or now<a["end"]: continue
  z=next((q for q in Z if q[0]==a["zone"]),None)
  if not z: continue
- hits=[e for e in ev if a["start"]<=e["t"]<a["end"] and e["m"]>=a["target"] and dist(z[2],z[3],e["lat"],e["lon"])<=z[4]]
- a["hits"]=[{"id":e["id"],"m":e["m"],"t":e["t"]} for e in hits];a["status"]="response" if hits else "noResponse";a["evaluated"]=now
+ evaluate_antipodal(a,ev,z,dist,now)
 # Mature previously frozen windows. Weekly feed supports the 72 h horizons used here.
 for w in windows:
  if w["status"]!="pending" or now<w["end"]:continue
