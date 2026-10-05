@@ -34,6 +34,8 @@ const experimentalLayer=L.layerGroup();
 
 let gnssState=null;
 let lastModel=null;
+let chocoWatch=null;
+async function loadChocoWatch(){try{const r=await fetch('../v23/choco_watch.json?t='+Date.now(),{cache:'no-store'});if(r.ok)chocoWatch=await r.json();}catch(_){chocoWatch=null;}}
 
 function clamp(x,a=0,b=1){return Math.max(a,Math.min(b,x));}
 function mean(a){return a.length?a.reduce((s,x)=>s+x,0)/a.length:null;}
@@ -133,6 +135,10 @@ function segmentState(events,s,now){
   if(seq.fraction>=.65)ids*=.78;
   ids=Math.max(0,Math.min(100,ids));
 
+  // Chocó: el acumulado del enjambre se informa, pero no infla IDS. Solo evidencia observable de cambio de régimen modifica el ranking.
+  let chocoRankDelta=0,chocoRankReason='';
+  if(s.id==='co_ch'&&chocoWatch?.ranking_signal?.enabled){const q=chocoWatch.ranking_signal.criteria||{};if(q.new_m5)chocoRankDelta+=18;if(q.sustained_acceleration)chocoRankDelta+=14;if(q.coherent_migration)chocoRankDelta+=12;if(q.independent_geophysical_signal)chocoRankDelta+=16;chocoRankDelta+=Number(chocoWatch.ranking_signal.ranking_delta||0);ids=Math.max(0,Math.min(100,ids+chocoRankDelta));chocoRankReason=chocoRankDelta?'bonificación por cambio observable':'persistencia sin cambio de régimen';}
+
   let baseline='sin exceso';
   if(rateRatio>=2 && seq.fraction<.65)baseline='exceso sobre fondo de 6 días · no es ETAS';
   else if(seq.fraction>=.65)baseline='actividad compatible con secuencia de réplicas (tamiz)';
@@ -142,7 +148,7 @@ function segmentState(events,s,now){
   return {
     s,mcInfo,mc,recent,prev,hist,rateRatio,cluster,mr,horizontalShift,verticalShift,depthCorr,b,seq,ids,baseline,
     meqRecent:meq(recent),mmax:recent.length?Math.max(...recent.map(e=>e.mag)):null,
-    active:ids>=60 || (rateRatio>=2&&recent.length>=2)
+    active:ids>=60 || (rateRatio>=2&&recent.length>=2),chocoRankDelta,chocoRankReason
   };
 }
 function imst(states,now){
@@ -296,7 +302,7 @@ function render(states,im,dyn,anti,idg,idqv){
       '<b>GNSS de la zona:</b> '+st.idg.state+' · '+st.idg.used+' estaciones utilizables'+(st.idg.latency==null?'':' · antigüedad mediana '+st.idg.latency.toFixed(1)+' días')+'<br>'+
       (st.idg.candidate&&st.rateSignificant?'<b>Coincidencia sísmico-geodésica a revisar; no alerta predictiva.</b><br>':'')+
       '<b>Eventos:</b> '+st.recent.length+' en 24 h / '+st.hist.length+' en 7 días sobre selección del segmento<br>'+
-      '<b>Control de tasa:</b> p='+fmtNum(st.rateP,4)+' · '+(st.rateSignificant?'exceso tras control múltiple':'sin exceso robusto / muestra insuficiente')+'<br><b>Baseline:</b> '+st.baseline+' · <b>IITE-D:</b> '+d.state+
+      (st.s.id==='co_ch'&&chocoWatch?'<b>SGC Chocó:</b> '+chocoWatch.official_counts.swarm_label+' · '+chocoWatch.official_counts.swarm_m4plus_label+' · '+chocoWatch.official_counts.aftershocks_label+' · '+(st.chocoRankReason||'')+'<br>':'')+'<b>Control de tasa:</b> p='+fmtNum(st.rateP,4)+' · +(st.rateSignificant?'exceso tras control múltiple':'sin exceso robusto / muestra insuficiente')+'<br><b>Baseline:</b> '+st.baseline+' · <b>IITE-D:</b> '+d.state+
       '</div></div><div class="pct" style="color:'+projectionLevel(st.icm.tier).color+'">'+projectionLevel(st.icm.tier).short+'</div></div>';
   }).join('');
 
@@ -362,7 +368,7 @@ async function refresh(){
   try{
   const btn=document.getElementById('refresh');
   if(btn){btn.disabled=true;btn.textContent='Actualizando…';}
-  const [parts]=await Promise.all([Promise.all(Object.entries(endpoints).map(([n,u])=>fetchSource(n,u))),loadGnssState()]);
+  const [parts]=await Promise.all([Promise.all(Object.entries(endpoints).map(([n,u])=>fetchSource(n,u))),loadGnssState(),loadChocoWatch()]);
   allEvents=dedupe(parts.flat());
   window.allEvents=allEvents;
   document.getElementById('cut').textContent=fmtFull(Date.now());
