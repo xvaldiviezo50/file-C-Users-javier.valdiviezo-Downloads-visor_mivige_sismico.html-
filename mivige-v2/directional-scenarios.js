@@ -1,40 +1,47 @@
-/* Directional scenarios v1: exploratory rules, no contribution to scientific ICM. */
+/* Directional scenarios v3: frozen external hypotheses; no contribution to scientific ICM. */
 (function(root){
 'use strict';
-const H=3600000;
-const route=[{id:'co_p',name:'Nariño/Cauca',lat:2.5,lon:-77.7},{id:'ec_n',name:'Esmeraldas',lat:.55,lon:-79.9},{id:'ec_c',name:'Manabí',lat:-1,lon:-80.55},{id:'ec_s',name:'Golfo / El Oro',lat:-3.15,lon:-80.2},{id:'pe_n',name:'Norte de Perú · Tumbes/Piura',lat:-6,lon:-80.4}];
-function km(a,b){const R=Math.PI/180;return 12742*Math.asin(Math.min(1,Math.sqrt(Math.sin((a.lat-b.lat)*R/2)**2+Math.cos(a.lat*R)*Math.cos(b.lat*R)*Math.sin((a.lon-b.lon)*R/2)**2)));}
-function assess(events,reviewed,now){
- const refs=reviewed||[],pool=events.filter(e=>!refs.some(r=>r.id===e.id||Math.abs(r.time-e.time)<60000&&km(r,e)<30&&Math.abs(r.mag-e.mag)<.6)).concat(refs);
- const eligible=pool.filter(e=>e.time<=now&&e.time>=now-72*H&&e.mag>=3&&e.lat>=-6.5&&e.lat<=3&&e.lon>=-82&&e.lon<=-79);
- const unique=[];for(const e of eligible.sort((a,b)=>a.time-b.time)){if(!unique.some(r=>r.id===e.id||Math.abs(r.time-e.time)<60000&&km(r,e)<30&&Math.abs(r.mag-e.mag)<.6))unique.push(e);}
- const last=unique.slice(-3),none={version:'2.0',physicalDirection:null,forecastEnabled:false,available:false,sampleCount:unique.length,events:last,reason:'Se necesitan tres eventos consecutivos en el corredor continental occidental.'};
- if(last.length<3)return none;
- const ds=last.slice(1).map((e,i)=>({hours:(e.time-last[i].time)/H,km:km(last[i],e),delta:e.lat-last[i].lat}));
- if(ds.some(d=>d.hours<=0||d.hours>24||d.km>500||Math.abs(d.delta)<=.2)||Math.sign(ds[0].delta)!==Math.sign(ds[1].delta))return {...none,reason:'Últimos tres eventos: sin continuidad direccional bajo los criterios fijados.'};
- const south=ds[0].delta<0,anchor=last[2];
- let index=0;route.forEach((r,i)=>{if(km(r,anchor)<km(route[index],anchor))index=i;});
- const step=south?1:-1;
- let runLength=3;for(let i=unique.length-4;i>=0;i--){const a=unique[i],b=unique[i+1],hours=(b.time-a.time)/H,delta=b.lat-a.lat;if(hours<=0||hours>24||km(a,b)>500||Math.abs(delta)<=.2||Math.sign(delta)!==Math.sign(ds[0].delta))break;runLength++;}
- return {version:'2.0',physicalDirection:null,forecastEnabled:false,available:true,sampleCount:unique.length,runLength,direction:south?'N→S':'S→N',events:last,intervals:ds,anchor,local:null,continuation:null,reverse:null,depthSpread:Math.max(...last.map(e=>e.depth))-Math.min(...last.map(e=>e.depth))};
+function current(){
+ const m=root.mivigeMigrationExperimental;
+ const west=m?.corridors?.west||null,caribbean=m?.corridors?.caribbean||null;
+ return {
+  version:'3.0',
+  physicalDirection:null,
+  forecastEnabled:false,
+  available:!!m,
+  continuation:null,local:null,reverse:null,
+  corridors:{west,caribbean},
+  hypotheses:m?.externalHypotheses||[],
+  convergenceObserved:!!(west?.coherence?.coherent&&caribbean?.coherence?.coherent),
+  reason:m?'Corredores experimentales evaluados por separado; causalidad física no inferida.':'Esperando catálogos para evaluar corredores.'
+ };
 }
-function current(){return assess(typeof allEvents==='undefined'?[]:allEvents,root.mivigeReviewedSnapshot?.events||[],Date.now());}
+function assess(){return current();}
 root.MivigePattern={assess,current};
-if(typeof module!=='undefined')module.exports={assess};
+if(typeof module!=='undefined')module.exports={assess,current};
 if(typeof document==='undefined')return;
 const card=document.createElement('section');card.className='card';card.id='directionalScenarios';
 card.innerHTML='<h2>Dirección y mecanismos físicos · investigación</h2><div id="directionalScenarioBody"></div>';
 document.getElementById('migrationExperimental')?.closest('section')?.insertAdjacentElement('afterend',card);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function stateLine(s){
+ if(!s)return'Datos insuficientes.';
+ const c=s.coherence||{};
+ return (c.coherent?'coherencia cronológica experimental':'sin coherencia direccional suficiente')+' · '+(c.label||'')+' · eventos '+(s.events?.length||0)+' · pares '+(s.pairs?.length||0)+(Number.isFinite(c.spread)?' · dispersión '+c.spread.toFixed(0)+'°':'');
+}
 function render(){
  const p=current(),host=document.getElementById('directionalScenarioBody');if(!host)return;
- host.innerHTML='<p><b>Dirección física: sin determinar.</b> El orden de los epicentros se conserva como observación; no selecciona la siguiente zona ni activa el semáforo.</p>'+
+ host.innerHTML='<p><b>Dirección física: sin determinar.</b> El seguimiento experimental ahora separa dos hipótesis congeladas y mide orden temporal, azimut, profundidad y velocidad aparente. Ninguna selecciona automáticamente la siguiente zona ni activa el semáforo científico.</p>'+
+ '<table class="table"><thead><tr><th>Hipótesis congelada</th><th>Estado observacional</th></tr></thead><tbody>'+
+ '<tr><td><b>P-EXT-COL-ECU-06OCT-2026-01</b><br><small>Occidente Ecuador–Colombia · dos frentes externos en seguimiento.</small></td><td>'+esc(stateLine(p.corridors.west))+'</td></tr>'+
+ '<tr><td><b>P-EXT-CARIBE-06OCT-2026-01</b><br><small>La Española–Venezuela–Caribe/norte de Colombia.</small></td><td>'+esc(stateLine(p.corridors.caribbean))+'</td></tr></tbody></table>'+
+ (p.convergenceObserved?'<p><b>Convergencia visual experimental:</b> ambos corredores muestran continuidad cronológica bajo los umbrales exploratorios. Esto no demuestra convergencia de esfuerzos ni transferencia causal.</p>':'<p class="small">No hay convergencia observacional simultánea suficiente en ambos corredores bajo los criterios congelados.</p>')+
  '<table class="table"><thead><tr><th>Mecanismo investigable</th><th>Qué falta calcular</th></tr></thead><tbody>'+
- '<tr><td>Transferencia estática de esfuerzos · Coulomb</td><td>Geometría y deslizamiento de la ruptura, orientación de fallas receptoras y sensibilidad a sus incertidumbres. No calculado.</td></tr>'+
- '<tr><td>Deslizamiento lento / deformación transitoria</td><td>Señal GNSS/InSAR reciente y coherente en varias estaciones, corregida por efectos no tectónicos; inversión del deslizamiento. No determinado.</td></tr>'+
- '<tr><td>Activación dinámica</td><td>Ondas registradas y esfuerzos dinámicos en el receptor. La distancia o la antípoda no bastan. No calculado.</td></tr>'+
- '<tr><td>Fricción dependiente de tasa y estado</td><td>Esfuerzos, tasa de fondo y parámetros calibrados para estimar cambios de tasa en ventanas futuras. No implementado.</td></tr></tbody></table>'+
- '<p class="small">Ningún mecanismo está confirmado para la secuencia actual. La falta de cálculo no equivale a ausencia de peligro. Persistencia local describe agrupamiento; por sí sola no mide energía acumulada ni identifica un precursor. Las variables científicas mantienen su evaluación independiente.</p>';
+ '<tr><td>Transferencia estática de esfuerzos · Coulomb</td><td>Geometría y deslizamiento de la ruptura, orientación de fallas receptoras y sensibilidad a incertidumbres. No calculado.</td></tr>'+
+ '<tr><td>Deslizamiento lento / deformación transitoria</td><td>GNSS/InSAR reciente y coherente en varias estaciones, corregido por efectos no tectónicos; inversión de deslizamiento. No determinado.</td></tr>'+
+ '<tr><td>Activación dinámica</td><td>Ondas registradas y esfuerzo dinámico en el receptor. La secuencia temporal, distancia o antípoda no bastan.</td></tr>'+
+ '<tr><td>ETAS / tasa y estado</td><td>Tasa esperada calibrada y significancia para distinguir fondo, réplicas y exceso real. El baseline de 6 días del visor es solo un tamiz.</td></tr></tbody></table>'+
+ '<p class="small">Ningún mecanismo físico queda confirmado por esta capa. Persistencia local o una secuencia ordenada no mide energía acumulada ni identifica un precursor. IDS, IDG, IITE e IADR mantienen evaluación independiente.</p>';
 }
-root.addEventListener('mivige:prospective',render);root.addEventListener('mivige:model',render);render();
+root.addEventListener('mivige:prospective',render);root.addEventListener('mivige:model',render);root.addEventListener('mivige:migration-experimental',render);render();
 })(typeof window!=='undefined'?window:globalThis);
