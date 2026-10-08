@@ -129,13 +129,13 @@ def build():
     ledger=read(folder/'automatic-ledger.json',{'records':[]})
     records=ledger['records']
     query=dict(format='geojson',starttime=iso(now-90*DAY),endtime=iso(now),
-               minlatitude=-57,maxlatitude=14,minlongitude=-84,maxlongitude=-58,
+               minlatitude=-57,maxlatitude=34,minlongitude=-119,maxlongitude=-58,
                minmagnitude=4.5,limit=20000,orderby='time-asc')
     url=API+'?'+urllib.parse.urlencode(query)
     try:
         payload,digest=fetch(url);events=normalize(payload,now)
         meta=dict(status='consultado',url=url,sha256=digest,retrieved_at=iso(now),count=len(events),
-                  coverage='ComCat regional M≥4,5; no equivale a catálogo nacional completo ni a completitud estadística demostrada')
+                  coverage='ComCat Chile–México M≥4,5; ventana geográfica −57° a 34° latitud y −119° a −58° longitud; no equivale a catálogos nacionales completos ni a completitud estadística demostrada')
         write(folder/'automatic-catalogue.json',dict(meta=meta,events=events))
     except Exception as ex:
         previous=read(folder/'automatic.json',{})
