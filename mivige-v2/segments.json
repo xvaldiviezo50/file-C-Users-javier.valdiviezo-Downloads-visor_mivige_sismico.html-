@@ -2,7 +2,7 @@
   {
     "id": "cl_c",
     "name": "Chile central",
-    "lat": -32.0,
+    "lat": -32,
     "lon": -71.5,
     "r": 360,
     "ord": 0,
@@ -38,7 +38,7 @@
   {
     "id": "pe_n",
     "name": "Perú norte",
-    "lat": -6.0,
+    "lat": -6,
     "lon": -80.4,
     "r": 330,
     "ord": 4,
@@ -57,7 +57,7 @@
     "id": "ec_az",
     "name": "Ecuador · Azuay/intraslab",
     "lat": -2.9,
-    "lon": -79.0,
+    "lon": -79,
     "r": 150,
     "ord": 5.4,
     "country": "Ecuador",
@@ -69,7 +69,7 @@
   {
     "id": "ec_c",
     "name": "Ecuador centro · Manabí",
-    "lat": -1.0,
+    "lat": -1,
     "lon": -80.55,
     "r": 220,
     "ord": 6,
@@ -103,6 +103,15 @@
     "country": "Colombia"
   },
   {
+    "id": "co_car",
+    "name": "Colombia Caribe · costa norte",
+    "lat": 10.8,
+    "lon": -74.7,
+    "r": 360,
+    "ord": 9.5,
+    "country": "Colombia"
+  },
+  {
     "id": "ven",
     "name": "Venezuela costera",
     "lat": 10.2,
@@ -110,5 +119,86 @@
     "r": 520,
     "ord": 10,
     "country": "Venezuela"
+  },
+  {
+    "id": "car_esp",
+    "name": "Caribe · La Española",
+    "lat": 18.5,
+    "lon": -70.2,
+    "r": 450,
+    "ord": 10.5,
+    "country": "Caribe"
+  },
+  {
+    "id": "pa",
+    "name": "Panamá",
+    "lat": 8.9,
+    "lon": -79.6,
+    "r": 320,
+    "ord": 11,
+    "country": "Panamá"
+  },
+  {
+    "id": "cr",
+    "name": "Costa Rica",
+    "lat": 9.8,
+    "lon": -84.2,
+    "r": 320,
+    "ord": 12,
+    "country": "Costa Rica"
+  },
+  {
+    "id": "gt",
+    "name": "Guatemala · Pacífico",
+    "lat": 14.4,
+    "lon": -91.2,
+    "r": 330,
+    "ord": 13,
+    "country": "Guatemala"
+  },
+  {
+    "id": "mx_s",
+    "name": "México sur · Chiapas",
+    "lat": 16.1,
+    "lon": -93.3,
+    "r": 380,
+    "ord": 14,
+    "country": "México"
+  },
+  {
+    "id": "mx_oax",
+    "name": "México · Oaxaca/Guerrero",
+    "lat": 16.9,
+    "lon": -98.3,
+    "r": 450,
+    "ord": 15,
+    "country": "México"
+  },
+  {
+    "id": "mx_occ",
+    "name": "México occidente · Michoacán/Colima/Jalisco",
+    "lat": 19.3,
+    "lon": -103.8,
+    "r": 440,
+    "ord": 16,
+    "country": "México"
+  },
+  {
+    "id": "mx_baja",
+    "name": "México · Baja California",
+    "lat": 29.2,
+    "lon": -114,
+    "r": 530,
+    "ord": 17,
+    "country": "México"
+  },
+  {
+    "id": "mx_golfo",
+    "name": "México · Golfo/Veracruz",
+    "lat": 19.3,
+    "lon": -96.5,
+    "r": 420,
+    "ord": 18,
+    "country": "México"
   }
 ]
