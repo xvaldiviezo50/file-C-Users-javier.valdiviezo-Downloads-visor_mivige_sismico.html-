@@ -131,10 +131,10 @@
   },
   {
     "id": "pa",
-    "name": "Panamá",
-    "lat": 8.9,
-    "lon": -79.6,
-    "r": 320,
+    "name": "Panamá · Pacífico/Darién",
+    "lat": 8,
+    "lon": -81,
+    "r": 430,
     "ord": 11,
     "country": "Panamá"
   },
