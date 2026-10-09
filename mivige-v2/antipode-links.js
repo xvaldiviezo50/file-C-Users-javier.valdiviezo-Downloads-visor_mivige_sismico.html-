@@ -48,7 +48,11 @@ function focusState(d){
   if(d<=CFG.haloKm)return {label:'HALO',score:Math.max(0,1-(d-CFG.coreKm)/(CFG.haloKm-CFG.coreKm))};
   return {label:'SIN ACTIVACIÓN',score:0};
 }
-function learningCandidates(){return [];}
+function learningCandidates(events,r,now){
+ const ap=anti(r.lat,r.lon),cut=now-CFG.watchHours*3600e3;
+ return events.filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=cut&&e.time<=now&&Number(e.mag)>=4&&Number(e.mag)<=CFG.sourceMag)
+ .map(e=>({e,d:distKm(ap.lat,ap.lon,e.lat,e.lon)})).filter(q=>q.d<=CFG.haloKm).sort((a,b)=>a.d-b.d||b.e.mag-a.e.mag);
+}
 function sourceCandidates(events,r,now){
   const ap=anti(r.lat,r.lon);
   const cut=now-CFG.watchHours*3600e3;
@@ -77,7 +81,7 @@ function ensureBottomPanel(){
   if(document.getElementById('antiBottomBtn'))return;
   const btn=document.createElement('button');btn.id='antiBottomBtn';btn.type='button';btn.textContent='🌐 ANTÍPODAS ACTIVAS';btn.style.cssText='position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:1200;padding:10px 16px;border-radius:22px;font-weight:800;box-shadow:0 3px 14px #0008';
   const panel=document.createElement('div');panel.id='antiBottomPanel';panel.style.cssText='display:none;position:fixed;left:10px;right:10px;bottom:58px;max-height:52vh;overflow:auto;z-index:1199;background:#101820ee;border:1px solid #6b7b88;border-radius:12px;padding:12px;color:#fff;box-shadow:0 5px 22px #000a';
-  panel.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px"><b>🌐 Países/regiones antipodales activas</b><button id="antiBottomClose">×</button></div><div class="small">Umbral único: M>6,0 · últimas 72 h · coincidencia geométrica.</div><div id="antiBottomRows" style="margin-top:8px">Calculando…</div>';
+  panel.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px"><b>🌐 Países/regiones antipodales activas</b><button id="antiBottomClose">×</button></div><div class="small">Observación M≥4,0 · últimas 72 h · M≤6,0 fuera del puntaje de proyección.</div><div id="antiBottomRows" style="margin-top:8px">Calculando…</div>';
   document.body.appendChild(panel);document.body.appendChild(btn);
   btn.onclick=()=>panel.style.display=panel.style.display==='none'?'block':'none';
   panel.querySelector('#antiBottomClose').onclick=()=>panel.style.display='none';
@@ -88,7 +92,9 @@ function renderVisibleAntipodes(active,learning){
  active.forEach(x=>items.push({kind:'V1',r:x.r,e:x.src.e,d:x.src.d,band:x.src.f.label}));
  learning.forEach(x=>items.push({kind:'CHALLENGER',r:x.r,e:x.q.e,d:x.q.d,band:x.q.d<=CFG.coreKm?'NÚCLEO':'HALO'}));
  const unique=[];items.forEach(x=>{const k=x.kind+'|'+x.r.id+'|'+(x.e.id||x.e.time);if(!unique.some(y=>y.k===k))unique.push({...x,k});});
- sum.innerHTML=unique.length?'<b>'+unique.length+' coincidencia(s) antipodal(es) M>6,0</b> en las últimas 72 h.':'<b>SIN ACTIVACIÓN ANTIPODAL DETECTADA</b> · no hay fuentes M>6,0 dentro de núcleo/halo en las últimas 72 h.';
+ sum.innerHTML=unique.length?'<b>'+unique.length+' coincidencia(s) antipodal(es) M≥4,0</b> en las últimas 72 h.':'<b>SIN ACTIVACIÓN ANTIPODAL DETECTADA</b> · no hay fuentes M≥4,0 dentro de núcleo/halo en las últimas 72 h.';
+ const bins=[{name:'4≤M<5',test:m=>m>=4&&m<5},{name:'5≤M<6',test:m=>m>=5&&m<6},{name:'M≥6',test:m=>m>=6}];
+ sum.innerHTML+='<br><span class="small">'+bins.map(b=>b.name+': '+unique.filter(x=>b.test(Number(x.e.mag))).length).join(' · ')+' vínculos fuente–receptor; un sismo puede corresponder a varias zonas. Observación geométrica, no probabilidad.</span>';
  rows.innerHTML=unique.slice().sort((a,b)=>(a.kind==='V1'?0:1)-(b.kind==='V1'?0:1)||a.d-b.d||Number(b.e.mag)-Number(a.e.mag)).slice(0,5).map(x=>'<div class="listitem"><div><b>'+x.kind+' · '+x.r.country+' · '+x.r.name+'</b><div class="zdesc">Fuente: '+fmt(x.e)+'<br>Antípoda receptora: '+x.band+' · '+Math.round(x.d)+' km · seguimiento 24/72 h</div></div></div>').join('');
 }
 function renderBottom(active,learning){
@@ -136,7 +142,7 @@ function drawReceiver(r,ap,status,src){
 }
 function drawLearningLinks(items){
   learningLinks.clearLayers();
-  items.forEach(x=>{const q=x.q,r=x.r,c=q.d<=CFG.coreKm?'#f0c644':'#8fb8ff';const label='CHALLENGER M'+Number(q.e.mag).toFixed(1)+' · '+(q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(q.d)+' km → '+r.name+' · 24/72 h · no activa V1';L.polyline([[q.e.lat,q.e.lon],[r.lat,r.lon]],{color:c,weight:1.8,dashArray:'4 8',opacity:.7}).bindTooltip(label).bindPopup(label+'<br>Relación geométrica experimental; no implica transferencia causal de energía.').addTo(learningLinks);L.circleMarker([q.e.lat,q.e.lon],{radius:4,color:c,weight:1.5,fillOpacity:.75}).bindPopup('<b>Fuente antipodal en aprendizaje</b><br>'+fmt(q.e)+'<br>'+label).addTo(learningLinks);});
+  items.filter(x=>x.r.country==='Ecuador'&&x.q.d<=CFG.coreKm).forEach(x=>{const q=x.q,r=x.r,c=q.d<=CFG.coreKm?'#f0c644':'#8fb8ff';const label='CHALLENGER M'+Number(q.e.mag).toFixed(1)+' · '+(q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(q.d)+' km → '+r.name+' · 24/72 h · no activa V1';L.polyline([[q.e.lat,q.e.lon],[r.lat,r.lon]],{color:c,weight:1.8,dashArray:'4 8',opacity:.7}).bindTooltip(label).bindPopup(label+'<br>Relación geométrica experimental; no implica transferencia causal de energía.').addTo(learningLinks);L.circleMarker([q.e.lat,q.e.lon],{radius:4,color:c,weight:1.5,fillOpacity:.75}).bindPopup('<b>Fuente antipodal en aprendizaje</b><br>'+fmt(q.e)+'<br>'+label).addTo(learningLinks);});
 }
 function drawLinks(active){
   links.clearLayers();
@@ -186,14 +192,14 @@ function run(){
   const sourceButton=document.getElementById('antiViewSources');sourceButton.disabled=!direct.length;sourceButton.textContent=direct.length?'Ver vínculos activos':'Sin activación núcleo';
   document.getElementById('antiRows').innerHTML=rows.join('');
   document.getElementById('antiSummary').innerHTML='<b>Estado actual:</b> '+nCore+' receptor(es) con fuente en núcleo · '+nHalo+' en halo · '+(RECEIVERS.length-nCore-nHalo)+' sin fuente antipodal activa. '+
-    '<br><b>Mapa:</b> líneas discontinuas hacia los receptores únicamente si un sismo M>'+CFG.sourceMag+' de las últimas '+CFG.watchHours+' h está a ≤'+CFG.coreKm+' km de su antípoda. Los eventos solo en el halo no generan líneas. Sin evento correspondiente, no se dibuja ningún vínculo.<br><b>Patrón geográfico:</b> cada receptor usa su <b>antípoda matemática exacta</b>; las etiquetas regionales son descriptivas y no sustituyen el cálculo geométrico. La ausencia de una fuente en la huella significa <b>sin activación antipodal detectada</b>, no ausencia de peligro sísmico.<br><b>Seguimiento:</b> umbral único M>6,0; las coincidencias se siguen a 24/72 h como hipótesis experimental.';
-  window.mivigeAntipodeNetworkV2={receivers:RECEIVERS,active,config:CFG};
+    '<br><b>Mapa:</b> líneas discontinuas hacia los receptores únicamente si un sismo M>'+CFG.sourceMag+' de las últimas '+CFG.watchHours+' h está a ≤'+CFG.coreKm+' km de su antípoda. Los eventos solo en el halo no generan líneas. La observación M4,0–6,0 dibuja líneas únicamente para receptores de Ecuador en el núcleo. Sin evento correspondiente, no se dibuja ningún vínculo.<br><b>Patrón geográfico:</b> cada receptor usa su <b>antípoda matemática exacta</b>; las etiquetas regionales son descriptivas y no sustituyen el cálculo geométrico. La ausencia de una fuente en la huella significa <b>sin activación antipodal detectada</b>, no ausencia de peligro sísmico.<br><b>Seguimiento:</b> observación desde M≥4,0 en ventanas 24/72 h; M≤6,0 no aporta al puntaje de proyección.';
+  window.mivigeAntipodeNetworkV2={receivers:RECEIVERS,active,learning,config:CFG};
 }
 ensureCard();
 try{L.control.layers({},{
   'Antípodas · vínculos fuente → receptor':links,
   'Red antipodal · fuentes M>6.0':sourceEvents,
-  'Antípodas · seguimiento experimental M>6.0':learningLinks
+  'Antípodas · observación M4.0–6.0':learningLinks
 },{collapsed:true,position:'topright'}).addTo(map);}catch(_){}
 window.addEventListener('mivige:model',run);
 setTimeout(run,2800);

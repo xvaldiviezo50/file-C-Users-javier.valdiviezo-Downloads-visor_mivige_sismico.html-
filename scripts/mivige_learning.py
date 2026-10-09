@@ -14,11 +14,11 @@ def feed():
  with urllib.request.urlopen(u,timeout=30) as f:j=json.load(f)
  return [{"id":x["id"],"t":x["properties"]["time"],"m":x["properties"]["mag"],"lat":x["geometry"]["coordinates"][1],"lon":x["geometry"]["coordinates"][0],"dep":x["geometry"]["coordinates"][2]} for x in j["features"] if x["properties"]["mag"] is not None]
 now=int(time.time()*1000); ev=feed(); s=load(); windows=s.get("windows",[]); anti=s.get("antipode_learning",[])
-# Antipodal M>6.0: new windows only; preserve all historical records and frozen V1.
+# Antipodal observation M>=4.0; preserve historical windows and ranking rules.
 def antipode(lat,lon): return (-lat, lon+180 if lon<0 else lon-180)
 known={x["key"] for x in anti}
 for e in ev:
- if not (e["m"]>6.0): continue
+ if not (e["m"]>=4.0): continue
  alat,alon=antipode(e["lat"],e["lon"])
  for zid,zname,zlat,zlon,zr in Z:
   ad=dist(alat,alon,zlat,zlon)
@@ -27,7 +27,7 @@ for e in ev:
   for hours in (24,72):
    key=e["id"]+"|"+zid+"|"+str(hours)
    if key not in known:
-    anti.append({"key":key,"source_id":e["id"],"source_mag":e["m"],"source_time":e["t"],"source_depth":e["dep"],"source_lat":e["lat"],"source_lon":e["lon"],"antipode_lat":round(alat,4),"antipode_lon":round(alon,4),"zone":zid,"name":zname,"distance_antipode_km":round(ad,1),"band":band,"hours":hours,"start":e["t"],"end":e["t"]+hours*H,"targets":[3.0,3.5,4.0,4.5,6.0],"status":"pending","hits":[],"track":"antipodal-gt6-v2"});known.add(key)
+    anti.append({"key":key,"source_id":e["id"],"source_mag":e["m"],"source_time":e["t"],"source_depth":e["dep"],"source_lat":e["lat"],"source_lon":e["lon"],"antipode_lat":round(alat,4),"antipode_lon":round(alon,4),"zone":zid,"name":zname,"distance_antipode_km":round(ad,1),"band":band,"hours":hours,"start":e["t"],"end":e["t"]+hours*H,"targets":[3.0,3.5,4.0,4.5,6.0],"status":"pending","hits":[],"track":"antipodal-observation-m4-v3","registered_at":now,"retrospective":True,"source_group":"4-5" if e["m"]<5 else "5-6" if e["m"]<6 else "6+","note":"Event-origin window registered after source; retrospective association, not a prospective forecast"});known.add(key)
 for a in anti:
  if a["status"]!="pending" or now<a["end"]: continue
  z=next((q for q in Z if q[0]==a["zone"]),None)
