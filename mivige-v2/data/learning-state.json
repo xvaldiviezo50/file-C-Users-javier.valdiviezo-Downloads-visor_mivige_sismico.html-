@@ -12626,6 +12626,131 @@
           "note": "server proxy; V1 browser remains authoritative"
         }
       }
+    },
+    {
+      "time": 1791549999905,
+      "zones": {
+        "cl_c": {
+          "name": "Chile central",
+          "score_proxy": 0.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "cl_n": {
+          "name": "Chile norte",
+          "score_proxy": 1.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.86,
+          "source_proxy": 3.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_s": {
+          "name": "Perú sur",
+          "score_proxy": 33.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 3.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_c": {
+          "name": "Perú central",
+          "score_proxy": 0.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_n": {
+          "name": "Perú norte",
+          "score_proxy": 0.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_s": {
+          "name": "Ecuador sur · Golfo/El Oro",
+          "score_proxy": 0.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 0.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_az": {
+          "name": "Ecuador · Azuay/intraslab",
+          "score_proxy": 0.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 0.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_c": {
+          "name": "Ecuador centro · Manabí",
+          "score_proxy": 0.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 0.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_n": {
+          "name": "Ecuador norte · Esmeraldas",
+          "score_proxy": 0.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 0.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_p": {
+          "name": "Colombia Pacífico · Nariño/Cauca",
+          "score_proxy": 0.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 0.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_ch": {
+          "name": "Colombia · Chocó",
+          "score_proxy": 0.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 0.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ven": {
+          "name": "Venezuela costera",
+          "score_proxy": 0.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 0.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        }
+      }
     }
   ],
   "learning_policy": "Observe, validate and recommend only. Never modify V1 weights, thresholds or alerts automatically.",
@@ -12953,14 +13078,1376 @@
       ],
       "evaluated": 1791333888713,
       "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000u14w|ec_az|24",
+      "source_id": "us6000u14w",
+      "source_mag": 4.9,
+      "source_time": 1791539267081,
+      "source_depth": 40.817,
+      "source_lat": -1.8867,
+      "source_lon": 100.2717,
+      "antipode_lat": 1.8867,
+      "antipode_lon": -79.7283,
+      "zone": "ec_az",
+      "name": "Ecuador · Azuay/intraslab",
+      "distance_antipode_km": 538.4,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791539267081,
+      "end": 1791625667081,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u14w|ec_az|72",
+      "source_id": "us6000u14w",
+      "source_mag": 4.9,
+      "source_time": 1791539267081,
+      "source_depth": 40.817,
+      "source_lat": -1.8867,
+      "source_lon": 100.2717,
+      "antipode_lat": 1.8867,
+      "antipode_lon": -79.7283,
+      "zone": "ec_az",
+      "name": "Ecuador · Azuay/intraslab",
+      "distance_antipode_km": 538.4,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791539267081,
+      "end": 1791798467081,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u14w|ec_c|24",
+      "source_id": "us6000u14w",
+      "source_mag": 4.9,
+      "source_time": 1791539267081,
+      "source_depth": 40.817,
+      "source_lat": -1.8867,
+      "source_lon": 100.2717,
+      "antipode_lat": 1.8867,
+      "antipode_lon": -79.7283,
+      "zone": "ec_c",
+      "name": "Ecuador centro · Manabí",
+      "distance_antipode_km": 329.6,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791539267081,
+      "end": 1791625667081,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u14w|ec_c|72",
+      "source_id": "us6000u14w",
+      "source_mag": 4.9,
+      "source_time": 1791539267081,
+      "source_depth": 40.817,
+      "source_lat": -1.8867,
+      "source_lon": 100.2717,
+      "antipode_lat": 1.8867,
+      "antipode_lon": -79.7283,
+      "zone": "ec_c",
+      "name": "Ecuador centro · Manabí",
+      "distance_antipode_km": 329.6,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791539267081,
+      "end": 1791798467081,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u14w|ec_n|24",
+      "source_id": "us6000u14w",
+      "source_mag": 4.9,
+      "source_time": 1791539267081,
+      "source_depth": 40.817,
+      "source_lat": -1.8867,
+      "source_lon": 100.2717,
+      "antipode_lat": 1.8867,
+      "antipode_lon": -79.7283,
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "distance_antipode_km": 101.8,
+      "band": "core",
+      "hours": 24,
+      "start": 1791539267081,
+      "end": 1791625667081,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u14w|ec_n|72",
+      "source_id": "us6000u14w",
+      "source_mag": 4.9,
+      "source_time": 1791539267081,
+      "source_depth": 40.817,
+      "source_lat": -1.8867,
+      "source_lon": 100.2717,
+      "antipode_lat": 1.8867,
+      "antipode_lon": -79.7283,
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "distance_antipode_km": 101.8,
+      "band": "core",
+      "hours": 72,
+      "start": 1791539267081,
+      "end": 1791798467081,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u14w|co_p|24",
+      "source_id": "us6000u14w",
+      "source_mag": 4.9,
+      "source_time": 1791539267081,
+      "source_depth": 40.817,
+      "source_lat": -1.8867,
+      "source_lon": 100.2717,
+      "antipode_lat": 1.8867,
+      "antipode_lon": -79.7283,
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "distance_antipode_km": 228.4,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791539267081,
+      "end": 1791625667081,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u14w|co_p|72",
+      "source_id": "us6000u14w",
+      "source_mag": 4.9,
+      "source_time": 1791539267081,
+      "source_depth": 40.817,
+      "source_lat": -1.8867,
+      "source_lon": 100.2717,
+      "antipode_lat": 1.8867,
+      "antipode_lon": -79.7283,
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "distance_antipode_km": 228.4,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791539267081,
+      "end": 1791798467081,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u14w|co_ch|24",
+      "source_id": "us6000u14w",
+      "source_mag": 4.9,
+      "source_time": 1791539267081,
+      "source_depth": 40.817,
+      "source_lat": -1.8867,
+      "source_lon": 100.2717,
+      "antipode_lat": 1.8867,
+      "antipode_lon": -79.7283,
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "distance_antipode_km": 548.4,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791539267081,
+      "end": 1791625667081,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u14w|co_ch|72",
+      "source_id": "us6000u14w",
+      "source_mag": 4.9,
+      "source_time": 1791539267081,
+      "source_depth": 40.817,
+      "source_lat": -1.8867,
+      "source_lon": 100.2717,
+      "antipode_lat": 1.8867,
+      "antipode_lon": -79.7283,
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "distance_antipode_km": 548.4,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791539267081,
+      "end": 1791798467081,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0yy|ec_c|24",
+      "source_id": "us6000u0yy",
+      "source_mag": 4.7,
+      "source_time": 1791473027618,
+      "source_depth": 50.572,
+      "source_lat": -3.4591,
+      "source_lon": 101.5886,
+      "antipode_lat": 3.4591,
+      "antipode_lon": -78.4114,
+      "zone": "ec_c",
+      "name": "Ecuador centro · Manabí",
+      "distance_antipode_km": 542.9,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791473027618,
+      "end": 1791559427618,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0yy|ec_c|72",
+      "source_id": "us6000u0yy",
+      "source_mag": 4.7,
+      "source_time": 1791473027618,
+      "source_depth": 50.572,
+      "source_lat": -3.4591,
+      "source_lon": 101.5886,
+      "antipode_lat": 3.4591,
+      "antipode_lon": -78.4114,
+      "zone": "ec_c",
+      "name": "Ecuador centro · Manabí",
+      "distance_antipode_km": 542.9,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791473027618,
+      "end": 1791732227618,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0yy|ec_n|24",
+      "source_id": "us6000u0yy",
+      "source_mag": 4.7,
+      "source_time": 1791473027618,
+      "source_depth": 50.572,
+      "source_lat": -3.4591,
+      "source_lon": 101.5886,
+      "antipode_lat": 3.4591,
+      "antipode_lon": -78.4114,
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "distance_antipode_km": 299.0,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791473027618,
+      "end": 1791559427618,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0yy|ec_n|72",
+      "source_id": "us6000u0yy",
+      "source_mag": 4.7,
+      "source_time": 1791473027618,
+      "source_depth": 50.572,
+      "source_lat": -3.4591,
+      "source_lon": 101.5886,
+      "antipode_lat": 3.4591,
+      "antipode_lon": -78.4114,
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "distance_antipode_km": 299.0,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791473027618,
+      "end": 1791732227618,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0yy|co_p|24",
+      "source_id": "us6000u0yy",
+      "source_mag": 4.7,
+      "source_time": 1791473027618,
+      "source_depth": 50.572,
+      "source_lat": -3.4591,
+      "source_lon": 101.5886,
+      "antipode_lat": 3.4591,
+      "antipode_lon": -78.4114,
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "distance_antipode_km": 68.5,
+      "band": "core",
+      "hours": 24,
+      "start": 1791473027618,
+      "end": 1791559427618,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0yy|co_p|72",
+      "source_id": "us6000u0yy",
+      "source_mag": 4.7,
+      "source_time": 1791473027618,
+      "source_depth": 50.572,
+      "source_lat": -3.4591,
+      "source_lon": 101.5886,
+      "antipode_lat": 3.4591,
+      "antipode_lon": -78.4114,
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "distance_antipode_km": 68.5,
+      "band": "core",
+      "hours": 72,
+      "start": 1791473027618,
+      "end": 1791732227618,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0yy|co_ch|24",
+      "source_id": "us6000u0yy",
+      "source_mag": 4.7,
+      "source_time": 1791473027618,
+      "source_depth": 50.572,
+      "source_lat": -3.4591,
+      "source_lon": 101.5886,
+      "antipode_lat": 3.4591,
+      "antipode_lon": -78.4114,
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "distance_antipode_km": 322.9,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791473027618,
+      "end": 1791559427618,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0yy|co_ch|72",
+      "source_id": "us6000u0yy",
+      "source_mag": 4.7,
+      "source_time": 1791473027618,
+      "source_depth": 50.572,
+      "source_lat": -3.4591,
+      "source_lon": 101.5886,
+      "antipode_lat": 3.4591,
+      "antipode_lon": -78.4114,
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "distance_antipode_km": 322.9,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791473027618,
+      "end": 1791732227618,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0km|ven|24",
+      "source_id": "us6000u0km",
+      "source_mag": 4.6,
+      "source_time": 1791317728171,
+      "source_depth": 144.45,
+      "source_lat": -8.4933,
+      "source_lon": 116.218,
+      "antipode_lat": 8.4933,
+      "antipode_lon": -63.782,
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "distance_antipode_km": 372.3,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791317728171,
+      "end": 1791404128171,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "noResponse",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791549999905,
+      "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000u0km|ven|72",
+      "source_id": "us6000u0km",
+      "source_mag": 4.6,
+      "source_time": 1791317728171,
+      "source_depth": 144.45,
+      "source_lat": -8.4933,
+      "source_lon": 116.218,
+      "antipode_lat": 8.4933,
+      "antipode_lon": -63.782,
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "distance_antipode_km": 372.3,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791317728171,
+      "end": 1791576928171,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0k2|ec_n|24",
+      "source_id": "us6000u0k2",
+      "source_mag": 4.5,
+      "source_time": 1791313319145,
+      "source_depth": 73.115,
+      "source_lat": -3.6796,
+      "source_lon": 101.8914,
+      "antipode_lat": 3.6796,
+      "antipode_lon": -78.1086,
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "distance_antipode_km": 335.7,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791313319145,
+      "end": 1791399719145,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "noResponse",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791549999905,
+      "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000u0k2|ec_n|72",
+      "source_id": "us6000u0k2",
+      "source_mag": 4.5,
+      "source_time": 1791313319145,
+      "source_depth": 73.115,
+      "source_lat": -3.6796,
+      "source_lon": 101.8914,
+      "antipode_lat": 3.6796,
+      "antipode_lon": -78.1086,
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "distance_antipode_km": 335.7,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791313319145,
+      "end": 1791572519145,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0k2|co_p|24",
+      "source_id": "us6000u0k2",
+      "source_mag": 4.5,
+      "source_time": 1791313319145,
+      "source_depth": 73.115,
+      "source_lat": -3.6796,
+      "source_lon": 101.8914,
+      "antipode_lat": 3.6796,
+      "antipode_lon": -78.1086,
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "distance_antipode_km": 76.5,
+      "band": "core",
+      "hours": 24,
+      "start": 1791313319145,
+      "end": 1791399719145,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000u0n5",
+          "m": 4.4,
+          "t": 1791336585785
+        }
+      ],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000u0n5",
+              "m": 4.4,
+              "t": 1791336585785
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000u0n5",
+              "m": 4.4,
+              "t": 1791336585785
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000u0n5",
+              "m": 4.4,
+              "t": 1791336585785
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791549999905,
+      "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000u0k2|co_p|72",
+      "source_id": "us6000u0k2",
+      "source_mag": 4.5,
+      "source_time": 1791313319145,
+      "source_depth": 73.115,
+      "source_lat": -3.6796,
+      "source_lon": 101.8914,
+      "antipode_lat": 3.6796,
+      "antipode_lon": -78.1086,
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "distance_antipode_km": 76.5,
+      "band": "core",
+      "hours": 72,
+      "start": 1791313319145,
+      "end": 1791572519145,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u0k2|co_ch|24",
+      "source_id": "us6000u0k2",
+      "source_mag": 4.5,
+      "source_time": 1791313319145,
+      "source_depth": 73.115,
+      "source_lat": -3.6796,
+      "source_lon": 101.8914,
+      "antipode_lat": 3.6796,
+      "antipode_lon": -78.1086,
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "distance_antipode_km": 285.8,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791313319145,
+      "end": 1791399719145,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000u0n5",
+          "m": 4.4,
+          "t": 1791336585785
+        }
+      ],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000u0n5",
+              "m": 4.4,
+              "t": 1791336585785
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000u0n5",
+              "m": 4.4,
+              "t": 1791336585785
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000u0n5",
+              "m": 4.4,
+              "t": 1791336585785
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791549999905,
+      "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000u0k2|co_ch|72",
+      "source_id": "us6000u0k2",
+      "source_mag": 4.5,
+      "source_time": 1791313319145,
+      "source_depth": 73.115,
+      "source_lat": -3.6796,
+      "source_lon": 101.8914,
+      "antipode_lat": 3.6796,
+      "antipode_lon": -78.1086,
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "distance_antipode_km": 285.8,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791313319145,
+      "end": 1791572519145,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000tzlz|ven|24",
+      "source_id": "us6000tzlz",
+      "source_mag": 4.2,
+      "source_time": 1791166591883,
+      "source_depth": 51.442,
+      "source_lat": -9.2033,
+      "source_lon": 112.9221,
+      "antipode_lat": 9.2033,
+      "antipode_lon": -67.0779,
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "distance_antipode_km": 157.5,
+      "band": "core",
+      "hours": 24,
+      "start": 1791166591883,
+      "end": 1791252991883,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "noResponse",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791549999905,
+      "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000tzlz|ven|72",
+      "source_id": "us6000tzlz",
+      "source_mag": 4.2,
+      "source_time": 1791166591883,
+      "source_depth": 51.442,
+      "source_lat": -9.2033,
+      "source_lon": 112.9221,
+      "antipode_lat": 9.2033,
+      "antipode_lon": -67.0779,
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "distance_antipode_km": 157.5,
+      "band": "core",
+      "hours": 72,
+      "start": 1791166591883,
+      "end": 1791425791883,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "noResponse",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791549999905,
+      "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000tzjw|cl_c|24",
+      "source_id": "us6000tzjw",
+      "source_mag": 4.4,
+      "source_time": 1791134393148,
+      "source_depth": 10,
+      "source_lat": 28.5785,
+      "source_lon": 104.7108,
+      "antipode_lat": -28.5785,
+      "antipode_lon": -75.2892,
+      "zone": "cl_c",
+      "name": "Chile central",
+      "distance_antipode_km": 526.3,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791134393148,
+      "end": 1791220793148,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "noResponse",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791549999905,
+      "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000tzjw|cl_c|72",
+      "source_id": "us6000tzjw",
+      "source_mag": 4.4,
+      "source_time": 1791134393148,
+      "source_depth": 10,
+      "source_lat": 28.5785,
+      "source_lon": 104.7108,
+      "antipode_lat": -28.5785,
+      "antipode_lon": -75.2892,
+      "zone": "cl_c",
+      "name": "Chile central",
+      "distance_antipode_km": 526.3,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791134393148,
+      "end": 1791393593148,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "noResponse",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791549999905,
+      "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000tziz|ven|24",
+      "source_id": "us6000tziz",
+      "source_mag": 4.6,
+      "source_time": 1791117407744,
+      "source_depth": 52.773,
+      "source_lat": -9.2014,
+      "source_lon": 112.6395,
+      "antipode_lat": 9.2014,
+      "antipode_lon": -67.3605,
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "distance_antipode_km": 172.4,
+      "band": "core",
+      "hours": 24,
+      "start": 1791117407744,
+      "end": 1791203807744,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "noResponse",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791549999905,
+      "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000tziz|ven|72",
+      "source_id": "us6000tziz",
+      "source_mag": 4.6,
+      "source_time": 1791117407744,
+      "source_depth": 52.773,
+      "source_lat": -9.2014,
+      "source_lon": 112.6395,
+      "antipode_lat": 9.2014,
+      "antipode_lon": -67.3605,
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "distance_antipode_km": 172.4,
+      "band": "core",
+      "hours": 72,
+      "start": 1791117407744,
+      "end": 1791376607744,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "noResponse",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791549999905,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791549999905,
+      "aggregate_rule": "any_registered_target"
     }
   ],
   "antipode_metrics": {
-    "pending": 0,
-    "response": 4,
-    "noResponse": 0
+    "pending": 22,
+    "response": 6,
+    "noResponse": 8
   },
-  "updated": 1791549588399,
+  "updated": 1791549999905,
   "windows": [
     {
       "version": "persistent-v2",
