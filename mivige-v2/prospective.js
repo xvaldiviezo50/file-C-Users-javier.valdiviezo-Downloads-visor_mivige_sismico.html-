@@ -3,7 +3,7 @@
 if(typeof L==='undefined'||typeof map==='undefined')return;
 
 const CFG={
-  version:'3.5-observed-availability',
+  version:'3.6-dynamic-ranking',
   historyH:168,
   low:40,
   high:65,
@@ -15,7 +15,7 @@ const CFG={
   ]
 };
 
-const TARGETS=['cl_c','cl_n','pe_s','pe_c','pe_n','ec_s','ec_az','ec_c','ec_n','co_p','co_ch','pa_p','ven'];
+function targetStates(model){return (model?.states||[]).filter(st=>st&&st.s&&Number.isFinite(Number(st.s.ord)));}
 const layer=L.layerGroup().addTo(map);
 const linkLayer=L.layerGroup(); // Experimental regional links are optional; antipodes use their own strict filter.
 
@@ -60,25 +60,37 @@ function nearestStateToEvent(states,e){
   }
   return best;
 }
+function receiverActivityGate(target){
+  const ids=clamp(Number(target?.ids||0)/100);
+  const rate=clamp((Number(target?.rateRatio||0)-.8)/2.2);
+  const recent=clamp(Number(target?.recent?.length||0)/3);
+  return clamp(.20+.40*ids+.25*rate+.15*recent,.20,1);
+}
 function sourcePathScore(states,target,src){
-  if(!src)return {points:0,label:'sin fuente material',sourceNode:null};
+  if(!src)return {points:0,label:'sin fuente material',sourceNode:null,ageFactor:0,receiverGate:0};
   const near=nearestStateToEvent(states,src.e);
-  if(!near)return {points:6,label:'fuente remota sin continuidad tectónica directa',sourceNode:null};
+  if(!near)return {points:3*ageWeight(src.h),label:'fuente remota sin continuidad tectónica directa',sourceNode:null,ageFactor:ageWeight(src.h),receiverGate:receiverActivityGate(target)};
+  if(near.st.s.id===target.s.id)return {points:0,label:'fuente local · continuidad fuente→receptor no se contabiliza dos veces',sourceNode:near.st,ageFactor:ageWeight(src.h),receiverGate:receiverActivityGate(target)};
   const steps=Math.abs(Number(target.s.ord)-Number(near.st.s.ord));
   const sameDirection=target.s.ord>=near.st.s.ord;
   const continuity=steps<=1?1:steps<=2?.82:steps<=3?.62:steps<=5?.38:.18;
   const dir=sameDirection?1:.75;
-  return {points:16*continuity*dir,label:(sameDirection?'corredor S→N':'corredor inverso/mixto')+' · '+steps.toFixed(1)+' salto(s)',sourceNode:near.st};
+  const age=ageWeight(src.h),gate=receiverActivityGate(target);
+  const points=16*continuity*dir*age*gate;
+  return {points,label:(sameDirection?'corredor S→N':'corredor inverso/mixto')+' · '+steps.toFixed(1)+' salto(s) · edad ×'+age.toFixed(2)+' · receptor ×'+gate.toFixed(2),sourceNode:near.st,ageFactor:age,receiverGate:gate};
 }
 function sequenceMemory(states,target,im){
-  if(!im||im.r==null||!Array.isArray(im.pts)||im.pts.length<3)return {points:0,label:'sin cadena regional suficiente'};
+  if(!im||im.r==null||!Array.isArray(im.pts)||im.pts.length<3)return {points:0,label:'sin cadena regional suficiente',ageFactor:0,receiverGate:0};
   const north=im.r>0;
   const strength=clamp((Math.abs(im.r)-.25)/.75);
   const ords=im.pts.map(x=>x.st.s.ord);
   const front=north?Math.max(...ords):Math.min(...ords);
   const downstream=north?target.s.ord>=front:target.s.ord<=front;
-  const pts=downstream?18*strength:8*strength;
-  return {points:pts,label:(north?'frente aparente S→N':'frente aparente N→S')+' · r='+im.r.toFixed(2)+(downstream?' · receptor por delante del frente':' · receptor dentro/detrás del frente')};
+  const lastTime=Math.max(...im.pts.map(x=>Number(x.e?.time||0)));
+  const ageH=Math.max(0,(Date.now()-lastTime)/3600e3),age=ageWeight(ageH),gate=receiverActivityGate(target);
+  const raw=downstream?18*strength:8*strength;
+  const pts=raw*age*gate;
+  return {points:pts,label:(north?'frente aparente S→N':'frente aparente N→S')+' · r='+im.r.toFixed(2)+(downstream?' · receptor por delante del frente':' · receptor dentro/detrás del frente')+' · edad ×'+age.toFixed(2)+' · receptor ×'+gate.toFixed(2),ageFactor:age,receiverGate:gate};
 }
 function delayedWindow(src){
   if(!src)return {points:0,label:'sin ventana'};
@@ -105,9 +117,9 @@ function antipodeContinuous(st){
   if(!net||!Array.isArray(net.receivers)||!Array.isArray(window.allEvents||[]))return {value:null,label:'antípoda continua N/A'};
   const r=net.receivers.find(q=>q.id===st.s.id); if(!r)return {value:null,label:'receptor antipodal N/A'};
   const ap={lat:-r.lat,lon:r.lon<0?r.lon+180:r.lon-180};
-  const pool=(window.allEvents||[]).filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=now-72*3600e3&&e.time<=now&&Number(e.mag)>6)
+  const pool=(window.allEvents||[]).filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=now-72*3600e3&&e.time<=now&&Number(e.mag)>=6.5)
     .map(e=>({e,d:distKm(ap.lat,ap.lon,e.lat,e.lon)})).filter(q=>q.d<=560);
-  if(!pool.length)return {value:0,label:'sin fuente M>6,0 en núcleo/halo durante 72 h'};
+  if(!pool.length)return {value:0,label:'sin fuente M≥6,5 en núcleo/halo durante 72 h'};
   pool.sort((a,b)=>{
     const sa=(Math.min(1,Math.max(0,(Number(a.e.mag)-5)/2))*.55 + Math.max(0,1-a.d/560)*.30 + Math.max(0,1-(now-a.e.time)/(72*3600e3))*.15);
     const sb=(Math.min(1,Math.max(0,(Number(b.e.mag)-5)/2))*.55 + Math.max(0,1-b.d/560)*.30 + Math.max(0,1-(now-b.e.time)/(72*3600e3))*.15);return sb-sa;
@@ -227,11 +239,12 @@ function draw(results){
     }
   }
 }
-function snapshotOf(x){return {time:Date.now(),score:x.score,level:x.level.short,components:{source:x.src?100*x.src.score:null,receiver:100*clamp(x.recv.points/20),dynamic:100*clamp(x.dyn.points/10),geodesy:(x.st.idg&&x.st.idg.used>=3)?(x.st.idg.candidate?70:25):null}};}
-function audit(results){let old={};try{old=JSON.parse(localStorage.getItem('mivige-pattern-audit-v2')||'{}');}catch(_){} const out={};for(const x of results){const prev=old[x.st.s.id]||null,cur=snapshotOf(x);x.audit={prev,delta:prev?cur.score-prev.score:null,componentDelta:{}};if(prev&&prev.components){for(const k of Object.keys(cur.components)){const a=cur.components[k],b=prev.components[k];x.audit.componentDelta[k]=(Number.isFinite(a)&&Number.isFinite(b))?a-b:null;}}out[x.st.s.id]=cur;}try{localStorage.setItem('mivige-pattern-audit-v2',JSON.stringify(out));}catch(_){} }
+function componentValue(x,id){const c=(x.components||[]).find(q=>q.id===id);return c&&Number.isFinite(c.value)?+c.value.toFixed(1):null;}
+function snapshotOf(x){return {time:Date.now(),model:CFG.version,score:x.score,level:x.level.short,components:{receiver:componentValue(x,'receiver'),source:componentValue(x,'source'),continuity:componentValue(x,'path'),migration:componentValue(x,'sequence'),dynamic:componentValue(x,'dynamic'),antipode:componentValue(x,'antipode'),sst:componentValue(x,'sst'),geodesy:(x.st.idg&&x.st.idg.used>=3)?(x.st.idg.candidate?70:25):null}};}
+function audit(results){let old={};try{old=JSON.parse(localStorage.getItem('mivige-pattern-audit-v3')||'{}');}catch(_){} const out={};for(const x of results){const prev=old[x.st.s.id]||null,cur=snapshotOf(x);x.audit={prev,delta:prev?cur.score-prev.score:null,componentDelta:{}};if(prev&&prev.components){for(const k of Object.keys(cur.components)){const a=cur.components[k],b=prev.components[k];x.audit.componentDelta[k]=(Number.isFinite(a)&&Number.isFinite(b))?a-b:null;}}out[x.st.s.id]=cur;}try{localStorage.setItem('mivige-pattern-audit-v3',JSON.stringify(out));}catch(_){} }
 function freezeForecast(results,now){
   const key='mivige-prospective-ledger-v2'; let ledger=[]; try{ledger=JSON.parse(localStorage.getItem(key)||'[]');}catch(_){}
-  const top5=results.slice(0,5).map((x,i)=>({rank:i+1,zoneId:x.st.s.id,zone:x.st.s.name,score:+x.score.toFixed(1),level:x.level.short,window:'24–72 h',components:{source:+x.sourcePts.toFixed(1),receiver:+x.recv.points.toFixed(1),dynamic:+x.dyn.points.toFixed(1),antipode:+x.anti.points.toFixed(1),sst:+x.sst.points.toFixed(1)}}));
+  const top5=results.slice(0,5).map((x,i)=>({rank:i+1,zoneId:x.st.s.id,zone:x.st.s.name,score:+x.score.toFixed(1),level:x.level.short,window:'24–72 h',model:CFG.version,components:{receiver:componentValue(x,'receiver'),source:componentValue(x,'source'),continuity:componentValue(x,'path'),migration:componentValue(x,'sequence'),dynamic:componentValue(x,'dynamic'),antipode:componentValue(x,'antipode'),sst:componentValue(x,'sst')}}));
   const bucket=Math.floor(now/(6*3600e3));
   if(!ledger.some(x=>x.bucket===bucket)){ledger.push({bucket,time:now,model:CFG.version,top5,status:'ABIERTA',closes:now+72*3600e3});ledger=ledger.slice(-120);try{localStorage.setItem(key,JSON.stringify(ledger));}catch(_){}}
   return ledger;
@@ -241,14 +254,14 @@ function renderLedger(ledger){
   const a=(ledger||[]).slice().reverse().slice(0,5);
   h.innerHTML=a.length?a.map(x=>'<div class="listitem"><div><div class="zname">'+new Date(x.time).toLocaleString('es-EC',{timeZone:'America/Guayaquil'})+' · '+x.status+'</div><div class="zdesc">'+x.top5.map(q=>'#'+q.rank+' '+q.zone+' '+q.score+'/100').join(' · ')+'</div></div></div>').join(''):'El primer corte prospectivo se registrará automáticamente.';
 }
-function auditText(x){const a=x.audit;if(!a||!a.prev)return 'línea base creada en este dispositivo';const ds=(a.delta>=0?'+':'')+a.delta.toFixed(1);const names={source:'fuente',receiver:'receptor',dynamic:'dinámica',geodesy:'GNSS'};const parts=Object.entries(a.componentDelta).filter(([,v])=>Number.isFinite(v)&&Math.abs(v)>=.05).sort((A,B)=>Math.abs(B[1])-Math.abs(A[1])).map(([k,v])=>names[k]+' '+(v>=0?'+':'')+v.toFixed(1));return 'anterior '+a.prev.score.toFixed(1)+'/100 ('+a.prev.level+') · Δ '+ds+(parts.length?' · cambios: '+parts.join(' · '):' · sin cambio material de componentes');}
+function auditText(x){const a=x.audit;if(!a||!a.prev)return 'línea base creada en este dispositivo';const ds=(a.delta>=0?'+':'')+a.delta.toFixed(1);const names={source:'fuente',receiver:'receptor',continuity:'continuidad',migration:'migración',dynamic:'dinámica',antipode:'antípoda',sst:'SST',geodesy:'GNSS'};const parts=Object.entries(a.componentDelta).filter(([,v])=>Number.isFinite(v)&&Math.abs(v)>=.05).sort((A,B)=>Math.abs(B[1])-Math.abs(A[1])).map(([k,v])=>names[k]+' '+(v>=0?'+':'')+v.toFixed(1));return 'anterior '+a.prev.score.toFixed(1)+'/100 ('+a.prev.level+') · Δ '+ds+(parts.length?' · cambios: '+parts.join(' · '):' · sin cambio material de componentes');}
 function setTopLabel(value){['ppeTop','ppeTopDetail'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=value;});}
 function render(){
   ensureCard();
   const model=window.mivigeV2;
   if(!model||!Array.isArray(model.states)||!Array.isArray(allEvents))return;
   const now=Date.now();
-  const results=model.states.filter(st=>TARGETS.includes(st.s.id)).map(st=>scoreOne(model,st,allEvents,now)).filter(x=>x.hasEvidence).sort((a,b)=>b.score-a.score);
+  const results=targetStates(model).map(st=>scoreOne(model,st,allEvents,now)).filter(x=>x.hasEvidence).sort((a,b)=>b.score-a.score||Number(a.st.s.ord)-Number(b.st.s.ord));
   audit(results);
   if(results.length&&Object.values(sourceStatus).some(s=>s.ok&&Number.isFinite(s.fetchedAt)&&now-s.fetchedAt<15*60000)&&now-(model.time||now)<15*60000){const ledger=freezeForecast(results,now);renderLedger(ledger);}else{let previous=[];try{previous=JSON.parse(localStorage.getItem('mivige-prospective-ledger-v2')||'[]');}catch(_){}renderLedger(previous);}
   const top=results[0];
@@ -274,7 +287,7 @@ function render(){
       '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><b style="color:'+rankColor+'">'+rankLabel+'</b> · <b>'+x.st.s.name+'</b></div><div style="font-size:20px;font-weight:800;color:'+rankColor+'">'+x.score.toFixed(0)+'/100</div></div>'+
       '<div class="small" style="margin-top:5px"><b>Proyección experimental:</b> '+x.level.short+' · <b>ventana:</b> '+x.delay.label+'</div>'+
       '<div class="small" style="margin-top:4px"><b>Justificación técnica:</b> '+(signals.length?signals.slice(0,3).join(' · '):'actividad sísmica observada del receptor')+'</div>'+
-      '<details style="margin-top:5px"><summary>Ver fundamento y trazabilidad</summary><div class="small"><b>Fuente:</b> '+fmtSource(x)+'<br><b>Componentes:</b> fuente '+x.sourcePts.toFixed(1)+' · receptor '+x.recv.points.toFixed(1)+' · IITE-D '+x.dyn.points.toFixed(1)+' · antípoda '+x.anti.points.toFixed(1)+' · SST '+x.sst.points.toFixed(1)+'<br><b>Trazabilidad:</b> '+auditText(x)+'</div></details></div>';
+      '<details style="margin-top:5px"><summary>Ver fundamento y trazabilidad</summary><div class="small"><b>Fuente:</b> '+fmtSource(x)+'<br><b>Componentes normalizados:</b> receptor '+(componentValue(x,'receiver')??'NA')+' · fuente '+(componentValue(x,'source')??'NA')+' · continuidad '+(componentValue(x,'path')??'NA')+' · migración '+(componentValue(x,'sequence')??'NA')+' · dinámica '+(componentValue(x,'dynamic')??'NA')+' · antípoda '+(componentValue(x,'antipode')??'NA')+' · SST '+(componentValue(x,'sst')??'NA')+'<br><b>Trazabilidad:</b> '+auditText(x)+'</div></details></div>';
   }).join('');
 
 
