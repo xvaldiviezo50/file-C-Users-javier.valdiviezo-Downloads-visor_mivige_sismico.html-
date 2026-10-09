@@ -3,7 +3,7 @@
 if(typeof L==='undefined'||typeof map==='undefined')return;
 
 const CFG={
-  version:'3.6-dynamic-ranking',
+  version:'3.7-fixed-weight-ranking',
   historyH:168,
   low:40,
   high:65,
@@ -196,13 +196,18 @@ function scoreOne(model,st,events,now){
   ];
   const evals=components.filter(x=>Number.isFinite(x.value));
   const w=evals.reduce((a,x)=>a+x.weight,0);
-  let score=w?evals.reduce((a,x)=>a+x.value*x.weight,0)/w:0;
+  // Build 3088: fixed-weight score. Missing channels never renormalize the remaining
+  // variables upward. This preserves the declared 30/20/15/15/10/7/3 architecture
+  // and prevents a sparse-data zone from becoming #1 only because fewer channels
+  // were available.
+  let score=components.reduce((a,x)=>a+(Number.isFinite(x.value)?x.value*x.weight:0),0);
   const activeFamilies=components.filter(x=>Number.isFinite(x.value)&&x.value>=20).length;
   const convergence=activeFamilies>=4?1.08:activeFamilies===3?1:activeFamilies===2?.90:.72;
   score=Math.max(0,Math.min(100,score*convergence));
   const coverage=Math.round(100*w);
+  const positiveEvidence=components.some(x=>Number.isFinite(x.value)&&x.value>0);
   const conf={score:coverage,label:'cobertura experimental '+coverage+'%'};
-  return {components,hasEvidence:w>0,activeFamilies,convergence,st,src,sourcePts,path:pathExp,seq,delay,recv,dyn,anti,antiContinuous,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
+  return {components,hasEvidence:positiveEvidence,activeFamilies,convergence,st,src,sourcePts,path:pathExp,seq,delay,recv,dyn,anti,antiContinuous,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
 }
 function fmtSource(x){
   if(!x||!x.src)return 'sin fuente material';
@@ -214,7 +219,7 @@ function ensureCard(){
   const aside=document.querySelector('aside');if(!aside)return;
   const c=document.createElement('section');c.className='card';c.id='prospectiveEngineV2';
   c.innerHTML='<h2>🎯 Proyección prospectiva experimental · MIVIGE</h2>'+
-    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. El ranking experimental combina receptor 30%, fuente 20%, continuidad fuente→receptor 15%, migración/secuencia 15%, activación dinámica 10%, antípoda 7% y SST 3%. Una sola familia activa recibe una penalización automática de convergencia. GNSS/InSAR, Coulomb, deslizamiento lento/post-sísmico y fluidos quedan como evidencia física independiente y nunca reducen el puntaje por ausencia de datos. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. La antípoda continua M>6,0 combina magnitud, proximidad geométrica y edad del evento, pero no modifica el puntaje V1 mientras no supere validación contra baseline. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
+    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. El ranking experimental combina receptor 30%, fuente 20%, continuidad fuente→receptor 15%, migración/secuencia 15%, activación dinámica 10%, antípoda 7% y SST 3%. Una sola familia activa recibe una penalización automática de convergencia. Los pesos son fijos: los canales ausentes no renormalizan artificialmente al alza los canales disponibles. GNSS/InSAR, Coulomb, deslizamiento lento/post-sísmico y fluidos quedan como evidencia física independiente y nunca reducen el puntaje por ausencia de datos. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. La antípoda continua M>6,0 combina magnitud, proximidad geométrica y edad del evento, pero no modifica el puntaje V1 mientras no supere validación contra baseline. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
     '<div class="kpis" style="margin-top:8px">'+
       '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTopDetail">—</div></div>'+
       '<div class="kpi"><div class="name">Nivel</div><div class="val" id="ppeLevel">—</div></div>'+
@@ -275,7 +280,7 @@ function render(){
 
   document.getElementById('ppeRows').innerHTML=results.slice(0,5).map((x,i)=>{
     const rankColor=i===0?'#e4493f':i===1?'#f08a24':i===2?'#f0c644':'#42b86b';
-    const rankLabel='PRIORIDAD '+(i+1);
+    const rankLabel=(x.score>=CFG.low?'PRIORIDAD ':'OBSERVACIÓN RELATIVA ')+(i+1);
     const signals=[];
     if(x.recv&&x.recv.points>0)signals.push('receptor: '+x.recv.label);
     if(x.src)signals.push('fuente M'+x.src.e.mag.toFixed(1)+' · '+Math.round(x.src.d)+' km · '+x.delay.label);
@@ -286,7 +291,7 @@ function render(){
     return '<div style="border:2px solid '+rankColor+';border-left-width:8px;border-radius:10px;padding:10px 12px;margin:8px 0;background:rgba(255,255,255,.035)">'+
       '<div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><b style="color:'+rankColor+'">'+rankLabel+'</b> · <b>'+x.st.s.name+'</b></div><div style="font-size:20px;font-weight:800;color:'+rankColor+'">'+x.score.toFixed(0)+'/100</div></div>'+
       '<div class="small" style="margin-top:5px"><b>Proyección experimental:</b> '+x.level.short+' · <b>ventana:</b> '+x.delay.label+'</div>'+
-      '<div class="small" style="margin-top:4px"><b>Justificación técnica:</b> '+(signals.length?signals.slice(0,3).join(' · '):'actividad sísmica observada del receptor')+'</div>'+
+      '<div class="small" style="margin-top:4px"><b>Justificación técnica:</b> '+(signals.length?signals.slice(0,3).join(' · '):'actividad sísmica observada del receptor')+'</div><div class="small"><b>Lectura absoluta:</b> '+(x.score>=CFG.high?'señal experimental alta':x.score>=CFG.low?'señal experimental moderada':'sin señal material; posición solo relativa frente a otras zonas')+' · cobertura '+x.coverage+'%</div>'+
       '<details style="margin-top:5px"><summary>Ver fundamento y trazabilidad</summary><div class="small"><b>Fuente:</b> '+fmtSource(x)+'<br><b>Componentes normalizados:</b> receptor '+(componentValue(x,'receiver')??'NA')+' · fuente '+(componentValue(x,'source')??'NA')+' · continuidad '+(componentValue(x,'path')??'NA')+' · migración '+(componentValue(x,'sequence')??'NA')+' · dinámica '+(componentValue(x,'dynamic')??'NA')+' · antípoda '+(componentValue(x,'antipode')??'NA')+' · SST '+(componentValue(x,'sst')??'NA')+'<br><b>Trazabilidad:</b> '+auditText(x)+'</div></details></div>';
   }).join('');
 
