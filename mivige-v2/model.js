@@ -2,7 +2,7 @@
 'use strict';
 
 const CFG={
-  version:'MIVIGE v2.2.1 · geodesia regional',
+  version:'MIVIGE v2.3 · segmentos canónicos Chile→México',
   refreshMs:5*60*1000,
   windowHours:72,
   minDisplayMag:3.0,
@@ -12,21 +12,24 @@ const CFG={
   dynSourceMag:6.5
 };
 
-const SEG=[
-  {id:'cl_c',name:'Chile central',lat:-32.0,lon:-71.5,r:360,ord:0,country:'Chile'},
-  {id:'cl_n',name:'Chile norte',lat:-23.5,lon:-70.5,r:390,ord:1,country:'Chile'},
-  {id:'pe_s',name:'Perú sur',lat:-16.2,lon:-73.3,r:360,ord:2,country:'Perú'},
-  {id:'pe_c',name:'Perú central',lat:-11.5,lon:-77.2,r:340,ord:3,country:'Perú'},
-  {id:'pe_n',name:'Perú norte',lat:-6.0,lon:-80.4,r:330,ord:4,country:'Perú'},
-  {id:'ec_s',name:'Ecuador sur · Golfo/El Oro',lat:-3.15,lon:-80.2,r:190,ord:5,country:'Ecuador'},
-  {id:'ec_az',name:'Ecuador · Azuay/intraslab',lat:-2.9,lon:-79.0,r:150,ord:5.4,country:'Ecuador',depth:[60,180]},
-  {id:'ec_c',name:'Ecuador centro · Manabí',lat:-1.0,lon:-80.55,r:220,ord:6,country:'Ecuador'},
-  {id:'ec_n',name:'Ecuador norte · Esmeraldas',lat:0.55,lon:-79.9,r:210,ord:7,country:'Ecuador'},
-  {id:'co_p',name:'Colombia Pacífico · Nariño/Cauca',lat:2.5,lon:-77.7,r:250,ord:8,country:'Colombia'},
-  {id:'co_ch',name:'Colombia · Chocó',lat:4.9,lon:-76.75,r:250,ord:9,country:'Colombia'},
-  {id:'pa_p',name:'Panamá · Pacífico/Darién',lat:6.2,lon:-81.2,r:430,ord:9.5,country:'Panamá'},
-  {id:'ven',name:'Venezuela costera',lat:10.2,lon:-64.5,r:520,ord:10,country:'Venezuela'}
-];
+const SEG=[{"id":"cl_c","name":"Chile central","lat":-32,"lon":-71.5,"r":360,"ord":0,"country":"Chile"},{"id":"cl_n","name":"Chile norte","lat":-23.5,"lon":-70.5,"r":390,"ord":1,"country":"Chile"},{"id":"pe_s","name":"Perú sur","lat":-16.2,"lon":-73.3,"r":360,"ord":2,"country":"Perú"},{"id":"pe_c","name":"Perú central","lat":-11.5,"lon":-77.2,"r":340,"ord":3,"country":"Perú"},{"id":"pe_n","name":"Perú norte","lat":-6,"lon":-80.4,"r":330,"ord":4,"country":"Perú"},{"id":"ec_s","name":"Ecuador sur · Golfo/El Oro","lat":-3.15,"lon":-80.2,"r":190,"ord":5,"country":"Ecuador"},{"id":"ec_az","name":"Ecuador · Azuay/intraslab","lat":-2.9,"lon":-79,"r":150,"ord":5.4,"country":"Ecuador","depth":[60,180]},{"id":"ec_c","name":"Ecuador centro · Manabí","lat":-1,"lon":-80.55,"r":220,"ord":6,"country":"Ecuador"},{"id":"ec_n","name":"Ecuador norte · Esmeraldas","lat":0.55,"lon":-79.9,"r":210,"ord":7,"country":"Ecuador"},{"id":"co_p","name":"Colombia Pacífico · Nariño/Cauca","lat":2.5,"lon":-77.7,"r":250,"ord":8,"country":"Colombia"},{"id":"co_ch","name":"Colombia · Chocó","lat":4.9,"lon":-76.75,"r":250,"ord":9,"country":"Colombia"},{"id":"co_car","name":"Colombia Caribe · costa norte","lat":10.8,"lon":-74.7,"r":360,"ord":9.5,"country":"Colombia"},{"id":"ven","name":"Venezuela costera","lat":10.2,"lon":-64.5,"r":520,"ord":10,"country":"Venezuela"},{"id":"car_esp","name":"Caribe · La Española","lat":18.5,"lon":-70.2,"r":450,"ord":10.5,"country":"Caribe"},{"id":"pa","name":"Panamá · Pacífico/Darién","lat":8,"lon":-81,"r":430,"ord":11,"country":"Panamá"},{"id":"cr","name":"Costa Rica","lat":9.8,"lon":-84.2,"r":320,"ord":12,"country":"Costa Rica"},{"id":"gt","name":"Guatemala · Pacífico","lat":14.4,"lon":-91.2,"r":330,"ord":13,"country":"Guatemala"},{"id":"mx_s","name":"México sur · Chiapas","lat":16.1,"lon":-93.3,"r":380,"ord":14,"country":"México"},{"id":"mx_oax","name":"México · Oaxaca/Guerrero","lat":16.9,"lon":-98.3,"r":450,"ord":15,"country":"México"},{"id":"mx_occ","name":"México occidente · Michoacán/Colima/Jalisco","lat":19.3,"lon":-103.8,"r":440,"ord":16,"country":"México"},{"id":"mx_baja","name":"México · Baja California","lat":29.2,"lon":-114,"r":530,"ord":17,"country":"México"},{"id":"mx_golfo","name":"México · Golfo/Veracruz","lat":19.3,"lon":-96.5,"r":420,"ord":18,"country":"México"}];
+
+let segmentsReady=null;
+async function loadCanonicalSegments(){
+  const urls=['segments.json?t='+Date.now(),'https://raw.githubusercontent.com/xvaldiviezo50/file-C-Users-javier.valdiviezo-Downloads-visor_mivige_sismico.html-/main/mivige-v2/segments.json?t='+Date.now()];
+  for(const url of urls){
+    try{
+      const r=await fetch(url,{cache:'no-store'}); if(!r.ok)continue;
+      const j=await r.json();
+      if(Array.isArray(j)&&j.length>=SEG.length){
+        const clean=j.filter(s=>s&&s.id&&Number.isFinite(Number(s.lat))&&Number.isFinite(Number(s.lon))&&Number.isFinite(Number(s.r))&&Number.isFinite(Number(s.ord))).map(s=>({...s,lat:Number(s.lat),lon:Number(s.lon),r:Number(s.r),ord:Number(s.ord)}));
+        if(clean.length>=SEG.length){SEG.splice(0,SEG.length,...clean);window.mivigeSegments=SEG;return SEG;}
+      }
+    }catch(_){}
+  }
+  window.mivigeSegments=SEG; return SEG;
+}
+segmentsReady=loadCanonicalSegments();
 
 const graphLayer=L.layerGroup().addTo(map);
 const activationLayer=L.layerGroup().addTo(map);
@@ -184,8 +187,8 @@ function dynamicScreen(events,states,now){
 }
 function antipodeScreen(events,now){
   const cut=now-72*3600e3;
-  const src=events.filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=cut&&e.time<=now&&e.mag>6.0).sort((a,b)=>b.mag-a.mag)[0];
-  if(!src)return {source:null,target:null,distance:null,label:'sin fuente M>6,0'};
+  const src=events.filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=cut&&e.time<=now&&e.mag>=6.5).sort((a,b)=>b.mag-a.mag)[0];
+  if(!src)return {source:null,target:null,distance:null,label:'sin fuente M≥6,5'};
   const ap=antipode(src.lat,src.lon);
   let best=null;
   SEG.forEach(s=>{const d=distKm(ap.lat,ap.lon,s.lat,s.lon);if(!best||d<best.d)best={s,d};});
@@ -228,7 +231,7 @@ function tierColor(t){return projectionLevel(t).color;}
 function renderMap(states,im){
   eventLayer.clearLayers();graphLayer.clearLayers();activationLayer.clearLayers();
   const hours=Number(document.getElementById('window').value||72),minMag=Number(document.getElementById('minmag').value||3),tf=document.getElementById('tectonicFilter').value,cut=Date.now()-hours*3600e3;
-  allEvents.filter(e=>e.time>=cut&&e.mag>=minMag&&e.lat>=-56&&e.lat<=15&&e.lon>=-112&&e.lon<=-58)
+  allEvents.filter(e=>e.time>=cut&&e.mag>=minMag&&e.lat>=-57&&e.lat<=34&&e.lon>=-119&&e.lon<=-58)
     .filter(e=>tf==='all'||family(e)===tf)
     .slice(0,450).forEach(e=>{
       L.circleMarker([e.lat,e.lon],{radius:Math.max(3,Math.min(12,2+e.mag*1.5)),color:tectonicColor(e),weight:1.8,fillColor:magColor(e.mag),fillOpacity:.82})
@@ -333,13 +336,14 @@ function render(states,im,dyn,anti,idg,idqv){
     '<div class="statusrow"><span>Modelo C · B + IITE + IAC</span><span>'+'pendiente de mecanismos, Coulomb y malla de acoplamiento'+'</span></div>'+
     '<div class="statusrow"><span>Modelo D · C + experimentales</span><span>Challenger · requiere validación prospectiva</span></div>';
 
-  const rows=allEvents.filter(e=>e.time>=Date.now()-72*3600e3&&e.mag>=Number(document.getElementById('minmag').value||3)&&e.lat>=-56&&e.lat<=15&&e.lon>=-112&&e.lon<=-58)
+  const rows=allEvents.filter(e=>e.time>=Date.now()-72*3600e3&&e.mag>=Number(document.getElementById('minmag').value||3)&&e.lat>=-57&&e.lat<=34&&e.lon>=-119&&e.lon<=-58)
     .slice(0,28).map(e=>'<tr><td>'+ecuTime(e.time)+'</td><td><b>'+e.mag.toFixed(1)+'</b></td><td>'+fmtNum(e.depth,0)+' km</td><td>'+tectonicClass(e)+'</td><td>'+e.source+'</td></tr>').join('');
   document.getElementById('events').innerHTML=rows||'<tr><td colspan="5">Sin eventos para el filtro.</td></tr>';
 
   renderMap(states,im);
 }
 async function runModel(){
+  await segmentsReady;
   const now=Date.now();
   const states=SEG.map(s=>segmentState(allEvents,s,now));
   const significant=MivigeQuality.bh(states.map(st=>st.hist.length>=20?MivigeQuality.rateTest(st.recent.length,st.prev.length,1,6):null));
