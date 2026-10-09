@@ -184,8 +184,8 @@ function dynamicScreen(events,states,now){
 }
 function antipodeScreen(events,now){
   const cut=now-72*3600e3;
-  const src=events.filter(e=>e.source==='USGS'&&e.time>=cut&&e.mag>=6.5).sort((a,b)=>b.mag-a.mag)[0];
-  if(!src)return {source:null,target:null,distance:null,label:'sin fuente M≥6.5'};
+  const src=events.filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=cut&&e.time<=now&&e.mag>6.0).sort((a,b)=>b.mag-a.mag)[0];
+  if(!src)return {source:null,target:null,distance:null,label:'sin fuente M>6,0'};
   const ap=antipode(src.lat,src.lon);
   let best=null;
   SEG.forEach(s=>{const d=distKm(ap.lat,ap.lon,s.lat,s.lon);if(!best||d<best.d)best={s,d};});

@@ -4,7 +4,7 @@
 if(typeof L==='undefined'||typeof map==='undefined')return;
 
 const CFG={
-  sourceMag:6.5,
+  sourceMag:6.0,
   coreKm:225,
   haloKm:560,
   watchHours:72,
@@ -48,16 +48,11 @@ function focusState(d){
   if(d<=CFG.haloKm)return {label:'HALO',score:Math.max(0,1-(d-CFG.coreKm)/(CFG.haloKm-CFG.coreKm))};
   return {label:'SIN ACTIVACIÓN',score:0};
 }
-function learningCandidates(events,r,now){
-  const ap=anti(r.lat,r.lon),cut=now-CFG.watchHours*3600e3;
-  return events.filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=cut&&e.time<=now&&Number(e.mag)>=5.0&&Number(e.mag)<CFG.sourceMag)
-    .map(e=>({e,d:distKm(ap.lat,ap.lon,e.lat,e.lon)})).filter(x=>x.d<=CFG.haloKm)
-    .sort((a,b)=>a.d-b.d||b.e.mag-a.e.mag);
-}
+function learningCandidates(){return [];}
 function sourceCandidates(events,r,now){
   const ap=anti(r.lat,r.lon);
   const cut=now-CFG.watchHours*3600e3;
-  const pool=events.filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=cut&&e.time<=now&&Number(e.mag)>=CFG.sourceMag);
+  const pool=events.filter(e=>['USGS','EMSC'].includes(e.source)&&e.time>=cut&&e.time<=now&&Number(e.mag)>CFG.sourceMag);
   return pool.map(e=>{
     const d=distKm(ap.lat,ap.lon,e.lat,e.lon);
     const f=focusState(d);
@@ -82,7 +77,7 @@ function ensureBottomPanel(){
   if(document.getElementById('antiBottomBtn'))return;
   const btn=document.createElement('button');btn.id='antiBottomBtn';btn.type='button';btn.textContent='🌐 ANTÍPODAS ACTIVAS';btn.style.cssText='position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:1200;padding:10px 16px;border-radius:22px;font-weight:800;box-shadow:0 3px 14px #0008';
   const panel=document.createElement('div');panel.id='antiBottomPanel';panel.style.cssText='display:none;position:fixed;left:10px;right:10px;bottom:58px;max-height:52vh;overflow:auto;z-index:1199;background:#101820ee;border:1px solid #6b7b88;border-radius:12px;padding:12px;color:#fff;box-shadow:0 5px 22px #000a';
-  panel.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px"><b>🌐 Países/regiones antipodales activas</b><button id="antiBottomClose">×</button></div><div class="small">V1 M≥6,5 y challengers M5,0–6,49 se muestran por separado.</div><div id="antiBottomRows" style="margin-top:8px">Calculando…</div>';
+  panel.innerHTML='<div style="display:flex;justify-content:space-between;gap:8px"><b>🌐 Países/regiones antipodales activas</b><button id="antiBottomClose">×</button></div><div class="small">Umbral único: M>6,0 · últimas 72 h · coincidencia geométrica.</div><div id="antiBottomRows" style="margin-top:8px">Calculando…</div>';
   document.body.appendChild(panel);document.body.appendChild(btn);
   btn.onclick=()=>panel.style.display=panel.style.display==='none'?'block':'none';
   panel.querySelector('#antiBottomClose').onclick=()=>panel.style.display='none';
@@ -93,7 +88,7 @@ function renderVisibleAntipodes(active,learning){
  active.forEach(x=>items.push({kind:'V1',r:x.r,e:x.src.e,d:x.src.d,band:x.src.f.label}));
  learning.forEach(x=>items.push({kind:'CHALLENGER',r:x.r,e:x.q.e,d:x.q.d,band:x.q.d<=CFG.coreKm?'NÚCLEO':'HALO'}));
  const unique=[];items.forEach(x=>{const k=x.kind+'|'+x.r.id+'|'+(x.e.id||x.e.time);if(!unique.some(y=>y.k===k))unique.push({...x,k});});
- sum.innerHTML=unique.length?'<b>'+unique.length+' coincidencia(s) antipodal(es) M≥5,0</b> en las últimas 72 h.':'<b>SIN ACTIVACIÓN ANTIPODAL DETECTADA</b> · no hay fuentes M≥5,0 dentro de núcleo/halo en las últimas 72 h.';
+ sum.innerHTML=unique.length?'<b>'+unique.length+' coincidencia(s) antipodal(es) M>6,0</b> en las últimas 72 h.':'<b>SIN ACTIVACIÓN ANTIPODAL DETECTADA</b> · no hay fuentes M>6,0 dentro de núcleo/halo en las últimas 72 h.';
  rows.innerHTML=unique.slice().sort((a,b)=>(a.kind==='V1'?0:1)-(b.kind==='V1'?0:1)||a.d-b.d||Number(b.e.mag)-Number(a.e.mag)).slice(0,5).map(x=>'<div class="listitem"><div><b>'+x.kind+' · '+x.r.country+' · '+x.r.name+'</b><div class="zdesc">Fuente: '+fmt(x.e)+'<br>Antípoda receptora: '+x.band+' · '+Math.round(x.d)+' km · seguimiento 24/72 h</div></div></div>').join('');
 }
 function renderBottom(active,learning){
@@ -101,7 +96,7 @@ function renderBottom(active,learning){
   const rows=[];
   active.slice().sort((a,b)=>a.src.d-b.src.d||Number(b.src.e.mag)-Number(a.src.e.mag)).slice(0,5).forEach(x=>rows.push('<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">V1 · M'+Number(x.src.e.mag).toFixed(1)+' · '+x.src.f.label+' · '+Math.round(x.src.d)+' km · '+(x.src.e.place||'fuente global')+'</span></div></div>'));
   learning.slice().sort((a,b)=>a.q.d-b.q.d||Number(b.q.e.mag)-Number(a.q.e.mag)).slice(0,Math.max(0,5-rows.length)).forEach(x=>rows.push('<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">CHALLENGER · M'+Number(x.q.e.mag).toFixed(1)+' · '+(x.q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(x.q.d)+' km · '+(x.q.e.place||'fuente global')+' · 24/72 h</span></div></div>'));
-  el.innerHTML=rows.length?rows.join(''):'<div class="small">Sin fuentes antipodales M≥5,0 dentro del núcleo/halo durante las últimas 72 h.</div>';
+  el.innerHTML=rows.length?rows.join(''):'<div class="small">Sin fuentes antipodales M>6,0 dentro del núcleo/halo durante las últimas 72 h.</div>';
   btn.textContent='🌐 TOP ANTIPODAL · '+rows.length;
 }
 function ensureCard(){
@@ -109,12 +104,12 @@ function ensureCard(){
   const aside=document.querySelector('aside');if(!aside)return;
   const c=document.createElement('section');c.className='card';c.id='antipodeNetworkV2';
   c.innerHTML='<h2>🌐 Challenger Antípoda · vigilancia permanente por receptor</h2>'+
-    '<div class="small"><b>Geometría:</b> antípoda = (−latitud, longitud ±180°). Para cada receptor sudamericano se calcula su punto antipodal exacto y se busca una fuente global M≥'+CFG.sourceMag.toFixed(1)+' durante '+CFG.watchHours+' h. <b>Núcleo:</b> ≤'+CFG.coreKm+' km; <b>halo experimental:</b> '+CFG.coreKm+'–'+CFG.haloKm+' km. Una coincidencia no demuestra que el evento remoto haya causado un sismo en el receptor.</div>'+
+    '<div class="small"><b>Geometría:</b> antípoda = (−latitud, longitud ±180°). Para cada receptor sudamericano se calcula su punto antipodal exacto y se busca una fuente global M>'+CFG.sourceMag.toFixed(1)+' durante '+CFG.watchHours+' h. <b>Núcleo:</b> ≤'+CFG.coreKm+' km; <b>halo experimental:</b> '+CFG.coreKm+'–'+CFG.haloKm+' km. Una coincidencia no demuestra que el evento remoto haya causado un sismo en el receptor.</div>'+
     '<div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><button id="antiViewSources">Ver vínculos antipodales</button><button id="antiViewReceivers">Volver a Sudamérica</button></div>'+
     '<div id="antiSummary" class="small" style="margin-top:8px">Calculando red antipodal…</div>'+
     '<div id="antiRows" style="margin-top:8px"></div>'+
     '<details style="margin-top:8px"><summary>Cómo se usa en MIVIGE</summary><div class="small" style="margin-top:6px">'+
-      '1) un terremoto remoto M≥'+CFG.sourceMag.toFixed(1)+' debe caer dentro de la huella antipodal de un receptor; '+
+      '1) un terremoto remoto M>'+CFG.sourceMag.toFixed(1)+' debe caer dentro de la huella antipodal de un receptor; '+
       '2) se abre una ventana 0–6 h / 6–24 h / 24–72 h; '+
       '3) se compara la sismicidad receptora contra una ventana previa equivalente y su Mc local; '+
       '4) el resultado se registra como experimental y <b>no eleva por sí solo el ICM científico</b>.'+
@@ -179,7 +174,7 @@ function run(){
     const windowLabel=src?((now-src.e.time)/3600e3<=6?'0–6 h':(now-src.e.time)/3600e3<=24?'6–24 h':'24–72 h'):'—';
     rows.push('<div class="listitem"><div class="dot" style="background:'+color(st.label)+'"></div><div><div class="zname">'+r.country+' · '+r.name+'</div><div class="zdesc">'+
       '<b>Fuente antipodal:</b> '+r.sourceRegion+' · exacta '+ap.lat.toFixed(2)+'°, '+ap.lon.toFixed(2)+'°<br>'+
-      (src?('<b>Evento:</b> '+fmt(src.e)+'<br><b>Distancia:</b> '+Math.round(src.d)+' km · <b>'+st.label+'</b> · ventana '+windowLabel+'<br><b>Receptor:</b> '+resp.state+(resp.ratio!=null?' · razón tasa ×'+resp.ratio.toFixed(2):'')):'<b>Estado:</b> SIN ACTIVACIÓN ANTIPODAL DETECTADA · sin fuente M≥'+CFG.sourceMag.toFixed(1)+' dentro del halo en '+CFG.watchHours+' h')+
+      (src?('<b>Evento:</b> '+fmt(src.e)+'<br><b>Distancia:</b> '+Math.round(src.d)+' km · <b>'+st.label+'</b> · ventana '+windowLabel+'<br><b>Receptor:</b> '+resp.state+(resp.ratio!=null?' · razón tasa ×'+resp.ratio.toFixed(2):'')):'<b>Estado:</b> SIN ACTIVACIÓN ANTIPODAL DETECTADA · sin fuente M>'+CFG.sourceMag.toFixed(1)+' dentro del halo en '+CFG.watchHours+' h')+
       (learn.length?('<br><span style="color:#f0c644"><b>CHALLENGER EN OBSERVACIÓN:</b> '+learn.slice(0,3).map(q=>'M'+Number(q.e.mag).toFixed(1)+' · '+(q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(q.d)+' km').join(' | ')+' · ventanas 24/72 h · no activa V1</span>'):'')+
       '</div></div><div class="pct">'+st.label+'</div></div>');
   }
@@ -191,14 +186,14 @@ function run(){
   const sourceButton=document.getElementById('antiViewSources');sourceButton.disabled=!direct.length;sourceButton.textContent=direct.length?'Ver vínculos activos':'Sin activación núcleo';
   document.getElementById('antiRows').innerHTML=rows.join('');
   document.getElementById('antiSummary').innerHTML='<b>Estado actual:</b> '+nCore+' receptor(es) con fuente en núcleo · '+nHalo+' en halo · '+(RECEIVERS.length-nCore-nHalo)+' sin fuente antipodal activa. '+
-    '<br><b>Mapa:</b> líneas discontinuas hacia los receptores únicamente si un sismo M≥'+CFG.sourceMag+' de las últimas '+CFG.watchHours+' h está a ≤'+CFG.coreKm+' km de su antípoda. Los eventos solo en el halo no generan líneas. Sin evento correspondiente, no se dibuja ningún vínculo.<br><b>Patrón geográfico:</b> cada receptor usa su <b>antípoda matemática exacta</b>; las etiquetas regionales son descriptivas y no sustituyen el cálculo geométrico. La ausencia de una fuente en la huella significa <b>sin activación antipodal detectada</b>, no ausencia de peligro sísmico.<br><b>Aprendizaje:</b> fuentes M5,0–6,49 dentro de núcleo/halo se muestran como CHALLENGER EN OBSERVACIÓN y se siguen a 24/72 h; no activan V1.';
+    '<br><b>Mapa:</b> líneas discontinuas hacia los receptores únicamente si un sismo M>'+CFG.sourceMag+' de las últimas '+CFG.watchHours+' h está a ≤'+CFG.coreKm+' km de su antípoda. Los eventos solo en el halo no generan líneas. Sin evento correspondiente, no se dibuja ningún vínculo.<br><b>Patrón geográfico:</b> cada receptor usa su <b>antípoda matemática exacta</b>; las etiquetas regionales son descriptivas y no sustituyen el cálculo geométrico. La ausencia de una fuente en la huella significa <b>sin activación antipodal detectada</b>, no ausencia de peligro sísmico.<br><b>Seguimiento:</b> umbral único M>6,0; las coincidencias se siguen a 24/72 h como hipótesis experimental.';
   window.mivigeAntipodeNetworkV2={receivers:RECEIVERS,active,config:CFG};
 }
 ensureCard();
 try{L.control.layers({},{
   'Antípodas · vínculos fuente → receptor':links,
-  'Red antipodal · fuentes M≥6.5':sourceEvents,
-  'Antípodas · aprendizaje M5.0–6.49':learningLinks
+  'Red antipodal · fuentes M>6.0':sourceEvents,
+  'Antípodas · seguimiento experimental M>6.0':learningLinks
 },{collapsed:true,position:'topright'}).addTo(map);}catch(_){}
 window.addEventListener('mivige:model',run);
 setTimeout(run,2800);
