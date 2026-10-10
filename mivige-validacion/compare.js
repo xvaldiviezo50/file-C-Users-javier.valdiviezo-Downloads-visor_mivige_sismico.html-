@@ -1,5 +1,5 @@
 (function(){'use strict';
-const VERSION='validation-ab-1.0',KEY='mivige-validation-ab-v1',H=3600000;
+const VERSION='validation-ab-1.1',KEY='mivige-validation-ab-v1',H=3600000;
 const weights={receiver:.30,source:.20,path:.15,sequence:.15,dynamic:.10,antipode:.07,sst:.03};
 const labels={receiver:'Receptor',source:'Fuente',path:'Continuidad',sequence:'Secuencia',dynamic:'Dinámica',antipode:'Antípoda',sst:'SST'};
 const clamp=x=>Math.max(0,Math.min(100,x));
@@ -22,13 +22,22 @@ function init(){
 }
 function run(){
  init();const data=window.mivigeProspectiveV2;if(!data||!Array.isArray(data.results))return;
+ const sourceEvents=Array.isArray(window.allEvents)?window.allEvents:[];
+ const sourceStatusCopy=(typeof sourceStatus==='object'&&sourceStatus)?sourceStatus:null;
  const rows=data.results.map(x=>({id:x.st.s.id,name:x.st.s.name,components:x.components||[],A:evaluate(x),B:+clamp((x.components||[]).find(c=>c.id==='receiver')?.value||0).toFixed(2),score:x.score}));
  const sortedA=[...rows].sort((a,b)=>b.A-a.A),sortedB=[...rows].sort((a,b)=>b.B-a.B);
  const ranked=sortedA.slice(0,5);
  const ab=document.getElementById('abCurrent');if(ab)ab.innerHTML='<div class="small">Versión '+VERSION+' · motor '+escape(data.config?.version||'no indicado')+' · <b>no son probabilidades</b></div><table style="width:100%;font-size:12px"><thead><tr><th>Zona</th><th>A /100</th><th>B /100</th><th>Δ A−B</th></tr></thead><tbody>'+ranked.map(x=>'<tr><td>'+escape(x.name)+'</td><td>'+x.A+'</td><td>'+x.B+'</td><td>'+(x.A-x.B).toFixed(1)+'</td></tr>').join('')+'</tbody></table><details><summary>Prueba de ablación: retirar una familia</summary><div class="small">'+Object.keys(weights).map(k=>'<p><b>'+labels[k]+':</b> '+ranked.map(x=>{const s=evaluate(x,k);return escape(x.name)+' '+s.toFixed(1)+' (Δ '+(s-x.A).toFixed(1)+')'}).join(' · ')+'</p>').join('')+'</div></details><div class="small">Top 5 referencia B: '+sortedB.slice(0,5).map(x=>escape(x.name)).join(' · ')+'</div>';
  const now=Date.now(),bucket=Math.floor(now/(6*H));let ledger=load();
  if(!ledger.some(x=>x.bucket===bucket)&&data.dataTime&&now-data.dataTime<15*60000){
- ledger.push({bucket,issuedAt:now,validFrom:now,validTo:now+72*H,model:VERSION,engine:data.config?.version||null,targetMagnitude:5,windowHours:72,topA:sortedA.slice(0,5).map(x=>({zoneId:x.id,score:x.A})),topB:sortedB.slice(0,5).map(x=>({zoneId:x.id,score:x.B})),status:'SIN EVALUAR'});save(ledger);}
+ ledger.push({bucket,issuedAt:now,validFrom:now,validTo:now+72*H,model:VERSION,engine:data.config?.version||null,targetMagnitude:5,windowHours:72,topA:sortedA.slice(0,5).map(x=>({zoneId:x.id,score:x.A})),topB:sortedB.slice(0,5).map(x=>({zoneId:x.id,score:x.B})),allZones:rows.map(x=>({zoneId:x.id,zone:x.name,scoreA:x.A,scoreB:x.B,components:x.components})),eventCount:sourceEvents.length,dataTime:data.dataTime,sourceStatus:sourceStatusCopy,status:'SIN EVALUAR'});save(ledger);}
+ if(ab&&!document.getElementById('abExport')){
+ const btn=document.createElement('button');btn.id='abExport';btn.textContent='Exportar evidencia JSON';btn.style.margin='10px 0';btn.addEventListener('click',()=>{
+ const payload={schema:'mivige-research-evidence-v1',generatedAt:new Date().toISOString(),version:VERSION,engine:data.config?.version,disclaimer:'Browser-local snapshots; not server-certified; not verified forecasts; no earthquake probabilities',snapshots:load()};
+ const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mivige_evidencia_'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);
+ });ab.appendChild(btn);
+ }
  const el=document.getElementById('abLedger');if(el)el.innerHTML=ledger.slice(-5).reverse().map(x=>'<div class="small">'+new Date(x.issuedAt).toLocaleString('es-EC')+' · M≥'+x.targetMagnitude+' · 72 h · '+x.status+'</div>').join('')||'Sin cortes aún.';
 }
 window.addEventListener('mivige:prospective',run);setTimeout(run,5000);
