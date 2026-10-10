@@ -1,0 +1,64 @@
+<!doctype html><html lang="es"><head><base href="../mivige-v2/"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MIVIGE v3.15 · Observación experimental · VALIDACIÓN COMPARATIVA · rama experimental</title><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"><link rel="stylesheet" href="../v10/style.css?v=3000"><style>a{color:#86ccff}summary{cursor:pointer;font-size:12px}#gnssPlot svg{width:100%;height:auto}.listitem>:only-child{grid-column:1/-1}.kpi,.listitem>div{min-width:0;overflow-wrap:anywhere}.badge{white-space:normal;max-width:270px}@media(max-width:600px){header{position:static;flex-wrap:wrap}header h1{font-size:17px}.badge{margin-left:0}#map{min-height:330px}main{grid-template-columns:minmax(0,1fr)}aside{overflow:visible;padding-bottom:80px}.controls>*{max-width:100%}#regionalProjectionPanel .regional-rank-row{grid-template-columns:30px minmax(0,1fr)!important}.regional-rank-row>span:last-child{grid-column:2}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi .val{font-size:15px}.small,.zdesc{font-size:12px}.leaflet-control-layers-expanded{max-width:calc(100vw - 70px);max-height:150px;overflow:auto}}</style></head><body>
+<header><div><h1>MIVIGE v3.15 Público · observación experimental · build 3089</h1><div class="sub">Chile → México • sismicidad + geodesia + interacción tectónica + migración • capas científicas separadas de Challengers experimentales • NA ≠ 0 • no constituye predicción determinista ni alerta oficial</div></div><div id="semaforo" hidden aria-hidden="true"></div><div class="badge" id="projectionBadge" role="status" aria-live="polite">PROYECCIÓN EXPERIMENTAL REGIONAL · CARGANDO</div></header>
+<main><div><div id="map"></div><section class="card" id="antipodeVisibleCard" style="margin:10px"><h2>Actividad antipodal experimental</h2><div id="antiVisibleSummary">Cargando fuentes M≥5,0 de las últimas 72 h…</div><div id="antiVisibleRows" style="margin-top:8px"></div><div class="small" style="margin-top:8px">Challenger experimental: describe coincidencia geométrica con la antípoda matemática. No demuestra transferencia causal de energía ni constituye predicción o alerta.</div></section></div><aside>
+<section class="card"><h2>Actualización y control</h2><div class="controls"><button id="refresh">Actualizar datos</button><select id="window"><option value="24">24 h</option><option value="72" selected>72 h</option><option value="168">7 días</option></select><select id="minmag"><option value="2.5">M≥2.5</option><option value="3" selected>M≥3.0</option><option value="3.5">M≥3.5</option><option value="4">M≥4.0</option><option value="4.5">M≥4.5</option></select><select id="tectonicFilter"><option value="all" selected>Todos</option><option value="shallow">Somero (mecanismo sin resolver)</option><option value="unknown">Profundidad desconocida</option><option value="intermediate">Intermedio</option><option value="intraslab">Intraslab</option></select></div><div class="small">Corte: <b id="cut">—</b><br>Próxima consulta: <b id="next">—</b><br><b>Regla:</b> ausencia de GNSS/InSAR = datos insuficientes, nunca deformación cero.</div></section>
+
+<section class="card" id="preventionDashboard"><h2>Dashboard preventivo</h2><div class="kpis"><div class="kpi"><div class="name">Estado regional</div><div class="val" id="mainDecision">—</div></div><div class="kpi"><div class="name">Zona prioritaria</div><div class="val" id="ppeTop">—</div></div><div class="kpi"><div class="name">Actividad</div><div class="val" id="idgST">—</div></div><div class="kpi"><div class="name">Confianza / cobertura</div><div class="val" id="idq">—</div></div></div><div class="small" id="coverageSummary" style="margin-top:8px"></div><div class="small" style="margin-top:8px"><b>Verde:</b> seguimiento ordinario · <b>amarillo:</b> vigilancia reforzada · <b>rojo:</b> prioridad experimental alta. No expresa probabilidad de terremoto.</div></section>
+<section class="card" id="priorityRankingFixed"><h2>Contraste científico por zona</h2><div class="small">Contraste científico: actividad evaluable primero; las demás zonas siguen el orden geográfico.</div><div id="priorityRankingMirror" style="margin-top:8px">Calculando Chile · Perú · Ecuador · Colombia · Panamá · Centroamérica · México…</div></section>
+
+
+<section class="card" id="prospectiveProtocol"><h2>Seguimiento prospectivo · registro congelado</h2><div class="small"><b>Regla:</b> el algoritmo define automáticamente las prioridades. Los eventos posteriores no modifican retrospectivamente el ranking. En este dispositivo, mientras el visor está abierto, se congela un TOP 5 cada 6 horas con una ventana de seguimiento de 24–72 h.</div><div id="forecastLedger" style="margin-top:8px">Esperando observaciones para registrar el primer corte…</div><details style="margin-top:8px"><summary>Protocolo de validación</summary><div class="small">Al cerrar cada ventana se contrastará el ranking previo con los eventos observados para estimar aciertos, falsos positivos, falsos negativos, anticipación y desempeño por magnitud. La evidencia física se usa como contraste independiente; no se fuerza una zona por un evento ya ocurrido.</div></details></section>
+<section class="card" id="modelArchitecture"><h2>Modelo MIVIGE · núcleo + capas experimentales</h2><div class="small">El visor conserva dos niveles simultáneos. El núcleo usa variables físicas observables; los challengers permanecen activos para validación prospectiva y aprendizaje, sin convertirse automáticamente en evidencia causal.</div><div class="kpis" style="margin-top:8px"><div class="kpi"><div class="name">Redistribución de esfuerzos</div><div class="val">Coulomb · ΔCFS cuando sea evaluable</div></div><div class="kpi"><div class="name">Deformación</div><div class="val">GNSS / InSAR · slow/after-slip</div></div><div class="kpi"><div class="name">Activación dinámica</div><div class="val">Ondas + respuesta temporal</div></div><div class="kpi"><div class="name">Fluidos</div><div class="val">Hipótesis · requiere evidencia independiente</div></div></div><div class="small" style="margin-top:10px"><b>Capas experimentales activas:</b> migración espacio-temporal · secuencias S→N/N→S · antípoda/huella antipodal · SST · vínculos fuente→receptor · aprendizaje y validación de hipótesis. <b>N/A ≠ 0.</b></div><div class="small" style="margin-top:6px"><b>Separación física:</b> esfuerzo ≠ deformación ≠ energía sísmica radiada.</div></section>
+<section class="card"><h2>Evidencia activa</h2><div class="kpis"><div class="kpi"><div class="name">Coulomb</div><div class="val" id="iiteS">—</div></div><div class="kpi"><div class="name">Dinámica</div><div class="val" id="iiteD">—</div></div><div class="kpi"><div class="name">Geodesia</div><div class="val" id="iac">—</div></div><div class="kpi"><div class="name">Antípoda / SST</div><div class="val">Observación</div></div></div><details style="margin-top:8px"><summary>Ver cobertura, variables no evaluables y trazabilidad</summary><div id="evidenceMatrix" style="margin-top:8px"></div></details></section>
+
+<section class="card"><h2>Migración direccional · capa experimental adicional</h2><div id="migrationExperimental">Calculando secuencias observadas…</div></section>
+<section class="card" id="externalVariablesCard"><h2>Activación sísmica regional · variables técnicas</h2><div id="externalVariables">Esperando catálogos para calcular las variables…</div></section>
+<div id="nationalNetworks" hidden aria-hidden="true"></div>
+<section class="card"><h2>GNSS regional · observaciones procesadas</h2><div id="gnssRegional">Cargando series públicas…</div></section>
+<section class="card"><h2>Zonas de vigilancia · estado por segmento</h2><p class="small">Solo una señal que supera los controles activa vigilancia reforzada. Las demás zonas se muestran en orden geográfico; su posición no indica riesgo ni dirección de propagación.</p><div id="zones"></div><div class="small" style="margin-top:8px">El visor calcula un <b>Mc proxy de ventana</b>, tasa 24 h/fondo, clustering, magnitud equivalente, b-value cuando hay muestra suficiente, desplazamiento de centroides y migración vertical. El baseline mostrado es una comparación de tasas con los seis días previos, no un ETAS calibrado.</div></section>
+
+<section class="card" id="observationLayers"><h2>Panel de prevención · síntesis operativa</h2><div class="kpis"><div class="kpi"><div class="name">Actividad observada</div><div class="val">Sismos 72 h</div></div><div class="kpi"><div class="name">Zona prioritaria</div><div class="val" id="dashPriority">Ver ranking</div></div><div class="kpi"><div class="name">Interacción física</div><div class="val">IITE-D / GNSS</div></div><div class="kpi"><div class="name">Señales experimentales</div><div class="val">Antípoda / SST</div></div></div><div class="small" style="margin-top:8px"><b>Lectura:</b> verde = seguimiento ordinario · amarillo = vigilancia reforzada · rojo = prioridad experimental alta. El color no representa probabilidad de terremoto.</div><details style="margin-top:8px"><summary>Ver evidencia y validación</summary><div class="small" style="margin-top:6px"><b>Observación:</b> epicentros, tasa, clustering, momento y migración. <b>Modelo V1:</b> receptor + fuente + IITE-D + GNSS evaluable. <b>Evidencia independiente:</b> Coulomb. <b>Challengers:</b> antípoda M≥6,5, antípoda continua M5,0–6,49 y SST. <b>Control:</b> ventanas 24/72 h y aprendizaje prospectivo.</div></details></section>
+<section class="card"><h2>Aprendizaje persistente</h2><div id="persistentLearning">Consultando estado del servidor…</div></section>
+
+<section class="card"><h2>Comparación de modelos</h2><div id="models"></div><div class="small" style="margin-top:8px">La arquitectura final debe validarse prospectivamente contra un baseline ETAS calibrado con log-likelihood, information gain, Brier score, falsos positivos y omisiones. Hasta disponer de esa historia, no se publica una probabilidad física.</div></section>
+
+<section class="card"><h2>Challenger experimental</h2><div id="experimental"></div><div class="small" style="margin-top:8px">Antípoda, huella antipodal, SST y redistribución progresiva/activación secuencial se conservan para prueba prospectiva; por sí solas no elevan el ICM científico.</div></section>
+
+<table hidden aria-hidden="true"><tbody id="events"></tbody></table>
+
+<div id="sources" hidden aria-hidden="true"></div>
+</aside></main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="../v10/app1.js?v=3077"></script>
+<script src="quality.js?v=3000"></script>
+<script src="data-quality.js?v=3074"></script>
+<script src="history-cache.js?v=3082"></script>
+<script src="geodesy.js?v=3076"></script>
+
+<script src="model.js?v=3087"></script>
+<script src="recent-quakes.js?v=3064"></script>
+<script src="sst-summary.js?v=3007"></script>
+<script src="antipode-links.js?v=3089"></script>
+<script src="coulomb.js?v=3046"></script>
+<script src="prospective.js?v=3088"></script>
+<script src="../mivige-v2/learning-observer.js?v=3074"></script>
+<script src="persistent-learning.js?v=3051"></script>
+
+
+
+
+<script src="external-variables.js?v=3002"></script>
+<script src="migration-experimental.js?v=3084"></script>
+<script src="directional-scenarios.js?v=3084"></script>
+<script src="hypothesis-validation.js?v=3069"></script>
+<script src="projection-badge.js?v=3074"></script>
+<script src="rain-layer.js?v=3083"></script>
+<script src="physical-windows.js?v=3069"></script>
+<script src="automatic-monitor.js?v=3080"></script>
+<script src="wave-simulation.js?v=3085"></script>
+<script>
+(function(){
+const note=document.createElement('section');note.className='card';note.innerHTML='<h2>🔬 Comparación prospectiva · protocolo de validación</h2><p><b>Modelo A:</b> ranking experimental publicado, pesos no calibrados. <b>Modelo B:</b> control de referencia pendiente de evaluación prospectiva. Este visor conserva el motor actual para una comparación reproducible; todavía no demuestra superioridad predictiva.</p><p>Reglas: registrar pronósticos antes de la ventana, definir zona, magnitud y horizonte, comparar con tasa basal y réplicas, medir aciertos y falsas alarmas, y efectuar ablaciones de antípoda, secuencia y otras familias. Los registros retrospectivos no cuentan como pronósticos.</p><p><b>Estado:</b> protocolo de comparación preparado; evaluación A/B automatizada aún no implementada. Puntaje ≠ probabilidad.</p>';document.querySelector('aside')?.prepend(note);
+})();
+</script></body></html>
+
