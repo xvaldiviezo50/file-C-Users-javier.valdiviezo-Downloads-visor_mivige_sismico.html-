@@ -17,7 +17,7 @@ function ensure(){
  const antipodalButton=document.getElementById('antiBottomBtn');
  if(antipodalButton){antipodalButton.insertAdjacentHTML('afterend','<button id="tpBottomBtn" type="button" style="position:fixed;right:12px;bottom:64px;z-index:1200;padding:10px;border-radius:20px;background:#123e61;color:white;font-weight:700">🌊 TONGA Y FUENTES TRANSPACÍFICAS</button>');document.getElementById('tpBottomBtn').addEventListener('click',showResearch)}
  const antipodalPanel=document.getElementById('antiBottomPanel');
- if(antipodalPanel){const link=document.createElement('button');link.type='button';link.textContent='🌊 Consultar Tonga y otras fuentes no antipodales';link.style.cssText='display:block;margin:10px 0;padding:9px';link.addEventListener('click',()=>{antipodalPanel.style.display='none';showResearch()});antipodalPanel.appendChild(link)}
+ if(antipodalPanel){antipodalPanel.style.maxHeight='min(72vh, 680px)';antipodalPanel.style.bottom='68px';antipodalPanel.style.overflowY='auto';antipodalPanel.style.zIndex='1199';const link=document.createElement('button');link.type='button';link.textContent='🌊 Consultar Tonga y otras fuentes no antipodales';link.style.cssText='display:block;margin:10px 0;padding:9px';link.addEventListener('click',()=>{antipodalPanel.style.display='none';showResearch()});antipodalPanel.insertBefore(link,antipodalPanel.children[1]||null)}
  document.getElementById('tpMapToggle').addEventListener('change',e=>{enabled=e.target.checked;draw()});
 }
 function draw(){
