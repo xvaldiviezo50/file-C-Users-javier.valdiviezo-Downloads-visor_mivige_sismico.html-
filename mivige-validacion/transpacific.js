@@ -7,12 +7,17 @@ const radians=x=>x*Math.PI/180;
 function distance(a,b,c,d){const t=Math.sin(radians(c-a)/2)**2+Math.cos(radians(a))*Math.cos(radians(c))*Math.sin(radians(d-b)/2)**2;return 12742*Math.asin(Math.min(1,Math.sqrt(t)))}
 function antipode(lat,lon){return [-lat,lon<0?lon+180:lon-180]}
 const layer=L.layerGroup();let enabled=false;
+function showResearch(){const p=document.getElementById('mivigeTranspacific');if(p){p.scrollIntoView({behavior:'smooth',block:'start'});p.style.outline='2px solid #80c7ef';setTimeout(()=>p.style.outline='',2200)}}
 function ensure(){
  if(document.getElementById('mivigeTranspacific'))return;
  const aside=document.querySelector('aside');if(!aside)return;
  const card=document.createElement('section');card.className='card';card.id='mivigeTranspacific';
  card.innerHTML='<h2>🌐 Red de hipótesis tectónicas y transpacíficas</h2><p class="small">19 regiones de investigación. No representan vínculos causales ni predicciones. Antípodas exactas se calculan por coordenadas; otras relaciones son hipótesis de activación dinámica o continuidad tectónica que requieren validación.</p><label><input type="checkbox" id="tpMapToggle"> Mostrar fuentes en el mapa</label><div id="tpStatus" class="small"></div><div id="tpRows" class="small"></div>';
  aside.prepend(card);
+ const antipodalButton=document.getElementById('antiBottomBtn');
+ if(antipodalButton){antipodalButton.insertAdjacentHTML('afterend','<button id="tpBottomBtn" type="button" style="position:fixed;right:12px;bottom:64px;z-index:1200;padding:10px;border-radius:20px;background:#123e61;color:white;font-weight:700">🌊 TONGA Y FUENTES TRANSPACÍFICAS</button>');document.getElementById('tpBottomBtn').addEventListener('click',showResearch)}
+ const antipodalPanel=document.getElementById('antiBottomPanel');
+ if(antipodalPanel){const link=document.createElement('button');link.type='button';link.textContent='🌊 Consultar Tonga y otras fuentes no antipodales';link.style.cssText='display:block;margin:10px 0;padding:9px';link.addEventListener('click',()=>{antipodalPanel.style.display='none';showResearch()});antipodalPanel.appendChild(link)}
  document.getElementById('tpMapToggle').addEventListener('change',e=>{enabled=e.target.checked;draw()});
 }
 function draw(){
