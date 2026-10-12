@@ -1,0 +1,41 @@
+name: MIVIGE prospective validation
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '53 * * * *'
+  push:
+    paths:
+      - 'scripts/validate_ranking.py'
+      - 'scripts/test_validate_ranking.py'
+      - '.github/workflows/mivige-validation.yml'
+permissions:
+  contents: write
+concurrency:
+  group: mivige-prospective-validation
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s scripts -p test_validate_ranking.py
+      - run: pip install playwright==1.55.0
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/validate_ranking.py
+      - name: Preserve prospective records
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add mivige-v2/data/validation-state.json
+          if [ -d mivige-v2/data/validation-snapshots ]; then git add mivige-v2/data/validation-snapshots/; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record prospective ranking and independent outcomes'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

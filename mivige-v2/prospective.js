@@ -182,7 +182,7 @@ function scoreOne(model,st,events,now){
   const release={points:0,label:'descarga regional no inferida del momento sísmico'};
   const quiet=quiescenceContext(st);
   // Physics v1: only evaluable physical/observational channels enter the core score.
-  // Challenger channels (antipode/SST) are retained for prospective validation but contribute 0 to core.
+  // The implementation below includes antipode; SST has a nominal weight but no evaluable value.
   // EXPERIMENTAL CORE: scientific corroboration must never suppress the prospective ranking.
   // Coulomb, GNSS/InSAR, slow/post-seismic slip and fluids remain independent explanatory evidence.
   const components=[
@@ -209,6 +209,18 @@ function scoreOne(model,st,events,now){
   const conf={score:coverage,label:'cobertura experimental '+coverage+'%'};
   return {components,hasEvidence:positiveEvidence,activeFamilies,convergence,st,src,sourcePts,path:pathExp,seq,delay,recv,dyn,anti,antiContinuous,sst,release,quiet,score,coverage:conf.score,conf,level:level(score),physicsVersion:CFG.version};
 }
+// Deterministic replay of the frozen engine inputs, without changing live UI state.
+window.mivigeValidationReplay=function(c){
+  const keys=['allEvents','mivigeAntipodeNetworkV2','mivigeSSTSignals','mivigeCoulomb'];
+  const old=Object.fromEntries(keys.map(k=>[k,window[k]])),clock=Date.now;
+  try{
+    Date.now=()=>c.scoreTime;
+    window.allEvents=c.events;window.mivigeAntipodeNetworkV2=c.antipodes;
+    window.mivigeSSTSignals=c.sst;window.mivigeCoulomb=c.coulomb;
+    return targetStates(c.model).map(st=>scoreOne(c.model,st,c.events,c.scoreTime))
+      .map(x=>({id:x.st.s.id,score:x.score,hasEvidence:x.hasEvidence,components:x.components}));
+  }finally{Date.now=clock;for(const k of keys)window[k]=old[k];}
+};
 function fmtSource(x){
   if(!x||!x.src)return 'sin fuente material';
   const e=x.src.e;
@@ -219,7 +231,7 @@ function ensureCard(){
   const aside=document.querySelector('aside');if(!aside)return;
   const c=document.createElement('section');c.className='card';c.id='prospectiveEngineV2';
   c.innerHTML='<h2>🎯 Proyección prospectiva experimental · MIVIGE</h2>'+
-    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. El ranking experimental combina receptor 30%, fuente 20%, continuidad fuente→receptor 15%, migración/secuencia 15%, activación dinámica 10%, antípoda 7% y SST 3%. Una sola familia activa recibe una penalización automática de convergencia. Los pesos son fijos: los canales ausentes no renormalizan artificialmente al alza los canales disponibles. GNSS/InSAR, Coulomb, deslizamiento lento/post-sísmico y fluidos quedan como evidencia física independiente y nunca reducen el puntaje por ausencia de datos. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. La antípoda continua M>6,0 combina magnitud, proximidad geométrica y edad del evento, pero no modifica el puntaje V1 mientras no supere validación contra baseline. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
+    '<div class="small">Esta salida es una <b>pista experimental de validación del patrón</b>, separada de la evidencia científica. El ranking experimental combina receptor 30%, fuente 20%, continuidad fuente→receptor 15%, migración/secuencia 15%, activación dinámica 10%, antípoda 7% y SST 3%. Una sola familia activa recibe una penalización automática de convergencia. Los pesos son fijos: los canales ausentes no renormalizan artificialmente al alza los canales disponibles. GNSS/InSAR, Coulomb, deslizamiento lento/post-sísmico y fluidos quedan como evidencia física independiente y nunca reducen el puntaje por ausencia de datos. <b>Coulomb no modifica esta alerta</b>: se conserva como evidencia científica independiente. Antípoda y SST también se registran como challengers para comprobar su desempeño prospectivo. La implementación vigente aporta antípoda M≥6,5 con peso 7%; SST conserva un peso nominal de 3%, actualmente sin valor evaluable en este motor. Esta validación congela el comportamiento existente; no acredita esas hipótesis. <b>No es una probabilidad calibrada de terremoto.</b></div>'+
     '<div class="kpis" style="margin-top:8px">'+
       '<div class="kpi"><div class="name">Zona principal</div><div class="val" id="ppeTopDetail">—</div></div>'+
       '<div class="kpi"><div class="name">Nivel</div><div class="val" id="ppeLevel">—</div></div>'+
@@ -267,6 +279,22 @@ function render(){
   if(!model||!Array.isArray(model.states)||!Array.isArray(allEvents))return;
   const now=Date.now();
   const results=targetStates(model).map(st=>scoreOne(model,st,allEvents,now)).filter(x=>x.hasEvidence).sort((a,b)=>b.score-a.score||Number(a.st.s.ord)-Number(b.st.s.ord));
+  // The central validator exports this very calculation, never a Python proxy.
+  window.mivigeValidationCapture=()=>({
+    schema:'mivige-capture-1', capturedAt:Date.now(), scoreTime:now,
+    config:CFG, sourceStatus:JSON.parse(JSON.stringify(sourceStatus)),
+    events:allEvents, model,
+    antipodes:window.mivigeAntipodeNetworkV2||null,
+    sst:window.mivigeSSTSignals||null,
+    coulomb:window.mivigeCoulomb||null,
+    zones:targetStates(model).map(st=>{
+      const x=results.find(q=>q.st.s.id===st.s.id);
+      return {zone:st.s,score:x?x.score:0,hasEvidence:!!x,
+        components:x?x.components:[],coverage:x?x.coverage:0,
+        history:st.hist||[]};
+    }),
+    ranking:results.map(x=>x.st.s.id)
+  });
   audit(results);
   if(results.length&&Object.values(sourceStatus).some(s=>s.ok&&Number.isFinite(s.fetchedAt)&&now-s.fetchedAt<15*60000)&&now-(model.time||now)<15*60000){const ledger=freezeForecast(results,now);renderLedger(ledger);}else{let previous=[];try{previous=JSON.parse(localStorage.getItem('mivige-prospective-ledger-v2')||'[]');}catch(_){}renderLedger(previous);}
   const top=results[0];

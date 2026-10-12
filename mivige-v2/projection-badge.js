@@ -32,7 +32,7 @@ function row(x,i){
  if(x.sst?.points>0)challengers.push(esc(x.sst.label));
  return '<article class="obs-row" style="border-left:5px solid '+color+'"><div class="obs-row-head"><b>#'+(i+1)+' · '+esc(s.s.name)+'</b><strong style="color:'+color+'">'+Math.round(x.score)+'/100 · '+lv.toUpperCase()+'</strong></div>'+
  '<div class="small">'+obs.join('<br>')+'</div>'+
- (challengers.length?'<div class="small"><b>Challengers observados, fuera del puntaje:</b> '+challengers.join(' · ')+'</div>':'')+
+ (challengers.length?'<div class="small"><b>Hipótesis complementarias observadas:</b> '+challengers.join(' · ')+'</div>':'')+
  '<div class="small">Cobertura de componentes: '+x.coverage+'% · seguimiento 24/72 h.</div></article>';
 }
 function render(){
@@ -45,11 +45,11 @@ function render(){
  const stale=Boolean(p?.dataTime&&Date.now()-p.dataTime>15*60000),top=results[0],lv=top&&!stale?level(top.score):'Sin evaluación',color=COLORS[lv]||'#64748b';
  const badge=document.getElementById('projectionBadge');
  if(badge){badge.style.background=color;badge.style.color='#fff';badge.innerHTML='<strong>PRIORIDAD DE OBSERVACIÓN EXPERIMENTAL</strong><div>'+lv.toUpperCase()+' · '+(top&&!stale?esc(top.st.s.name):stale?'actualización pendiente':'esperando datos')+'</div>';}
- panel.innerHTML='<h2>TOP 5 · observación experimental</h2><p class="small">Orden automático por señales disponibles. El puntaje organiza el seguimiento; no es probabilidad de un sismo ni alerta oficial. Los colores expresan el nivel del puntaje, no el puesto.</p>'+
+ panel.innerHTML='<h2>TOP 5 · observación experimental</h2><p class="small">Orden automático por señales disponibles. El puntaje organiza el seguimiento; no es probabilidad de un sismo ni alerta oficial. Los colores expresan el nivel del puntaje. <b>El puesto 1 no demuestra dónde ocurrirá el siguiente sismo fuerte.</b></p>'+
  (p?.time?'<div class="small"><b>Corte:</b> '+time(p.dataTime||p.time)+(stale?' · DATOS ATRASADOS':'')+'</div>':'')+
  (results.length?results.slice(0,5).map(row).join(''):'<p>Esperando observaciones verificables; no se asigna nivel bajo por falta de datos.</p>')+
  sourceCoverage()+
- '<details><summary>Método y aprendizaje</summary><p class="small">Se conservan los pesos base del modelo anterior: fuente 25%, receptor 45%, dinámica 15% y GNSS 15%. Se renormalizan solo los componentes disponibles. Un catálogo pequeño permite observación exploratoria, no confirmación estadística. Esta revisión cambia el control de disponibilidad y abre un registro prospectivo separado; no implica que haya mejorado la capacidad predictiva. Antípoda y SST se registran aparte, sin alterar el puntaje. No hay ajuste automático de pesos.</p></details>'+
+ '<details><summary>Método y aprendizaje</summary><p class="small">Pesos fijos del motor: receptor 30%, fuente 20%, continuidad 15%, secuencia 15%, dinámica 10%, antípoda 7% y SST 3% nominal (actualmente sin valor evaluable). Los canales ausentes no se renormalizan. La convergencia aplica un factor adicional. GNSS y Coulomb se contrastan aparte. La cobertura no representa confianza ni probabilidad. No hay ajuste automático de pesos. El registro central valida este motor, separado del seguimiento histórico que usaba otra fórmula.</p></details>'+
  '<button id="technicalToggle" type="button" aria-expanded="'+document.body.classList.contains('show-technical')+'">'+(document.body.classList.contains('show-technical')?'Ocultar':'Mostrar')+' contraste científico y capas complementarias</button>';
  document.getElementById('technicalToggle').onclick=()=>{const open=document.body.classList.toggle('show-technical');const b=document.getElementById('technicalToggle');b.textContent=(open?'Ocultar':'Mostrar')+' contraste científico y capas complementarias';b.setAttribute('aria-expanded',String(open));};
 }
