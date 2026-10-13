@@ -18126,6 +18126,131 @@
           "note": "server proxy; V1 browser remains authoritative"
         }
       }
+    },
+    {
+      "time": 1791931793287,
+      "zones": {
+        "cl_c": {
+          "name": "Chile central",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "cl_n": {
+          "name": "Chile norte",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_s": {
+          "name": "Perú sur",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_c": {
+          "name": "Perú central",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_n": {
+          "name": "Perú norte",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_s": {
+          "name": "Ecuador sur · Golfo/El Oro",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_az": {
+          "name": "Ecuador · Azuay/intraslab",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_c": {
+          "name": "Ecuador centro · Manabí",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_n": {
+          "name": "Ecuador norte · Esmeraldas",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_p": {
+          "name": "Colombia Pacífico · Nariño/Cauca",
+          "score_proxy": 33.8,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 30.4,
+          "rate_ratio": 3.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_ch": {
+          "name": "Colombia · Chocó",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.35,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ven": {
+          "name": "Venezuela costera",
+          "score_proxy": 14.3,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 39.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        }
+      }
     }
   ],
   "learning_policy": "Observe, validate and recommend only. Never modify V1 weights, thresholds or alerts automatically.",
@@ -21915,13 +22040,66 @@
         4.5,
         6.0
       ],
-      "status": "pending",
-      "hits": [],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000u1qb",
+          "m": 4.1,
+          "t": 1791788888682
+        }
+      ],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1791677718560,
       "retrospective": true,
       "source_group": "4-5",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000u1qb",
+              "m": 4.1,
+              "t": 1791788888682
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000u1qb",
+              "m": 4.1,
+              "t": 1791788888682
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000u1qb",
+              "m": 4.1,
+              "t": 1791788888682
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791931793287,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000u1gu|co_p|24",
@@ -22008,13 +22186,66 @@
         4.5,
         6.0
       ],
-      "status": "pending",
-      "hits": [],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000u24a",
+          "m": 4.4,
+          "t": 1791916598928
+        }
+      ],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1791677718560,
       "retrospective": true,
       "source_group": "4-5",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000u24a",
+              "m": 4.4,
+              "t": 1791916598928
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000u24a",
+              "m": 4.4,
+              "t": 1791916598928
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000u24a",
+              "m": 4.4,
+              "t": 1791916598928
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791931793287,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000u1gu|co_ch|24",
@@ -22101,13 +22332,92 @@
         4.5,
         6.0
       ],
-      "status": "pending",
-      "hits": [],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000u1yx",
+          "m": 4.4,
+          "t": 1791869298605
+        },
+        {
+          "id": "us6000u1ny",
+          "m": 4.5,
+          "t": 1791771749883
+        }
+      ],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1791677718560,
       "retrospective": true,
       "source_group": "4-5",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000u1yx",
+              "m": 4.4,
+              "t": 1791869298605
+            },
+            {
+              "id": "us6000u1ny",
+              "m": 4.5,
+              "t": 1791771749883
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000u1yx",
+              "m": 4.4,
+              "t": 1791869298605
+            },
+            {
+              "id": "us6000u1ny",
+              "m": 4.5,
+              "t": 1791771749883
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000u1yx",
+              "m": 4.4,
+              "t": 1791869298605
+            },
+            {
+              "id": "us6000u1ny",
+              "m": 4.5,
+              "t": 1791771749883
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [
+            {
+              "id": "us6000u1ny",
+              "m": 4.5,
+              "t": 1791771749883
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1791931793287,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000u1i6|co_ch|24",
@@ -22481,14 +22791,206 @@
       "retrospective": true,
       "source_group": "5-6",
       "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u1zs|ec_n|24",
+      "source_id": "us6000u1zs",
+      "source_mag": 4.4,
+      "source_time": 1791848844658,
+      "source_depth": 10,
+      "source_lat": -5.7318,
+      "source_lon": 102.2066,
+      "antipode_lat": 5.7318,
+      "antipode_lon": -77.7934,
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "distance_antipode_km": 559.2,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791848844658,
+      "end": 1791935244658,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791931793287,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u1zs|ec_n|72",
+      "source_id": "us6000u1zs",
+      "source_mag": 4.4,
+      "source_time": 1791848844658,
+      "source_depth": 10,
+      "source_lat": -5.7318,
+      "source_lon": 102.2066,
+      "antipode_lat": 5.7318,
+      "antipode_lon": -77.7934,
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "distance_antipode_km": 559.2,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791848844658,
+      "end": 1792108044658,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791931793287,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u1zs|co_p|24",
+      "source_id": "us6000u1zs",
+      "source_mag": 4.4,
+      "source_time": 1791848844658,
+      "source_depth": 10,
+      "source_lat": -5.7318,
+      "source_lon": 102.2066,
+      "antipode_lat": 5.7318,
+      "antipode_lon": -77.7934,
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "distance_antipode_km": 304.6,
+      "band": "halo",
+      "hours": 24,
+      "start": 1791848844658,
+      "end": 1791935244658,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791931793287,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u1zs|co_p|72",
+      "source_id": "us6000u1zs",
+      "source_mag": 4.4,
+      "source_time": 1791848844658,
+      "source_depth": 10,
+      "source_lat": -5.7318,
+      "source_lon": 102.2066,
+      "antipode_lat": 5.7318,
+      "antipode_lon": -77.7934,
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "distance_antipode_km": 304.6,
+      "band": "halo",
+      "hours": 72,
+      "start": 1791848844658,
+      "end": 1792108044658,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791931793287,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u1zs|co_ch|24",
+      "source_id": "us6000u1zs",
+      "source_mag": 4.4,
+      "source_time": 1791848844658,
+      "source_depth": 10,
+      "source_lat": -5.7318,
+      "source_lon": 102.2066,
+      "antipode_lat": 5.7318,
+      "antipode_lon": -77.7934,
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "distance_antipode_km": 92.7,
+      "band": "core",
+      "hours": 24,
+      "start": 1791848844658,
+      "end": 1791935244658,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791931793287,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u1zs|co_ch|72",
+      "source_id": "us6000u1zs",
+      "source_mag": 4.4,
+      "source_time": 1791848844658,
+      "source_depth": 10,
+      "source_lat": -5.7318,
+      "source_lon": 102.2066,
+      "antipode_lat": 5.7318,
+      "antipode_lon": -77.7934,
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "distance_antipode_km": 92.7,
+      "band": "core",
+      "hours": 72,
+      "start": 1791848844658,
+      "end": 1792108044658,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1791931793287,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
     }
   ],
   "antipode_metrics": {
-    "pending": 8,
-    "response": 15,
+    "pending": 11,
+    "response": 18,
     "noResponse": 29
   },
-  "updated": 1791913038710,
+  "updated": 1791931793287,
   "windows": [
     {
       "version": "persistent-v2",
@@ -25958,8 +26460,15 @@
       "target": 4.5,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "omission",
+      "hits": [
+        {
+          "id": "us6000u1uq",
+          "m": 4.8,
+          "t": 1791829038852
+        }
+      ],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -25974,8 +26483,9 @@
       "target": 6.0,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -25990,8 +26500,9 @@
       "target": 4.5,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26006,8 +26517,9 @@
       "target": 6.0,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26022,8 +26534,15 @@
       "target": 4.5,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "omission",
+      "hits": [
+        {
+          "id": "us6000u1kt",
+          "m": 5.2,
+          "t": 1791726179788
+        }
+      ],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26038,8 +26557,9 @@
       "target": 6.0,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26054,8 +26574,9 @@
       "target": 4.5,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26070,8 +26591,9 @@
       "target": 6.0,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26086,8 +26608,9 @@
       "target": 4.5,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26102,8 +26625,9 @@
       "target": 6.0,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26118,8 +26642,9 @@
       "target": 4.5,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26134,8 +26659,9 @@
       "target": 6.0,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26150,8 +26676,9 @@
       "target": 4.5,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26166,8 +26693,9 @@
       "target": 6.0,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26182,8 +26710,9 @@
       "target": 4.5,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26198,8 +26727,9 @@
       "target": 6.0,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26214,8 +26744,9 @@
       "target": 4.5,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26230,8 +26761,9 @@
       "target": 6.0,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26246,8 +26778,9 @@
       "target": 4.5,
       "active": true,
       "score_at_issue": 62.2,
-      "status": "pending",
-      "hits": []
+      "status": "falseAlarm",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26262,8 +26795,9 @@
       "target": 6.0,
       "active": true,
       "score_at_issue": 62.2,
-      "status": "pending",
-      "hits": []
+      "status": "falseAlarm",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26278,8 +26812,15 @@
       "target": 4.5,
       "active": true,
       "score_at_issue": 94.6,
-      "status": "pending",
-      "hits": []
+      "status": "coincidence",
+      "hits": [
+        {
+          "id": "us6000u1ny",
+          "m": 4.5,
+          "t": 1791771749883
+        }
+      ],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26294,8 +26835,9 @@
       "target": 6.0,
       "active": true,
       "score_at_issue": 94.6,
-      "status": "pending",
-      "hits": []
+      "status": "falseAlarm",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26310,8 +26852,9 @@
       "target": 4.5,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -26326,8 +26869,9 @@
       "target": 6.0,
       "active": false,
       "score_at_issue": 30.3,
-      "status": "pending",
-      "hits": []
+      "status": "correctNegative",
+      "hits": [],
+      "evaluated": 1791931793287
     },
     {
       "version": "persistent-v2",
@@ -27546,12 +28090,396 @@
       "score_at_issue": 18.7,
       "status": "pending",
       "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "cl_c",
+      "name": "Chile central",
+      "lat": -32,
+      "lon": -71.5,
+      "radius": 360,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "cl_c",
+      "name": "Chile central",
+      "lat": -32,
+      "lon": -71.5,
+      "radius": 360,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "cl_n",
+      "name": "Chile norte",
+      "lat": -21,
+      "lon": -70,
+      "radius": 430,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "cl_n",
+      "name": "Chile norte",
+      "lat": -21,
+      "lon": -70,
+      "radius": 430,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "pe_s",
+      "name": "Perú sur",
+      "lat": -16,
+      "lon": -72,
+      "radius": 430,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "pe_s",
+      "name": "Perú sur",
+      "lat": -16,
+      "lon": -72,
+      "radius": 430,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "pe_c",
+      "name": "Perú central",
+      "lat": -11.5,
+      "lon": -76,
+      "radius": 430,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "pe_c",
+      "name": "Perú central",
+      "lat": -11.5,
+      "lon": -76,
+      "radius": 430,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "pe_n",
+      "name": "Perú norte",
+      "lat": -6,
+      "lon": -80,
+      "radius": 430,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "pe_n",
+      "name": "Perú norte",
+      "lat": -6,
+      "lon": -80,
+      "radius": 430,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "ec_s",
+      "name": "Ecuador sur · Golfo/El Oro",
+      "lat": -3.2,
+      "lon": -80.4,
+      "radius": 360,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "ec_s",
+      "name": "Ecuador sur · Golfo/El Oro",
+      "lat": -3.2,
+      "lon": -80.4,
+      "radius": 360,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "ec_az",
+      "name": "Ecuador · Azuay/intraslab",
+      "lat": -2.9,
+      "lon": -79,
+      "radius": 280,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "ec_az",
+      "name": "Ecuador · Azuay/intraslab",
+      "lat": -2.9,
+      "lon": -79,
+      "radius": 280,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "ec_c",
+      "name": "Ecuador centro · Manabí",
+      "lat": -1,
+      "lon": -80.4,
+      "radius": 350,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "ec_c",
+      "name": "Ecuador centro · Manabí",
+      "lat": -1,
+      "lon": -80.4,
+      "radius": 350,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "lat": 1,
+      "lon": -79.5,
+      "radius": 350,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "lat": 1,
+      "lon": -79.5,
+      "radius": 350,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "lat": 3,
+      "lon": -78,
+      "radius": 400,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 33.8,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "lat": 3,
+      "lon": -78,
+      "radius": 400,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 33.8,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "lat": 6,
+      "lon": -77,
+      "radius": 400,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "lat": 6,
+      "lon": -77,
+      "radius": 400,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "lat": 10.5,
+      "lon": -66.5,
+      "radius": 650,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 4.5,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
+    },
+    {
+      "version": "persistent-v2",
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "lat": 10.5,
+      "lon": -66.5,
+      "radius": 650,
+      "start": 1791931793287,
+      "end": 1792190993287,
+      "hours": 72,
+      "target": 6.0,
+      "active": false,
+      "score_at_issue": 14.3,
+      "status": "pending",
+      "hits": []
     }
   ],
   "metrics": {
-    "coincidence": 1,
-    "falseAlarm": 9,
-    "omission": 13,
-    "correctNegative": 217
+    "coincidence": 2,
+    "falseAlarm": 12,
+    "omission": 15,
+    "correctNegative": 235
   }
 }
