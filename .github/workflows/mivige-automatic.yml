@@ -1,7 +1,7 @@
 name: MIVIGE automatic evidence and windows
 on:
   schedule:
-    - cron: '41 * * * *'
+    - cron: '11,41 * * * *'
   workflow_dispatch:
   push:
     paths:
