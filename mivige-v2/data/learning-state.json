@@ -19251,6 +19251,131 @@
           "note": "server proxy; V1 browser remains authoritative"
         }
       }
+    },
+    {
+      "time": 1792088436088,
+      "zones": {
+        "cl_c": {
+          "name": "Chile central",
+          "score_proxy": 5.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "cl_n": {
+          "name": "Chile norte",
+          "score_proxy": 5.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_s": {
+          "name": "Perú sur",
+          "score_proxy": 5.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_c": {
+          "name": "Perú central",
+          "score_proxy": 5.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_n": {
+          "name": "Perú norte",
+          "score_proxy": 5.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_s": {
+          "name": "Ecuador sur · Golfo/El Oro",
+          "score_proxy": 24.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 30.4,
+          "rate_ratio": 3.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_az": {
+          "name": "Ecuador · Azuay/intraslab",
+          "score_proxy": 5.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_c": {
+          "name": "Ecuador centro · Manabí",
+          "score_proxy": 24.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 30.4,
+          "rate_ratio": 3.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_n": {
+          "name": "Ecuador norte · Esmeraldas",
+          "score_proxy": 24.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 30.4,
+          "rate_ratio": 3.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_p": {
+          "name": "Colombia Pacífico · Nariño/Cauca",
+          "score_proxy": 5.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_ch": {
+          "name": "Colombia · Chocó",
+          "score_proxy": 5.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.35,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ven": {
+          "name": "Venezuela costera",
+          "score_proxy": 5.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 15.0,
+          "note": "server proxy; V1 browser remains authoritative"
+        }
+      }
     }
   ],
   "learning_policy": "Observe, validate and recommend only. Never modify V1 weights, thresholds or alerts automatically.",
@@ -24309,13 +24434,66 @@
         4.5,
         6.0
       ],
-      "status": "pending",
-      "hits": [],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000u2c6",
+          "m": 4.1,
+          "t": 1792010086590
+        }
+      ],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1792003203975,
       "retrospective": true,
       "source_group": "4-5",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000u2c6",
+              "m": 4.1,
+              "t": 1792010086590
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000u2c6",
+              "m": 4.1,
+              "t": 1792010086590
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000u2c6",
+              "m": 4.1,
+              "t": 1792010086590
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1792088436088,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000u2ab|ec_n|72",
@@ -24373,13 +24551,42 @@
         4.5,
         6.0
       ],
-      "status": "pending",
+      "status": "noResponse",
       "hits": [],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1792003203975,
       "retrospective": true,
       "source_group": "4-5",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1792088436088,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000u2ab|co_p|72",
@@ -24437,13 +24644,72 @@
         4.5,
         6.0
       ],
-      "status": "pending",
-      "hits": [],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000u2ht",
+          "m": 4.5,
+          "t": 1792071097166
+        }
+      ],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1792003203975,
       "retrospective": true,
       "source_group": "4-5",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000u2ht",
+              "m": 4.5,
+              "t": 1792071097166
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000u2ht",
+              "m": 4.5,
+              "t": 1792071097166
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000u2ht",
+              "m": 4.5,
+              "t": 1792071097166
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [
+            {
+              "id": "us6000u2ht",
+              "m": 4.5,
+              "t": 1792071097166
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1792088436088,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000u2ab|co_ch|72",
@@ -24479,11 +24745,11 @@
     }
   ],
   "antipode_metrics": {
-    "pending": 10,
-    "response": 21,
-    "noResponse": 33
+    "pending": 7,
+    "response": 23,
+    "noResponse": 34
   },
-  "updated": 1792070920792,
+  "updated": 1792088436088,
   "windows": [
     {
       "version": "persistent-v2",
