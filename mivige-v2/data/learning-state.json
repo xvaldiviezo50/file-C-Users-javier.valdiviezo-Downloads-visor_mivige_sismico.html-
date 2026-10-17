@@ -20876,6 +20876,131 @@
           "note": "server proxy; V1 browser remains authoritative"
         }
       }
+    },
+    {
+      "time": 1792275806141,
+      "zones": {
+        "cl_c": {
+          "name": "Chile central",
+          "score_proxy": 9.5,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "cl_n": {
+          "name": "Chile norte",
+          "score_proxy": 21.8,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 19.2,
+          "rate_ratio": 2.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_s": {
+          "name": "Perú sur",
+          "score_proxy": 9.5,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_c": {
+          "name": "Perú central",
+          "score_proxy": 9.5,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_n": {
+          "name": "Perú norte",
+          "score_proxy": 9.5,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_s": {
+          "name": "Ecuador sur · Golfo/El Oro",
+          "score_proxy": 9.5,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_az": {
+          "name": "Ecuador · Azuay/intraslab",
+          "score_proxy": 9.5,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_c": {
+          "name": "Ecuador centro · Manabí",
+          "score_proxy": 9.5,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_n": {
+          "name": "Ecuador norte · Esmeraldas",
+          "score_proxy": 9.5,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_p": {
+          "name": "Colombia Pacífico · Nariño/Cauca",
+          "score_proxy": 41.4,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_ch": {
+          "name": "Colombia · Chocó",
+          "score_proxy": 16.7,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 11.2,
+          "rate_ratio": 1.5,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ven": {
+          "name": "Venezuela costera",
+          "score_proxy": 9.5,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.6,
+          "note": "server proxy; V1 browser remains authoritative"
+        }
+      }
     }
   ],
   "learning_policy": "Observe, validate and recommend only. Never modify V1 weights, thresholds or alerts automatically.",
@@ -26693,7 +26818,7 @@
     "response": 29,
     "noResponse": 35
   },
-  "updated": 1792265387503,
+  "updated": 1792275806141,
   "windows": [
     {
       "version": "persistent-v2",
