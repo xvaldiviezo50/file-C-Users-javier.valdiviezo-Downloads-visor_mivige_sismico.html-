@@ -33,9 +33,35 @@ jobs:
           node-version: '22'
       - run: node --check mivige-v2/model.js && node --check mivige-v2/history-cache.js
       - run: node --check mivige-v2/rain-layer.js
-      - run: python mivige-v2/scripts/collect_rain.py
-      - run: node mivige-v2/scripts/collect_history.cjs
-      - run: python mivige-v2/scripts/collect_automatic.py
+      - name: Collect optional rain evidence
+        continue-on-error: true
+        run: |
+          for i in 1 2 3; do python mivige-v2/scripts/collect_rain.py && break; sleep $((i*10)); done
+      - name: Collect history
+        continue-on-error: true
+        run: |
+          for i in 1 2 3; do node mivige-v2/scripts/collect_history.cjs && break; sleep $((i*10)); done
+      - name: Collect core automatic evidence
+        run: |
+          for i in 1 2 3; do
+            python mivige-v2/scripts/collect_automatic.py && break
+            test "$i" -eq 3 && exit 1
+            sleep $((i*15))
+          done
+      - name: Verify fresh core state
+        run: |
+          python - <<'PY'
+          import json, datetime as dt, pathlib
+          p=pathlib.Path('mivige-v2/data/automatic.json')
+          a=json.loads(p.read_text())
+          t=dt.datetime.fromisoformat(a['generated_at'].replace('Z','+00:00'))
+          age=(dt.datetime.now(dt.timezone.utc)-t).total_seconds()
+          if a.get('run_status') != 'ok':
+              raise SystemExit('automatic.json run_status is not ok')
+          if age < -300 or age > 5400:
+              raise SystemExit(f'automatic.json stale: {age/60:.1f} min')
+          print(f'automatic.json fresh: {age/60:.1f} min')
+          PY
       - name: Preserve central record
         run: |
           git config user.name 'github-actions[bot]'
