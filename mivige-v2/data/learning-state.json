@@ -22126,6 +22126,131 @@
           "note": "server proxy; V1 browser remains authoritative"
         }
       }
+    },
+    {
+      "time": 1792431050800,
+      "zones": {
+        "cl_c": {
+          "name": "Chile central",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "cl_n": {
+          "name": "Chile norte",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_s": {
+          "name": "Perú sur",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_c": {
+          "name": "Perú central",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_n": {
+          "name": "Perú norte",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_s": {
+          "name": "Ecuador sur · Golfo/El Oro",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_az": {
+          "name": "Ecuador · Azuay/intraslab",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_c": {
+          "name": "Ecuador centro · Manabí",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_n": {
+          "name": "Ecuador norte · Esmeraldas",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_p": {
+          "name": "Colombia Pacífico · Nariño/Cauca",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_ch": {
+          "name": "Colombia · Chocó",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ven": {
+          "name": "Venezuela costera",
+          "score_proxy": 3.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 10.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        }
+      }
     }
   ],
   "learning_policy": "Observe, validate and recommend only. Never modify V1 weights, thresholds or alerts automatically.",
@@ -27936,14 +28061,78 @@
       ],
       "evaluated": 1792257336433,
       "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000u3c7|cl_c|24",
+      "source_id": "us6000u3c7",
+      "source_mag": 5,
+      "source_time": 1792407428127,
+      "source_depth": 10,
+      "source_lat": 31.948,
+      "source_lon": 104.4577,
+      "antipode_lat": -31.948,
+      "antipode_lon": -75.5423,
+      "zone": "cl_c",
+      "name": "Chile central",
+      "distance_antipode_km": 381.3,
+      "band": "halo",
+      "hours": 24,
+      "start": 1792407428127,
+      "end": 1792493828127,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792431050800,
+      "retrospective": true,
+      "source_group": "5-6",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u3c7|cl_c|72",
+      "source_id": "us6000u3c7",
+      "source_mag": 5,
+      "source_time": 1792407428127,
+      "source_depth": 10,
+      "source_lat": 31.948,
+      "source_lon": 104.4577,
+      "antipode_lat": -31.948,
+      "antipode_lon": -75.5423,
+      "zone": "cl_c",
+      "name": "Chile central",
+      "distance_antipode_km": 381.3,
+      "band": "halo",
+      "hours": 72,
+      "start": 1792407428127,
+      "end": 1792666628127,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792431050800,
+      "retrospective": true,
+      "source_group": "5-6",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
     }
   ],
   "antipode_metrics": {
-    "pending": 0,
+    "pending": 2,
     "response": 29,
     "noResponse": 35
   },
-  "updated": 1792406999965,
+  "updated": 1792431050800,
   "windows": [
     {
       "version": "persistent-v2",
