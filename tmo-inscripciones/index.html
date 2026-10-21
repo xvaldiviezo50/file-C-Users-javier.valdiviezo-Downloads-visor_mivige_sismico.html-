@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Área Académica: Monitoreo Servicios de Academia</title>
-<link rel="stylesheet" href="style.css?v=20261021-CEO1">
+<link rel="stylesheet" href="style.css?v=20261021-CEO2">
 </head>
 <body>
 <header class="top">
@@ -12,154 +12,181 @@
     <div>
       <div class="eyebrow">CEDIA · Área Académica · Corte octubre 2026</div>
       <h1>Área Académica: Monitoreo Servicios de Academia</h1>
-      <p class="lead">Visor ejecutivo orientado a demanda, portafolio, tracción de servicios e ingresos.</p>
+      <p class="lead">Visor ejecutivo orientado a uso, portafolio de servicios e ingresos.</p>
     </div>
     <div class="stamp">VISTA CEO</div>
   </div>
   <nav>
-    <button class="tab active" data-view="resumen">Resumen comercial</button>
-    <button class="tab" data-view="tmo">TMO · Formación</button>
-    <button class="tab" data-view="portafolio">Portafolio de servicios</button>
-    <button class="tab" data-view="ingresos">Ingresos</button>
-    <button class="tab" data-view="detalle">Detalle TMO</button>
+    <button class="tab active" onclick="showView('monitoreo',this)">Monitoreo de Servicios</button>
+    <button class="tab" onclick="showView('tmo',this)">TMO · Formación</button>
+    <button class="tab" onclick="showView('portafolio',this)">Portafolio de Servicios</button>
+    <button class="tab" onclick="showView('ingresos',this)">Ingresos</button>
+    <button class="tab" onclick="showView('detalle',this)">Detalle TMO</button>
   </nav>
 </header>
 
 <main>
-<section id="resumen" class="view active">
+<section id="monitoreo" class="view active">
   <div class="section-head">
-    <div><h2>Resumen comercial</h2><p>Qué vendemos, cuánto se usa y qué genera ingresos.</p></div>
+    <div><h2>Monitoreo de Servicios</h2><p>Indicadores ejecutivos del Área Académica: uso, tracción e ingresos.</p></div>
   </div>
-  <div id="hero-kpis" class="kpi-grid five"></div>
+  <div class="kpi-grid five">
+    <div class="kpi"><div class="label">Ingresos Área 2026</div><div class="value">USD 1,10 M</div><div class="sub">USD 1.097.539,32</div></div>
+    <div class="kpi"><div class="label">Inscripciones</div><div class="value">7.835</div><div class="sub">Ecosistema de formación</div></div>
+    <div class="kpi"><div class="label">Cursos impartidos</div><div class="value">150</div><div class="sub">TMO, Track y academias</div></div>
+    <div class="kpi"><div class="label">TMO Track</div><div class="value">4.284</div><div class="sub">Inscripciones</div></div>
+    <div class="kpi"><div class="label">Oferta TMO directa</div><div class="value">107</div><div class="sub">Cursos / módulos</div></div>
+  </div>
 
   <div class="grid two mt">
     <div class="card accent-blue">
-      <div class="card-head"><div><span class="tag">FORMACIÓN</span><h3>TMO: principal motor de demanda</h3></div></div>
-      <div id="tmo-summary"></div>
+      <div class="card-head"><div><span class="tag">FORMACIÓN</span><h3>TMO: principal motor de uso</h3></div></div>
+      <div class="service-metrics">
+        <div class="service-metric"><strong>2.917</strong><span>TMO directa</span></div>
+        <div class="service-metric"><strong>4.284</strong><span>TMO Track</span></div>
+        <div class="service-metric"><strong>634</strong><span>Cisco</span></div>
+        <div class="service-metric"><strong>150</strong><span>Cursos impartidos</span></div>
+      </div>
+      <div class="opportunity"><b>Lectura:</b> la TMO combina oferta abierta, venta institucional, tracks y alianzas tecnológicas.</div>
     </div>
+
     <div class="card accent-green">
       <div class="card-head"><div><span class="tag green">INGRESOS</span><h3>Composición económica del Área</h3></div></div>
-      <div id="revenue-summary"></div>
+      <div class="metric-row"><div class="metric-name">Paquete</div><div class="bar green"><span style="width:100%"></span></div><div class="amount">46%</div></div>
+      <div class="metric-row"><div class="metric-name">Bajo demanda</div><div class="bar orange"><span style="width:74%"></span></div><div class="amount">34%</div></div>
+      <div class="metric-row"><div class="metric-name">Otras áreas</div><div class="bar"><span style="width:28%"></span></div><div class="amount">13%</div></div>
+      <div class="metric-row"><div class="metric-name">Proyectos</div><div class="bar purple"><span style="width:11%"></span></div><div class="amount">5%</div></div>
+      <div class="opportunity"><b>Prioridad:</b> Paquete + Bajo demanda concentran el 80% de los ingresos.</div>
     </div>
   </div>
 
   <div class="card mt">
-    <div class="card-head">
-      <div><span class="tag cyan">SERVICIOS</span><h3>Portafolio con evidencia de uso</h3></div>
-      <div class="mini-note">Indicadores de adopción, no promedios</div>
+    <div class="card-head"><div><span class="tag cyan">SERVICIOS</span><h3>Portafolio con evidencia de uso</h3></div><div class="mini-note">Sin promedios de uso</div></div>
+    <div class="service-strip">
+      <div class="mini-service" style="border-top:4px solid #09a8b8"><b>MOOCs</b><strong>+4.000</strong><span>Participantes activos</span></div>
+      <div class="mini-service" style="border-top:4px solid #0e8da0"><b>ROA</b><strong>+200</strong><span>Objetos de aprendizaje</span></div>
+      <div class="mini-service" style="border-top:4px solid #6f4fb3"><b>Diagnóstico</b><strong>3 + 2</strong><span>Ejecutados + en ejecución</span></div>
+      <div class="mini-service" style="border-top:4px solid #2f9d50"><b>Repositorio del Conocimiento</b><strong>354</strong><span>Videos publicados</span></div>
+      <div class="mini-service" style="border-top:4px solid #2f77c5"><b>RRAAE</b><strong>682.777</strong><span>Publicaciones cosechadas</span></div>
+      <div class="mini-service" style="border-top:4px solid #e98a2e"><b>AIRA Academics</b><strong>8 / 12</strong><span>Activas / en instalación</span></div>
     </div>
-    <div id="service-strip" class="service-strip"></div>
   </div>
 </section>
 
 <section id="tmo" class="view">
-  <div class="section-head">
-    <div><h2>TMO · Formación y Capacitación</h2><p>Demanda, portafolio y productos con mayor tracción.</p></div>
+  <div class="section-head"><div><h2>TMO · Formación y Capacitación</h2><p>Demanda, evolución y oferta con mayor tracción.</p></div></div>
+  <div class="kpi-grid five">
+    <div class="kpi"><div class="label">TMO directa</div><div class="value">2.917</div><div class="sub">Inscripciones</div></div>
+    <div class="kpi"><div class="label">TMO Track</div><div class="value">4.284</div><div class="sub">Inscripciones</div></div>
+    <div class="kpi"><div class="label">Cisco</div><div class="value">634</div><div class="sub">Inscripciones</div></div>
+    <div class="kpi"><div class="label">Cursos para la venta</div><div class="value">11</div><div class="sub">TMO Track</div></div>
+    <div class="kpi"><div class="label">Cursos impartidos</div><div class="value">150</div><div class="sub">Gestión 2026</div></div>
   </div>
-  <div id="tmo-kpis" class="kpi-grid five"></div>
 
   <div class="grid two mt">
     <div class="card">
-      <div class="card-head"><div><h3>Evolución mensual de inscripciones</h3><p>Separación por modalidad/oferta</p></div></div>
-      <div id="monthly-chart"></div>
+      <div class="card-head"><div><h3>Evolución mensual de inscripciones</h3><p>TMO directa · TMO Track · Cisco</p></div></div>
+      <div class="chart-month"><div class="chart-label">Enero</div><div class="stackbar"><span style="width:35.6%;background:#0e67b2"></span><span style="width:18.3%;background:#09a89a"></span><span style="width:46.1%;background:#7658b4"></span></div><div class="chart-vals">144 · 74 · 187 = <b>405</b></div></div>
+      <div class="chart-month"><div class="chart-label">Febrero</div><div class="stackbar"><span style="width:92%;background:#0e67b2"></span><span style="width:0%;background:#09a89a"></span><span style="width:8%;background:#7658b4"></span></div><div class="chart-vals">230 · 0 · 20 = <b>250</b></div></div>
+      <div class="chart-month"><div class="chart-label">Marzo</div><div class="stackbar"><span style="width:93%;background:#0e67b2"></span><span style="width:4%;background:#09a89a"></span><span style="width:3%;background:#7658b4"></span></div><div class="chart-vals">548 · 24 · 17 = <b>589</b></div></div>
+      <div class="chart-month"><div class="chart-label">Abril</div><div class="stackbar"><span style="width:63%;background:#0e67b2"></span><span style="width:35%;background:#09a89a"></span><span style="width:2%;background:#7658b4"></span></div><div class="chart-vals">272 · 150 · 7 = <b>429</b></div></div>
+      <div class="chart-month"><div class="chart-label">Mayo</div><div class="stackbar"><span style="width:73%;background:#0e67b2"></span><span style="width:24%;background:#09a89a"></span><span style="width:3%;background:#7658b4"></span></div><div class="chart-vals">264 · 86 · 10 = <b>360</b></div></div>
+      <div class="chart-month"><div class="chart-label">Junio</div><div class="stackbar"><span style="width:96%;background:#0e67b2"></span><span style="width:3%;background:#09a89a"></span><span style="width:1%;background:#7658b4"></span></div><div class="chart-vals">399 · 12 · 3 = <b>414</b></div></div>
+      <div class="chart-month"><div class="chart-label">Julio</div><div class="stackbar"><span style="width:69%;background:#0e67b2"></span><span style="width:30%;background:#09a89a"></span><span style="width:1%;background:#7658b4"></span></div><div class="chart-vals">321 · 141 · 3 = <b>465</b></div></div>
+      <div class="chart-month"><div class="chart-label">Agosto</div><div class="stackbar"><span style="width:34%;background:#0e67b2"></span><span style="width:18%;background:#09a89a"></span><span style="width:49%;background:#7658b4"></span></div><div class="chart-vals">212 · 110 · 306 = <b>628</b></div></div>
+      <div class="chart-month"><div class="chart-label">Septiembre</div><div class="stackbar"><span style="width:18%;background:#0e67b2"></span><span style="width:79%;background:#09a89a"></span><span style="width:3%;background:#7658b4"></span></div><div class="chart-vals">397 · 1.719 · 69 = <b>2.185</b></div></div>
+      <div class="chart-month"><div class="chart-label">Octubre</div><div class="stackbar"><span style="width:6%;background:#0e67b2"></span><span style="width:93%;background:#09a89a"></span><span style="width:1%;background:#7658b4"></span></div><div class="chart-vals">130 · 1.968 · 12 = <b>2.110</b></div></div>
+      <div class="legend"><span><i style="background:#0e67b2"></i>TMO directa</span><span><i style="background:#09a89a"></i>TMO Track</span><span><i style="background:#7658b4"></i>Cisco</span></div>
     </div>
+
     <div class="card">
-      <div class="card-head"><div><h3>Productos formativos con mayor demanda</h3><p>Cursos y tracks acumulados</p></div></div>
-      <div id="top-products"></div>
+      <div class="card-head"><div><h3>Productos con mayor tracción</h3><p>Lectura comercial de demanda</p></div></div>
+      <div class="rank-row"><div class="rank-name"><b>1.</b> Track · Equidad de Género</div><div class="bar green"><span style="width:100%"></span></div><div class="rank-value">3.737</div></div>
+      <div class="rank-row"><div class="rank-name"><b>2.</b> TMO · Imágenes Satelitales</div><div class="bar green"><span style="width:2.5%"></span></div><div class="rank-value">92</div></div>
+      <div class="rank-row"><div class="rank-name"><b>3.</b> Track · ChatGPT</div><div class="bar green"><span style="width:6.5%"></span></div><div class="rank-value">245</div></div>
+      <div class="rank-row"><div class="rank-name"><b>4.</b> Track · Fundamentos de Salud Digital</div><div class="bar green"><span style="width:3.5%"></span></div><div class="rank-value">130</div></div>
+      <div class="rank-row"><div class="rank-name"><b>5.</b> TMO · Captación de Fondos UTE</div><div class="bar green"><span style="width:1.6%"></span></div><div class="rank-value">60</div></div>
+      <div class="opportunity"><b>Oportunidad:</b> usar los cursos/tracks de mayor tracción como anclas comerciales para rutas y certificaciones.</div>
     </div>
   </div>
 
   <div class="card mt">
-    <div class="card-head"><div><h3>Oferta comercial TMO</h3><p>Productos que pueden comunicarse como líneas de valor</p></div></div>
+    <div class="card-head"><div><h3>Oferta comercial TMO</h3><p>Cómo presentar la oferta al cliente</p></div></div>
     <div class="product-grid">
-      <div class="product"><div class="ico">01</div><div><b>Cursos especializados</b><span>Oferta abierta e institucional en docencia, investigación, tecnología, innovación y gestión.</span></div></div>
-      <div class="product"><div class="ico">02</div><div><b>Certificaciones</b><span>Rutas modulares y certificaciones especializadas, incluyendo IA e internacionalización.</span></div></div>
-      <div class="product"><div class="ico">03</div><div><b>TMO Track</b><span>11 cursos para la venta, con tracks normativos, inglés legal, IA e investigación.</span></div></div>
-      <div class="product"><div class="ico">04</div><div><b>Academias y alianzas</b><span>Oferta conjunta con aliados como Cisco, RedCLARA y contenidos Copernicus.</span></div></div>
+      <div class="product"><div class="ico">01</div><div><b>Cursos especializados</b><span>Docencia, investigación, tecnología, innovación y gestión.</span></div></div>
+      <div class="product"><div class="ico">02</div><div><b>Certificaciones</b><span>Rutas modulares y certificaciones especializadas.</span></div></div>
+      <div class="product"><div class="ico">03</div><div><b>TMO Track</b><span>11 cursos para la venta y tracks temáticos.</span></div></div>
+      <div class="product"><div class="ico">04</div><div><b>Academias y alianzas</b><span>Cisco, RedCLARA, Copernicus y otros aliados.</span></div></div>
     </div>
   </div>
 </section>
 
 <section id="portafolio" class="view">
-  <div class="section-head">
-    <div><h2>Portafolio de servicios académicos</h2><p>Cada servicio se presenta como producto: evidencia de uso + propuesta de valor.</p></div>
+  <div class="section-head"><div><h2>Portafolio de Servicios</h2><p>Servicios presentados como productos con evidencia de uso y oportunidad de expansión.</p></div></div>
+  <div class="services-grid">
+    <div class="service-card" style="border-top:4px solid #0e67b2"><h3>TMO · Formación</h3><div class="promise">Cursos, certificaciones, tracks y academias.</div><div class="service-metrics"><div class="service-metric"><strong>7.835</strong><span>Inscripciones</span></div><div class="service-metric"><strong>150</strong><span>Cursos impartidos</span></div></div><div class="opportunity"><b>Oportunidad:</b> escalar cursos especializados, certificaciones y venta institucional.</div></div>
+    <div class="service-card" style="border-top:4px solid #09a8b8"><h3>MOOCs</h3><div class="promise">Aprendizaje abierto y autogestionado.</div><div class="service-metrics"><div class="service-metric"><strong>+4.000</strong><span>Participantes activos</span></div><div class="service-metric"><strong>+75</strong><span>Cursos disponibles</span></div></div><div class="opportunity"><b>Oportunidad:</b> ampliar catálogo y reutilizar contenidos CEDIA.</div></div>
+    <div class="service-card" style="border-top:4px solid #0e8da0"><h3>ROA</h3><div class="promise">Objetos de aprendizaje reutilizables para docencia.</div><div class="service-metrics"><div class="service-metric"><strong>+200</strong><span>Objetos</span></div><div class="service-metric"><strong>11</strong><span>Categorías</span></div></div><div class="opportunity"><b>Oportunidad:</b> nueva plataforma y lanzamiento 2027.</div></div>
+    <div class="service-card" style="border-top:4px solid #6f4fb3"><h3>Diagnóstico de Competencias</h3><div class="promise">Medición institucional de competencias digitales docentes.</div><div class="service-metrics"><div class="service-metric"><strong>3</strong><span>Ejecutados</span></div><div class="service-metric"><strong>2</strong><span>En ejecución</span></div><div class="service-metric"><strong>3</strong><span>Interesadas</span></div></div><div class="opportunity"><b>Oportunidad:</b> convertir diagnóstico en puerta de entrada a rutas TMO.</div></div>
+    <div class="service-card" style="border-top:4px solid #2f9d50"><h3>Repositorio del Conocimiento</h3><div class="promise">Difusión de conocimiento generado por proyectos y fondos.</div><div class="service-metrics"><div class="service-metric"><strong>354</strong><span>Videos publicados</span></div><div class="service-metric"><strong>25+</strong><span>Estudios de vigilancia</span></div></div><div class="opportunity"><b>Oportunidad:</b> fortalecer acceso federado y consumo de conocimiento.</div></div>
+    <div class="service-card" style="border-top:4px solid #2f77c5"><h3>RRAAE</h3><div class="promise">Red nacional de repositorios y acceso abierto.</div><div class="service-metrics"><div class="service-metric"><strong>682.777</strong><span>Publicaciones</span></div><div class="service-metric"><strong>136</strong><span>Fuentes</span></div><div class="service-metric"><strong>67</strong><span>Instituciones</span></div><div class="service-metric"><strong>130.746</strong><span>Visitas 2026</span></div></div><div class="opportunity"><b>Oportunidad:</b> RRAAE 2.0, DataCite Ecuador e IA en repositorios.</div></div>
+    <div class="service-card" style="border-top:4px solid #e98a2e"><h3>AIRA Academics / Avante</h3><div class="promise">Adopción de servicios académicos con IA y fondos.</div><div class="service-metrics"><div class="service-metric"><strong>8</strong><span>Instituciones activas</span></div><div class="service-metric"><strong>12</strong><span>En instalación</span></div><div class="service-metric"><strong>15 / 5</strong><span>Universidades / institutos adjudicados</span></div></div><div class="opportunity"><b>Oportunidad:</b> meta 2027 de 32 instituciones en AIRA Academics.</div></div>
   </div>
-  <div id="services-grid" class="services-grid"></div>
 </section>
 
 <section id="ingresos" class="view">
-  <div class="section-head">
-    <div><h2>Ingresos del Área Académica</h2><p>Vista prioritaria para gestión comercial y toma de decisiones.</p></div>
-  </div>
+  <div class="section-head"><div><h2>Ingresos del Área Académica</h2><p>Vista prioritaria para toma de decisiones y venta de servicios.</p></div></div>
   <div class="revenue-hero">
-    <div>
-      <span class="tag green">INGRESO TOTAL 2026</span>
-      <div class="revenue-total">USD 1.097.539,32</div>
-      <p>Paquete + bajo demanda + servicios a otras áreas + proyectos + por facturar.</p>
-    </div>
-    <div class="revenue-big-note"><b>80%</b><span>del ingreso se concentra en <strong>Paquete</strong> y <strong>Bajo demanda</strong>.</span></div>
+    <div><span class="tag green">INGRESO TOTAL 2026</span><div class="revenue-total">USD 1.097.539,32</div><p>Paquete + bajo demanda + servicios a otras áreas + proyectos + por facturar.</p></div>
+    <div class="revenue-big-note"><b>80%</b><span>del ingreso está concentrado en <strong>Paquete</strong> y <strong>Bajo demanda</strong>.</span></div>
   </div>
-
   <div class="grid two mt">
     <div class="card">
-      <div class="card-head"><div><h3>Composición de ingresos</h3><p>Participación por tipo de ingreso</p></div></div>
-      <div id="income-main"></div>
+      <h3>Composición de ingresos</h3>
+      <div class="metric-row"><div><b>Paquete</b><div class="mini-note">46% del total</div></div><div class="bar green"><span style="width:100%"></span></div><div class="amount">USD 509.448,83</div></div>
+      <div class="metric-row"><div><b>Bajo demanda</b><div class="mini-note">34% del total</div></div><div class="bar orange"><span style="width:72%"></span></div><div class="amount">USD 367.717,78</div></div>
+      <div class="metric-row"><div><b>Servicios a otras áreas</b><div class="mini-note">13% del total</div></div><div class="bar"><span style="width:28%"></span></div><div class="amount">USD 141.780,78</div></div>
+      <div class="metric-row"><div><b>Proyectos</b><div class="mini-note">5% del total</div></div><div class="bar purple"><span style="width:10%"></span></div><div class="amount">USD 52.139,93</div></div>
+      <div class="metric-row"><div><b>Por facturar</b><div class="mini-note">2% del total</div></div><div class="bar green"><span style="width:5%"></span></div><div class="amount">USD 26.452,00</div></div>
     </div>
     <div class="card">
-      <div class="card-head"><div><h3>Lectura comercial</h3><p>Dónde está el mayor potencial económico</p></div></div>
+      <h3>Lectura para CEO</h3>
       <div class="exec-list">
-        <div><span class="n">1</span><p><b>Paquete</b> es la línea principal: USD 509.448,83 (46%).</p></div>
-        <div><span class="n">2</span><p><b>Bajo demanda</b> aporta USD 367.717,78 (34%), liderado por recursos bibliográficos.</p></div>
-        <div><span class="n">3</span><p><b>Servicios a otras áreas</b> generan USD 141.780,78 (13%), principalmente flexibilización.</p></div>
-        <div><span class="n">4</span><p><b>Proyectos</b> aportan USD 52.139,93 (5%) y diversifican el origen de ingresos.</p></div>
-        <div><span class="n">5</span><p><b>Por facturar</b>: USD 26.452,00 (2%).</p></div>
+        <div><span class="n">1</span><p><b>Paquete</b> es la principal fuente de ingresos.</p></div>
+        <div><span class="n">2</span><p><b>Bajo demanda</b> es la segunda línea y muestra capacidad de monetización adicional.</p></div>
+        <div><span class="n">3</span><p>Dentro de bajo demanda, <b>Recursos Bibliográficos</b> concentra USD 315.693,88.</p></div>
+        <div><span class="n">4</span><p>La <b>TMO bajo demanda</b> aporta USD 52.023,90 y tiene potencial de crecimiento con venta institucional.</p></div>
+        <div><span class="n">5</span><p>Los proyectos diversifican ingresos y posicionan nuevas capacidades.</p></div>
       </div>
     </div>
   </div>
-
   <div class="grid three mt">
-    <div class="card"><h3>Bajo demanda</h3><div id="income-demand"></div></div>
-    <div class="card"><h3>Servicios a otras áreas</h3><div id="income-other"></div></div>
-    <div class="card"><h3>Proyectos</h3><div id="income-projects"></div></div>
+    <div class="card"><h3>Bajo demanda</h3><div class="metric-row"><div class="metric-name">Recursos bibliográficos</div><div class="bar orange"><span style="width:100%"></span></div><div class="amount">USD 315.693,88</div></div><div class="metric-row"><div class="metric-name">TMO</div><div class="bar orange"><span style="width:16.5%"></span></div><div class="amount">USD 52.023,90</div></div></div>
+    <div class="card"><h3>Servicios a otras áreas</h3><div class="metric-row"><div class="metric-name">Flexibilización</div><div class="bar"><span style="width:100%"></span></div><div class="amount">USD 131.878,48</div></div><div class="metric-row"><div class="metric-name">Capacitación interna</div><div class="bar"><span style="width:5.4%"></span></div><div class="amount">USD 7.181,30</div></div><div class="metric-row"><div class="metric-name">Planillaje interno</div><div class="bar"><span style="width:2.1%"></span></div><div class="amount">USD 2.721,00</div></div></div>
+    <div class="card"><h3>Proyectos</h3><div class="metric-row"><div class="metric-name">ENTITLE</div><div class="bar purple"><span style="width:100%"></span></div><div class="amount">USD 24.555,93</div></div><div class="metric-row"><div class="metric-name">TEST BEST</div><div class="bar purple"><span style="width:69%"></span></div><div class="amount">USD 17.000,00</div></div><div class="metric-row"><div class="metric-name">ETALENT</div><div class="bar purple"><span style="width:43%"></span></div><div class="amount">USD 10.584,00</div></div></div>
   </div>
-
-  <div class="card mt">
-    <div class="card-head"><div><h3>Servicios incluidos en el Paquete</h3><p>La diapositiva fuente muestra la distribución visual, pero no explicita todos los valores individuales.</p></div></div>
-    <div class="chips">
-      <span>TMO</span><span>RRAAE</span><span>ELSA</span><span>FAGORA</span><span>MOOC</span><span>ROA</span><span>Repositorio del Conocimiento</span><span>Encuentro Docente</span><span>Innovacedia</span><span>Recursos Bibliográficos</span>
-    </div>
-  </div>
+  <div class="card mt"><h3>Servicios incluidos en el Paquete</h3><div class="chips"><span>TMO</span><span>RRAAE</span><span>ELSA</span><span>FAGORA</span><span>MOOC</span><span>ROA</span><span>Repositorio del Conocimiento</span><span>Encuentro Docente</span><span>Innovacedia</span><span>Recursos Bibliográficos</span></div><p class="mini-note">La fuente muestra gráficamente estos servicios, pero no explicita el monto individual de todos; por ello no se infieren valores.</p></div>
 </section>
 
 <section id="detalle" class="view">
-  <div class="section-head">
-    <div><h2>Detalle TMO</h2><p>Información operativa disponible para profundizar sin distraer la vista comercial principal.</p></div>
-  </div>
+  <div class="section-head"><div><h2>Detalle TMO</h2><p>Vista operativa complementaria.</p></div></div>
   <div class="grid two">
-    <div class="card">
-      <div class="card-head"><div><h3>Top oferta TMO directa</h3></div></div>
-      <div id="direct-ranking"></div>
-    </div>
-    <div class="card">
-      <div class="card-head"><div><h3>Top TMO Track / Cisco</h3></div></div>
-      <div id="track-ranking"></div>
-    </div>
+    <div class="card"><h3>Oferta TMO directa destacada</h3><div class="rank-row"><div class="rank-name">Imágenes Satelitales</div><div class="bar"><span style="width:100%"></span></div><div class="rank-value">92</div></div><div class="rank-row"><div class="rank-name">Captación de Fondos UTE</div><div class="bar"><span style="width:65%"></span></div><div class="rank-value">60</div></div><div class="rank-row"><div class="rank-name">Investigación Académica</div><div class="bar"><span style="width:58%"></span></div><div class="rank-value">53</div></div><div class="rank-row"><div class="rank-name">Cert. IA Mod. 3</div><div class="bar"><span style="width:53%"></span></div><div class="rank-value">49</div></div><div class="rank-row"><div class="rank-name">Formulación y Evaluación de Proyectos</div><div class="bar"><span style="width:50%"></span></div><div class="rank-value">46</div></div></div>
+    <div class="card"><h3>TMO Track destacado</h3><div class="rank-row"><div class="rank-name">Equidad de Género</div><div class="bar green"><span style="width:100%"></span></div><div class="rank-value">3.737</div></div><div class="rank-row"><div class="rank-name">ChatGPT</div><div class="bar green"><span style="width:6.6%"></span></div><div class="rank-value">245</div></div><div class="rank-row"><div class="rank-name">Fundamentos de Salud Digital</div><div class="bar green"><span style="width:3.5%"></span></div><div class="rank-value">130</div></div><div class="rank-row"><div class="rank-name">Redacción Científica</div><div class="bar green"><span style="width:2.5%"></span></div><div class="rank-value">94</div></div></div>
   </div>
-  <div class="card mt">
-    <div class="card-head"><div><h3>Notas de lectura</h3></div></div>
-    <ul class="notes">
-      <li>La unidad de análisis es <b>inscripciones</b>; una persona puede inscribirse en más de un curso.</li>
-      <li>Se eliminó el énfasis en rankings institucionales para priorizar lectura comercial del servicio.</li>
-      <li>Los indicadores de otros servicios provienen de la presentación ejecutiva PROYECTOS 2026.</li>
-    </ul>
-  </div>
+  <div class="card mt"><ul class="notes"><li>La unidad de análisis es <b>inscripciones</b>; una persona puede aparecer en más de un curso.</li><li>Esta vista deja los datos operativos como complemento y mantiene el foco principal en servicios e ingresos.</li></ul></div>
 </section>
 </main>
 
-<script src="data.js?v=20261021-CEO1"></script>
-<script src="data_institutions.js?v=20261021-CEO1"></script>
-<script src="data_offers.js?v=20261021-CEO1"></script>
-<script src="data_tc.js?v=20261021-CEO1"></script>
-<script src="app.js?v=20261021-CEO1"></script>
+<script>
+function showView(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  var target=document.getElementById(id);
+  if(target) target.classList.add('active');
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
 </body>
 </html>
