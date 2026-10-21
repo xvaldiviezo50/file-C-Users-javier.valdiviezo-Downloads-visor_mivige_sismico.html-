@@ -1,1 +1,137 @@
-const M=D.meta,MS=D.months;const fi=x=>Number(x||0).toLocaleString('es-EC'),f1=x=>Number(x||0).toLocaleString('es-EC',{minimumFractionDigits:1,maximumFractionDigits:1}),pc=x=>f1(x)+'%',S=a=>a.reduce((x,y)=>x+(+y||0),0),E=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));const med=a=>{a=a.slice().sort((x,y)=>x-y);let n=a.length;return n%2?a[(n-1)/2]:(a[n/2-1]+a[n/2])/2};function K(l,v,s=''){return `<div class="card kpi"><div class="l">${l}</div><div class="v">${v}</div><div class="s">${s}</div></div>`}function B(a,n=10,c='',lf=r=>r[0],vf=r=>r[1]){let z=a.slice(0,n),mx=Math.max(1,...z.map(vf));return z.map(r=>`<div class="rank"><div class="lbl" title="${E(lf(r))}">${E(lf(r))}</div><div class="bar"><div class="fill ${c}" style="width:${vf(r)/mx*100}%"></div></div><div><b>${fi(vf(r))}</b></div></div>`).join('')}function MB(){return D.monthly.map(r=>{let t=r[4]||1;return `<div class="metricrow"><b>${r[0]}</b><div class="stack"><div class="tmo" style="width:${r[1]/t*100}%"></div><div class="track" style="width:${r[2]/t*100}%"></div><div class="cisco" style="width:${r[3]/t*100}%"></div></div><div class="vals">${fi(r[1])} · ${fi(r[2])} · ${fi(r[3])} = <b>${fi(r[4])}</b></div></div>`}).join('')}function summary(){rk.innerHTML=K('Inscripciones',fi(M.total_all))+K('TMO directa',fi(M.total_tmo),pc(M.total_tmo/M.total_all*100))+K('TMO Track',fi(M.total_track),pc(M.total_track/M.total_all*100))+K('Cisco',fi(M.total_cisco),pc(M.total_cisco/M.total_all*100))+K('Ofertas TMO',M.tmo_offers)+K('Instituciones',M.external_institutions)+K('Promedio/oferta',f1(M.avg_offer))+K('Pico mensual',fi(M.peak_value),M.peak_month);mb.innerHTML=MB();it.innerHTML=B(D.institutions.slice().sort((a,b)=>b[2]-a[2]),10,'g',r=>r[1],r=>r[2]);ins.innerHTML=`<ul><li><b>${fi(M.total_all)}</b> inscripciones acumuladas; ${pc(M.total_tmo/M.total_all*100)} corresponden a TMO directa.</li><li>${M.peak_month} es el mes de mayor volumen (${fi(M.peak_value)}).</li><li>Las 10 instituciones con mayor participación concentran ${pc(M.top10_share*100)} de las inscripciones institucionales TMO.</li><li>La oferta TMO registra promedio de ${f1(M.avg_offer)} y mediana de ${f1(M.med_offer)} inscripciones.</li><li>Esta base mide alcance y operación; outcomes e impacto requieren fuentes complementarias.</li></ul>`}function evo(){let idx=+es.value,arr=D.monthly.map(r=>[r[0],r[idx]]);eb.innerHTML=B(arr,20,idx===1?'g':idx===2?'p':'',r=>r[0],r=>r[1]);et.innerHTML=`<table><tr><th>Mes</th><th>TMO</th><th>Track</th><th>Cisco</th><th>Total</th><th>Var.</th><th>Ofertas TMO</th><th>Entidades</th></tr>${D.monthly.map((r,i)=>`<tr><td>${r[0]}</td><td>${fi(r[1])}</td><td>${fi(r[2])}</td><td>${fi(r[3])}</td><td><b>${fi(r[4])}</b></td><td>${i?pc((r[4]/D.monthly[i-1][4]-1)*100):'—'}</td><td>${r[5]}</td><td>${r[8]}</td></tr>`).join('')}</table>`}function seg(){let A=[['TMO directa',1,5],['TMO Track',2,6],['Cisco',3,7]];sk.innerHTML=A.map(x=>{let v=D.monthly.map(r=>r[x[1]]),t=S(v),p=Math.max(...v);return `<div class="card"><h2>${x[0]}</h2><div class="kpi"><div class="v">${fi(t)}</div><div class="s">Promedio mensual ${f1(t/v.length)} · pico ${MS[v.indexOf(p)]} ${fi(p)}</div></div></div>`}).join('');sb.innerHTML=MB()}function fo(){let m=om.value,a=oa.value,q=oq.value.toLowerCase(),idx=+oo.value,R=D.offers.filter(r=>(!m||r[0]===m)&&(!a||(a==='single'?r[3]===1:r[3]>1))&&(!q||r[1].toLowerCase().includes(q))).sort((x,y)=>y[idx]-x[idx]),v=R.map(r=>r[2]);ok.innerHTML=K('Ofertas',R.length)+K('Inscripciones',fi(S(v)))+K('Promedio',f1(R.length?S(v)/R.length:0))+K('Mediana',f1(v.length?med(v):0))+K('Entidades promedio',f1(R.length?S(R.map(r=>r[3]))/R.length:0))+K('Una entidad',R.filter(r=>r[3]===1).length)+K('Multiinstitucional',R.filter(r=>r[3]>1).length)+K('Máximo',fi(v.length?Math.max(...v):0));ob.innerHTML=B(R,18,idx===3?'g':idx===4?'a':'',r=>r[1]+' · '+r[0],r=>r[idx]);ot.innerHTML=`<table><tr><th>Mes</th><th>Oferta</th><th>Ins.</th><th>Ent.</th><th>Prom.</th></tr>${R.map(r=>`<tr><td>${r[0]}</td><td>${E(r[1])}</td><td>${fi(r[2])}</td><td>${r[3]}</td><td>${f1(r[4])}</td></tr>`).join('')}</table>`}function ip(){let r=D.institutions.find(x=>x[1]===isel.value)||D.institutions[0];ik.innerHTML=K('Inscripciones',fi(r[2]))+K('Cursos',r[3])+K('Meses activos',r[4]+' / '+MS.length)+K('Participación TMO',pc(r[5]*100))+K('Intensidad',f1(r[2]/r[3]),'ins./curso')+K('Persistencia',pc(r[4]/MS.length*100))+K('Rango',D.institutions.slice().sort((a,b)=>b[2]-a[2]).findIndex(x=>x[1]===r[1])+1,'posición')+K('Código',E(r[0]));ir.innerHTML=B(D.institutions.slice().sort((a,b)=>b[2]-a[2]),25,'g',x=>x[1],x=>x[2])}function heat(){let n=+ht.value,R=D.institutions.slice().sort((a,b)=>b[2]-a[2]).slice(0,n),mx=Math.max(...R.map(r=>r[2]));hm.innerHTML=`<table class="heat"><tr><th>Institución</th><th>Inscripciones</th><th>Cursos</th><th>Meses</th><th>Persistencia</th><th>% TMO</th></tr>${R.map(r=>`<tr><td class="rn">${E(r[1])}</td><td style="background:rgba(79,209,139,${.1+.8*r[2]/mx})">${fi(r[2])}</td><td>${r[3]}</td><td>${r[4]}</td><td>${pc(r[4]/MS.length*100)}</td><td>${pc(r[5]*100)}</td></tr>`).join('')}</table>`}function aux(seg,kk,bb,c){let rows=D.tc.filter(r=>r[1]===seg),mp={};rows.forEach(r=>mp[r[2]]=(mp[r[2]]||0)+r[3]);let R=Object.entries(mp).sort((a,b)=>b[1]-a[1]),t=S(rows.map(r=>r[3])),pk=Math.max(...D.monthly.map(r=>r[seg==='CISCO'?3:2]));document.getElementById(kk).innerHTML=K('Inscripciones',fi(t))+K('Cursos',R.length)+K('Promedio/curso',f1(t/R.length))+K('Curso líder',fi(R[0][1]),E(R[0][0]).slice(0,25))+K('Pico mensual',fi(pk),MS[D.monthly.map(r=>r[seg==='CISCO'?3:2]).indexOf(pk)]);document.getElementById(bb).innerHTML=B(R,20,c,r=>r[0],r=>r[1])}function model(m){document.querySelectorAll('.mdl').forEach(b=>b.classList.toggle('active',b.dataset.m===m));let top=D.institutions.slice().sort((a,b)=>b[2]-a[2])[0];if(m==='op')mc.innerHTML=`<div class="grid kpis">${K('Inscripciones',fi(M.total_all))}${K('TMO',fi(M.total_tmo))}${K('Track',fi(M.total_track))}${K('Cisco',fi(M.total_cisco))}${K('Ofertas TMO',M.tmo_offers)}${K('Meses',MS.length)}${K('Promedio mensual',f1(M.avg_month))}${K('Pico',fi(M.peak_value),M.peak_month)}</div>`;if(m==='co')mc.innerHTML=`<div class="grid kpis">${K('Instituciones',M.external_institutions)}${K('Mediana/IES',f1(M.median_inst))}${K('Top 5',pc(M.top5_share*100))}${K('Top 10',pc(M.top10_share*100))}${K('HHI',f1(M.hhi))}${K('Entidades efectivas',f1(M.effective))}${K('Gini',f1(M.gini))}${K('Líder',fi(top[2]),E(top[1]).slice(0,24))}</div>`;if(m==='po')mc.innerHTML=`<div class="grid kpis">${K('Ofertas TMO',M.tmo_offers)}${K('Promedio/oferta',f1(M.avg_offer))}${K('Mediana',f1(M.med_offer))}${K('Entidades promedio',f1(M.avg_entities))}${K('Una entidad',M.single_entity_offers)}${K('Multiinstitucional',M.tmo_offers-M.single_entity_offers)}${K('Modular/cert.',M.modular_offers,'heurística')}${K('Cursos Track+Cisco',M.track_courses+M.cisco_courses)}</div>`;if(m==='cn')mc.innerHTML=`<div class="grid kpis">${K('Top 5 IES',pc(M.top5_share*100))}${K('Top 10 IES',pc(M.top10_share*100))}${K('HHI',f1(M.hhi))}${K('Entidades efectivas',f1(M.effective))}${K('Gini',f1(M.gini))}${K('Mayor IES',pc(top[5]*100))}${K('Oferta máxima',fi(Math.max(...D.offers.map(r=>r[2]))))}${K('Entidades máx.',Math.max(...D.offers.map(r=>r[3])))}</div>`;if(m==='te')mc.innerHTML=`<div class="grid kpis">${K('Promedio mensual',f1(M.avg_month))}${K('Pico',fi(M.peak_value),M.peak_month)}${K('Mínimo',fi(M.low_value),M.low_month)}${K('Variabilidad',pc(M.cv_month*100))}${K('Ene→'+MS[MS.length-1].slice(0,3),pc(M.jan_sep_growth))}${K('Pico TMO',fi(Math.max(...D.monthly.map(r=>r[1]))))}${K('Pico Track',fi(Math.max(...D.monthly.map(r=>r[2]))))}${K('Pico Cisco',fi(Math.max(...D.monthly.map(r=>r[3]))))}</div>`;if(m==='ii')mc.innerHTML=`<div class="grid two"><div class="card"><h2>Disponible en esta base</h2><ul><li>Inscripciones y volumen de oferta.</li><li>Cobertura institucional.</li><li>Evolución mensual.</li><li>Distribución por curso y segmento.</li></ul></div><div class="card"><h2>Requiere otras fuentes</h2><ul><li>Personas únicas.</li><li>Aprobación y certificados.</li><li>Satisfacción.</li><li>Aprendizaje, transferencia e impacto.</li></ul></div></div><div class="warn" style="margin-top:14px">Para Informe Integrado, esta base sustenta principalmente outputs de operación, alcance y cobertura.</div>`}function explorer(){let v=xv.value,m=xm.value,q=xq.value.toLowerCase(),R;if(v==='of'){R=D.offers.filter(r=>(!m||r[0]===m)&&(!q||r[1].toLowerCase().includes(q)));xs.textContent=`${R.length} ofertas · ${fi(S(R.map(r=>r[2])))} inscripciones`;xt.innerHTML=`<table><tr><th>Mes</th><th>Oferta</th><th>Ins.</th><th>Ent.</th></tr>${R.map(r=>`<tr><td>${r[0]}</td><td>${E(r[1])}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</table>`}else if(v==='in'){R=D.institutions.filter(r=>!q||r[1].toLowerCase().includes(q));xs.textContent=`${R.length} instituciones`;xt.innerHTML=`<table><tr><th>Institución</th><th>Ins.</th><th>Cursos</th><th>Meses</th><th>% TMO</th></tr>${R.map(r=>`<tr><td>${E(r[1])}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${pc(r[5]*100)}</td></tr>`).join('')}</table>`}else{R=D.tc.filter(r=>(!m||r[0]===m)&&(!q||r[2].toLowerCase().includes(q)));xs.textContent=`${R.length} filas · ${fi(S(R.map(r=>r[3])))} inscripciones`;xt.innerHTML=`<table><tr><th>Mes</th><th>Segmento</th><th>Curso</th><th>Ins.</th></tr>${R.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${E(r[2])}</td><td>${r[3]}</td></tr>`).join('')}</table>`}}function quality(){qt.innerHTML=`<table><tr><th>Tema</th><th>Observación</th><th>Valor</th><th>Estado</th></tr>${D.quality.map(r=>`<tr><td>${E(r[0])}</td><td>${E(r[1])}</td><td>${r[2]==null?'—':r[2]}</td><td>${E(r[3])}</td></tr>`).join('')}</table>`}MS.forEach(m=>{om.add(new Option(m,m));xm.add(new Option(m,m))});D.institutions.slice().sort((a,b)=>b[2]-a[2]).forEach(r=>isel.add(new Option(r[1]+' · '+fi(r[2]),r[1])));summary();evo();seg();fo();ip();heat();aux('TMO TRACK','tk','tb','p');aux('CISCO','ck','cb','');model('op');explorer();quality();es.onchange=evo;[om,oa,oo].forEach(x=>x.onchange=fo);oq.oninput=fo;isel.onchange=ip;ht.onchange=heat;document.querySelectorAll('.mdl').forEach(b=>b.onclick=()=>model(b.dataset.m));[xv,xm].forEach(x=>x.onchange=explorer);xq.oninput=explorer;document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById(b.dataset.v).classList.add('active')});
+const M=D.meta, MS=D.months;
+const fi=n=>Number(n||0).toLocaleString('es-EC');
+const money=n=>'USD '+Number(n||0).toLocaleString('es-EC',{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct=n=>Number(n||0).toLocaleString('es-EC',{maximumFractionDigits:1})+'%';
+const S=a=>a.reduce((x,y)=>x+(+y||0),0);
+const E=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+const income={
+ total:1097539.32,
+ main:[
+  ['Paquete',509448.83,46,'blue'],
+  ['Bajo demanda',367717.78,34,'orange'],
+  ['Servicios a otras áreas',141780.78,13,'cyan'],
+  ['Proyectos',52139.93,5,'purple'],
+  ['Por facturar',26452.00,2,'green']
+ ],
+ demand:[['Recursos bibliográficos',315693.88],['TMO',52023.90]],
+ other:[['Flexibilización',131878.48],['Capacitación interna',7181.30],['Planillaje interno',2721.00]],
+ projects:[['ENTITLE',24555.93],['TEST BEST',17000.00],['ETALENT',10584.00]]
+};
+
+const services=[
+ {name:'TMO · Formación',accent:'#0e67b2',promise:'Cursos, certificaciones, tracks y academias para fortalecer capacidades.',metrics:[['Inscripciones',7835],['Cursos impartidos',150],['TMO Track',4284],['Cisco',634]],opp:'Escalar cursos especializados, certificaciones y venta institucional.'},
+ {name:'MOOCs',accent:'#09a8b8',promise:'Oferta de aprendizaje abierto y autogestionado.',metrics:[['Participantes activos','+4.000'],['Cursos disponibles','+75']],opp:'Ampliar catálogo y reutilizar contenidos producidos por CEDIA.'},
+ {name:'ROA',accent:'#0e8da0',promise:'Objetos de aprendizaje reutilizables para docencia.',metrics:[['Objetos','+200'],['Categorías',11]],opp:'Nueva plataforma y lanzamiento 2027 para colegios e institutos.'},
+ {name:'Diagnóstico de Competencias',accent:'#6f4fb3',promise:'Medición institucional de competencias digitales docentes.',metrics:[['Ejecutados',3],['En ejecución',2],['Interesadas',3]],opp:'Convertir diagnóstico en puerta de entrada a rutas formativas TMO.'},
+ {name:'Repositorio del Conocimiento',accent:'#2f9d50',promise:'Difusión de conocimiento generado por proyectos y fondos.',metrics:[['Videos publicados',354],['Estudios de vigilancia','25+']],opp:'Fortalecer acceso federado y consumo de conocimiento especializado.'},
+ {name:'RRAAE',accent:'#2f77c5',promise:'Red nacional de repositorios y acceso abierto.',metrics:[['Publicaciones',682777],['Fuentes',136],['Instituciones',67],['Visitas 2026',130746]],opp:'RRAAE 2.0, DataCite Ecuador, IA en repositorios y servicios interbibliotecarios.'},
+ {name:'AIRA Academics / Avante',accent:'#e98a2e',promise:'Apoyo a investigación y adopción de servicios académicos con IA.',metrics:[['Instituciones activas',8],['En instalación',12],['Univ. adjudicadas',15],['Institutos adjudicados',5]],opp:'Meta 2027: adopción AIRA Academics en 32 instituciones.'}
+];
+
+function kpi(label,value,sub=''){
+ return '<div class="kpi"><div class="label">'+E(label)+'</div><div class="value">'+E(value)+'</div><div class="sub">'+E(sub)+'</div></div>';
+}
+function barRows(rows,cls=''){
+ const mx=Math.max(...rows.map(r=>r[1]),1);
+ return rows.map(r=>'<div class="metric-row"><div class="metric-name">'+E(r[0])+'</div><div class="bar '+cls+'"><span style="width:'+(r[1]/mx*100)+'%"></span></div><div class="amount">'+(typeof r[1]==='number'?fi(r[1]):E(r[1]))+'</div></div>').join('');
+}
+function moneyRows(rows,cls=''){
+ const mx=Math.max(...rows.map(r=>r[1]),1);
+ return rows.map(r=>'<div class="metric-row"><div class="metric-name">'+E(r[0])+'</div><div class="bar '+cls+'"><span style="width:'+(r[1]/mx*100)+'%"></span></div><div class="amount">'+money(r[1])+'</div></div>').join('');
+}
+function aggregate(rows,nameIndex,valueIndex,filterFn){
+ const map={};
+ rows.filter(filterFn||(()=>true)).forEach(r=>{ const k=r[nameIndex]; map[k]=(map[k]||0)+(+r[valueIndex]||0); });
+ return Object.entries(map).sort((a,b)=>b[1]-a[1]);
+}
+function ranking(rows,limit=10,cls=''){
+ const z=rows.slice(0,limit), mx=Math.max(...z.map(r=>r[1]),1);
+ return z.map((r,i)=>'<div class="rank-row"><div class="rank-name"><b>'+(i+1)+'.</b> '+E(r[0])+'</div><div class="bar '+cls+'"><span style="width:'+(r[1]/mx*100)+'%"></span></div><div class="rank-value">'+fi(r[1])+'</div></div>').join('');
+}
+function monthly(){
+ const max=Math.max(...D.monthly.map(r=>r[4]),1);
+ return D.monthly.map(r=>{
+  const total=r[4]||1;
+  return '<div class="chart-month"><div class="chart-label">'+E(r[0])+'</div><div class="stackbar">'+
+   '<span style="width:'+(r[1]/total*100)+'%;background:#0e67b2"></span>'+
+   '<span style="width:'+(r[2]/total*100)+'%;background:#09a89a"></span>'+
+   '<span style="width:'+(r[3]/total*100)+'%;background:#7658b4"></span></div>'+
+   '<div class="chart-vals">'+fi(r[1])+' · '+fi(r[2])+' · '+fi(r[3])+' = <b>'+fi(r[4])+'</b></div></div>';
+ }).join('')+
+ '<div class="legend"><span><i style="background:#0e67b2"></i>TMO directa</span><span><i style="background:#09a89a"></i>TMO Track</span><span><i style="background:#7658b4"></i>Cisco</span></div>';
+}
+
+document.getElementById('hero-kpis').innerHTML=
+ kpi('Ingresos Área 2026',money(income.total),'Composición total reportada')+
+ kpi('Inscripciones',fi(M.total_all),'Ecosistema de formación')+
+ kpi('Cursos impartidos','150','TMO, TMO Track y academias')+
+ kpi('TMO Track',fi(M.total_track),'11 cursos para la venta')+
+ kpi('Oferta TMO directa',fi(M.tmo_offers),'Cursos / módulos registrados');
+
+document.getElementById('tmo-summary').innerHTML=
+ '<div class="service-metrics">'+
+  '<div class="service-metric"><strong>'+fi(M.total_tmo)+'</strong><span>TMO directa</span></div>'+
+  '<div class="service-metric"><strong>'+fi(M.total_track)+'</strong><span>TMO Track</span></div>'+
+  '<div class="service-metric"><strong>'+fi(M.total_cisco)+'</strong><span>Cisco</span></div>'+
+  '<div class="service-metric"><strong>150</strong><span>Cursos impartidos</span></div>'+
+ '</div><div class="opportunity"><b>Lectura:</b> la TMO combina oferta abierta, venta institucional, tracks y alianzas tecnológicas; es el servicio con mayor volumen visible de usuarios.</div>';
+
+document.getElementById('revenue-summary').innerHTML=
+ '<div class="metric-row"><div class="metric-name">Paquete</div><div class="bar green"><span style="width:100%"></span></div><div class="amount">46%</div></div>'+
+ '<div class="metric-row"><div class="metric-name">Bajo demanda</div><div class="bar orange"><span style="width:74%"></span></div><div class="amount">34%</div></div>'+
+ '<div class="metric-row"><div class="metric-name">Otras áreas</div><div class="bar"><span style="width:28%"></span></div><div class="amount">13%</div></div>'+
+ '<div class="metric-row"><div class="metric-name">Proyectos</div><div class="bar purple"><span style="width:11%"></span></div><div class="amount">5%</div></div>'+
+ '<div class="opportunity"><b>Prioridad:</b> Paquete + Bajo demanda concentran el 80% de los ingresos del Área.</div>';
+
+document.getElementById('service-strip').innerHTML=services.slice(1).map(s=>{
+ const best=s.metrics[0];
+ return '<div class="mini-service" style="border-top:4px solid '+s.accent+'"><b>'+E(s.name)+'</b><strong>'+E(best[1])+'</strong><span>'+E(best[0])+'</span></div>';
+}).join('');
+
+document.getElementById('tmo-kpis').innerHTML=
+ kpi('TMO directa',fi(M.total_tmo),'Inscripciones')+
+ kpi('TMO Track',fi(M.total_track),'Inscripciones')+
+ kpi('Cisco',fi(M.total_cisco),'Inscripciones')+
+ kpi('Cursos para la venta','11','TMO Track')+
+ kpi('Cursos impartidos','150','Gestión 2026');
+
+document.getElementById('monthly-chart').innerHTML=monthly();
+
+const direct=aggregate(D.offers,1,2).slice(0,8).map(r=>[r[0],r[1]]);
+const track=aggregate(D.tc,2,3,r=>r[1]==='TMO TRACK').slice(0,8);
+const cisco=aggregate(D.tc,2,3,r=>r[1]==='CISCO').slice(0,5);
+const allProducts=[
+ ...direct.map(r=>['TMO · '+r[0],r[1]]),
+ ...track.map(r=>['Track · '+r[0],r[1]]),
+ ...cisco.map(r=>['Cisco · '+r[0].replace(/^\d+\.\s*CISCO[- ]*/i,''),r[1]])
+].sort((a,b)=>b[1]-a[1]).slice(0,10);
+document.getElementById('top-products').innerHTML=ranking(allProducts,10,'green');
+
+document.getElementById('services-grid').innerHTML=services.map(s=>
+ '<div class="service-card" style="--blue:'+s.accent+';border-top:4px solid '+s.accent+'">'+
+ '<h3>'+E(s.name)+'</h3><div class="promise">'+E(s.promise)+'</div>'+
+ '<div class="service-metrics">'+s.metrics.map(m=>'<div class="service-metric"><strong style="color:'+s.accent+'">'+E(typeof m[1]==='number'?fi(m[1]):m[1])+'</strong><span>'+E(m[0])+'</span></div>').join('')+'</div>'+
+ '<div class="opportunity"><b>Oportunidad:</b> '+E(s.opp)+'</div></div>'
+).join('');
+
+const maxIncome=Math.max(...income.main.map(r=>r[1]));
+document.getElementById('income-main').innerHTML=income.main.map(r=>
+ '<div class="metric-row"><div><b>'+E(r[0])+'</b><div class="mini-note">'+r[2]+'% del total</div></div><div class="bar '+r[3]+'"><span style="width:'+(r[1]/maxIncome*100)+'%"></span></div><div class="amount">'+money(r[1])+'</div></div>'
+).join('');
+document.getElementById('income-demand').innerHTML=moneyRows(income.demand,'orange');
+document.getElementById('income-other').innerHTML=moneyRows(income.other,'');
+document.getElementById('income-projects').innerHTML=moneyRows(income.projects,'purple');
+
+document.getElementById('direct-ranking').innerHTML=ranking(direct,12,'');
+document.getElementById('track-ranking').innerHTML=
+ '<div class="tag">TMO TRACK</div>'+ranking(track,8,'green')+
+ '<div class="tag" style="margin-top:15px">CISCO</div>'+ranking(cisco,7,'purple');
+
+document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+ document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+ btn.classList.add('active');
+ document.getElementById(btn.dataset.view).classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+});
