@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Área Académica: Monitoreo Servicios de Academia</title>
+<style>
+:root{--navy:#0b2f57;--blue:#0e67b2;--cyan:#09a8b8;--green:#2f9d50;--purple:#6f4fb3;--orange:#e98a2e;--ink:#18334d;--muted:#6f8194;--bg:#f4f7fb;--card:#fff;--line:#dde6ef;--soft:#edf4fa;--shadow:0 10px 28px rgba(28,65,99,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}.top{background:linear-gradient(135deg,#0a315b,#0f67b2);color:#fff;padding:26px 28px 18px;position:sticky;top:0;z-index:20;box-shadow:0 5px 18px rgba(15,55,95,.18)}.top-inner{max-width:1500px;margin:auto;display:flex;justify-content:space-between;gap:24px}.eyebrow{font-size:12px;letter-spacing:.09em;text-transform:uppercase;opacity:.82}.top h1{font-size:30px;line-height:1.1;margin:7px 0 7px}.lead{margin:0;color:#d8e9f7}.stamp{align-self:flex-start;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.13);border-radius:999px;padding:9px 14px;font-weight:800;white-space:nowrap}.top nav{max-width:1500px;margin:18px auto 0;display:flex;gap:8px;flex-wrap:wrap}.tab{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.09);color:#eaf4fb;border-radius:999px;padding:9px 14px;font-weight:700;cursor:pointer}.tab:hover,.tab.active{background:#fff;color:#0b477b}
+main{max-width:1500px;margin:auto;padding:26px 24px 56px}.view{display:none}.view.active{display:block}.section-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:16px}.section-head h2{margin:0;font-size:28px;color:var(--navy)}.section-head p{margin:4px 0 0;color:var(--muted)}.grid{display:grid;gap:16px}.two{grid-template-columns:1fr 1fr}.three{grid-template-columns:repeat(3,1fr)}.kpi-grid{display:grid;gap:14px}.kpi-grid.five{grid-template-columns:repeat(5,1fr)}.mt{margin-top:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow)}.accent-blue{border-top:5px solid var(--blue)}.accent-green{border-top:5px solid var(--green)}.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:13px}.card-head h3,.card h3{margin:0;color:var(--navy);font-size:20px}.card-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.mini-note{font-size:12px;color:var(--muted)}.tag{display:inline-block;background:#e8f2fb;color:var(--blue);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;letter-spacing:.06em}.tag.green{background:#e9f6ed;color:#278445}.tag.cyan{background:#e5f7f9;color:#057f8b}.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}.kpi .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.kpi .value{font-size:30px;font-weight:850;line-height:1.06;margin-top:5px;color:var(--navy)}.kpi .sub{font-size:11px;color:var(--muted);margin-top:5px}.metric-row{display:grid;grid-template-columns:150px 1fr 90px;gap:10px;align-items:center;margin:11px 0}.metric-name{font-weight:700}.bar{height:16px;background:#eaf0f5;border-radius:999px;overflow:hidden}.bar>span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#1681cf,#0e67b2)}.bar.green>span{background:linear-gradient(90deg,#51b96b,#2f9d50)}.bar.purple>span{background:linear-gradient(90deg,#9271cd,#6f4fb3)}.bar.orange>span{background:linear-gradient(90deg,#f2aa5d,#e98a2e)}.amount{text-align:right;font-weight:800}.service-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.mini-service{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdff}.mini-service b{display:block;color:var(--navy);font-size:14px}.mini-service strong{display:block;font-size:22px;color:var(--blue);margin:7px 0 2px}.mini-service span{font-size:11px;color:var(--muted)}.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.product{display:flex;gap:12px;padding:15px;border-radius:14px;background:#f8fbff;border:1px solid var(--line)}.product .ico{width:38px;height:38px;border-radius:11px;background:#dfeefa;color:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:900}.product b{display:block;color:var(--navy);font-size:15px}.product span{display:block;color:var(--muted);font-size:12px;margin-top:4px}.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.service-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}.service-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--blue)}.service-card h3{margin:0;color:var(--navy)}.service-card .promise{color:var(--muted);font-size:12px;margin:5px 0 12px}.service-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}.service-metric{background:#f7fafd;border-radius:12px;padding:11px}.service-metric strong{display:block;color:var(--blue);font-size:20px}.service-metric span{font-size:11px;color:var(--muted)}.opportunity{margin-top:11px;padding:10px 12px;border-radius:11px;background:#eef7f1;color:#376248;font-size:12px}.revenue-hero{display:flex;justify-content:space-between;gap:18px;align-items:center;background:linear-gradient(135deg,#0d345c,#0e67b2);color:#fff;border-radius:22px;padding:24px 26px;box-shadow:var(--shadow)}.revenue-total{font-size:44px;font-weight:900;margin:5px 0 3px}.revenue-hero p{margin:0;color:#d9e7f5}.revenue-big-note{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:14px 18px;border-radius:16px;max-width:380px}.revenue-big-note b{font-size:38px}.revenue-big-note span{line-height:1.35}.exec-list{display:flex;flex-direction:column;gap:12px}.exec-list>div{display:flex;gap:10px;align-items:flex-start}.exec-list .n{width:28px;height:28px;border-radius:50%;background:#e8f2fb;color:var(--blue);font-weight:900;display:flex;align-items:center;justify-content:center;flex:0 0 28px}.exec-list p{margin:3px 0 0}.chips{display:flex;gap:9px;flex-wrap:wrap}.chips span{background:#eef4fa;border:1px solid #dbe6ef;color:#35536e;padding:8px 11px;border-radius:999px;font-weight:700;font-size:12px}.rank-row{display:grid;grid-template-columns:minmax(160px,1.3fr) 1fr 64px;gap:10px;align-items:center;margin:10px 0}.rank-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rank-value{text-align:right;font-weight:800}.stackbar{height:26px;background:#edf2f6;border-radius:8px;overflow:hidden;display:flex}.stackbar span{height:100%}.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;color:var(--muted);font-size:11px}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}.notes{margin:0;padding-left:20px}.notes li{margin:7px 0}.chart-month{display:grid;grid-template-columns:80px 1fr 190px;gap:10px;align-items:center;margin:10px 0}.chart-label{font-weight:700}.chart-vals{text-align:right;color:var(--muted);font-size:11px}
+@media(max-width:1180px){.kpi-grid.five{grid-template-columns:repeat(3,1fr)}.service-strip{grid-template-columns:repeat(3,1fr)}.services-grid{grid-template-columns:repeat(2,1fr)}.product-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:820px){.top-inner,.revenue-hero{flex-direction:column;align-items:flex-start}.two,.three,.kpi-grid.five,.service-strip,.services-grid,.product-grid{grid-template-columns:1fr}.metric-row,.rank-row,.chart-month{grid-template-columns:120px 1fr}.amount,.rank-value,.chart-vals{grid-column:2;text-align:left}.revenue-total{font-size:34px}.top h1{font-size:24px}}
+
+
+.resources-map{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.org-top{text-align:center;margin-bottom:18px}
+.person-card{display:inline-flex;align-items:center;gap:10px;background:#171a88;color:#fff;border-radius:22px;padding:12px 18px;min-width:250px;justify-content:center}
+.person-icon{width:28px;height:28px;border-radius:50%;background:#fff;position:relative;flex:0 0 28px}
+.person-icon:after{content:"";position:absolute;width:20px;height:10px;border-radius:10px 10px 3px 3px;background:#fff;left:4px;top:20px}
+.person-text b{display:block;font-size:13px;letter-spacing:.04em}.person-text span{font-size:11px;opacity:.92}
+.org-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:12px}
+.org-branch{border-top:2px solid #222;padding-top:14px}
+.org-stack{display:flex;flex-direction:column;align-items:center;gap:10px}
+.org-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ext-tags{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 16px}
+.ext-tags span{padding:9px 12px;border-radius:8px;background:#d9c7ff;color:#34255e;font-weight:800;font-size:12px}
+.ext-tags span:nth-child(2){background:#ffe79a;color:#674e00}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+.svc-block{padding:13px 14px;border-radius:4px;color:#fff;font-weight:800;letter-spacing:.03em;text-align:center}
+.svc-green{background:#47a91e}.svc-blue{background:#39aceb}.svc-red{background:#d50000}.svc-cyan{background:#52d2e9}.svc-teal{background:#0b7a53}.svc-purple{background:#8c35d9}
+.svc-wide{grid-column:1/-1}
+.resources-title{margin:0 0 6px;color:var(--navy);font-size:28px}
+.resources-sub{margin:0 0 18px;color:var(--muted)}
+@media(max-width:900px){.org-grid,.svc-grid{grid-template-columns:1fr}.svc-wide{grid-column:auto}.person-card{min-width:210px}}
+
+
+.projection-note{margin-top:24px;padding:16px 18px;border-top:1px solid var(--line);background:#f8fbff;border-radius:12px}
+.projection-note .legal{font-weight:800;color:var(--navy);font-size:14px}
+.projection-note .projected{margin-top:8px;font-weight:900;color:var(--green);font-size:18px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div>
+      <div class="eyebrow">CEDIA · Área Académica · Corte octubre 2026</div>
+      <h1>Área Académica: Monitoreo Servicios de Academia</h1>
+      <p class="lead">Visor ejecutivo orientado a uso, portafolio de servicios e ingresos.</p>
+    </div>
+    <div class="stamp">VISTA CEO</div>
+  </div>
+  <nav>
+    <button class="tab active" onclick="showView('monitoreo',this)">Monitoreo de Servicios</button>
+    <button class="tab" onclick="showView('tmo',this)">TMO · Formación</button>
+    <button class="tab" onclick="showView('portafolio',this)">Portafolio de Servicios</button>
+    <button class="tab" onclick="showView('recursos',this)">Recursos y Servicios</button>
+    <button class="tab" onclick="showView('ingresos',this)">Ingresos</button>
+</nav>
+</header>
+
+<main>
+<section id="monitoreo" class="view active">
+  <div class="section-head">
+    <div><h2>Monitoreo de Servicios</h2><p>Indicadores ejecutivos del Área Académica: uso, tracción e ingresos.</p></div>
+  </div>
+  <div class="kpi-grid five">
+    <div class="kpi"><div class="label">Ingresos Área 2026</div><div class="value">USD 1,10 M</div><div class="sub">USD 1.097.539,32</div></div>
+    <div class="kpi"><div class="label">Inscripciones</div><div class="value">7.835</div><div class="sub">Ecosistema de formación</div></div>
+    <div class="kpi"><div class="label">Cursos impartidos</div><div class="value">150</div><div class="sub">TMO, Track y academias</div></div>
+    <div class="kpi"><div class="label">TMO Track</div><div class="value">4.284</div><div class="sub">Inscripciones</div></div>
+    <div class="kpi"><div class="label">Oferta TMO directa</div><div class="value">107</div><div class="sub">Cursos / módulos</div></div>
+  </div>
+
+  <div class="grid two mt">
+    <div class="card accent-blue">
+      <div class="card-head"><div><span class="tag">FORMACIÓN</span><h3>TMO · Indicadores de uso</h3></div></div>
+      <div class="service-metrics">
+        <div class="service-metric"><strong>2.917</strong><span>TMO directa</span></div>
+        <div class="service-metric"><strong>4.284</strong><span>TMO Track</span></div>
+        <div class="service-metric"><strong>634</strong><span>Academias</span></div>
+        <div class="service-metric"><strong>150</strong><span>Cursos impartidos</span></div>
+      </div>
+      
+    </div>
+
+    <div class="card accent-green">
+      <div class="card-head"><div><span class="tag green">INGRESOS</span><h3>Distribución</h3></div></div>
+      <div class="metric-row"><div class="metric-name">Paquete</div><div class="bar green"><span style="width:100%"></span></div><div class="amount">46%</div></div>
+      <div class="metric-row"><div class="metric-name">Bajo demanda</div><div class="bar orange"><span style="width:74%"></span></div><div class="amount">34%</div></div>
+      <div class="metric-row"><div class="metric-name">Ingresos Complementarios</div><div class="bar"><span style="width:28%"></span></div><div class="amount">13%</div></div>
+      <div class="metric-row"><div class="metric-name">Proyectos</div><div class="bar purple"><span style="width:11%"></span></div><div class="amount">5%</div></div>
+      
+    </div>
+  </div>
+
+  <div class="card mt">
+    <div class="card-head"><div><span class="tag cyan">SERVICIOS</span><h3>Plataformas Académica</h3></div><div class="mini-note">Sin promedios de uso</div></div>
+    <div class="service-strip">
+      <div class="mini-service" style="border-top:4px solid #09a8b8"><b>MOOCs</b><strong>+4.000</strong><span>Participantes activos</span></div>
+      <div class="mini-service" style="border-top:4px solid #0e8da0"><b>ROA</b><strong>+200</strong><span>Objetos de aprendizaje</span></div>
+      <div class="mini-service" style="border-top:4px solid #6f4fb3"><b>Diagnóstico</b><strong>3 + 2</strong><span>Ejecutados + en ejecución</span></div>
+      <div class="mini-service" style="border-top:4px solid #2f9d50"><b>Repositorio del Conocimiento</b><strong>354</strong><span>Videos publicados</span></div>
+      <div class="mini-service" style="border-top:4px solid #2f77c5"><b>RRAAE</b><strong>682.777</strong><span>Publicaciones cosechadas</span></div>
+      <div class="mini-service" style="border-top:4px solid #e98a2e"><b>AIRA Academics</b><strong>8 / 12</strong><span>Activas / en instalación</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="tmo" class="view">
+  <div class="section-head"><div><h2>TMO · Formación y Capacitación</h2><p>Demanda, evolución y oferta con mayor tracción.</p></div></div>
+  <div class="kpi-grid five">
+    <div class="kpi"><div class="label">TMO directa</div><div class="value">2.917</div><div class="sub">Inscripciones</div></div>
+    <div class="kpi"><div class="label">TMO Track</div><div class="value">4.284</div><div class="sub">Inscripciones</div></div>
+    <div class="kpi"><div class="label">Academias</div><div class="value">634</div><div class="sub">Inscripciones</div></div>
+    <div class="kpi"><div class="label">Cursos para la venta</div><div class="value">11</div><div class="sub">TMO Track</div></div>
+    <div class="kpi"><div class="label">Cursos impartidos</div><div class="value">150</div><div class="sub">Gestión 2026</div></div>
+  </div>
+
+  <div class="grid mt">
+    <div class="card">
+      <div class="card-head"><div><h3>Evolución mensual de inscripciones</h3><p>TMO directa · TMO Track · Academias</p></div></div>
+      <div class="chart-month"><div class="chart-label">Enero</div><div class="stackbar"><span style="width:35.6%;background:#0e67b2"></span><span style="width:18.3%;background:#09a89a"></span><span style="width:46.1%;background:#7658b4"></span></div><div class="chart-vals">144 · 74 · 187 = <b>405</b></div></div>
+      <div class="chart-month"><div class="chart-label">Febrero</div><div class="stackbar"><span style="width:92%;background:#0e67b2"></span><span style="width:0%;background:#09a89a"></span><span style="width:8%;background:#7658b4"></span></div><div class="chart-vals">230 · 0 · 20 = <b>250</b></div></div>
+      <div class="chart-month"><div class="chart-label">Marzo</div><div class="stackbar"><span style="width:93%;background:#0e67b2"></span><span style="width:4%;background:#09a89a"></span><span style="width:3%;background:#7658b4"></span></div><div class="chart-vals">548 · 24 · 17 = <b>589</b></div></div>
+      <div class="chart-month"><div class="chart-label">Abril</div><div class="stackbar"><span style="width:63%;background:#0e67b2"></span><span style="width:35%;background:#09a89a"></span><span style="width:2%;background:#7658b4"></span></div><div class="chart-vals">272 · 150 · 7 = <b>429</b></div></div>
+      <div class="chart-month"><div class="chart-label">Mayo</div><div class="stackbar"><span style="width:73%;background:#0e67b2"></span><span style="width:24%;background:#09a89a"></span><span style="width:3%;background:#7658b4"></span></div><div class="chart-vals">264 · 86 · 10 = <b>360</b></div></div>
+      <div class="chart-month"><div class="chart-label">Junio</div><div class="stackbar"><span style="width:96%;background:#0e67b2"></span><span style="width:3%;background:#09a89a"></span><span style="width:1%;background:#7658b4"></span></div><div class="chart-vals">399 · 12 · 3 = <b>414</b></div></div>
+      <div class="chart-month"><div class="chart-label">Julio</div><div class="stackbar"><span style="width:69%;background:#0e67b2"></span><span style="width:30%;background:#09a89a"></span><span style="width:1%;background:#7658b4"></span></div><div class="chart-vals">321 · 141 · 3 = <b>465</b></div></div>
+      <div class="chart-month"><div class="chart-label">Agosto</div><div class="stackbar"><span style="width:34%;background:#0e67b2"></span><span style="width:18%;background:#09a89a"></span><span style="width:49%;background:#7658b4"></span></div><div class="chart-vals">212 · 110 · 306 = <b>628</b></div></div>
+      <div class="chart-month"><div class="chart-label">Septiembre</div><div class="stackbar"><span style="width:18%;background:#0e67b2"></span><span style="width:79%;background:#09a89a"></span><span style="width:3%;background:#7658b4"></span></div><div class="chart-vals">397 · 1.719 · 69 = <b>2.185</b></div></div>
+      <div class="chart-month"><div class="chart-label">Octubre</div><div class="stackbar"><span style="width:6%;background:#0e67b2"></span><span style="width:93%;background:#09a89a"></span><span style="width:1%;background:#7658b4"></span></div><div class="chart-vals">130 · 1.968 · 12 = <b>2.110</b></div></div>
+      <div class="legend"><span><i style="background:#0e67b2"></i>TMO directa</span><span><i style="background:#09a89a"></i>TMO Track</span><span><i style="background:#7658b4"></i>Academias</span></div>
+    </div>
+
+  </div>
+
+  <div class="grid two mt">
+    <div class="card">
+      <div class="card-head"><div><h3>10 instituciones que más utilizan Capacitaciones</h3><p>Indicador: inscripciones acumuladas TMO directa</p></div></div>
+      <div class="rank-row"><div class="rank-name"><b>1.</b> UTE · Universidad Tecnológica Equinoccial</div><div class="bar"><span style="width:100%"></span></div><div class="rank-value">232</div></div>
+      <div class="rank-row"><div class="rank-name"><b>2.</b> UCSG · Universidad Católica de Santiago de Guayaquil</div><div class="bar"><span style="width:66.4%"></span></div><div class="rank-value">154</div></div>
+      <div class="rank-row"><div class="rank-name"><b>3.</b> UPS · Universidad Politécnica Salesiana</div><div class="bar"><span style="width:60.8%"></span></div><div class="rank-value">141</div></div>
+      <div class="rank-row"><div class="rank-name"><b>4.</b> PUCE · Pontificia Universidad Católica del Ecuador</div><div class="bar"><span style="width:59.9%"></span></div><div class="rank-value">139</div></div>
+      <div class="rank-row"><div class="rank-name"><b>5.</b> UTA · Universidad Técnica de Ambato</div><div class="bar"><span style="width:54.7%"></span></div><div class="rank-value">127</div></div>
+      <div class="rank-row"><div class="rank-name"><b>6.</b> UG · Universidad de Guayaquil</div><div class="bar"><span style="width:49.1%"></span></div><div class="rank-value">114</div></div>
+      <div class="rank-row"><div class="rank-name"><b>7.</b> UPEC · Universidad Politécnica Estatal del Carchi</div><div class="bar"><span style="width:45.3%"></span></div><div class="rank-value">105</div></div>
+      <div class="rank-row"><div class="rank-name"><b>8.</b> ESPOL · Escuela Superior Politécnica del Litoral</div><div class="bar"><span style="width:41.4%"></span></div><div class="rank-value">96</div></div>
+      <div class="rank-row"><div class="rank-name"><b>9.</b> UCACUE · Universidad Católica de Cuenca</div><div class="bar"><span style="width:39.2%"></span></div><div class="rank-value">91</div></div>
+      <div class="rank-row"><div class="rank-name"><b>10.</b> UCUENCA · Universidad de Cuenca</div><div class="bar"><span style="width:35.8%"></span></div><div class="rank-value">83</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div><h3>10 siguientes instituciones con menor uso de Capacitaciones</h3><p>Se omiten los puestos 1 al 7 indicados · indicador: inscripciones acumuladas TMO directa</p></div></div>
+      <div class="rank-row"><div class="rank-name"><b>8.</b> UTLVTE · Universidad Técnica Luis Vargas Torres de Esmeraldas</div><div class="bar orange"><span style="width:44%"></span></div><div class="rank-value">4</div></div>
+      <div class="rank-row"><div class="rank-name"><b>9.</b> IAEN · Instituto de Altos Estudios Nacionales</div><div class="bar orange"><span style="width:56%"></span></div><div class="rank-value">5</div></div>
+      <div class="rank-row"><div class="rank-name"><b>10.</b> UBE · Universidad Bolivariana del Ecuador</div><div class="bar orange"><span style="width:56%"></span></div><div class="rank-value">5</div></div>
+      <div class="rank-row"><div class="rank-name"><b>11.</b> IPAC · Promociones Educativas PROMOEDU S.A.</div><div class="bar orange"><span style="width:56%"></span></div><div class="rank-value">5</div></div>
+      <div class="rank-row"><div class="rank-name"><b>12.</b> UTC · Universidad Técnica de Cotopaxi</div><div class="bar orange"><span style="width:67%"></span></div><div class="rank-value">6</div></div>
+      <div class="rank-row"><div class="rank-name"><b>13.</b> San Felipe Neri · Unidad Educativa San Felipe Neri</div><div class="bar orange"><span style="width:67%"></span></div><div class="rank-value">6</div></div>
+      <div class="rank-row"><div class="rank-name"><b>14.</b> UOTAVALO · Universidad de Otavalo</div><div class="bar orange"><span style="width:67%"></span></div><div class="rank-value">6</div></div>
+      <div class="rank-row"><div class="rank-name"><b>15.</b> UISRAEL · Universidad Tecnológica Israel</div><div class="bar orange"><span style="width:89%"></span></div><div class="rank-value">8</div></div>
+      <div class="rank-row"><div class="rank-name"><b>16.</b> ISTP · Instituto Tecnológico Pichincha</div><div class="bar orange"><span style="width:89%"></span></div><div class="rank-value">8</div></div>
+      <div class="rank-row"><div class="rank-name"><b>17.</b> PASOS · Unidad Educativa Pasos</div><div class="bar orange"><span style="width:100%"></span></div><div class="rank-value">9</div></div>
+    </div>    </div>
+  </div>
+
+  <div class="card mt">
+    <div class="card-head"><div><h3>Oferta comercial TMO</h3></div></div>
+    <div class="product-grid">
+      <div class="product"><div class="ico">01</div><div><b>Cursos especializados</b><span>Docencia, investigación, tecnología, innovación y gestión.</span></div></div>
+      <div class="product"><div class="ico">02</div><div><b>Certificaciones</b><span>Rutas modulares y certificaciones especializadas.</span></div></div>
+      <div class="product"><div class="ico">03</div><div><b>TMO Track</b><span>11 cursos para la venta y tracks temáticos.</span></div></div>
+      <div class="product"><div class="ico">04</div><div><b>Academias y alianzas</b><span>Academias, RedCLARA, Copernicus y otros aliados.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="portafolio" class="view">
+  <div class="section-head"><div><h2>Portafolio de Servicios</h2><p>Indicadores de uso de los servicios académicos.</p></div></div>
+  <div class="services-grid">
+    <div class="service-card" style="border-top:4px solid #0e67b2"><h3>TMO · Formación</h3><div class="promise">Cursos, certificaciones, tracks y academias.</div><div class="service-metrics"><div class="service-metric"><strong>7.835</strong><span>Inscripciones</span></div><div class="service-metric"><strong>150</strong><span>Cursos impartidos</span></div></div></div>
+    <div class="service-card" style="border-top:4px solid #09a8b8"><h3>MOOCs</h3><div class="promise">Aprendizaje abierto y autogestionado.</div><div class="service-metrics"><div class="service-metric"><strong>+4.000</strong><span>Participantes activos</span></div><div class="service-metric"><strong>+75</strong><span>Cursos disponibles</span></div></div></div>
+    <div class="service-card" style="border-top:4px solid #0e8da0"><h3>ROA</h3><div class="promise">Objetos de aprendizaje reutilizables para docencia.</div><div class="service-metrics"><div class="service-metric"><strong>+200</strong><span>Objetos</span></div><div class="service-metric"><strong>11</strong><span>Categorías</span></div></div></div>
+    <div class="service-card" style="border-top:4px solid #6f4fb3"><h3>Diagnóstico de Competencias</h3><div class="promise">Medición institucional de competencias digitales docentes.</div><div class="service-metrics"><div class="service-metric"><strong>3</strong><span>Ejecutados</span></div><div class="service-metric"><strong>2</strong><span>En ejecución</span></div><div class="service-metric"><strong>3</strong><span>Interesadas</span></div></div></div>
+    <div class="service-card" style="border-top:4px solid #2f9d50"><h3>Repositorio del Conocimiento</h3><div class="promise">Difusión de conocimiento generado por proyectos y fondos.</div><div class="service-metrics"><div class="service-metric"><strong>354</strong><span>Videos publicados</span></div><div class="service-metric"><strong>25+</strong><span>Estudios de vigilancia</span></div></div></div>
+    <div class="service-card" style="border-top:4px solid #2f77c5"><h3>RRAAE</h3><div class="promise">Red nacional de repositorios y acceso abierto.</div><div class="service-metrics"><div class="service-metric"><strong>682.777</strong><span>Publicaciones</span></div><div class="service-metric"><strong>136</strong><span>Fuentes</span></div><div class="service-metric"><strong>67</strong><span>Instituciones</span></div><div class="service-metric"><strong>130.746</strong><span>Visitas 2026</span></div></div></div>
+    <div class="service-card" style="border-top:4px solid #e98a2e"><h3>AIRA Academics / Avante</h3><div class="promise">Adopción de servicios académicos con IA y fondos.</div><div class="service-metrics"><div class="service-metric"><strong>8</strong><span>Instituciones activas</span></div><div class="service-metric"><strong>12</strong><span>En instalación</span></div><div class="service-metric"><strong>15 / 5</strong><span>Universidades / institutos adjudicados</span></div></div></div>
+  </div>
+</section>
+
+
+<section id="recursos" class="view">
+  <div class="section-head">
+    <div><h2>Recursos y Servicios</h2><p>Estructura del Área de Academia y servicios asociados.</p></div>
+  </div>
+  <div class="resources-map">
+    <div class="org-top">
+      <div class="person-card">
+        <span class="person-icon"></span>
+        <div class="person-text"><b>JAVIER VALDIVIEZO</b><span>JEFATURA ACADEMIA</span></div>
+      </div>
+    </div>
+
+    <div class="ext-tags"><span>PROYECTOS EXTERNOS</span><span>STALMAT</span></div>
+
+    <div class="org-grid">
+      <div class="org-branch">
+        <div class="org-stack">
+          <div class="person-card"><span class="person-icon"></span><div class="person-text"><b>KATHERINE ESPINOZA</b><span>GESTOR ACADEMIA</span></div></div>
+          <div class="person-card"><span class="person-icon"></span><div class="person-text"><b>SOFIA CASTRO</b><span>ESPECIALISTA ACADEMIA</span></div></div>
+          <div class="org-row">
+            <div class="person-card"><span class="person-icon"></span><div class="person-text"><b>EDUARDA BRAVO</b><span>ASISTENTE TMO</span></div></div>
+            <div class="person-card"><span class="person-icon"></span><div class="person-text"><b>DANIEL ORDOÑEZ</b><span>ASISTENTE PRODUCCIÓN</span></div></div>
+          </div>
+        </div>
+        <div class="svc-grid">
+          <div class="svc-block svc-blue">ROA</div>
+          <div class="svc-block svc-red">CONCURSO INNOVA</div>
+          <div class="svc-block svc-red">ENCUENTRO DE INNOVACIÓN EDUCATIVA</div>
+          <div class="svc-block svc-blue">MOOC</div>
+          <div class="svc-block svc-green svc-wide">CERTIFICACIONES</div>
+          <div class="svc-block svc-green svc-wide">CAPACITACIONES</div>
+          <div class="svc-block svc-green svc-wide">TMO TRACK</div>
+        </div>
+      </div>
+
+      <div class="org-branch">
+        <div class="org-stack">
+          <div class="org-row">
+            <div class="person-card"><span class="person-icon"></span><div class="person-text"><b>VANESSA NARANJO</b><span>ESPECIALISTA ACADEMIA</span></div></div>
+            <div class="person-card"><span class="person-icon"></span><div class="person-text"><b>JOSEFINA SIGUENCIA</b><span>ESPECIALISTA ACADEMIA</span></div></div>
+          </div>
+          <div class="person-card"><span class="person-icon"></span><div class="person-text"><b>PAMELA CORONEL</b><span>ASISTENTE ACADEMIA</span></div></div>
+        </div>
+        <div class="svc-grid">
+          <div class="svc-block svc-cyan svc-wide">RECURSOS BIBLIOGRÁFICOS</div>
+          <div class="svc-block svc-teal svc-wide">AVANTES</div>
+          <div class="svc-block svc-blue">AIRA</div>
+          <div class="svc-block svc-purple">COMPETENCIAS DOCENTES</div>
+          <div class="svc-block svc-blue">ELSA</div>
+          <div class="svc-block svc-blue">RRAEE</div>
+          <div class="svc-block svc-blue svc-wide">REPOSITORIO DEL CONOCIMIENTO</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ingresos" class="view">
+  <div class="section-head"><div><h2>Ingresos del Área Académica</h2><p>Vista prioritaria para toma de decisiones y venta de servicios.</p></div></div>
+  <div class="revenue-hero">
+    <div><span class="tag green">INGRESO TOTAL 2026</span><div class="revenue-total">USD 1.097.539,32</div><p>Paquete + bajo demanda + Ingresos Complementarios + proyectos + por facturar.</p></div>
+    <div class="revenue-big-note"><b>80%</b><span>del ingreso está concentrado en <strong>Paquete</strong> y <strong>Bajo demanda</strong>.</span></div>
+  </div>
+  <div class="grid mt">
+    <div class="card">
+      <h3>Composición de ingresos</h3>
+      <div class="metric-row"><div><b>Paquete</b><div class="mini-note">46% del total</div></div><div class="bar green"><span style="width:100%"></span></div><div class="amount">USD 509.448,83</div></div>
+      <div class="metric-row"><div><b>Bajo demanda</b><div class="mini-note">34% del total</div></div><div class="bar orange"><span style="width:72%"></span></div><div class="amount">USD 367.717,78</div></div>
+      <div class="metric-row"><div><b>Ingresos Complementarios</b><div class="mini-note">13% del total</div></div><div class="bar"><span style="width:28%"></span></div><div class="amount">USD 141.780,78</div></div>
+      <div class="metric-row"><div><b>Proyectos</b><div class="mini-note">5% del total</div></div><div class="bar purple"><span style="width:10%"></span></div><div class="amount">USD 52.139,93</div></div>
+      <div class="metric-row"><div><b>Por facturar</b><div class="mini-note">2% del total</div></div><div class="bar green"><span style="width:5%"></span></div><div class="amount">USD 26.452,00</div></div>
+    </div>
+    </div>
+  </div>
+  <div class="grid three mt">
+    <div class="card"><h3>Bajo demanda</h3><div class="metric-row"><div class="metric-name">Recursos bibliográficos</div><div class="bar orange"><span style="width:100%"></span></div><div class="amount">USD 315.693,88</div></div><div class="metric-row"><div class="metric-name">TMO</div><div class="bar orange"><span style="width:16.5%"></span></div><div class="amount">USD 52.023,90</div></div><div class="projection-note"><div class="legal">Proceso en Legalización por 180 K · UCACUE</div><div class="projected">Ingresos Proyectados + 200 K adicionales</div></div></div>
+    <div class="card"><h3>Ingresos Complementarios</h3><div class="metric-row"><div class="metric-name">Flexibilización</div><div class="bar"><span style="width:100%"></span></div><div class="amount">USD 131.878,48</div></div><div class="metric-row"><div class="metric-name">Capacitación interna</div><div class="bar"><span style="width:5.4%"></span></div><div class="amount">USD 7.181,30</div></div><div class="metric-row"><div class="metric-name">Planillaje interno</div><div class="bar"><span style="width:2.1%"></span></div><div class="amount">USD 2.721,00</div></div></div>
+    <div class="card"><h3>Proyectos</h3><div class="metric-row"><div class="metric-name">ENTITLE</div><div class="bar purple"><span style="width:100%"></span></div><div class="amount">USD 24.555,93</div></div><div class="metric-row"><div class="metric-name">TEST BEST</div><div class="bar purple"><span style="width:69%"></span></div><div class="amount">USD 17.000,00</div></div><div class="metric-row"><div class="metric-name">ETALENT</div><div class="bar purple"><span style="width:43%"></span></div><div class="amount">USD 10.584,00</div></div></div>
+  </div>
+  <div class="card mt"><h3>Servicios incluidos en el Paquete</h3><div class="chips"><span>TMO</span><span>RRAAE</span><span>ELSA</span><span>FAGORA</span><span>MOOC</span><span>ROA</span><span>Repositorio del Conocimiento</span><span>Encuentro Docente</span><span>Innovacedia</span><span>Recursos Bibliográficos</span></div><p class="mini-note">La fuente muestra gráficamente estos servicios, pero no explicita el monto individual de todos; por ello no se infieren valores.</p></div>
+</section>
+
+
+</main><div style="max-width:1500px;margin:0 auto 28px;padding:0 24px;color:#6f8194;font:12px Arial,sans-serif">Versión consolidada · 21-10-2026 · Ingresos proyectados actualizado</div>
+
+<script>
+function showView(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  var target=document.getElementById(id);
+  if(target) target.classList.add('active');
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
