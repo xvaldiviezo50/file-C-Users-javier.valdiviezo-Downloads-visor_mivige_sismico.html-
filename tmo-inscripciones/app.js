@@ -20,7 +20,7 @@ const income={
 };
 
 const services=[
- {name:'TMO · Formación',accent:'#0e67b2',promise:'Cursos, certificaciones, tracks y academias para fortalecer capacidades.',metrics:[['Inscripciones',7835],['Cursos impartidos',150],['TMO Track',4284],['Cisco',634]],opp:'Escalar cursos especializados, certificaciones y venta institucional.'},
+ {name:'TMO · Formación',accent:'#0e67b2',promise:'Cursos, certificaciones, tracks y academias para fortalecer capacidades.',metrics:[['Inscripciones',7835],['Cursos impartidos',150],['TMO Track',4284],['Academias',634]],opp:'Escalar cursos especializados, certificaciones y venta institucional.'},
  {name:'MOOCs',accent:'#09a8b8',promise:'Oferta de aprendizaje abierto y autogestionado.',metrics:[['Participantes activos','+4.000'],['Cursos disponibles','+75']],opp:'Ampliar catálogo y reutilizar contenidos producidos por CEDIA.'},
  {name:'ROA',accent:'#0e8da0',promise:'Objetos de aprendizaje reutilizables para docencia.',metrics:[['Objetos','+200'],['Categorías',11]],opp:'Nueva plataforma y lanzamiento 2027 para colegios e institutos.'},
  {name:'Diagnóstico de Competencias',accent:'#6f4fb3',promise:'Medición institucional de competencias digitales docentes.',metrics:[['Ejecutados',3],['En ejecución',2],['Interesadas',3]],opp:'Convertir diagnóstico en puerta de entrada a rutas formativas TMO.'},
@@ -59,7 +59,7 @@ function monthly(){
    '<span style="width:'+(r[3]/total*100)+'%;background:#7658b4"></span></div>'+
    '<div class="chart-vals">'+fi(r[1])+' · '+fi(r[2])+' · '+fi(r[3])+' = <b>'+fi(r[4])+'</b></div></div>';
  }).join('')+
- '<div class="legend"><span><i style="background:#0e67b2"></i>TMO directa</span><span><i style="background:#09a89a"></i>TMO Track</span><span><i style="background:#7658b4"></i>Cisco</span></div>';
+ '<div class="legend"><span><i style="background:#0e67b2"></i>TMO directa</span><span><i style="background:#09a89a"></i>TMO Track</span><span><i style="background:#7658b4"></i>Academias</span></div>';
 }
 
 document.getElementById('hero-kpis').innerHTML=
@@ -73,7 +73,7 @@ document.getElementById('tmo-summary').innerHTML=
  '<div class="service-metrics">'+
   '<div class="service-metric"><strong>'+fi(M.total_tmo)+'</strong><span>TMO directa</span></div>'+
   '<div class="service-metric"><strong>'+fi(M.total_track)+'</strong><span>TMO Track</span></div>'+
-  '<div class="service-metric"><strong>'+fi(M.total_cisco)+'</strong><span>Cisco</span></div>'+
+  '<div class="service-metric"><strong>'+fi(M.total_cisco)+'</strong><span>Academias</span></div>'+
   '<div class="service-metric"><strong>150</strong><span>Cursos impartidos</span></div>'+
  '</div><div class="opportunity"><b>Lectura:</b> la TMO combina oferta abierta, venta institucional, tracks y alianzas tecnológicas; es el servicio con mayor volumen visible de usuarios.</div>';
 
@@ -92,7 +92,7 @@ document.getElementById('service-strip').innerHTML=services.slice(1).map(s=>{
 document.getElementById('tmo-kpis').innerHTML=
  kpi('TMO directa',fi(M.total_tmo),'Inscripciones')+
  kpi('TMO Track',fi(M.total_track),'Inscripciones')+
- kpi('Cisco',fi(M.total_cisco),'Inscripciones')+
+ kpi('Academias',fi(M.total_cisco),'Inscripciones')+
  kpi('Cursos para la venta','11','TMO Track')+
  kpi('Cursos impartidos','150','Gestión 2026');
 
@@ -104,7 +104,7 @@ const cisco=aggregate(D.tc,2,3,r=>r[1]==='CISCO').slice(0,5);
 const allProducts=[
  ...direct.map(r=>['TMO · '+r[0],r[1]]),
  ...track.map(r=>['Track · '+r[0],r[1]]),
- ...cisco.map(r=>['Cisco · '+r[0].replace(/^\d+\.\s*CISCO[- ]*/i,''),r[1]])
+ ...cisco.map(r=>['Academias · '+r[0].replace(/^\d+\.\s*CISCO[- ]*/i,''),r[1]])
 ].sort((a,b)=>b[1]-a[1]).slice(0,10);
 document.getElementById('top-products').innerHTML=ranking(allProducts,10,'green');
 
