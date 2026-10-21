@@ -10,7 +10,7 @@ const income={
  main:[
   ['Paquete',509448.83,46,'blue'],
   ['Bajo demanda',367717.78,34,'orange'],
-  ['Servicios a otras áreas',141780.78,13,'cyan'],
+  ['Ingresos Complementarios',141780.78,13,'cyan'],
   ['Proyectos',52139.93,5,'purple'],
   ['Por facturar',26452.00,2,'green']
  ],
@@ -80,7 +80,7 @@ document.getElementById('tmo-summary').innerHTML=
 document.getElementById('revenue-summary').innerHTML=
  '<div class="metric-row"><div class="metric-name">Paquete</div><div class="bar green"><span style="width:100%"></span></div><div class="amount">46%</div></div>'+
  '<div class="metric-row"><div class="metric-name">Bajo demanda</div><div class="bar orange"><span style="width:74%"></span></div><div class="amount">34%</div></div>'+
- '<div class="metric-row"><div class="metric-name">Otras áreas</div><div class="bar"><span style="width:28%"></span></div><div class="amount">13%</div></div>'+
+ '<div class="metric-row"><div class="metric-name">Ingresos Complementarios</div><div class="bar"><span style="width:28%"></span></div><div class="amount">13%</div></div>'+
  '<div class="metric-row"><div class="metric-name">Proyectos</div><div class="bar purple"><span style="width:11%"></span></div><div class="amount">5%</div></div>'+
  '<div class="opportunity"><b>Prioridad:</b> Paquete + Bajo demanda concentran el 80% de los ingresos del Área.</div>';
 
