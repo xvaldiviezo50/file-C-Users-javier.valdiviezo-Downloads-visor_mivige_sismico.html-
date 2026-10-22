@@ -23876,6 +23876,131 @@
           "note": "server proxy; V1 browser remains authoritative"
         }
       }
+    },
+    {
+      "time": 1792677033874,
+      "zones": {
+        "cl_c": {
+          "name": "Chile central",
+          "score_proxy": 36.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "cl_n": {
+          "name": "Chile norte",
+          "score_proxy": 23.6,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 30.4,
+          "rate_ratio": 3.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_s": {
+          "name": "Perú sur",
+          "score_proxy": 4.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_c": {
+          "name": "Perú central",
+          "score_proxy": 4.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_n": {
+          "name": "Perú norte",
+          "score_proxy": 4.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_s": {
+          "name": "Ecuador sur · Golfo/El Oro",
+          "score_proxy": 4.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_az": {
+          "name": "Ecuador · Azuay/intraslab",
+          "score_proxy": 4.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_c": {
+          "name": "Ecuador centro · Manabí",
+          "score_proxy": 4.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_n": {
+          "name": "Ecuador norte · Esmeraldas",
+          "score_proxy": 4.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_p": {
+          "name": "Colombia Pacífico · Nariño/Cauca",
+          "score_proxy": 4.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_ch": {
+          "name": "Colombia · Chocó",
+          "score_proxy": 4.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ven": {
+          "name": "Venezuela costera",
+          "score_proxy": 4.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 11.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        }
+      }
     }
   ],
   "learning_policy": "Observe, validate and recommend only. Never modify V1 weights, thresholds or alerts automatically.",
@@ -29772,13 +29897,66 @@
         4.5,
         6.0
       ],
-      "status": "pending",
-      "hits": [],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000u3zu",
+          "m": 4.4,
+          "t": 1792631283006
+        }
+      ],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1792431050800,
       "retrospective": true,
       "source_group": "5-6",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000u3zu",
+              "m": 4.4,
+              "t": 1792631283006
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000u3zu",
+              "m": 4.4,
+              "t": 1792631283006
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000u3zu",
+              "m": 4.4,
+              "t": 1792631283006
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1792677033874,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000u3gm|ven|24",
@@ -30151,14 +30329,270 @@
       "retrospective": true,
       "source_group": "5-6",
       "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u42q|ec_c|24",
+      "source_id": "us6000u42q",
+      "source_mag": 4.9,
+      "source_time": 1792666672259,
+      "source_depth": 135.261,
+      "source_lat": -2.8037,
+      "source_lon": 102.1272,
+      "antipode_lat": 2.8037,
+      "antipode_lon": -77.8728,
+      "zone": "ec_c",
+      "name": "Ecuador centro · Manabí",
+      "distance_antipode_km": 507.7,
+      "band": "halo",
+      "hours": 24,
+      "start": 1792666672259,
+      "end": 1792753072259,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792677033874,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u42q|ec_c|72",
+      "source_id": "us6000u42q",
+      "source_mag": 4.9,
+      "source_time": 1792666672259,
+      "source_depth": 135.261,
+      "source_lat": -2.8037,
+      "source_lon": 102.1272,
+      "antipode_lat": 2.8037,
+      "antipode_lon": -77.8728,
+      "zone": "ec_c",
+      "name": "Ecuador centro · Manabí",
+      "distance_antipode_km": 507.7,
+      "band": "halo",
+      "hours": 72,
+      "start": 1792666672259,
+      "end": 1792925872259,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792677033874,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u42q|ec_n|24",
+      "source_id": "us6000u42q",
+      "source_mag": 4.9,
+      "source_time": 1792666672259,
+      "source_depth": 135.261,
+      "source_lat": -2.8037,
+      "source_lon": 102.1272,
+      "antipode_lat": 2.8037,
+      "antipode_lon": -77.8728,
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "distance_antipode_km": 270.0,
+      "band": "halo",
+      "hours": 24,
+      "start": 1792666672259,
+      "end": 1792753072259,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792677033874,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u42q|ec_n|72",
+      "source_id": "us6000u42q",
+      "source_mag": 4.9,
+      "source_time": 1792666672259,
+      "source_depth": 135.261,
+      "source_lat": -2.8037,
+      "source_lon": 102.1272,
+      "antipode_lat": 2.8037,
+      "antipode_lon": -77.8728,
+      "zone": "ec_n",
+      "name": "Ecuador norte · Esmeraldas",
+      "distance_antipode_km": 270.0,
+      "band": "halo",
+      "hours": 72,
+      "start": 1792666672259,
+      "end": 1792925872259,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792677033874,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u42q|co_p|24",
+      "source_id": "us6000u42q",
+      "source_mag": 4.9,
+      "source_time": 1792666672259,
+      "source_depth": 135.261,
+      "source_lat": -2.8037,
+      "source_lon": 102.1272,
+      "antipode_lat": 2.8037,
+      "antipode_lon": -77.8728,
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "distance_antipode_km": 26.0,
+      "band": "core",
+      "hours": 24,
+      "start": 1792666672259,
+      "end": 1792753072259,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792677033874,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u42q|co_p|72",
+      "source_id": "us6000u42q",
+      "source_mag": 4.9,
+      "source_time": 1792666672259,
+      "source_depth": 135.261,
+      "source_lat": -2.8037,
+      "source_lon": 102.1272,
+      "antipode_lat": 2.8037,
+      "antipode_lon": -77.8728,
+      "zone": "co_p",
+      "name": "Colombia Pacífico · Nariño/Cauca",
+      "distance_antipode_km": 26.0,
+      "band": "core",
+      "hours": 72,
+      "start": 1792666672259,
+      "end": 1792925872259,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792677033874,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u42q|co_ch|24",
+      "source_id": "us6000u42q",
+      "source_mag": 4.9,
+      "source_time": 1792666672259,
+      "source_depth": 135.261,
+      "source_lat": -2.8037,
+      "source_lon": 102.1272,
+      "antipode_lat": 2.8037,
+      "antipode_lon": -77.8728,
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "distance_antipode_km": 368.3,
+      "band": "halo",
+      "hours": 24,
+      "start": 1792666672259,
+      "end": 1792753072259,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792677033874,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u42q|co_ch|72",
+      "source_id": "us6000u42q",
+      "source_mag": 4.9,
+      "source_time": 1792666672259,
+      "source_depth": 135.261,
+      "source_lat": -2.8037,
+      "source_lon": 102.1272,
+      "antipode_lat": 2.8037,
+      "antipode_lon": -77.8728,
+      "zone": "co_ch",
+      "name": "Colombia · Chocó",
+      "distance_antipode_km": 368.3,
+      "band": "halo",
+      "hours": 72,
+      "start": 1792666672259,
+      "end": 1792925872259,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792677033874,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
     }
   ],
   "antipode_metrics": {
-    "pending": 5,
-    "response": 29,
+    "pending": 12,
+    "response": 30,
     "noResponse": 40
   },
-  "updated": 1792654762517,
+  "updated": 1792677033874,
   "windows": [
     {
       "version": "persistent-v2",
