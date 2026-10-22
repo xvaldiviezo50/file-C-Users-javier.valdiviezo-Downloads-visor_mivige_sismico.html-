@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+<rect width="1200" height="720" rx="35" fill="#fff" stroke="#dbe5ef" stroke-width="3"/><rect width="1200" height="14" rx="7" fill="#f38b18"/>
+<text x="60" y="140" font-family="Arial" font-size="64" font-weight="800" fill="#0b2f57">AIRA Academics / Avante</text>
+<text x="60" y="205" font-family="Arial" font-size="34" fill="#718194">Adopción de servicios académicos con IA y fondos.</text>
+<rect x="55" y="275" width="500" height="290" rx="32" fill="#f7f9fc"/><rect x="645" y="275" width="500" height="290" rx="32" fill="#f7f9fc"/>
+<text x="110" y="385" font-family="Arial" font-size="92" font-weight="800" fill="#2360bd">8</text><text x="110" y="485" font-family="Arial" font-size="38" fill="#667890">Instituciones activas</text>
+<text x="700" y="385" font-family="Arial" font-size="92" font-weight="800" fill="#2360bd">12</text><text x="700" y="485" font-family="Arial" font-size="38" fill="#667890">En instalación</text>
+</svg>
