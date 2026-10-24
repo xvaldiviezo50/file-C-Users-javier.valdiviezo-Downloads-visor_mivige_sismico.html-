@@ -25376,6 +25376,131 @@
           "note": "server proxy; V1 browser remains authoritative"
         }
       }
+    },
+    {
+      "time": 1792865501307,
+      "zones": {
+        "cl_c": {
+          "name": "Chile central",
+          "score_proxy": 24.6,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "cl_n": {
+          "name": "Chile norte",
+          "score_proxy": 37.0,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 19.2,
+          "rate_ratio": 2.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_s": {
+          "name": "Perú sur",
+          "score_proxy": 24.6,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_c": {
+          "name": "Perú central",
+          "score_proxy": 24.6,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_n": {
+          "name": "Perú norte",
+          "score_proxy": 24.6,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_s": {
+          "name": "Ecuador sur · Golfo/El Oro",
+          "score_proxy": 56.5,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_az": {
+          "name": "Ecuador · Azuay/intraslab",
+          "score_proxy": 56.5,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_c": {
+          "name": "Ecuador centro · Manabí",
+          "score_proxy": 56.5,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_n": {
+          "name": "Ecuador norte · Esmeraldas",
+          "score_proxy": 56.5,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_p": {
+          "name": "Colombia Pacífico · Nariño/Cauca",
+          "score_proxy": 24.6,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_ch": {
+          "name": "Colombia · Chocó",
+          "score_proxy": 24.6,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 68.9,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ven": {
+          "name": "Venezuela costera",
+          "score_proxy": 19.8,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 55.4,
+          "note": "server proxy; V1 browser remains authoritative"
+        }
+      }
     }
   ],
   "learning_policy": "Observe, validate and recommend only. Never modify V1 weights, thresholds or alerts automatically.",
@@ -32192,14 +32317,136 @@
       "retrospective": true,
       "source_group": "4-5",
       "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us6000u31a|pe_s|24",
+      "source_id": "us6000u31a",
+      "source_mag": 4.5,
+      "source_time": 1792262890802,
+      "source_depth": 10,
+      "source_lat": 15.1576,
+      "source_lon": 108.0258,
+      "antipode_lat": -15.1576,
+      "antipode_lon": -71.9742,
+      "zone": "pe_s",
+      "name": "Perú sur",
+      "distance_antipode_km": 93.7,
+      "band": "core",
+      "hours": 24,
+      "start": 1792262890802,
+      "end": 1792349290802,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "noResponse",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792865501307,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1792865501307,
+      "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us6000u31a|pe_s|72",
+      "source_id": "us6000u31a",
+      "source_mag": 4.5,
+      "source_time": 1792262890802,
+      "source_depth": 10,
+      "source_lat": 15.1576,
+      "source_lon": 108.0258,
+      "antipode_lat": -15.1576,
+      "antipode_lon": -71.9742,
+      "zone": "pe_s",
+      "name": "Perú sur",
+      "distance_antipode_km": 93.7,
+      "band": "core",
+      "hours": 72,
+      "start": 1792262890802,
+      "end": 1792522090802,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "noResponse",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1792865501307,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1792865501307,
+      "aggregate_rule": "any_registered_target"
     }
   ],
   "antipode_metrics": {
     "pending": 4,
     "response": 30,
-    "noResponse": 48
+    "noResponse": 50
   },
-  "updated": 1792852558982,
+  "updated": 1792865501307,
   "windows": [
     {
       "version": "persistent-v2",
