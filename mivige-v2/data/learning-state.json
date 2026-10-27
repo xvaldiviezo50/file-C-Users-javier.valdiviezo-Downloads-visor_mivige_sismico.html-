@@ -27251,6 +27251,131 @@
           "note": "server proxy; V1 browser remains authoritative"
         }
       }
+    },
+    {
+      "time": 1793126797163,
+      "zones": {
+        "cl_c": {
+          "name": "Chile central",
+          "score_proxy": 20.1,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 11.2,
+          "rate_ratio": 1.5,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "cl_n": {
+          "name": "Chile norte",
+          "score_proxy": 28.5,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 24.3,
+          "rate_ratio": 2.4,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_s": {
+          "name": "Perú sur",
+          "score_proxy": 12.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_c": {
+          "name": "Perú central",
+          "score_proxy": 12.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_n": {
+          "name": "Perú norte",
+          "score_proxy": 44.8,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_s": {
+          "name": "Ecuador sur · Golfo/El Oro",
+          "score_proxy": 32.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 30.4,
+          "rate_ratio": 3.0,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_az": {
+          "name": "Ecuador · Azuay/intraslab",
+          "score_proxy": 32.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 30.4,
+          "rate_ratio": 3.0,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_c": {
+          "name": "Ecuador centro · Manabí",
+          "score_proxy": 32.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 30.4,
+          "rate_ratio": 3.0,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_n": {
+          "name": "Ecuador norte · Esmeraldas",
+          "score_proxy": 12.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_p": {
+          "name": "Colombia Pacífico · Nariño/Cauca",
+          "score_proxy": 12.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_ch": {
+          "name": "Colombia · Chocó",
+          "score_proxy": 12.9,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 36.1,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ven": {
+          "name": "Venezuela costera",
+          "score_proxy": 7.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 20.8,
+          "note": "server proxy; V1 browser remains authoritative"
+        }
+      }
     }
   ],
   "learning_policy": "Observe, validate and recommend only. Never modify V1 weights, thresholds or alerts automatically.",
@@ -34373,14 +34498,142 @@
       ],
       "evaluated": 1792865501307,
       "aggregate_rule": "any_registered_target"
+    },
+    {
+      "key": "us7000ttgf|ven|24",
+      "source_id": "us7000ttgf",
+      "source_mag": 5.4,
+      "source_time": 1793112240933,
+      "source_depth": 10,
+      "source_lat": -9.1162,
+      "source_lon": 110.3305,
+      "antipode_lat": 9.1162,
+      "antipode_lon": -69.6695,
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "distance_antipode_km": 379.8,
+      "band": "halo",
+      "hours": 24,
+      "start": 1793112240933,
+      "end": 1793198640933,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1793126797163,
+      "retrospective": true,
+      "source_group": "5-6",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us7000ttgf|ven|72",
+      "source_id": "us7000ttgf",
+      "source_mag": 5.4,
+      "source_time": 1793112240933,
+      "source_depth": 10,
+      "source_lat": -9.1162,
+      "source_lon": 110.3305,
+      "antipode_lat": 9.1162,
+      "antipode_lon": -69.6695,
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "distance_antipode_km": 379.8,
+      "band": "halo",
+      "hours": 72,
+      "start": 1793112240933,
+      "end": 1793371440933,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1793126797163,
+      "retrospective": true,
+      "source_group": "5-6",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us7000ttgh|ven|24",
+      "source_id": "us7000ttgh",
+      "source_mag": 4.9,
+      "source_time": 1793112189497,
+      "source_depth": 20.614,
+      "source_lat": -9.3662,
+      "source_lon": 110.2973,
+      "antipode_lat": 9.3662,
+      "antipode_lon": -69.7027,
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "distance_antipode_km": 372.7,
+      "band": "halo",
+      "hours": 24,
+      "start": 1793112189497,
+      "end": 1793198589497,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1793126797163,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+    },
+    {
+      "key": "us7000ttgh|ven|72",
+      "source_id": "us7000ttgh",
+      "source_mag": 4.9,
+      "source_time": 1793112189497,
+      "source_depth": 20.614,
+      "source_lat": -9.3662,
+      "source_lon": 110.2973,
+      "antipode_lat": 9.3662,
+      "antipode_lon": -69.7027,
+      "zone": "ven",
+      "name": "Venezuela costera",
+      "distance_antipode_km": 372.7,
+      "band": "halo",
+      "hours": 72,
+      "start": 1793112189497,
+      "end": 1793371389497,
+      "targets": [
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        6.0
+      ],
+      "status": "pending",
+      "hits": [],
+      "track": "antipodal-observation-m4-v3",
+      "registered_at": 1793126797163,
+      "retrospective": true,
+      "source_group": "4-5",
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
     }
   ],
   "antipode_metrics": {
-    "pending": 0,
+    "pending": 4,
     "response": 32,
     "noResponse": 52
   },
-  "updated": 1793107020292,
+  "updated": 1793126797163,
   "windows": [
     {
       "version": "persistent-v2",
