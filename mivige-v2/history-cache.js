@@ -6,7 +6,31 @@ let saved={sources:{}};
 try{const j=JSON.parse(localStorage.getItem(KEY));if(j?.sources)saved=j;}catch(_){}
 function merge(a,b){const m=new Map();for(const e of [...a,...b])m.set(e.source+':'+(e.id||e.time+':'+e.lat+':'+e.lon),e);return [...m.values()].sort((a,b)=>b.time-a.time);}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(saved));}catch(_){/* Server copy and in-memory data remain available. */}}
-const ready=(async()=>{try{const r=await fetch('data/observations-history.json',{cache:'no-cache',signal:AbortSignal.timeout(8000)});if(!r.ok)return;const j=await r.json();for(const [name,v] of Object.entries(j.sources||{})){const old=saved.sources[name];saved.sources[name]={...((old?.fetchedAt||0)>(v.fetchedAt||0)?old:v),events:(old?.fetchedAt||0)>(v.fetchedAt||0)?merge(v.events||[],old?.events||[]):merge(old?.events||[],v.events||[])};}persist();}catch(_){}})();
+// The 4 MB server archive loads after the first model, so it cannot starve live feeds.
+const ready=new Promise(resolve=>{
+ let started=false;
+ async function hydrate(){
+  if(started)return;started=true;
+  try{
+   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+   try{
+    const r=await fetch('data/observations-history.json',{cache:'no-cache',signal:controller.signal});
+    if(r.ok){
+     const j=await r.json();
+     for(const [name,v] of Object.entries(j.sources||{})){
+      const old=saved.sources[name];
+      saved.sources[name]={...((old?.fetchedAt||0)>(v.fetchedAt||0)?old:v),
+       events:(old?.fetchedAt||0)>(v.fetchedAt||0)?merge(v.events||[],old?.events||[]):merge(old?.events||[],v.events||[])};
+     }
+     persist();
+    }
+   }finally{clearTimeout(timer);}
+  }catch(_){}
+  resolve();
+ }
+ window.addEventListener('mivige:model',hydrate,{once:true});
+ setTimeout(hydrate,30000);
+});
 const liveFetch=fetchSource;
 fetchSource=async function(name,url){
  // Live sources must not be blocked by the multi-megabyte history download.
