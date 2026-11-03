@@ -35,6 +35,44 @@ function row(x,i){
  (challengers.length?'<div class="small"><b>Hipótesis complementarias observadas:</b> '+challengers.join(' · ')+'</div>':'')+
  '<div class="small">Cobertura de componentes: '+x.coverage+'% · seguimiento 24/72 h.</div></article>';
 }
+function recentRegionalEvents(p){
+ const now=Date.now(),events=Array.isArray(window.allEvents)?window.allEvents:[];
+ const states=window.mivigeV2?.states||[];
+ const noteworthy=events.filter(e=>e&&Number.isFinite(Number(e.time))&&Number.isFinite(Number(e.mag))&&
+  Number(e.mag)>=5&&now-Number(e.time)>=-60000&&now-Number(e.time)<=48*3600e3&&
+  (/colombia|per[uú]|ecuador/i.test(e.place||'')||
+   (Number(e.lat)>=-18&&Number(e.lat)<=15&&Number(e.lon)>=-87&&Number(e.lon)<=-69)))
+  .sort((a,b)=>b.time-a.time).slice(0,5);
+ const pe=states.find(x=>x.s.id==='pe_n');
+ const thresholds=p?.config?.sourceThresholds||[];
+ const ranked=p?.results||[];
+ let rows=[];
+ for(const e of noteworthy){
+  const neighbors=states.map(st=>({st,d:distKm(Number(e.lat),Number(e.lon),st.s.lat,st.s.lon)}))
+   .sort((a,b)=>a.d-b.d);
+  const nearest=neighbors[0],local=neighbors.find(x=>x.d<=x.st.s.r);
+  const receiver=local||null;
+  const rank=receiver?ranked.find(x=>x.st.s.id===receiver.st.s.id):null;
+  let peNote='';
+  if(pe&&/colombia/i.test(e.place||'')&&thresholds.length){
+   const d=distKm(Number(e.lat),Number(e.lon),pe.s.lat,pe.s.lon);
+   const t=thresholds.find(x=>d<=x.max)||thresholds[thresholds.length-1];
+   peNote='<div class="small">Contraste Perú norte: distancia '+Math.round(d)+' km · fuente requerida M≥'+t.m.toFixed(1)+' · '+(Number(e.mag)>=t.m?'cumple el umbral de selección de fuente (no implica efecto físico)':'no alcanza el umbral para esta fuente')+'.</div>';
+  }
+  rows.push('<article class="obs-row" style="border-left:4px solid #52a8ff">'+
+   '<div><b>Sismo observado M'+Number(e.mag).toFixed(1)+'</b> · '+esc(e.place||'sin lugar informado')+
+   ' · '+time(Number(e.time))+'</div>'+
+   '<div class="small">Fuente '+esc(e.source||'catálogo integrado')+
+   ' · profundidad '+(Number.isFinite(Number(e.depth))&&e.depth!=null?Number(e.depth).toFixed(1)+' km':'N/A')+
+   ' · '+(receiver?'Dentro de '+esc(receiver.st.s.name)+' ('+Math.round(receiver.d)+' km del centro)':nearest?'Fuera del radio local del segmento más próximo':'Sin segmentos evaluables')+
+   (rank?' · puntaje de ranking '+rank.score.toFixed(1)+'/100':' · sin clasificación local confirmada')+'.</div>'+
+   peNote+'</article>');
+ }
+ return '<section aria-label="Actividad reciente independiente del ranking"><h3 style="font-size:14px;margin:12px 0 6px">Sismos regionales M≥5 · observación de 48 h</h3>'+
+  '<p class="small">El evento aparece como observación aunque no alcance el TOP 5. Solo se modifican los puntajes cuando las reglas del modelo lo justifican; la distancia y magnitud no demuestran transmisión de esfuerzos.</p>'+
+  (rows.length?rows.join(''):'<p class="small">Sin eventos M≥5 verificables en la selección regional de esta consulta; revisar cobertura de fuentes.</p>')+
+  '</section>';
+}
 function render(){
  const aside=document.querySelector('aside');if(!aside)return;
  let panel=document.getElementById('regionalProjectionPanel');
@@ -48,6 +86,7 @@ function render(){
  panel.innerHTML='<h2>TOP 5 · observación experimental</h2><p class="small">Orden automático por señales disponibles. El puntaje organiza el seguimiento; no es probabilidad de un sismo ni alerta oficial. Los colores expresan el nivel del puntaje. <b>El puesto 1 no demuestra dónde ocurrirá el siguiente sismo fuerte.</b></p>'+
  (p?.time?'<div class="small"><b>Corte:</b> '+time(p.dataTime||p.time)+(stale?' · DATOS ATRASADOS':'')+'</div>':'')+
  (results.length?results.slice(0,5).map(row).join(''):'<p>Esperando observaciones verificables; no se asigna nivel bajo por falta de datos.</p>')+
+ recentRegionalEvents(p)+
  sourceCoverage()+
  '<details><summary>Método y aprendizaje</summary><p class="small">Pesos fijos del motor: receptor 30%, fuente 20%, continuidad 15%, secuencia 15%, dinámica 10%, antípoda 7% y SST 3% nominal (actualmente sin valor evaluable). Los canales ausentes no se renormalizan. La convergencia aplica un factor adicional. GNSS y Coulomb se contrastan aparte. La cobertura no representa confianza ni probabilidad. No hay ajuste automático de pesos. El registro central valida este motor, separado del seguimiento histórico que usaba otra fórmula.</p></details>'+
  '<button id="technicalToggle" type="button" aria-expanded="'+document.body.classList.contains('show-technical')+'">'+(document.body.classList.contains('show-technical')?'Ocultar':'Mostrar')+' contraste científico y capas complementarias</button>';
