@@ -15,7 +15,7 @@ normalize=function(source,f){
  return e;
 };
 fetchSource=async function(name,url){
- const requestedAt=Date.now(),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
+ const requestedAt=Date.now(),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
  try{
   let features=[],truncated=false,generated=null;
   for(let page=0;page<10;page++){
@@ -47,7 +47,7 @@ endpoints.EMSC='https://www.seismicportal.eu/fdsnws/event/1/query';
 const fetchSourceBeforeEMSC=fetchSource;
 fetchSource=async function(name,url){
  if(name!=='EMSC')return fetchSourceBeforeEMSC(name,url);
- const now=Date.now(),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
+ const now=Date.now(),controller=new AbortController(),timer=setTimeout(()=>controller.abort(),12000);
  try{
   const u=new URL(url);u.searchParams.set('format','json');u.searchParams.set('starttime',new Date(now-7*86400000).toISOString());u.searchParams.set('minmag','2.5');u.searchParams.set('limit','20000');u.searchParams.set('orderby','time');
   const r=await fetch(u,{cache:'no-store',signal:controller.signal});if(!r.ok)throw Error('HTTP '+r.status);
