@@ -35,6 +35,43 @@ function row(x,i){
  (challengers.length?'<div class="small"><b>Hipótesis complementarias observadas:</b> '+challengers.join(' · ')+'</div>':'')+
  '<div class="small">Cobertura de componentes: '+x.coverage+'% · seguimiento 24/72 h.</div></article>';
 }
+// Dated SGC bulletin: official national interpretation, never a synthetic live feed.
+// It is deliberately NOT injected into window.allEvents, scientific IDS or frozen forecasts.
+const SGC_CHAPARRAL_20261103=Object.freeze({
+ date:'2026-11-03',cutoff:'07:25',place:'Chaparral, Tolima (Colombia)',
+ lat:3.86,lon:-75.63,mag:5.6,depthKm:19,
+ swarmSince:'2026-09-20',swarmCountMin:1632,swarmMagMin:2,
+ aftershocks:5,aftershockMin:2.1,aftershockMax:3.5,feltsMin:4500,
+ label:'Comunicado del Servicio Geológico Colombiano · corte 07:25 hora local, 03/11/2026'
+});
+function officialTolimaObservation(p){
+ const b=SGC_CHAPARRAL_20261103;
+ const pe=(window.mivigeV2?.states||[]).find(x=>x.s?.id==='pe_n');
+ const d=pe?distKm(b.lat,b.lon,pe.s.lat,pe.s.lon):null;
+ const thresholds=p?.config?.sourceThresholds||[];
+ const t=(Number.isFinite(d)&&thresholds.length)?(thresholds.find(x=>d<=x.max)||thresholds[thresholds.length-1]):null;
+ const available=(window.allEvents||[]).filter(e=>e&&Number.isFinite(Number(e.lat))&&Number.isFinite(Number(e.lon))&&
+  Math.abs(Number(e.time)-Date.parse('2026-11-03T09:13:00Z'))<=15*60*1000&&distKm(Number(e.lat),Number(e.lon),b.lat,b.lon)<=80);
+ const primary=available[0]||null;
+ const age=Date.now()-Date.parse('2026-11-03T12:25:00Z');
+ const archival=age>7*86400000?' · registro histórico (no actualización en directo)':' · corte fechado, no contador en directo';
+ return '<section aria-label="Boletín independiente SGC Chaparral Tolima" style="padding:10px 12px;margin:10px 0;border:1px solid #54778f;border-radius:10px">'+
+ '<h3 style="font-size:15px;margin:0 0 7px">Colombia · Tolima / Chaparral — seguimiento nacional SGC</h3>'+
+ '<div class="small"><b>Fuente y corte:</b> '+esc(b.label)+archival+'.</div>'+
+ '<div class="small"><b>Sismo principal:</b> M'+b.mag.toFixed(1)+' · '+b.depthKm+' km · 04:13, 3 de noviembre de 2026 · epicentro Chaparral, Tolima.</div>'+
+ '<div class="small"><b>Secuencia de Chaparral:</b> más de '+b.swarmCountMin.toLocaleString('es-EC')+' eventos M≥'+b.swarmMagMin+' desde el '+b.swarmSince+
+ ' · '+b.aftershocks+' réplicas M'+b.aftershockMin.toFixed(1)+'–'+b.aftershockMax.toFixed(1)+' al corte · más de '+b.feltsMin.toLocaleString('es-EC')+' reportes de sentido.</div>'+
+ (primary?'<div class="small"><b>Contraste de catálogos:</b> '+esc(primary.source)+' M'+Number(primary.mag).toFixed(1)+
+ ' · '+(Number.isFinite(Number(primary.depth))&&primary.depth!=null?Number(primary.depth).toFixed(1)+' km':'profundidad N/A')+
+ '; SGC M'+b.mag.toFixed(1)+' · '+b.depthKm+' km. Distintos proveedores y revisiones; conservar ambos valores y su procedencia.</div>':
+ '<div class="small">El catálogo automático aún no entregó la observación equivalente; el boletín SGC se presenta por separado, sin simular datos en vivo.</div>')+
+ '<div class="small"><b>Región geológica:</b> Tolima andino, distinta del enjambre de Istmina/Chocó. La coincidencia con el radio matemático del segmento Chocó no convierte el epicentro en un evento del Chocó.</div>'+
+ (t?'<div class="small"><b>Ensayo de sensibilidad · Perú norte:</b> distancia desde el epicentro SGC '+Math.round(d)+' km, umbral interregional M≥'+t.m.toFixed(1)+
+ '. La magnitud SGC M'+b.mag.toFixed(1)+(b.mag>=t.m?' cumple':' no cumple')+
+ ' el filtro de selección de fuente; este control <b>no</b> equivale a propagación física, respuesta sísmica ni aumento validado de riesgo. No se modificó el ranking histórico automáticamente.</div>':'')+
+ '<div class="small"><b>Control metodológico:</b> los '+b.swarmCountMin.toLocaleString('es-EC')+' registros del enjambre no se agregan al IDS sin catálogo individual, fechas y completitud homogénea. Se conservan aparte del historial de Istmina/Chocó.</div>'+
+ '</section>';
+}
 function recentRegionalEvents(p){
  const now=Date.now(),events=Array.isArray(window.allEvents)?window.allEvents:[];
  const states=window.mivigeV2?.states||[];
@@ -52,6 +89,10 @@ function recentRegionalEvents(p){
    .sort((a,b)=>a.d-b.d);
   const nearest=neighbors[0],local=neighbors.find(x=>x.d<=x.st.s.r);
   const receiver=local||null;
+  // This Tolima epicentre happens to lie inside the statistical Chocó circle;
+  // calling it a Chocó earthquake would be a geographical misattribution.
+  const tolima=distKm(Number(e.lat),Number(e.lon),SGC_CHAPARRAL_20261103.lat,SGC_CHAPARRAL_20261103.lon)<=80&&
+    Math.abs(Number(e.time)-Date.parse('2026-11-03T09:13:00Z'))<30*60000;
   const rank=receiver?ranked.find(x=>x.st.s.id===receiver.st.s.id):null;
   let peNote='';
   if(pe&&/colombia/i.test(e.place||'')&&thresholds.length){
@@ -64,8 +105,9 @@ function recentRegionalEvents(p){
    ' · '+time(Number(e.time))+'</div>'+
    '<div class="small">Fuente '+esc(e.source||'catálogo integrado')+
    ' · profundidad '+(Number.isFinite(Number(e.depth))&&e.depth!=null?Number(e.depth).toFixed(1)+' km':'N/A')+
-   ' · '+(receiver?'Dentro de '+esc(receiver.st.s.name)+' ('+Math.round(receiver.d)+' km del centro)':nearest?'Fuera del radio local del segmento más próximo':'Sin segmentos evaluables')+
-   (rank?' · puntaje de ranking '+rank.score.toFixed(1)+'/100':' · sin clasificación local confirmada')+'.</div>'+
+   ' · '+(tolima?'Epicentro: Chaparral, Tolima (SGC); solapa el radio estadístico del segmento Chocó, pero NO pertenece a ese enjambre':
+       receiver?'Dentro del radio de '+esc(receiver.st.s.name)+' ('+Math.round(receiver.d)+' km del centro)':nearest?'Fuera del radio local del segmento más próximo':'Sin segmentos evaluables')+
+   (rank?' · puntaje del segmento cercano '+rank.score.toFixed(1)+'/100':' · sin clasificación local confirmada')+'.</div>'+
    peNote+'</article>');
  }
  return '<section aria-label="Actividad reciente independiente del ranking"><h3 style="font-size:14px;margin:12px 0 6px">Sismos regionales M≥5 · observación de 48 h</h3>'+
@@ -86,6 +128,7 @@ function render(){
  panel.innerHTML='<h2>TOP 5 · observación experimental</h2><p class="small">Orden automático por señales disponibles. El puntaje organiza el seguimiento; no es probabilidad de un sismo ni alerta oficial. Los colores expresan el nivel del puntaje. <b>El puesto 1 no demuestra dónde ocurrirá el siguiente sismo fuerte.</b></p>'+
  (p?.time?'<div class="small"><b>Corte:</b> '+time(p.dataTime||p.time)+(stale?' · DATOS ATRASADOS':'')+'</div>':'')+
  (results.length?results.slice(0,5).map(row).join(''):'<p>Esperando observaciones verificables; no se asigna nivel bajo por falta de datos.</p>')+
+ officialTolimaObservation(p)+
  recentRegionalEvents(p)+
  sourceCoverage()+
  '<details><summary>Método y aprendizaje</summary><p class="small">Pesos fijos del motor: receptor 30%, fuente 20%, continuidad 15%, secuencia 15%, dinámica 10%, antípoda 7% y SST 3% nominal (actualmente sin valor evaluable). Los canales ausentes no se renormalizan. La convergencia aplica un factor adicional. GNSS y Coulomb se contrastan aparte. La cobertura no representa confianza ni probabilidad. No hay ajuste automático de pesos. El registro central valida este motor, separado del seguimiento histórico que usaba otra fórmula.</p></details>'+
