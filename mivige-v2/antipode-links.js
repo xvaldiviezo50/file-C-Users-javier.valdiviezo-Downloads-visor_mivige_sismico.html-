@@ -86,24 +86,35 @@ function ensureBottomPanel(){
   btn.onclick=()=>panel.style.display=panel.style.display==='none'?'block':'none';
   panel.querySelector('#antiBottomClose').onclick=()=>panel.style.display='none';
 }
+function antipodalCountryRank(active,learning){
+ // A source can match several adjacent segments; each destination country
+ // is listed once using its closest independently calculated receiver.
+ const items=[
+  ...active.map(x=>({kind:'V1',r:x.r,e:x.src.e,d:x.src.d,band:x.src.f.label})),
+  ...learning.map(x=>({kind:'CHALLENGER',r:x.r,e:x.q.e,d:x.q.d,band:x.q.d<=CFG.coreKm?'NÚCLEO':'HALO'}))
+ ];
+ items.sort((a,b)=>(a.kind==='V1'?0:1)-(b.kind==='V1'?0:1)||a.d-b.d||Number(b.e.mag)-Number(a.e.mag));
+ const byCountry=new Map();
+ for(const item of items)if(!byCountry.has(item.r.country))byCountry.set(item.r.country,item);
+ return {items,countries:[...byCountry.values()]};
+}
 function renderVisibleAntipodes(active,learning){
  const rows=document.getElementById('antiVisibleRows'),sum=document.getElementById('antiVisibleSummary');if(!rows||!sum)return;
- const items=[];
- active.forEach(x=>items.push({kind:'V1',r:x.r,e:x.src.e,d:x.src.d,band:x.src.f.label}));
- learning.forEach(x=>items.push({kind:'CHALLENGER',r:x.r,e:x.q.e,d:x.q.d,band:x.q.d<=CFG.coreKm?'NÚCLEO':'HALO'}));
- const unique=[];items.forEach(x=>{const k=x.kind+'|'+x.r.id+'|'+(x.e.id||x.e.time);if(!unique.some(y=>y.k===k))unique.push({...x,k});});
- sum.innerHTML=unique.length?'<b>'+unique.length+' coincidencia(s) antipodal(es) M≥4,0</b> en las últimas 72 h.':'<b>SIN ACTIVACIÓN ANTIPODAL DETECTADA</b> · no hay fuentes M≥4,0 dentro de núcleo/halo en las últimas 72 h.';
+ const {items,countries}=antipodalCountryRank(active,learning);
+ // Count one event-country pair once (not one event per nearby zone).
+ const uniquePairs=new Set(items.map(x=>x.kind+'|'+x.r.country+'|'+(x.e.id||x.e.time)));
+ sum.innerHTML=uniquePairs.size?'<b>'+uniquePairs.size+' coincidencia(s) geométrica(s)</b> en '+countries.length+' país(es) receptor(es), últimas 72 h.':'<b>SIN COINCIDENCIAS ANTIPODALES DETECTADAS</b> en núcleo o halo durante 72 h.';
  const bins=[{name:'4≤M<5',test:m=>m>=4&&m<5},{name:'5≤M<6',test:m=>m>=5&&m<6},{name:'M≥6',test:m=>m>=6}];
- sum.innerHTML+='<br><span class="small">'+bins.map(b=>b.name+': '+unique.filter(x=>b.test(Number(x.e.mag))).length).join(' · ')+' vínculos fuente–receptor; un sismo puede corresponder a varias zonas. Observación geométrica, no probabilidad.</span>';
- rows.innerHTML=unique.slice().sort((a,b)=>(a.kind==='V1'?0:1)-(b.kind==='V1'?0:1)||a.d-b.d||Number(b.e.mag)-Number(a.e.mag)).slice(0,5).map(x=>'<div class="listitem"><div><b>'+x.kind+' · '+x.r.country+' · '+x.r.name+'</b><div class="zdesc">Fuente: '+fmt(x.e)+'<br>Antípoda receptora: '+x.band+' · '+Math.round(x.d)+' km · seguimiento 24/72 h</div></div></div>').join('');
+ const counted=new Map();
+ for(const x of items){const k=x.kind+'|'+x.r.country+'|'+(x.e.id||x.e.time);if(!counted.has(k))counted.set(k,x);}
+ sum.innerHTML+='<br><span class="small">'+bins.map(b=>b.name+': '+[...counted.values()].filter(x=>b.test(Number(x.e.mag))).length).join(' · ')+' vínculos por evento y país. La cercanía a una antípoda no significa afectación ni probabilidad de un sismo.</span>';
+ rows.innerHTML=countries.slice(0,8).map(x=>'<div class="listitem"><div><b>'+x.kind+' · '+x.r.country+' · '+x.r.name+'</b><div class="zdesc">Origen: '+fmt(x.e)+'<br>Coincidencia geométrica: '+x.band+' · '+Math.round(x.d)+' km · observación 24/72 h</div></div></div>').join('')||'<div class="small">No se dibujan destinos sin coincidencia matemática dentro de los umbrales.</div>';
 }
 function renderBottom(active,learning){
   ensureBottomPanel();const el=document.getElementById('antiBottomRows'),btn=document.getElementById('antiBottomBtn');if(!el)return;
-  const rows=[];
-  active.slice().sort((a,b)=>a.src.d-b.src.d||Number(b.src.e.mag)-Number(a.src.e.mag)).slice(0,5).forEach(x=>rows.push('<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">V1 · M'+Number(x.src.e.mag).toFixed(1)+' · '+x.src.f.label+' · '+Math.round(x.src.d)+' km · '+(x.src.e.place||'fuente global')+'</span></div></div>'));
-  learning.slice().sort((a,b)=>a.q.d-b.q.d||Number(b.q.e.mag)-Number(a.q.e.mag)).slice(0,Math.max(0,5-rows.length)).forEach(x=>rows.push('<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">CHALLENGER · M'+Number(x.q.e.mag).toFixed(1)+' · '+(x.q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(x.q.d)+' km · '+(x.q.e.place||'fuente global')+' · 24/72 h</span></div></div>'));
-  el.innerHTML=rows.length?rows.join(''):'<div class="small">Sin fuentes antipodales M>6,0 dentro del núcleo/halo durante las últimas 72 h.</div>';
-  btn.textContent='🌐 TOP ANTIPODAL · '+rows.length;
+  const {countries}=antipodalCountryRank(active,learning);
+  el.innerHTML=countries.length?countries.map(x=>'<div class="listitem"><div><b>'+x.r.country+' → '+x.r.name+'</b><br><span class="small">'+x.kind+' · M'+Number(x.e.mag).toFixed(1)+' · '+x.band+' · '+Math.round(x.d)+' km · fuente: '+(x.e.place||x.e.source||'catálogo global')+' · 24/72 h</span></div></div>').join(''):'<div class="small">Sin correspondencias geométricas M≥4.0 dentro de núcleo/halo durante 72 h. No es una evaluación de amenaza.</div>';
+  btn.textContent='🌐 PAÍSES ANTIPODALES · '+countries.length;
 }
 function ensureCard(){
   if(document.getElementById('antipodeNetworkV2'))return;
@@ -142,7 +153,24 @@ function drawReceiver(r,ap,status,src){
 }
 function drawLearningLinks(items){
   learningLinks.clearLayers();
-  items.filter(x=>x.r.country==='Ecuador'&&x.q.d<=CFG.coreKm).forEach(x=>{const q=x.q,r=x.r,c=q.d<=CFG.coreKm?'#f0c644':'#8fb8ff';const label='CHALLENGER M'+Number(q.e.mag).toFixed(1)+' · '+(q.d<=CFG.coreKm?'NÚCLEO':'HALO')+' · '+Math.round(q.d)+' km → '+r.name+' · 24/72 h · no activa V1';L.polyline([[q.e.lat,q.e.lon],[r.lat,r.lon]],{color:c,weight:1.8,dashArray:'4 8',opacity:.7}).bindTooltip(label).bindPopup(label+'<br>Relación geométrica experimental; no implica transferencia causal de energía.').addTo(learningLinks);L.circleMarker([q.e.lat,q.e.lon],{radius:4,color:c,weight:1.5,fillOpacity:.75}).bindPopup('<b>Fuente antipodal en aprendizaje</b><br>'+fmt(q.e)+'<br>'+label).addTo(learningLinks);});
+  // Plot every qualifying receptor country, not only Ecuador.
+  // One line per origin and country avoids four Ecuadorian zones
+  // concealing Colombia, Peru or Chile in the map.
+  const byOriginCountry=new Map();
+  for(const x of items){
+   if(x.q.d>CFG.coreKm)continue;
+   const key=(x.q.e.id||x.q.e.time)+'|'+x.r.country;
+   const prev=byOriginCountry.get(key);
+   if(!prev||x.q.d<prev.q.d)byOriginCountry.set(key,x);
+  }
+  for(const x of byOriginCountry.values()){
+   const q=x.q,r=x.r,c='#f0c644';
+   const label='CHALLENGER M'+Number(q.e.mag).toFixed(1)+' · origen '+(q.e.place||q.e.source||'global')+' → '+r.country+' / '+r.name+' · núcleo '+Math.round(q.d)+' km · no activa V1';
+   L.polyline([[q.e.lat,q.e.lon],[r.lat,r.lon]],{color:c,weight:1.8,dashArray:'4 8',opacity:.7})
+    .bindTooltip(label).bindPopup(label+'<br>Solo correspondencia geométrica; NO indica transferencia causal, propagación ni riesgo.').addTo(learningLinks);
+   L.circleMarker([q.e.lat,q.e.lon],{radius:4,color:c,weight:1.5,fillOpacity:.75})
+    .bindPopup('<b>Origen antipodal experimental</b><br>'+fmt(q.e)+'<br>'+label).addTo(learningLinks);
+  }
 }
 function drawLinks(active){
   links.clearLayers();
@@ -151,7 +179,7 @@ function drawLinks(active){
     const label='Sismo '+fmt(x.src.e)+' → '+r.name+' · correspondencia con núcleo antipodal (≤'+CFG.coreKm+' km)';
     L.polyline([origin,dest],{color:c,weight:2.5,dashArray:'9 7',opacity:.9})
       .bindTooltip(label).bindPopup(label+'<br>La línea indica una relación geométrica; no una trayectoria de energía ni causalidad demostrada.').addTo(links);
-    // Arrowhead near Ecuador; schematic direction only, not wave propagation.
+    // Arrowhead near the calculated receiver, whichever country it belongs to.
     const dx=dest[1]-origin[1],dy=dest[0]-origin[0],len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len;
     const tip=[dest[0]-uy*.8,dest[1]-ux*.8],size=1.25;
     L.polyline([[tip[0]-uy*size+ux*size*.45,tip[1]-ux*size-uy*size*.45],tip,[tip[0]-uy*size-ux*size*.45,tip[1]-ux*size+uy*size*.45]],{color:c,weight:2.5,opacity:.9,interactive:false}).addTo(links);
@@ -192,7 +220,7 @@ function run(){
   const sourceButton=document.getElementById('antiViewSources');sourceButton.disabled=!direct.length;sourceButton.textContent=direct.length?'Ver vínculos activos':'Sin activación núcleo';
   document.getElementById('antiRows').innerHTML=rows.join('');
   document.getElementById('antiSummary').innerHTML='<b>Estado actual:</b> '+nCore+' receptor(es) con fuente en núcleo · '+nHalo+' en halo · '+(RECEIVERS.length-nCore-nHalo)+' sin fuente antipodal activa. '+
-    '<br><b>Mapa:</b> líneas discontinuas hacia los receptores únicamente si un sismo M>'+CFG.sourceMag+' de las últimas '+CFG.watchHours+' h está a ≤'+CFG.coreKm+' km de su antípoda. Los eventos solo en el halo no generan líneas. La observación M4,0–6,0 dibuja líneas únicamente para receptores de Ecuador en el núcleo. Sin evento correspondiente, no se dibuja ningún vínculo.<br><b>Patrón geográfico:</b> cada receptor usa su <b>antípoda matemática exacta</b>; las etiquetas regionales son descriptivas y no sustituyen el cálculo geométrico. La ausencia de una fuente en la huella significa <b>sin activación antipodal detectada</b>, no ausencia de peligro sísmico.<br><b>Seguimiento:</b> observación desde M≥4,0 en ventanas 24/72 h; M≤6,0 no aporta al puntaje de proyección.';
+    '<br><b>Mapa:</b> líneas discontinuas hacia los receptores únicamente si un sismo M>'+CFG.sourceMag+' de las últimas '+CFG.watchHours+' h está a ≤'+CFG.coreKm+' km de su antípoda. Los eventos solo en el halo no generan líneas. La observación M4,0–6,0 dibuja líneas para receptores de cualquier país únicamente si existe correspondencia geométrica dentro del núcleo. Se muestra un destino por país y sismo para evitar líneas duplicadas. Sin evento correspondiente, no se dibuja ningún vínculo.<br><b>Patrón geográfico:</b> cada receptor usa su <b>antípoda matemática exacta</b>; las etiquetas regionales son descriptivas y no sustituyen el cálculo geométrico. La ausencia de una fuente en la huella significa <b>sin activación antipodal detectada</b>, no ausencia de peligro sísmico.<br><b>Seguimiento:</b> observación desde M≥4,0 en ventanas 24/72 h; M≤6,0 no aporta al puntaje de proyección.';
   window.mivigeAntipodeNetworkV2={receivers:RECEIVERS,active,learning,config:CFG};
 }
 ensureCard();
