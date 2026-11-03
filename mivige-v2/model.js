@@ -38,7 +38,12 @@ const experimentalLayer=L.layerGroup();
 let gnssState=null;
 let lastModel=null;
 let chocoWatch=null;
-async function loadChocoWatch(){try{const r=await fetch('../v23/choco_watch.json?t='+Date.now(),{cache:'no-store'});if(r.ok)chocoWatch=await r.json();}catch(_){chocoWatch=null;}}
+async function loadChocoWatch(){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),4000);
+ try{const r=await fetch('../v23/choco_watch.json?t='+Date.now(),{cache:'no-store',signal:controller.signal});if(r.ok)chocoWatch=await r.json();}
+ catch(_){chocoWatch=null;}
+ finally{clearTimeout(timer);}
+}
 
 function clamp(x,a=0,b=1){return Math.max(a,Math.min(b,x));}
 function mean(a){return a.length?a.reduce((s,x)=>s+x,0)/a.length:null;}
@@ -195,7 +200,7 @@ function antipodeScreen(events,now){
   return {source:src,target:best.s,distance:best.d,ap,label:best.d<=225?'huella antipodal núcleo':best.d<=560?'huella antipodal halo':'fuera de huella operativa'};
 }
 async function loadGnssState(){
-  const urls=['https://raw.githubusercontent.com/xvaldiviezo50/file-C-Users-javier.valdiviezo-Downloads-visor_mivige_sismico.html-/main/mivige-v2/data/gnss.json','data/gnss.json'];
+  const urls=['data/gnss.json','https://raw.githubusercontent.com/xvaldiviezo50/file-C-Users-javier.valdiviezo-Downloads-visor_mivige_sismico.html-/main/mivige-v2/data/gnss.json'];
   try{gnssState=gnssState||JSON.parse(localStorage.getItem("mivige-last-gnss")||"null");}catch(_){}
   for(const url of urls){
     const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
@@ -366,6 +371,29 @@ async function runModel(){
   window.mivigeV2=lastModel;
   window.dispatchEvent(new Event('mivige:model'));
 }
+// Bounded automatic fallback; regional M≥4.5 is not a complete seismic catalogue.
+async function loadAutomaticFallback(){
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),6000);
+ try{
+  const r=await fetch('data/automatic-catalogue.json?t='+Date.now(),{cache:'no-store',signal:controller.signal});
+  if(!r.ok)throw Error('Respaldo HTTP '+r.status);
+  const j=await r.json();
+  if(!Array.isArray(j.events)||!j.events.length)return [];
+  const retrievedAt=Date.parse(j.meta?.retrieved_at||'');
+  const events=j.events.map(e=>({
+   source:'USGS',id:String(e.id||''),time:Number(e.time)<1e12?Number(e.time)*1000:Number(e.time),
+   mag:Number(e.mag),depth:e.depth==null?null:Number(e.depth),lat:Number(e.lat),lon:Number(e.lon),
+   place:e.place||'Catálogo automático M≥4.5',magType:e.mag_type||null,updated:Number(e.updated)||null
+  })).filter(e=>Number.isFinite(e.time)&&Number.isFinite(e.mag)&&Number.isFinite(e.lat)&&Number.isFinite(e.lon)&&e.time<=Date.now()+60000);
+  if(!events.length)return [];
+  sourceStatus.USGS={...(sourceStatus.USGS||{}),ok:false,cached:true,truncated:true,count:events.length,
+   lastSuccessAt:Number.isFinite(retrievedAt)?retrievedAt:null,
+   error:'Respaldo automático USGS M≥4.5; cobertura parcial (no es catálogo de M≥3)'};
+  window.mivigeFallbackCatalogue={retrievedAt:Number.isFinite(retrievedAt)?retrievedAt:null,count:events.length,scope:'USGS ComCat M≥4.5'};
+  return events;
+ }catch(e){console.warn('MIVIGE respaldo no disponible',e);return [];}
+ finally{clearTimeout(timer);}
+}
 let refreshing=false;
 async function refresh(){
   if(refreshing)return;refreshing=true;
@@ -374,12 +402,25 @@ async function refresh(){
   if(btn){btn.disabled=true;btn.textContent='Actualizando…';}
   const [parts]=await Promise.all([Promise.all(Object.entries(endpoints).map(([n,u])=>fetchSource(n,u))),loadGnssState(),loadChocoWatch()]);
   allEvents=dedupe(parts.flat());
+  if(!allEvents.length)allEvents=dedupe(await loadAutomaticFallback());
   window.allEvents=allEvents;
+  const connection=document.getElementById('connectionStatus');
+  if(connection){
+   const live=Object.entries(sourceStatus).filter(([name,st])=>['USGS','EMSC','IG-EPN','IGP','SGC'].includes(name)&&st?.ok&&!st.cached&&!st.truncated).map(([name])=>name);
+   if(live.length){
+    const limited=Object.entries(sourceStatus).filter(([name,st])=>['USGS','EMSC','IG-EPN','IGP','SGC'].includes(name)&&(!st?.ok||st.truncated)).map(([name])=>name);
+    connection.textContent='Catálogos consultados: '+live.join(', ')+' · '+allEvents.length+' eventos disponibles'+(limited.length?' · cobertura parcial en '+limited.join(', '):'')+'.';
+   }else if(allEvents.length){
+    connection.textContent='MODO RESPALDO · '+allEvents.length+' observaciones conservadas; cobertura parcial o histórica. No constituyen un catálogo sísmico completo ni confirman actividad actual.';
+   }else{
+    connection.textContent='SIN DATOS VERIFICADOS · fallaron las fuentes en tiempo real y el respaldo automático. Reintente la actualización.';
+   }
+  }
   document.getElementById('cut').textContent=fmtFull(Date.now());
   refreshAt=Date.now()+CFG.refreshMs;
   renderSources();
   await runModel();
-  }catch(error){const sem=document.getElementById('semaforo');if(sem){sem.textContent='DATOS INSUFICIENTES · error de actualización';sem.style.background='#8993a4';}console.error(error);}
+  }catch(error){const sem=document.getElementById('semaforo');if(sem){sem.textContent='DATOS INSUFICIENTES · error de actualización';sem.style.background='#8993a4';}const connection=document.getElementById('connectionStatus');if(connection)connection.textContent='Error en cálculo del modelo; no se debe interpretar un ranking sin datos verificados.';console.error(error);}
   finally{refreshing=false;const btn=document.getElementById('refresh');if(btn){btn.disabled=false;btn.textContent='Actualizar datos';}}
 }
 function tick(){
