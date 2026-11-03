@@ -59,7 +59,7 @@ function officialTolimaObservation(p){
  '<h3 style="font-size:15px;margin:0 0 7px">Colombia · Tolima / Chaparral — seguimiento nacional SGC</h3>'+
  '<div class="small"><b>Fuente y corte:</b> '+esc(b.label)+archival+'.</div>'+
  '<div class="small"><b>Sismo principal:</b> M'+b.mag.toFixed(1)+' · '+b.depthKm+' km · 04:13, 3 de noviembre de 2026 · epicentro Chaparral, Tolima.</div>'+
- '<div class="small"><b>Secuencia de Chaparral:</b> más de '+b.swarmCountMin.toLocaleString('es-EC')+' eventos M≥'+b.swarmMagMin+' desde el '+b.swarmSince+
+ '<div class="small"><b>Secuencia de Chaparral:</b> más de '+b.swarmCountMin.toLocaleString('es-EC')+' eventos M>'+b.swarmMagMin+' desde el '+b.swarmSince+
  ' · '+b.aftershocks+' réplicas M'+b.aftershockMin.toFixed(1)+'–'+b.aftershockMax.toFixed(1)+' al corte · más de '+b.feltsMin.toLocaleString('es-EC')+' reportes de sentido.</div>'+
  (primary?'<div class="small"><b>Contraste de catálogos:</b> '+esc(primary.source)+' M'+Number(primary.mag).toFixed(1)+
  ' · '+(Number.isFinite(Number(primary.depth))&&primary.depth!=null?Number(primary.depth).toFixed(1)+' km':'profundidad N/A')+
