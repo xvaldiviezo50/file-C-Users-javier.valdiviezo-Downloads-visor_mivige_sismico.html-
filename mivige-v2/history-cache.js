@@ -9,10 +9,21 @@ function persist(){try{localStorage.setItem(KEY,JSON.stringify(saved));}catch(_)
 const ready=(async()=>{try{const r=await fetch('data/observations-history.json',{cache:'no-cache',signal:AbortSignal.timeout(8000)});if(!r.ok)return;const j=await r.json();for(const [name,v] of Object.entries(j.sources||{})){const old=saved.sources[name];saved.sources[name]={...((old?.fetchedAt||0)>(v.fetchedAt||0)?old:v),events:(old?.fetchedAt||0)>(v.fetchedAt||0)?merge(v.events||[],old?.events||[]):merge(old?.events||[],v.events||[])};}persist();}catch(_){}})();
 const liveFetch=fetchSource;
 fetchSource=async function(name,url){
- await ready;
- const events=await liveFetch(name,url),status=sourceStatus[name]||{},old=saved.sources[name];
- if(events.length){saved.sources[name]={events:merge(old?.events||[],events),fetchedAt:status.fetchedAt||Date.now(),status:{...status}};persist();}
- if(!events.length&&old?.events?.length){sourceStatus[name]={...status,ok:false,cached:true,count:old.events.length,lastSuccessAt:old.fetchedAt,error:status.error||'Respuesta vacía; se conserva el histórico'};return old.events;}
+ // Live sources must not be blocked by the multi-megabyte history download.
+ const events=await liveFetch(name,url),status=sourceStatus[name]||{};
+ if(events.length){
+  const old=saved.sources[name];
+  saved.sources[name]={events:merge(old?.events||[],events),fetchedAt:status.fetchedAt||Date.now(),status:{...status}};
+  persist();
+  return events;
+ }
+ // On an outage, allow a brief opportunity for the archived server copy to load.
+ await Promise.race([ready,new Promise(resolve=>setTimeout(resolve,1200))]);
+ const old=saved.sources[name];
+ if(old?.events?.length){
+  sourceStatus[name]={...status,ok:false,cached:true,count:old.events.length,lastSuccessAt:old.fetchedAt,error:status.error||'Respuesta vacía; se conserva el histórico'};
+  return old.events;
+ }
  return events;
 };
 function draw(){
