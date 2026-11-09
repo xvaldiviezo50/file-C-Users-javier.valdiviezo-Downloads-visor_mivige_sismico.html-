@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CEDIA · Consumo de servicios y Bases de Datos · 2026</title>
+<style>
+:root{--navy:#08345c;--blue:#0d67b5;--cyan:#13b6c9;--green:#42ad2b;--orange:#ee9b2e;--purple:#7652b8;--ink:#12233b;--muted:#6d7b8f;--bg:#f4f7fb;--card:#fff;--line:#dde6ef;}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(120deg,#052e56,#0d67b5);color:white;padding:28px 34px 20px;position:sticky;top:0;z-index:50;box-shadow:0 4px 18px #001b3328}
+.brand{display:flex;align-items:center;gap:18px;justify-content:space-between} .logo{font-size:44px;font-weight:800;letter-spacing:-2px} .title h1{margin:0;font-size:26px} .title p{margin:5px 0 0;color:#d8eefc}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px} .tab{border:1px solid #ffffff45;background:#ffffff14;color:white;padding:10px 15px;border-radius:999px;font-weight:700;cursor:pointer}
+.tab.active,.tab:hover{background:white;color:var(--navy)}
+main{max-width:1480px;margin:auto;padding:26px} .view{display:none} .view.active{display:block}
+.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin:6px 0 18px} h2{font-size:28px;margin:0;color:var(--navy)} .section-head p{margin:5px 0 0;color:var(--muted)}
+.grid{display:grid;gap:16px} .g4{grid-template-columns:repeat(4,minmax(0,1fr))} .g3{grid-template-columns:repeat(3,minmax(0,1fr))} .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 6px 18px #17324d0b}
+.kpi .klabel{font-size:13px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em} .kpi .kvalue{font-size:34px;font-weight:850;color:var(--navy);margin:8px 0 2px} .kpi .ksub{color:var(--muted);font-size:13px}
+.accent-blue{border-top:5px solid var(--blue)} .accent-green{border-top:5px solid var(--green)} .accent-orange{border-top:5px solid var(--orange)} .accent-purple{border-top:5px solid var(--purple)}
+.card h3{margin:0 0 14px;color:var(--navy);font-size:19px} .note{padding:13px 15px;border-radius:12px;background:#eef5fb;border-left:4px solid var(--blue);color:#34495e;font-size:14px}
+.note.warn{background:#fff6e8;border-color:var(--orange)} .note strong{color:var(--navy)}
+.barrow{display:grid;grid-template-columns:250px 1fr 70px;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #edf1f5} .barrow:last-child{border-bottom:0}
+.barlabel{display:flex;flex-direction:column} .barlabel span,.mix-row span,small{display:block;color:var(--muted);font-size:12px;margin-top:3px} .track{height:13px;background:#e8eef4;border-radius:999px;overflow:hidden} .track i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:inherit}
+.barrow.muted .track i{background:#bbc7d3} .barvalue{font-weight:800;text-align:right;color:var(--navy)}
+table{width:100%;border-collapse:collapse;font-size:13px} th{text-align:left;background:#f2f6fa;color:#526579;padding:11px;border-bottom:1px solid var(--line);position:sticky;top:0} td{padding:10px 11px;border-bottom:1px solid #edf1f5;vertical-align:top} td.center{text-align:center} .pill{display:inline-flex;min-width:30px;height:30px;border-radius:50%;align-items:center;justify-content:center;background:#e6f1fb;color:var(--blue);font-weight:850}
+.tablewrap{max-height:520px;overflow:auto;border:1px solid var(--line);border-radius:12px} .search{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;margin-bottom:12px;font-size:14px}
+.service-card{display:flex;gap:16px;align-items:center;background:white;border:1px solid var(--line);border-radius:16px;padding:18px} .service-card h4{margin:0;color:var(--navy);font-size:18px} .service-card p{margin:5px 0 0;font-weight:750}
+.ring{--p:50;width:82px;height:82px;border-radius:50%;background:conic-gradient(var(--green) calc(var(--p)*1%),#e8eef4 0);display:grid;place-items:center;flex:0 0 auto;position:relative} .ring:after{content:"";width:58px;height:58px;background:white;border-radius:50%;position:absolute} .ring span{position:relative;z-index:1;font-weight:850;color:var(--navy)}
+.margin{background:#e9f7e5;color:#2f7e22;padding:5px 8px;border-radius:999px;font-weight:800} .status{padding:5px 8px;border-radius:999px;background:#e7f5ea;color:#24713b;font-weight:750;font-size:12px} .status.pending{background:#fff0d9;color:#9b5e00}
+.mix-row{display:grid;grid-template-columns:220px 1fr 70px;gap:12px;align-items:center;padding:10px 0} .mix-row>div:first-child{display:flex;flex-direction:column} .mix-row em{font-style:normal;font-weight:800;text-align:right;color:var(--navy)}
+.bigmoney{font-size:38px;font-weight:900;color:var(--navy)} .submoney{color:var(--muted);font-size:13px;margin-top:4px} .split{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.footer{color:#7a899b;font-size:12px;text-align:center;padding:30px 10px 42px}
+@media(max-width:1000px){.g4,.g3,.g2{grid-template-columns:1fr 1fr} .barrow{grid-template-columns:180px 1fr 60px}}
+@media(max-width:680px){header{position:static} main{padding:14px} .g4,.g3,.g2{grid-template-columns:1fr} .barrow,.mix-row{grid-template-columns:1fr} .barvalue,.mix-row em{text-align:left} .logo{font-size:34px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">cedia</div>
+    <div class="title"><h1>Consumo de Servicios y Bases de Datos · 2026</h1><p>Dashboard ejecutivo construido desde Proyectos 2026 - Visión 2027.xlsx</p></div>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('resumen',this)">Resumen</button>
+    <button class="tab" onclick="showTab('paquete',this)">Uso del paquete</button>
+    <button class="tab" onclick="showTab('bases',this)">Bases de Datos</button>
+    <button class="tab" onclick="showTab('ventas',this)">Ventas fuera del paquete</button>
+  </div>
+</header>
+
+<main>
+<section id="resumen" class="view active">
+ <div class="section-head"><div><h2>Resumen ejecutivo</h2><p>Lectura consolidada de las tres hojas solicitadas.</p></div></div>
+ <div class="grid g4">
+   <div class="card kpi accent-blue"><div class="klabel">Instituciones analizadas</div><div class="kvalue">67</div><div class="ksub">Miembros con tipo institucional en USO SERVICIOS</div></div>
+   <div class="card kpi accent-green"><div class="klabel">Mayor cobertura registrada</div><div class="kvalue">68,7%</div><div class="ksub">TMO · 46 instituciones con consumo &gt; 0</div></div>
+   <div class="card kpi accent-orange"><div class="klabel">Ventas realizadas BD</div><div class="kvalue">$ 244.836,20</div><div class="ksub">Edpuzzle + ProQuest + Wolfram · hoja Bases Datos</div></div>
+   <div class="card kpi accent-purple"><div class="klabel">Total vendido BD</div><div class="kvalue">$ 269.513,17</div><div class="ksub">Incluye facturado y por facturar · Base Datos BD</div></div>
+ </div>
+ <div class="grid g2" style="margin-top:16px">
+   <div class="card"><h3>Cobertura del paquete</h3><div class="barrow">
+      <div class="barlabel"><b>TMO</b><span>46 de 67 instituciones</span></div>
+      <div class="track"><i style="width:68.7%"></i></div><div class="barvalue">68.7%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>RRAAE</b><span>44 de 67 instituciones</span></div>
+      <div class="track"><i style="width:65.7%"></i></div><div class="barvalue">65.7%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>Plugin ELSA</b><span>33 de 67 instituciones</span></div>
+      <div class="track"><i style="width:49.3%"></i></div><div class="barvalue">49.3%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>EAGORA Science</b><span>22 de 67 instituciones</span></div>
+      <div class="track"><i style="width:32.8%"></i></div><div class="barvalue">32.8%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>Repositorio del Conocimiento</b><span>17 de 67 instituciones</span></div>
+      <div class="track"><i style="width:25.4%"></i></div><div class="barvalue">25.4%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>Escolar</b><span>8 de 67 instituciones</span></div>
+      <div class="track"><i style="width:11.9%"></i></div><div class="barvalue">11.9%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>Diagnóstico de Docentes</b><span>4 de 67 instituciones</span></div>
+      <div class="track"><i style="width:6.0%"></i></div><div class="barvalue">6.0%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>Edpuzzle</b><span>3 de 67 instituciones</span></div>
+      <div class="track"><i style="width:4.5%"></i></div><div class="barvalue">4.5%</div>
+    </div>
+<div class="barrow muted">
+          <div class="barlabel"><b>MOOC</b><span>Sin registros en la hoja</span></div>
+          <div class="track"><i style="width:0%"></i></div><div class="barvalue">—</div>
+        </div>
+<div class="barrow muted">
+          <div class="barlabel"><b>ROA</b><span>Sin registros en la hoja</span></div>
+          <div class="track"><i style="width:0%"></i></div><div class="barvalue">—</div>
+        </div>
+<div class="barrow muted">
+          <div class="barlabel"><b>Encuentro de Docentes</b><span>Sin registros en la hoja</span></div>
+          <div class="track"><i style="width:0%"></i></div><div class="barvalue">—</div>
+        </div></div>
+   <div class="card">
+     <h3>Lecturas de consistencia del archivo</h3>
+     <div class="note"><strong>USO SERVICIOS:</strong> MOOC, ROA y Encuentro de Docentes no contienen registros de uso en la hoja; el visor los presenta como “Sin registros”, no como 0% de adopción.</div>
+     <div class="note warn" style="margin-top:10px"><strong>TMO:</strong> se usa únicamente el criterio “valor &gt; 0” para determinar uso. El archivo contiene tres valores superiores a 1 (UBE 13,06; UAW 1,0174; CONESA 1,0003), por lo que no se normalizan ni corrigen.</div>
+     <div class="note warn" style="margin-top:10px"><strong>EAGORA:</strong> la hoja Bases Datos declara 59 instituciones, 58 activas y 1 sin uso; sin embargo, el desglose por tipo institucional de esa misma hoja suma 58. El dashboard conserva el resumen declarado 59/58/1.</div>
+   </div>
+ </div>
+</section>
+
+<section id="paquete" class="view">
+ <div class="section-head"><div><h2>Uso del paquete por servicio</h2><p>Fuente exclusiva: pestaña USO SERVICIOS.</p></div></div>
+ <div class="grid g4">
+   <div class="card kpi accent-blue"><div class="klabel">TMO</div><div class="kvalue">46</div><div class="ksub">de 67 con valor de consumo &gt; 0</div></div>
+   <div class="card kpi accent-green"><div class="klabel">RRAAE</div><div class="kvalue">44</div><div class="ksub">65,7% de las instituciones</div></div>
+   <div class="card kpi accent-blue"><div class="klabel">Plugin ELSA</div><div class="kvalue">33</div><div class="ksub">49,3% de las instituciones</div></div>
+   <div class="card kpi accent-purple"><div class="klabel">Servicios sin registro</div><div class="kvalue">3</div><div class="ksub">MOOC · ROA · Encuentro de Docentes</div></div>
+ </div>
+ <div class="grid g2" style="margin-top:16px">
+   <div class="card"><h3>Cobertura institucional por servicio</h3><div class="barrow">
+      <div class="barlabel"><b>TMO</b><span>46 de 67 instituciones</span></div>
+      <div class="track"><i style="width:68.7%"></i></div><div class="barvalue">68.7%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>RRAAE</b><span>44 de 67 instituciones</span></div>
+      <div class="track"><i style="width:65.7%"></i></div><div class="barvalue">65.7%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>Plugin ELSA</b><span>33 de 67 instituciones</span></div>
+      <div class="track"><i style="width:49.3%"></i></div><div class="barvalue">49.3%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>EAGORA Science</b><span>22 de 67 instituciones</span></div>
+      <div class="track"><i style="width:32.8%"></i></div><div class="barvalue">32.8%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>Repositorio del Conocimiento</b><span>17 de 67 instituciones</span></div>
+      <div class="track"><i style="width:25.4%"></i></div><div class="barvalue">25.4%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>Escolar</b><span>8 de 67 instituciones</span></div>
+      <div class="track"><i style="width:11.9%"></i></div><div class="barvalue">11.9%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>Diagnóstico de Docentes</b><span>4 de 67 instituciones</span></div>
+      <div class="track"><i style="width:6.0%"></i></div><div class="barvalue">6.0%</div>
+    </div>
+<div class="barrow">
+      <div class="barlabel"><b>Edpuzzle</b><span>3 de 67 instituciones</span></div>
+      <div class="track"><i style="width:4.5%"></i></div><div class="barvalue">4.5%</div>
+    </div>
+<div class="barrow muted">
+          <div class="barlabel"><b>MOOC</b><span>Sin registros en la hoja</span></div>
+          <div class="track"><i style="width:0%"></i></div><div class="barvalue">—</div>
+        </div>
+<div class="barrow muted">
+          <div class="barlabel"><b>ROA</b><span>Sin registros en la hoja</span></div>
+          <div class="track"><i style="width:0%"></i></div><div class="barvalue">—</div>
+        </div>
+<div class="barrow muted">
+          <div class="barlabel"><b>Encuentro de Docentes</b><span>Sin registros en la hoja</span></div>
+          <div class="track"><i style="width:0%"></i></div><div class="barvalue">—</div>
+        </div></div>
+   <div class="card"><h3>Instituciones con mayor amplitud de uso</h3><div class="tablewrap"><table><thead><tr><th>#</th><th>Institución</th><th>Servicios</th><th>Detalle</th></tr></thead><tbody><tr><td>1</td><td><b>ESPE</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">5</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+<tr><td>2</td><td><b>UCUENCA</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">5</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+<tr><td>3</td><td><b>USFQ</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">5</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+<tr><td>4</td><td><b>UTA</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">5</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+<tr><td>5</td><td><b>UTMACH</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">5</span></td><td>TMO, Diagnóstico de Docentes, Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+<tr><td>6</td><td><b>ESPOCH</b><small>Escuelas Politécnicas</small></td>
+        <td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, RRAAE, Repositorio del Conocimiento</td></tr>
+<tr><td>7</td><td><b>IAEN</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+<tr><td>8</td><td><b>IKIAM</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, RRAAE, Repositorio del Conocimiento</td></tr>
+<tr><td>9</td><td><b>ITSCO</b><small>Institutos Tecnológicos</small></td>
+        <td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+<tr><td>10</td><td><b>UCACUE</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">4</span></td><td>TMO, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+<tr><td>11</td><td><b>UCE</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+<tr><td>12</td><td><b>UCSG</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, RRAAE, Repositorio del Conocimiento</td></tr>
+<tr><td>13</td><td><b>UNACH</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, RRAAE, Repositorio del Conocimiento</td></tr>
+<tr><td>14</td><td><b>UNL</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+<tr><td>15</td><td><b>UTI</b><small>Universidades</small></td>
+        <td class="center"><span class="pill">4</span></td><td>TMO, Diagnóstico de Docentes, RRAAE, Repositorio del Conocimiento</td></tr></tbody></table></div></div>
+ </div>
+ <div class="card" style="margin-top:16px"><h3>Cobertura por tipo institucional</h3><div class="tablewrap"><table><thead><tr><th>Tipo</th><th>TMO</th><th>Diagnóstico de Docentes</th><th>Plugin ELSA</th><th>EAGORA Science</th><th>RRAAE</th><th>Repositorio del Conocimiento</th><th>Escolar</th><th>Edpuzzle</th></tr></thead><tbody><tr><td><b>Universidades</b><small>n=40</small></td><td><b>29</b><small>72%</small></td><td><b>3</b><small>8%</small></td><td><b>22</b><small>55%</small></td><td><b>17</b><small>42%</small></td><td><b>38</b><small>95%</small></td><td><b>15</b><small>38%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td></tr>
+<tr><td><b>Escuelas Politécnicas</b><small>n=4</small></td><td><b>3</b><small>75%</small></td><td><b>1</b><small>25%</small></td><td><b>3</b><small>75%</small></td><td><b>1</b><small>25%</small></td><td><b>3</b><small>75%</small></td><td><b>2</b><small>50%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td></tr>
+<tr><td><b>Institutos Tecnológicos</b><small>n=11</small></td><td><b>6</b><small>55%</small></td><td><b>0</b><small>0%</small></td><td><b>7</b><small>64%</small></td><td><b>2</b><small>18%</small></td><td><b>3</b><small>27%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td></tr>
+<tr><td><b>Instituto de Investigación</b><small>n=1</small></td><td><b>1</b><small>100%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td><td><b>1</b><small>100%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td></tr>
+<tr><td><b>Entidades Gubernamentales</b><small>n=3</small></td><td><b>3</b><small>100%</small></td><td><b>0</b><small>0%</small></td><td><b>1</b><small>33%</small></td><td><b>1</b><small>33%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td></tr>
+<tr><td><b>Colegios</b><small>n=8</small></td><td><b>4</b><small>50%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td><td><b>0</b><small>0%</small></td><td><b>8</b><small>100%</small></td><td><b>3</b><small>38%</small></td></tr></tbody></table></div></div>
+ <div class="card" style="margin-top:16px">
+   <div class="split"><h3>Matriz de uso por institución</h3><span style="color:var(--muted);font-size:12px">Servicios incluidos en el paquete</span></div>
+   <input class="search" id="packageSearch" placeholder="Buscar institución o tipo..." oninput="filterRows('packageTable',this.value)">
+   <div class="tablewrap"><table id="packageTable"><thead><tr><th>Institución</th><th>Servicios usados</th><th>Detalle</th></tr></thead><tbody>
+<tr><td><b>ESPE</b><small>Universidades</small></td><td class="center"><span class="pill">5</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UCUENCA</b><small>Universidades</small></td><td class="center"><span class="pill">5</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>USFQ</b><small>Universidades</small></td><td class="center"><span class="pill">5</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UTA</b><small>Universidades</small></td><td class="center"><span class="pill">5</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UTMACH</b><small>Universidades</small></td><td class="center"><span class="pill">5</span></td><td>TMO, Diagnóstico de Docentes, Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>ESPOCH</b><small>Escuelas Politécnicas</small></td><td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>IAEN</b><small>Universidades</small></td><td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>IKIAM</b><small>Universidades</small></td><td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>ITSCO</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>UCACUE</b><small>Universidades</small></td><td class="center"><span class="pill">4</span></td><td>TMO, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UCE</b><small>Universidades</small></td><td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>UCSG</b><small>Universidades</small></td><td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UNACH</b><small>Universidades</small></td><td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UNL</b><small>Universidades</small></td><td class="center"><span class="pill">4</span></td><td>TMO, Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>UTI</b><small>Universidades</small></td><td class="center"><span class="pill">4</span></td><td>TMO, Diagnóstico de Docentes, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UTPL</b><small>Universidades</small></td><td class="center"><span class="pill">4</span></td><td>TMO, EAGORA Science, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>CONESA</b><small>Colegios</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Escolar, Edpuzzle</td></tr>
+
+<tr><td><b>EPN</b><small>Escuelas Politécnicas</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Plugin ELSA, RRAAE</td></tr>
+
+<tr><td><b>ESPAM</b><small>Escuelas Politécnicas</small></td><td class="center"><span class="pill">3</span></td><td>Diagnóstico de Docentes, Plugin ELSA, EAGORA Science</td></tr>
+
+<tr><td><b>ESPOL</b><small>Escuelas Politécnicas</small></td><td class="center"><span class="pill">3</span></td><td>TMO, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>ITB</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Plugin ELSA, RRAAE</td></tr>
+
+<tr><td><b>PASOS</b><small>Colegios</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Escolar, Edpuzzle</td></tr>
+
+<tr><td><b>PUCE</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UARTES</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>UAW</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Plugin ELSA, RRAAE</td></tr>
+
+<tr><td><b>UDA</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UDLA</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>Diagnóstico de Docentes, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UEB</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Plugin ELSA, RRAAE</td></tr>
+
+<tr><td><b>UESFN</b><small>Colegios</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Escolar, Edpuzzle</td></tr>
+
+<tr><td><b>UG</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Plugin ELSA, RRAAE</td></tr>
+
+<tr><td><b>UIDE</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>UISRAEL</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Plugin ELSA, RRAAE</td></tr>
+
+<tr><td><b>UPEC</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Plugin ELSA, RRAAE</td></tr>
+
+<tr><td><b>UPS</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>USGP</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>UTC</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>Plugin ELSA, EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>UTE</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>UTM</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>TMO, Plugin ELSA, RRAAE</td></tr>
+
+<tr><td><b>YACHAY</b><small>Universidades</small></td><td class="center"><span class="pill">3</span></td><td>Plugin ELSA, RRAAE, Repositorio del Conocimiento</td></tr>
+
+<tr><td><b>ACAC</b><small>Colegios</small></td><td class="center"><span class="pill">2</span></td><td>TMO, Escolar</td></tr>
+
+<tr><td><b>ARMADA</b><small>Entidades Gubernamentales</small></td><td class="center"><span class="pill">2</span></td><td>TMO, Plugin ELSA</td></tr>
+
+<tr><td><b>CACES</b><small>Entidades Gubernamentales</small></td><td class="center"><span class="pill">2</span></td><td>TMO, EAGORA Science</td></tr>
+
+<tr><td><b>INOCAR</b><small>Instituto de Investigación</small></td><td class="center"><span class="pill">2</span></td><td>TMO, EAGORA Science</td></tr>
+
+<tr><td><b>ISTER</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">2</span></td><td>TMO, Plugin ELSA</td></tr>
+
+<tr><td><b>ISTVN</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">2</span></td><td>TMO, RRAAE</td></tr>
+
+<tr><td><b>ITECSUR</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">2</span></td><td>Plugin ELSA, EAGORA Science</td></tr>
+
+<tr><td><b>UBE</b><small>Universidades</small></td><td class="center"><span class="pill">2</span></td><td>TMO, RRAAE</td></tr>
+
+<tr><td><b>UEA</b><small>Universidades</small></td><td class="center"><span class="pill">2</span></td><td>EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>UNAE</b><small>Universidades</small></td><td class="center"><span class="pill">2</span></td><td>EAGORA Science, RRAAE</td></tr>
+
+<tr><td><b>UNIANDES</b><small>Universidades</small></td><td class="center"><span class="pill">2</span></td><td>Plugin ELSA, RRAAE</td></tr>
+
+<tr><td><b>UOTAVALO</b><small>Universidades</small></td><td class="center"><span class="pill">2</span></td><td>Plugin ELSA, RRAAE</td></tr>
+
+<tr><td><b>UTEQ</b><small>Universidades</small></td><td class="center"><span class="pill">2</span></td><td>TMO, RRAAE</td></tr>
+
+<tr><td><b>WISSEN</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">2</span></td><td>TMO, Plugin ELSA</td></tr>
+
+<tr><td><b>CENEICA</b><small>Colegios</small></td><td class="center"><span class="pill">1</span></td><td>Escolar</td></tr>
+
+<tr><td><b>CES</b><small>Entidades Gubernamentales</small></td><td class="center"><span class="pill">1</span></td><td>TMO</td></tr>
+
+<tr><td><b>IPAC</b><small>Colegios</small></td><td class="center"><span class="pill">1</span></td><td>Escolar</td></tr>
+
+<tr><td><b>ISTE</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">1</span></td><td>Plugin ELSA</td></tr>
+
+<tr><td><b>ISTP</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">1</span></td><td>TMO</td></tr>
+
+<tr><td><b>ITCA</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">1</span></td><td>Plugin ELSA</td></tr>
+
+<tr><td><b>OPUSQUIL</b><small>Colegios</small></td><td class="center"><span class="pill">1</span></td><td>Escolar</td></tr>
+
+<tr><td><b>UEPC</b><small>Colegios</small></td><td class="center"><span class="pill">1</span></td><td>Escolar</td></tr>
+
+<tr><td><b>UTB</b><small>Universidades</small></td><td class="center"><span class="pill">1</span></td><td>RRAAE</td></tr>
+
+<tr><td><b>UTLVT</b><small>Universidades</small></td><td class="center"><span class="pill">1</span></td><td>Plugin ELSA</td></tr>
+
+<tr><td><b>UTN</b><small>Universidades</small></td><td class="center"><span class="pill">1</span></td><td>RRAAE</td></tr>
+
+<tr><td><b>TECSU</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">0</span></td><td>Sin uso registrado</td></tr>
+
+<tr><td><b>TES</b><small>Institutos Tecnológicos</small></td><td class="center"><span class="pill">0</span></td><td>Sin uso registrado</td></tr>
+
+<tr><td><b>UNIBE</b><small>Universidades</small></td><td class="center"><span class="pill">0</span></td><td>Sin uso registrado</td></tr></tbody></table></div>
+ </div>
+</section>
+
+<section id="bases" class="view">
+ <div class="section-head"><div><h2>Bases de Datos · reporte ampliado</h2><p>Fuente exclusiva: pestaña Bases Datos.</p></div></div>
+ <div class="grid g3">
+   
+<div class="service-card">
+  <div class="ring" style="--p:80"><span>80%</span></div>
+  <div><h4>Edpuzzle</h4><p>16 activas de 20</p><small>4 sin uso / no activas según la hoja</small></div>
+</div>
+
+<div class="service-card">
+  <div class="ring" style="--p:85"><span>85%</span></div>
+  <div><h4>Escolar</h4><p>17 activas de 20</p><small>3 sin uso / no activas según la hoja</small></div>
+</div>
+
+<div class="service-card">
+  <div class="ring" style="--p:98"><span>98%</span></div>
+  <div><h4>EAGORA Science</h4><p>58 activas de 59</p><small>1 sin uso / no activas según la hoja</small></div>
+</div>
+ </div>
+ <div class="grid g4" style="margin-top:16px">
+   <div class="card kpi accent-blue"><div class="klabel">Ventas realizadas</div><div class="kvalue">$ 244.836,20</div><div class="ksub">Edpuzzle + ProQuest + Wolfram</div></div>
+   <div class="card kpi accent-green"><div class="klabel">Margen total</div><div class="kvalue">$ 21.182,58</div><div class="ksub">Margen ponderado 8.65%</div></div>
+   <div class="card kpi accent-orange"><div class="klabel">Costos asociados</div><div class="kvalue">$ 223.653,62</div><div class="ksub">Suma de costos registrados</div></div>
+   <div class="card kpi accent-purple"><div class="klabel">SGA · registro de oportunidad</div><div class="kvalue">$ 450.000</div><div class="ksub">Margen $135.000 · UTA, UIDE, YACHAY</div></div>
+ </div>
+ <div class="grid g2" style="margin-top:16px">
+   <div class="card">
+     <h3>Bajo demanda · desempeño financiero</h3>
+     <div class="tablewrap"><table><thead><tr><th>Producto</th><th>Ventas</th><th>Costos</th><th>Margen</th><th>% margen</th></tr></thead><tbody>
+<tr><td><b>Edpuzzle</b><small>1 colegio</small></td><td>USD 2.100,00</td><td>USD 1.610,00</td><td>USD 490,00</td><td><span class="margin">23.3%</span></td></tr>
+
+<tr><td><b>ProQuest</b><small>14 instituciones</small></td><td>USD 215.382,26</td><td>USD 203.025,49</td><td>USD 12.356,77</td><td><span class="margin">5.7%</span></td></tr>
+
+<tr><td><b>Wolfram</b><small>2 instituciones</small></td><td>USD 27.353,94</td><td>USD 19.018,13</td><td>USD 8.335,81</td><td><span class="margin">30.5%</span></td></tr></tbody></table></div>
+   </div>
+   <div class="card">
+     <h3>Sistema de Gestión Académico</h3>
+     <div class="bigmoney">USD 450.000,00</div><div class="submoney">Oportunidades de venta registradas en la hoja</div>
+     <div class="mix-row"><div><b>Margen</b><span>USD 135.000,00</span></div><div class="track"><i style="width:30%"></i></div><em>30%</em></div>
+     <div class="mix-row"><div><b>Costos</b><span>USD 315.000,00</span></div><div class="track"><i style="width:70%"></i></div><em>70%</em></div>
+     <div class="note" style="margin-top:12px"><strong>Instituciones registradas:</strong> UTA · UIDE · YACHAY.</div>
+   </div>
+ </div>
+ <div class="card" style="margin-top:16px">
+   <h3>Detalle de cobertura en Red Avanzada</h3>
+   <p style="color:var(--muted);font-size:14px;margin-top:0">La hoja reporta Edpuzzle y Escolar para un universo de 20 colegios. Para EAGORA Science reporta un universo de 59 instituciones.</p>
+   <div class="note warn"><strong>Nota de fuente:</strong> EAGORA incluye una observación textual: el servicio no está destinado a colegios y WISSEN no tiene configuradas federaciones; la hoja indica que no desean contratar este servicio.</div>
+ </div>
+</section>
+
+<section id="ventas" class="view">
+ <div class="section-head"><div><h2>Ventas fuera del paquete · Bases de Datos</h2><p>Fuente exclusiva: pestaña Base Datos BD.</p></div></div>
+ <div class="grid g4">
+   <div class="card kpi accent-purple"><div class="klabel">Total vendido</div><div class="kvalue">$ 269.513,17</div><div class="ksub">19 registros de venta · 18 entidades únicas</div></div>
+   <div class="card kpi accent-green"><div class="klabel">Facturado</div><div class="kvalue">$ 244.836,20</div><div class="ksub">90.8% del total vendido</div></div>
+   <div class="card kpi accent-orange"><div class="klabel">Por facturar</div><div class="kvalue">$ 24.676,97</div><div class="ksub">9.2% del total vendido</div></div>
+   <div class="card kpi accent-blue"><div class="klabel">Producto dominante</div><div class="kvalue">ProQuest</div><div class="ksub">79.9% del valor vendido</div></div>
+ </div>
+ <div class="grid g2" style="margin-top:16px">
+   <div class="card"><h3>Distribución del valor vendido</h3>
+<div class="mix-row"><div><b>ProQuest</b><span>USD 215.382,26</span></div><div class="track"><i style="width:79.9%"></i></div><em>79.9%</em></div>
+
+<div class="mix-row"><div><b>Wolfram</b><span>USD 41.030,91</span></div><div class="track"><i style="width:15.2%"></i></div><em>15.2%</em></div>
+
+<div class="mix-row"><div><b>OKSOFAST</b><span>USD 11.000,00</span></div><div class="track"><i style="width:4.1%"></i></div><em>4.1%</em></div>
+
+<div class="mix-row"><div><b>Edpuzzle</b><span>USD 2.100,00</span></div><div class="track"><i style="width:0.8%"></i></div><em>0.8%</em></div></div>
+   <div class="card">
+     <h3>Estado de facturación</h3>
+     <div class="mix-row"><div><b>Facturado</b><span>USD 244.836,20</span></div><div class="track"><i style="width:90.8%"></i></div><em>90.8%</em></div>
+     <div class="mix-row"><div><b>Por facturar</b><span>USD 24.676,97</span></div><div class="track"><i style="width:9.2%;background:var(--orange)"></i></div><em>9.2%</em></div>
+     <div class="note warn" style="margin-top:12px"><strong>OKSOFAST:</strong> la hoja registra USD 11.000 dentro de “POR FACTURAR”, pero en el detalle señala: “No se facturará porque se vendió dentro de red avanzada”. El visor conserva ambas referencias sin reinterpretarlas.</div>
+     <div class="note" style="margin-top:10px"><strong>Wolfram:</strong> USD 27.353,94 figuran como facturados y USD 13.676,97 como por facturar, para un total registrado de USD 41.030,91.</div>
+   </div>
+ </div>
+ <div class="card" style="margin-top:16px">
+   <div class="split"><h3>Detalle institucional de ventas</h3><span style="color:var(--muted);font-size:12px">ProQuest · Edpuzzle · Wolfram · OKSOFAST</span></div>
+   <input class="search" id="salesSearch" placeholder="Buscar producto o institución..." oninput="filterRows('salesTable',this.value)">
+   <div class="tablewrap"><table id="salesTable"><thead><tr><th>Producto</th><th>Institución</th><th>Precio de venta</th><th>Estado</th></tr></thead><tbody>
+<tr data-product="proquest"><td>ProQuest</td><td>ISTVN - Instituto Superior Tecnológico Vida Nueva</td><td>USD 8.539,22</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>UNAE - Universidad Nacional de Educación</td><td>USD 9.594,31</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>UTA - Universidad Técnica de Ambato</td><td>USD 17.701,75</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>PUCE - Pontificia Universidad Católica del Ecuador</td><td>USD 3.584,57</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>UNACH - Universidad Nacional de Chimborazo</td><td>USD 17.701,75</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>IKIAM - Universidad Regional Amazónica</td><td>USD 17.701,75</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>ESPOL - Escuela Superior Politécnica del Litoral</td><td>USD 17.701,75</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>UTPL - Universidad Técnica Particular de Loja</td><td>USD 17.701,75</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>ITSCO -  Instituto Superior Tecnológico Cordillera</td><td>USD 16.646,66</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>UPS - Universidad Politécnica Salesiana</td><td>USD 17.701,75</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>UIDE - Universidad Internacional del Ecuador</td><td>USD 17.701,75</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>UDLA - Universidad de las Américas</td><td>USD 17.701,75</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>UCACUE - Universidad Católica de Cuenca</td><td>USD 17.701,75</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="proquest"><td>ProQuest</td><td>UTMACH - Universidad Técnica de Machala</td><td>USD 17.701,75</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="edpuzzle"><td>Edpuzzle</td><td>Colegio Menor de Samborondón</td><td>USD 2.100,00</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="wolfram"><td>Wolfram</td><td>UEA - Universidad Estatal Amazonica</td><td>USD 13.676,97</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="wolfram"><td>Wolfram</td><td>IKIAM - Universidad Regional Amazonica</td><td>USD 13.676,97</td><td><span class="status ">Facturado</span></td></tr>
+
+<tr data-product="wolfram"><td>Wolfram</td><td>YACHAY -</td><td>USD 13.676,97</td><td><span class="status pending">Por facturar</span></td></tr>
+
+<tr data-product="oksofast"><td>OKSOFAST</td><td>UAW - Universidad Intercultural de las Nacionalidades y Pueblos Indígenas Amawtay Wasi</td><td>USD 11.000,00</td><td><span class="status pending">Registrado como por facturar*</span></td></tr></tbody></table></div>
+ </div>
+</section>
+</main>
+<div class="footer">Fuente: Proyectos 2026 - Visión 2027.xlsx · hojas USO SERVICIOS, Bases Datos y Base Datos BD · visor generado 09-11-2026</div>
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active'); btn.classList.add('active'); window.scrollTo(0,0);
+}
+function filterRows(tableId,q){
+ q=q.toLowerCase().trim();
+ document.querySelectorAll('#'+tableId+' tbody tr').forEach(r=>{r.style.display=r.innerText.toLowerCase().includes(q)?'':'none';});
+}
+</script>
+</body></html>
