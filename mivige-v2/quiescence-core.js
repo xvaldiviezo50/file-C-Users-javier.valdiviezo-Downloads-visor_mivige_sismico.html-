@@ -45,6 +45,43 @@ function evaluate(events,now=Date.now()){
    state:sufficient?'observado':'muestra insuficiente'};
  });
 }
+function distanceKm(a,b){
+ const p=Math.PI/180;
+ const x=Math.sin((b.lat-a.lat)*p/2)**2+
+   Math.cos(a.lat*p)*Math.cos(b.lat*p)*Math.sin((b.lon-a.lon)*p/2)**2;
+ return 12742*Math.asin(Math.sqrt(Math.min(1,x)));
+}
+function localPairs(events){
+ // Fraction with a predecessor within 24 hours and 50 km.
+ // Counts event clustering, never resolves the rupture mechanism.
+ const ordered=events.slice().sort((a,b)=>a.time-b.time);
+ let matched=0;
+ for(let i=0;i<ordered.length;i++){
+  const e=ordered[i];
+  for(let j=i-1;j>=0;j--){
+   const prior=ordered[j];
+   if(e.time-prior.time>DAY)break;
+   if(distanceKm(e,prior)<=50){matched++;break;}
+  }
+ }
+ return ordered.length?matched/ordered.length:null;
+}
+function spatialContext(events,now=Date.now()){
+ const valid=(events||[]).filter(e=>isFiniteEvent(e,now)&&Number.isFinite(Number(e.lat))&&Number.isFinite(Number(e.lon))&&
+  Math.abs(Number(e.lat))<=90&&Math.abs(Number(e.lon))<=180);
+ const current=valid.filter(e=>e.time>now-30*DAY&&e.time<=now);
+ const previous=valid.filter(e=>e.time>now-60*DAY&&e.time<=now-30*DAY);
+ if(current.length<8||previous.length<8){
+  return {evaluable:false,current:current.length,previous:previous.length,
+   clusterRecent:null,clusterPrevious:null,centroidShiftKm:null,reason:'menos de 8 eventos geolocalizados por período'};
+ }
+ const centre=a=>({lat:a.reduce((s,e)=>s+Number(e.lat),0)/a.length,
+  lon:a.reduce((s,e)=>s+Number(e.lon),0)/a.length});
+ return {evaluable:true,current:current.length,previous:previous.length,
+  clusterRecent:localPairs(current),clusterPrevious:localPairs(previous),
+  centroidShiftKm:distanceKm(centre(current),centre(previous)),
+  reason:'indicador descriptivo, no migración tectónica causal'};
+}
 function correctFDR(regions){
  // Benjamini-Hochberg over ALL available region-window comparisons.
  // Overlapping windows and clustered aftershocks violate simple independence;
@@ -63,7 +100,7 @@ function correctFDR(regions){
  }
  return regions;
 }
-const api={DAY,WINDOWS,lowerTail,evaluate,correctFDR,version:'1.0.0'};
+const api={DAY,WINDOWS,lowerTail,evaluate,correctFDR,spatialContext,version:'1.1.0'};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 root.MivigeQuiescenceCore=api;
 })(typeof window!=='undefined'?window:globalThis);
