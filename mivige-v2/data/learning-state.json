@@ -38001,6 +38001,131 @@
           "note": "server proxy; V1 browser remains authoritative"
         }
       }
+    },
+    {
+      "time": 1795145068780,
+      "zones": {
+        "cl_c": {
+          "name": "Chile central",
+          "score_proxy": 41.3,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "cl_n": {
+          "name": "Chile norte",
+          "score_proxy": 9.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_s": {
+          "name": "Perú sur",
+          "score_proxy": 9.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_c": {
+          "name": "Perú central",
+          "score_proxy": 9.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "pe_n": {
+          "name": "Perú norte",
+          "score_proxy": 41.3,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_s": {
+          "name": "Ecuador sur · Golfo/El Oro",
+          "score_proxy": 41.3,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_az": {
+          "name": "Ecuador · Azuay/intraslab",
+          "score_proxy": 41.3,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_c": {
+          "name": "Ecuador centro · Manabí",
+          "score_proxy": 41.3,
+          "level_proxy": "MEDIA",
+          "coverage": 70,
+          "ids_proxy": 49.6,
+          "rate_ratio": 6.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ec_n": {
+          "name": "Ecuador norte · Esmeraldas",
+          "score_proxy": 9.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_p": {
+          "name": "Colombia Pacífico · Nariño/Cauca",
+          "score_proxy": 9.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "co_ch": {
+          "name": "Colombia · Chocó",
+          "score_proxy": 9.4,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 26.3,
+          "note": "server proxy; V1 browser remains authoritative"
+        },
+        "ven": {
+          "name": "Venezuela costera",
+          "score_proxy": 12.2,
+          "level_proxy": "BAJA",
+          "coverage": 70,
+          "ids_proxy": 0,
+          "rate_ratio": 0.0,
+          "source_proxy": 34.2,
+          "note": "server proxy; V1 browser remains authoritative"
+        }
+      }
     }
   ],
   "learning_policy": "Observe, validate and recommend only. Never modify V1 weights, thresholds or alerts automatically.",
@@ -46848,13 +46973,72 @@
         4.5,
         6.0
       ],
-      "status": "pending",
-      "hits": [],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000uby4",
+          "m": 4.8,
+          "t": 1795067366623
+        }
+      ],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1795059279876,
       "retrospective": true,
       "source_group": "5-6",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1795145068780,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000ubxb|ec_s|72",
@@ -46912,13 +47096,72 @@
         4.5,
         6.0
       ],
-      "status": "pending",
-      "hits": [],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000uby4",
+          "m": 4.8,
+          "t": 1795067366623
+        }
+      ],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1795059279876,
       "retrospective": true,
       "source_group": "5-6",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1795145068780,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000ubxb|ec_c|72",
@@ -46976,13 +47219,42 @@
         4.5,
         6.0
       ],
-      "status": "pending",
+      "status": "noResponse",
       "hits": [],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1795059279876,
       "retrospective": true,
       "source_group": "5-6",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 3.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.0,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 4.5,
+          "hits": [],
+          "status": "noResponse"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1795145068780,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000ubxb|ec_n|72",
@@ -47040,13 +47312,72 @@
         4.5,
         6.0
       ],
-      "status": "pending",
-      "hits": [],
+      "status": "response",
+      "hits": [
+        {
+          "id": "us6000uby4",
+          "m": 4.8,
+          "t": 1795067366623
+        }
+      ],
       "track": "antipodal-observation-m4-v3",
       "registered_at": 1795094367354,
       "retrospective": true,
       "source_group": "5-6",
-      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast"
+      "note": "Event-origin window registered after source; retrospective association, not a prospective forecast",
+      "target_results": [
+        {
+          "target": 3.0,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 3.5,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.0,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 4.5,
+          "hits": [
+            {
+              "id": "us6000uby4",
+              "m": 4.8,
+              "t": 1795067366623
+            }
+          ],
+          "status": "response"
+        },
+        {
+          "target": 6.0,
+          "hits": [],
+          "status": "noResponse"
+        }
+      ],
+      "evaluated": 1795145068780,
+      "aggregate_rule": "any_registered_target"
     },
     {
       "key": "us6000ubxb|ec_az|72",
@@ -47082,11 +47413,11 @@
     }
   ],
   "antipode_metrics": {
-    "pending": 8,
-    "response": 36,
-    "noResponse": 74
+    "pending": 4,
+    "response": 39,
+    "noResponse": 75
   },
-  "updated": 1795126323772,
+  "updated": 1795145068780,
   "windows": [
     {
       "version": "persistent-v2",
