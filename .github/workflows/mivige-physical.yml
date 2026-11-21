@@ -1,0 +1,60 @@
+name: MIVIGE physical scenarios
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
+  push:
+    paths:
+      - 'scripts/physical_core.py'
+      - 'scripts/collect_physical.py'
+      - 'scripts/test_physical_core.py'
+      - 'scripts/replay_physical.py'
+      - 'mivige-v2/physical-receivers.json'
+      - '.github/workflows/mivige-physical.yml'
+permissions:
+  contents: write
+concurrency:
+  group: mivige-physical
+  cancel-in-progress: false
+jobs:
+  calculate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install 'numpy==1.26.4' 'obspy==1.4.2' 'setuptools<81'
+      - run: python -m unittest discover -s scripts -p test_physical_core.py
+      - run: python scripts/collect_physical.py
+      - name: Verify frozen input replay
+        run: |
+          python - <<'PYCODE'
+          import json, subprocess, pathlib
+          d=json.loads(pathlib.Path('mivige-v2/data/physical-windows.json').read_text())
+          if d['issues']:
+              state=json.loads(pathlib.Path('mivige-v2/data/physical-scenarios.json').read_text())
+              last=d['issues'][-1]
+              # Only replay a snapshot generated with this code checkout.
+              import gzip
+              snap=json.loads(gzip.decompress(pathlib.Path(last['snapshot']).read_bytes()))
+              if snap['scenarios']['manifest']==state.get('manifest'):
+                  subprocess.run(['python','scripts/replay_physical.py',last['snapshot']],check=True)
+          PYCODE
+      - name: Preserve independent scenarios
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add mivige-v2/data/physical-scenarios.json mivige-v2/data/physical-windows.json
+          if [ -d mivige-v2/data/physical-snapshots ]; then git add mivige-v2/data/physical-snapshots/; fi
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record independent physical scenarios and follow-up windows'
+            for attempt in 1 2 3; do
+              git pull --rebase origin main
+              if git push origin HEAD:main; then exit 0; fi
+            done
+            exit 1
+          fi
